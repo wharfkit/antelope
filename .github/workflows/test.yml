@@ -1,0 +1,16 @@
+name: Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run tests
+      run: make ci-test
+    - name: Run linter
+      run: make ci-lint
