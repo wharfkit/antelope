@@ -21,11 +21,13 @@ lint: node_modules
 
 .PHONY: ci-test
 ci-test: node_modules
-	@./node_modules/.bin/mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list
+	@./node_modules/.bin/nyc --reporter=text \
+	 ./node_modules/.bin/mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list \
+	 | cat
 
 .PHONY: ci-lint
 ci-lint: node_modules
-	@./node_modules/.bin/eslint src --ext .ts --max-warnings 0 --format compact && echo "Ok"
+	@./node_modules/.bin/eslint src --ext .ts --max-warnings 0 --format unix && echo "Ok"
 
 node_modules:
 	yarn install --non-interactive --frozen-lockfile
