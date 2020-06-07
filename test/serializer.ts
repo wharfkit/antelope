@@ -6,6 +6,7 @@ import {Serializer} from '../src/serializer'
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
 import {UInt64} from '../src/chain/integer'
+import {Asset} from '../src/chain/asset'
 
 suite('serializer', function () {
     test('array', function () {
@@ -26,6 +27,28 @@ suite('serializer', function () {
         assert.deepEqual(Name.from(UInt64.from('6712742083569909760')), object)
         assert.equal(JSON.stringify(object), json)
         assert.equal(object.value.toString(), '6712742083569909760')
+    })
+
+    test('asset', function () {
+        const data = '393000000000000004464f4f00000000'
+        const object = Asset.from('1.2345 FOO')
+        const json = '"1.2345 FOO"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: Asset})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'asset'})), json)
+        assert.equal(JSON.stringify(object), json)
+    })
+
+    test('asset symbol', function () {
+        const data = '04464f4f00000000'
+        const object = Asset.Symbol.from('4,FOO')
+        const json = '"4,FOO"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: Asset.Symbol})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'symbol'})), json)
+        assert.equal(JSON.stringify(object), json)
     })
 
     test('struct', function () {
@@ -58,5 +81,19 @@ suite('serializer', function () {
         const enc = Serializer.encode({object, abi, type: 'bar'})
         const dec = Serializer.decode({data: enc, type: 'bar', abi})
         // todo verify with swift-eosio
+    })
+
+    test('api', function () {
+        assert.throws(() => {
+            Serializer.decode({json: '"foo"', type: 'santa'})
+        })
+        assert.throws(() => {
+            const BadType: any = {abiName: 'santa'}
+            Serializer.decode({json: '"foo"', type: BadType})
+        })
+        assert.throws(() => {
+            const BadType: any = {abiName: 'santa'}
+            Serializer.encode({object: 'foo', type: BadType})
+        })
     })
 })

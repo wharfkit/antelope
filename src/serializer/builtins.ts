@@ -18,6 +18,7 @@ import {
     UInt64,
     UInt8,
 } from '../chain/integer'
+import {Asset} from '../chain/asset'
 
 const StringType: ABISerializableType<string> = {
     abiName: 'string',
@@ -43,23 +44,25 @@ const BoolType: ABISerializableType<boolean> = {
 
 export const builtins: ABISerializableType<any>[] = [
     // types represented by JavaScript builtins
-    StringType,
     BoolType,
+    StringType,
     // types represented by Classes
-    Int8,
+    Asset,
+    Asset.Symbol,
+    Bytes,
+    Int128,
     Int16,
+    Int256,
     Int32,
     Int64,
-    Int128,
-    Int256,
-    UInt8,
+    Int8,
+    Name,
+    UInt128,
     UInt16,
+    UInt256,
     UInt32,
     UInt64,
-    UInt128,
-    UInt256,
-    Name,
-    Bytes,
+    UInt8,
 ]
 
 export function buildTypeLookup(additional: ABISerializableType[] = []) {
