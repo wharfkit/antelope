@@ -1,7 +1,8 @@
-name: Test
-on: [push]
+name: Tests
+on: push
 jobs:
-  build:
+  test:
+    name: Node.js
     runs-on: ubuntu-latest
     steps:
     - name: Setup Node.js
