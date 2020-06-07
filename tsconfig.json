@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "lib": ["DOM", "ESNext"],
+        "moduleResolution": "Node",
+        "noImplicitAny": false,
+        "outDir": "lib",
+        "sourceMap": true,
+        "strict": true,
+        "target": "ESNext"
+    },
+    "include": ["src/**/*"]
+}
