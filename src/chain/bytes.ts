@@ -1,27 +1,54 @@
 import {ABISerializable} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
+import {ABIDecoder} from '../serializer/decoder'
+import {arrayEquals} from '../utils'
 
-export type BytesType = Bytes | Uint8Array | string
+export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
+
+export type BytesEncoding = 'hex' | 'utf8'
 
 export class Bytes implements ABISerializable {
     static abiName = 'bytes'
 
-    static from(value: BytesType): Bytes {
+    static from(value: BytesType, encoding?: BytesEncoding): Bytes {
         if (value instanceof Bytes) {
             return value
         }
         if (typeof value === 'string') {
-            const array = hexToArray(value)
-            return new Bytes(array)
+            return Bytes.fromString(value, encoding)
         }
-        return new Bytes(value)
+        if (value instanceof Uint8Array) {
+            return new Bytes(value)
+        }
+        return new Bytes(new Uint8Array(value))
     }
 
-    static fromABI(): Bytes {
-        throw new Error('Not implemented')
+    static fromString(value: string, encoding: BytesEncoding = 'hex') {
+        if (encoding === 'hex') {
+            const array = hexToArray(value)
+            return new Bytes(array)
+        } else if (encoding == 'utf8') {
+            const encoder = new TextEncoder()
+            return new Bytes(encoder.encode(value))
+        } else {
+            throw new Error(`Unknown encoding: ${encoding}`)
+        }
+    }
+
+    static fromABI(decoder: ABIDecoder): Bytes {
+        const len = decoder.readVaruint32()
+        return new Bytes(decoder.readArray(len))
+    }
+
+    static equal(a: BytesType, b: BytesType): boolean {
+        return Bytes.from(a).equals(Bytes.from(b))
     }
 
     array: Uint8Array
+
+    constructor(array: Uint8Array) {
+        this.array = array
+    }
 
     get data(): DataView {
         return new DataView(this.array.buffer)
@@ -31,8 +58,39 @@ export class Bytes implements ABISerializable {
         return arrayToHex(this.array)
     }
 
-    constructor(array: Uint8Array) {
-        this.array = array
+    get utf8String(): string {
+        return new TextDecoder().decode(this.array)
+    }
+
+    appending(other: BytesType): Bytes {
+        other = Bytes.from(other)
+        const newSize = this.array.byteLength + other.array.byteLength
+        const buffer = new ArrayBuffer(newSize)
+        const array = new Uint8Array(buffer)
+        array.set(this.array)
+        array.set(other.array, this.array.byteLength)
+        return new Bytes(array)
+    }
+
+    copy(): Bytes {
+        const buffer = new ArrayBuffer(this.array.byteLength)
+        const array = new Uint8Array(buffer)
+        array.set(this.array)
+        return new Bytes(array)
+    }
+
+    equals(other: BytesType): boolean {
+        return arrayEquals(this.array, Bytes.from(other).array)
+    }
+
+    toString(encoding: BytesEncoding = 'hex') {
+        if (encoding === 'hex') {
+            return this.hexString
+        } else if (encoding === 'utf8') {
+            return this.utf8String
+        } else {
+            throw new Error(`Unknown encoding: ${encoding}`)
+        }
     }
 
     toABI(encoder: ABIEncoder) {
