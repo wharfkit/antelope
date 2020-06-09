@@ -232,10 +232,6 @@ export class ABIEncoder {
         this.writeVaruint32((v << 1) ^ (v >> 31))
     }
 
-    writeBn(v: BN, endian?: BN.Endianness, length?: number) {
-        this.writeBytes(v.toArrayLike(Uint8Array as any, endian, length))
-    }
-
     writeString(v: string) {
         this.writeVaruint32(v.length)
         this.writeBytes(this.textEncoder.encode(v))
