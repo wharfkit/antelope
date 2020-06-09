@@ -8,7 +8,7 @@ import {ABI, ABIType} from '../chain/abi'
 import {Bytes, BytesType} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
-import {buildTypeLookup, builtins} from './builtins'
+import {buildTypeLookup, builtins, TypeLookup} from './builtins'
 
 interface DecodeArgs<T> {
     type: ABISerializableType<T> | string
@@ -19,8 +19,29 @@ interface DecodeArgs<T> {
     customTypes?: ABISerializableType<any>[]
 }
 
+class DecodingError extends Error {
+    ctx: DecodingContext
+    underlyingError: Error
+    constructor(ctx: DecodingContext, underlyingError: Error) {
+        const path = ctx.codingPath
+            .map(({field, type}) => {
+                if (typeof field === 'number') {
+                    return field
+                } else {
+                    return `${field}<${type.typeName}>`
+                }
+            })
+            .join('.')
+        super(`Decoding error at ${path}: ${underlyingError.message}`)
+        this.stack = underlyingError.stack
+        this.ctx = ctx
+        this.underlyingError = underlyingError
+    }
+}
+
 export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
     const typeName = typeof args.type === 'string' ? args.type : args.type.abiName
+    const customTypes = args.customTypes || []
     let abi: ABI
     if (args.abi) {
         abi = ABI.from(args.abi)
@@ -37,7 +58,9 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
             } else {
                 type = args.type
             }
-            abi = synthesizeABI(type)
+            const synthesized = synthesizeABI(type)
+            abi = synthesized.abi
+            customTypes.push(...synthesized.types)
         } catch (error) {
             throw Error(
                 `Unable to synthesize ABI for: ${typeName} (${error.message}). ` +
@@ -46,33 +69,39 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
         }
     }
     const resolved = abi.resolveType(typeName)
-
-    const customTypes = args.customTypes || []
     if (typeof args.type !== 'string') {
         customTypes.unshift(args.type)
     }
 
     const ctx: DecodingContext = {
         types: buildTypeLookup(customTypes),
+        codingPath: [{field: 'root', type: resolved}],
     }
 
-    if (args.data) {
-        const bytes = Bytes.from(args.data)
-        const decoder = new ABIDecoder(bytes.array)
-
-        return decodeBinary(resolved, decoder, ctx)
-    } else if (args.object) {
-        return decodeObject(args.object, resolved, ctx)
-    } else if (args.json) {
-        return decodeObject(JSON.parse(args.json), resolved, ctx)
-    } else {
-        throw new Error('Nothing to decode, you must set one of data, json, object')
+    try {
+        if (args.data) {
+            const bytes = Bytes.from(args.data)
+            const decoder = new ABIDecoder(bytes.array)
+            return decodeBinary(resolved, decoder, ctx)
+        } else if (args.object) {
+            return decodeObject(args.object, resolved, ctx)
+        } else if (args.json) {
+            return decodeObject(JSON.parse(args.json), resolved, ctx)
+        } else {
+            throw new Error('Nothing to decode, you must set one of data, json, object')
+        }
+    } catch (error) {
+        throw new DecodingError(ctx, error)
     }
 }
 
 interface DecodingContext {
-    types: ReturnType<typeof buildTypeLookup>
+    types: TypeLookup
+    codingPath: {field: string | number; type: ABI.ResolvedType}[]
 }
+
+/** Marker for structs so they know that they don't need to decode values passed in from method.  */
+export const ResolvedStruct = Symbol('ResolvedStruct')
 
 function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: DecodingContext): any {
     if (type.isOptional) {
@@ -84,7 +113,9 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
         const len = decoder.readVaruint32()
         const rv: any[] = []
         for (let i = 0; i < len; i++) {
+            ctx.codingPath.push({field: i, type})
             rv.push(decodeInner())
+            ctx.codingPath.pop()
         }
         return rv
     } else {
@@ -92,19 +123,28 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
     }
     function decodeInner() {
         const abiType = ctx.types[type.name]
-        if (abiType) {
+        if (abiType && abiType.fromABI) {
             return abiType.fromABI(decoder)
         } else {
             if (type.fields) {
                 const rv: any = {}
                 for (const field of type.fields) {
+                    ctx.codingPath.push({field: field.name, type: field.type})
                     rv[field.name] = decodeBinary(field.type, decoder, ctx)
+                    ctx.codingPath.pop()
                 }
-                return rv
+                if (abiType) {
+                    rv[ResolvedStruct] = true
+                    return abiType.from(rv)
+                } else {
+                    return rv
+                }
             } else if (type.variant) {
                 throw new Error('Binary variant decoding not implemented')
+            } else if (abiType) {
+                throw new Error('Invalid type')
             } else {
-                throw new Error(`Unknown type: ${type.name}`)
+                throw new Error('Unknown type')
             }
         }
     }
@@ -115,13 +155,20 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
         if (type.isOptional) {
             return null
         } else {
-            throw new Error(`Unexpectedly encountered ${value} for non-optional: ${type.name}`)
+            throw new Error(`Unexpectedly encountered ${value} for non-optional`)
         }
     } else if (type.isArray) {
         if (!Array.isArray(value)) {
-            throw new Error(`Expected array for: ${type.name}`)
+            throw new Error('Expected array')
         }
-        return value.map(decodeInner)
+        const rv: any[] = []
+        const len = value.length
+        for (let i = 0; i < len; i++) {
+            ctx.codingPath.push({field: i, type})
+            rv.push(decodeInner(value[i]))
+            ctx.codingPath.pop()
+        }
+        return rv
     } else {
         return decodeInner(value)
     }
@@ -132,25 +179,28 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
         const abiType = ctx.types[type.name]
         if (type.fields) {
             if (typeof value !== 'object') {
-                throw new Error(`Expected object for: ${type.name}`)
+                throw new Error('Expected object')
             }
             if (typeof abiType === 'function' && value instanceof abiType) {
                 return value
             }
             const struct: any = {}
             for (const field of type.fields) {
+                ctx.codingPath.push({field: field.name, type: field.type})
                 struct[field.name] = decodeObject(value[field.name], field.type, ctx)
+                ctx.codingPath.pop()
             }
             if (abiType) {
+                struct[ResolvedStruct] = true
                 return abiType.from(struct)
             } else {
                 return struct
             }
         } else if (type.variant) {
-            throw new Error('TODO: variant')
+            throw new Error('Variant not implemented')
         } else {
             if (!abiType) {
-                throw new Error(`Unknown type: ${type.name}`)
+                throw new Error('Unknown type')
             }
             return abiType.from(value)
         }

@@ -73,8 +73,10 @@ export const builtins: ABISerializableType<any>[] = [
     UInt8,
 ]
 
-export function buildTypeLookup(additional: ABISerializableType[] = []) {
-    const rv: {[name: string]: ABISerializableType} = {}
+export type TypeLookup = {[name: string]: ABISerializableType}
+
+export function buildTypeLookup(additional: ABISerializableType[] = []): TypeLookup {
+    const rv: TypeLookup = {}
     for (const type of builtins) {
         rv[type.abiName] = type
     }

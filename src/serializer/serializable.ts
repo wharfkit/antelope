@@ -1,5 +1,6 @@
-import {ABIEncoder} from './encoder'
 import {ABI} from '../chain/abi'
+import {ABIDecoder} from './decoder'
+import {ABIEncoder} from './encoder'
 
 export interface ABISerializable {
     toABI?(encoder: ABIEncoder): void
@@ -25,7 +26,7 @@ export interface ABISerializableType<T = ABISerializable> {
      * Create instance from binary ABI data.
      * @param decoder Decoder instance to read from.
      */
-    fromABI(decoder: any): T
+    fromABI?(decoder: ABIDecoder): T
     /**
      * Static ABI encoding can be used to encode non-class types.
      * Will be used in favor of instance.toABI if both exists.
@@ -38,15 +39,15 @@ export interface ABISerializableType<T = ABISerializable> {
 /** Return a ABI definition for given ABISerializableType. */
 export function synthesizeABI(type: ABISerializableType) {
     const structs: ABI.Struct[] = []
-    const seen = new Set<string>()
+    const seen = new Set<ABISerializableType>()
     const resolve = (t: ABISerializableType) => {
         if (!t.abiName) {
             throw new Error('Encountered non-conforming type')
         }
-        if (seen.has(t.abiName)) {
+        if (seen.has(t)) {
             return t.abiName
         }
-        seen.add(t.abiName)
+        seen.add(t)
         if (t.abiFields) {
             const fields = t.abiFields.map((field) => {
                 let fieldType: string
@@ -80,5 +81,5 @@ export function synthesizeABI(type: ABISerializableType) {
         type: resolve(type),
         newTypeName: 'root',
     }
-    return ABI.from({structs, types: [root]})
+    return {abi: ABI.from({structs, types: [root]}), types: Array.from(seen)}
 }

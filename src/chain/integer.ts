@@ -40,6 +40,9 @@ class Int implements ABISerializable {
     value: number
 
     constructor(value: number) {
+        if (!Number.isFinite(value)) {
+            throw new Error('Invalid number')
+        }
         this.value = clamp(value, this.constructor['min'], this.constructor['max'])
     }
 
@@ -78,7 +81,7 @@ class BNInt implements ABISerializable {
 
     constructor(value: BN) {
         if (value.byteLength > this.constructor['byteWidth']) {
-            throw new Error('Expected ')
+            throw new Error('Number too wide')
         }
         this.value = value
     }

@@ -48,18 +48,18 @@ export function encode(args: EncodeArgs): Bytes {
     if (type) {
         customTypes.unshift(type)
     }
-    const types = buildTypeLookup(customTypes)
-
     let rootType: ABI.ResolvedType
     if (args.abi) {
         rootType = ABI.from(args.abi).resolveType(typeName)
     } else if (type) {
-        rootType = synthesizeABI(type).resolveType(typeName)
+        const synthesized = synthesizeABI(type)
+        rootType = synthesized.abi.resolveType(typeName)
+        customTypes.push(...synthesized.types)
     } else {
         // TODO: sanity check that we actually have the type?
         rootType = new ABI.ResolvedType(typeName)
     }
-
+    const types = buildTypeLookup(customTypes)
     const encoder = new ABIEncoder()
     encodeAny(args.object, rootType, {types, encoder})
     return Bytes.from(encoder.getData())

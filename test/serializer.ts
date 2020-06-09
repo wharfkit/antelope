@@ -9,6 +9,7 @@ import {UInt64} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
+import {Struct} from '../src/chain/struct'
 
 suite('serializer', function () {
     test('array', function () {
@@ -87,8 +88,41 @@ suite('serializer', function () {
             four: ['f', 'o', 'u', 'r'],
         }
         const enc = Serializer.encode({object, abi, type: 'bar'})
+        assert.equal(enc.hexString, '036f6e65020100000000000028cf01040166016f01750172')
         const dec = Serializer.decode({data: enc, type: 'bar', abi})
-        // todo verify with swift-eosio
+        assert.equal(
+            JSON.stringify(dec),
+            '{"one":"one","two":2,"three":"two","four":["f","o","u","r"]}'
+        )
+    })
+
+    test('struct object', function () {
+        class Other extends Struct {
+            static abiName = 'other'
+            static abiFields = [{name: 'doeet', type: 'bool'}]
+            doeet!: boolean
+        }
+        class Test extends Struct {
+            static abiName = 'test'
+            static abiFields = [
+                {name: 'foo', type: Name},
+                {name: 'things', type: 'string[]'},
+                {name: 'keys', type: PublicKey, optional: true, array: true},
+                {name: 'other', type: Other},
+            ]
+            foo!: Name
+            things!: string[]
+            keys?: PublicKey[]
+            other!: Other
+        }
+        const object = Test.from({foo: 'bar', things: ['a', 'b', 'c'], other: {doeet: true}})
+        const encoded = Serializer.encode({object})
+        assert.equal(encoded.hexString, '000000000000ae39030161016201630001')
+        const decoded = Serializer.decode({data: encoded, type: Test})
+        assert.equal(
+            JSON.stringify(decoded),
+            '{"foo":"bar","things":["a","b","c"],"keys":null,"other":{"doeet":true}}'
+        )
     })
 
     test('string', function () {
@@ -164,5 +198,47 @@ suite('serializer', function () {
         assert.throws(() => {
             Serializer.encode({object: 42})
         })
+    })
+
+    test('decoding errors', function () {
+        const abi = ABI.from({
+            structs: [
+                {
+                    base: '',
+                    name: 'type1',
+                    fields: [{name: 'foo', type: 'type2?'}],
+                },
+                {
+                    base: '',
+                    name: 'type2',
+                    fields: [{name: 'bar', type: 'type3[]'}],
+                },
+                {
+                    base: '',
+                    name: 'type3',
+                    fields: [{name: 'baz', type: 'int8'}],
+                },
+            ],
+        })
+        try {
+            const object = {foo: {bar: [{baz: 'not int'}]}}
+            Serializer.decode({object, type: 'type1', abi})
+            assert.fail()
+        } catch (error) {
+            assert.equal(
+                error.message,
+                'Decoding error at root<type1>.foo<type2?>.bar<type3[]>.0.baz<int8>: Invalid number'
+            )
+        }
+        try {
+            const data = Buffer.from('beefbeef')
+            Serializer.decode({data, type: 'type1', abi})
+            assert.fail()
+        } catch (error) {
+            assert.equal(
+                error.message,
+                'Decoding error at root<type1>.foo<type2?>.bar<type3[]>.6.baz<int8>: Read past end of buffer'
+            )
+        }
     })
 })
