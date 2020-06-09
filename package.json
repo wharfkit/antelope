@@ -1,6 +1,10 @@
 {
     "name": "eosio-core",
     "version": "0.0.1",
+    "browser": {
+        "buffer": false
+    },
+    "sideEffects": false,
     "dependencies": {
         "elliptic": "^6.5.2"
     },
