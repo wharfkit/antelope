@@ -19,6 +19,7 @@ import {
     UInt8,
 } from '../chain/integer'
 import {Asset} from '../chain/asset'
+import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
 
 const StringType: ABISerializableType<string> = {
     abiName: 'string',
@@ -50,6 +51,9 @@ export const builtins: ABISerializableType<any>[] = [
     Asset,
     Asset.Symbol,
     Bytes,
+    Checksum160,
+    Checksum256,
+    Checksum512,
     Int128,
     Int16,
     Int256,

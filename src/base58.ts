@@ -35,7 +35,7 @@ export namespace Base58 {
 
     /** Decode a Base58Check encoded string. */
     export function decodeCheck(encoded: string, size?: number) {
-        const decoded = decode(encoded, size)
+        const decoded = decode(encoded, size != null ? size + 4 : size)
         const data = decoded.array.subarray(0, -4)
         const checksum = decoded.array.subarray(-4)
         if (!arrayEquals(checksum, dsha256Checksum(data))) {
@@ -46,7 +46,7 @@ export namespace Base58 {
 
     /** Decode a Base58Check encoded string that uses ripemd160 instead of double sha256 for the digest. */
     export function decodeRipemd160Check(encoded: string, size?: number, suffix?: string) {
-        const decoded = decode(encoded, size)
+        const decoded = decode(encoded, size != null ? size + 4 : size)
         const data = decoded.array.subarray(0, -4)
         const checksum = decoded.array.subarray(-4)
         if (!arrayEquals(checksum, ripemd160Checksum(data, suffix))) {

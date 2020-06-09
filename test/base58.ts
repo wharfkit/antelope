@@ -50,7 +50,7 @@ suite('base58', function () {
         assertBytes(
             Base58.decodeRipemd160Check(
                 '6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs',
-                33 + 4,
+                33,
                 'K1'
             ),
             '02caee1a02910b18dfd5d9db0e8a4bc90f8dd34cedbbfb00c6c841a2abb2fa28cc'
@@ -58,7 +58,7 @@ suite('base58', function () {
         assertBytes(
             Base58.decodeRipemd160Check(
                 '6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs',
-                33 + 4,
+                33,
                 'K1'
             ),
             '02caee1a02910b18dfd5d9db0e8a4bc90f8dd34cedbbfb00c6c841a2abb2fa28cc'

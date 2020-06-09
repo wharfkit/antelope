@@ -1,7 +1,8 @@
 import {ABISerializable} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
-import {arrayEquals} from '../utils'
+import {arrayEquals, arrayToHex, hexToArray} from '../utils'
+import {Checksum160, Checksum256, Checksum512} from './checksum'
 
 export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
 
@@ -54,6 +55,18 @@ export class Bytes implements ABISerializable {
         return new DataView(this.array.buffer)
     }
 
+    get ripemd160Digest(): Checksum160 {
+        return Checksum160.hash(this)
+    }
+
+    get sha256Digest(): Checksum256 {
+        return Checksum256.hash(this)
+    }
+
+    get sha512Digest(): Checksum512 {
+        return Checksum512.hash(this)
+    }
+
     get hexString(): string {
         return arrayToHex(this.array)
     }
@@ -70,6 +83,10 @@ export class Bytes implements ABISerializable {
         array.set(this.array)
         array.set(other.array, this.array.byteLength)
         return new Bytes(array)
+    }
+
+    droppingFirst(n = 1) {
+        return new Bytes(this.array.subarray(n))
     }
 
     copy(): Bytes {
@@ -101,39 +118,4 @@ export class Bytes implements ABISerializable {
     toJSON() {
         return this.hexString
     }
-}
-
-let hexLookup: string[] | undefined
-function arrayToHex(array: Uint8Array) {
-    if (!hexLookup) {
-        hexLookup = new Array<string>(0xff)
-        for (let i = 0; i <= 0xff; ++i) {
-            hexLookup[i] = i.toString(16).padStart(2, '0')
-        }
-    }
-    const len = array.byteLength
-    const rv = new Array<string>(len)
-    for (let i = 0; i < array.byteLength; ++i) {
-        rv[i] = hexLookup[array[i]]
-    }
-    return rv.join('')
-}
-
-function hexToArray(hex: string) {
-    if (typeof hex !== 'string') {
-        throw new Error('Expected string containing hex digits')
-    }
-    if (hex.length % 2) {
-        throw new Error('Odd number of hex digits')
-    }
-    const l = hex.length / 2
-    const result = new Uint8Array(l)
-    for (let i = 0; i < l; ++i) {
-        const x = parseInt(hex.substr(i * 2, 2), 16)
-        if (Number.isNaN(x)) {
-            throw new Error('Expected hex string')
-        }
-        result[i] = x
-    }
-    return result
 }
