@@ -51,10 +51,6 @@ export class Bytes implements ABISerializable {
         this.array = array
     }
 
-    get data(): DataView {
-        return new DataView(this.array.buffer)
-    }
-
     get ripemd160Digest(): Checksum160 {
         return Checksum160.hash(this)
     }
