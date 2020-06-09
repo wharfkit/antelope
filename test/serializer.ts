@@ -16,6 +16,12 @@ suite('serializer', function () {
         const array = ['foo', 'bar', 'baz']
         assert.equal(Serializer.encode({object: array, type: 'string[]'}).hexString, data)
         assert.deepEqual(Serializer.decode({data, type: 'string[]'}), array)
+        assert.throws(() => {
+            Serializer.encode({object: 'banana', type: 'string[]'})
+        })
+        assert.throws(() => {
+            Serializer.decode({object: 'banana', type: 'string[]'})
+        })
     })
 
     test('name', function () {
@@ -131,6 +137,18 @@ suite('serializer', function () {
         assert.equal(JSON.stringify(object), json)
     })
 
+    test('optionals', function () {
+        assert.equal(Serializer.decode({data: '00', type: 'public_key?'}), null)
+        assert.equal(Serializer.decode({data: '0101', type: 'bool?'}), true)
+        assert.equal(Serializer.encode({object: null, type: 'signature?'}).hexString, '00')
+        assert.throws(() => {
+            Serializer.decode({object: null, type: 'bool'})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: null, type: 'bool'})
+        })
+    })
+
     test('api', function () {
         assert.throws(() => {
             Serializer.decode({json: '"foo"', type: 'santa'})
@@ -142,6 +160,9 @@ suite('serializer', function () {
         assert.throws(() => {
             const BadType: any = {abiName: 'santa'}
             Serializer.encode({object: 'foo', type: BadType})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: 42})
         })
     })
 })
