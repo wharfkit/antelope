@@ -1,10 +1,15 @@
+import {ABIDecoder} from '../serializer/decoder'
+import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializable} from '../serializer/serializable'
+
 import {Base58} from '../base58'
 import {Bytes} from './bytes'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 
 export class PublicKey implements ABISerializable {
+    static abiName = 'public_key'
+
     /** Type, e.g. `K1` */
     type: string
     /** Compressed public key point. */
@@ -37,6 +42,30 @@ export class PublicKey implements ABISerializable {
     }
 
     /** @internal */
+    static fromABI(decoder: ABIDecoder) {
+        const typeIdx = decoder.readUint8()
+        let type: string
+        switch (typeIdx) {
+            case 0:
+                type = 'K1'
+                break
+            case 1:
+                type = 'R1'
+                break
+            case 2: {
+                // "WA" keys pack some sort of metadata
+                // we probably need to restructure key data storage into containers like FC does
+                const data = new Bytes(decoder.readArray(33))
+                Bytes.fromABI(decoder)
+                return new PublicKey('WA', data)
+            }
+            default:
+                throw new Error(`Unknown public key type: ${typeIdx}`)
+        }
+        return new PublicKey(type, new Bytes(decoder.readArray(33)))
+    }
+
+    /** @internal */
     constructor(type: string, data: Bytes) {
         this.type = type
         this.data = data
@@ -56,6 +85,25 @@ export class PublicKey implements ABISerializable {
     /** Return key in modern EOSIO format (`PUB_<type>_<base58data>`) */
     toString() {
         return `PUB_${this.type}_${Base58.encodeRipemd160Check(this.data, this.type)}`
+    }
+
+    /** @internal */
+    toABI(encoder: ABIEncoder) {
+        switch (this.type) {
+            case 'K1':
+                encoder.writeUint8(0)
+                break
+            case 'R1':
+                encoder.writeUint8(1)
+                break
+            case 'WA':
+                encoder.writeUint8(2)
+                // TODO: this isn't actually supported yet since we threw away the metadata when decoding
+                throw new Error('WA keys are not supported yet')
+            default:
+                throw new Error(`Unable to encode unknown key type: ${this.type}`)
+        }
+        encoder.writeBytes(this.data.array)
     }
 
     /** @internal */

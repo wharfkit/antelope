@@ -20,6 +20,8 @@ import {
 } from '../chain/integer'
 import {Asset} from '../chain/asset'
 import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
+import {Signature} from '../chain/signature'
+import {PublicKey} from '../chain/public-key'
 
 const StringType: ABISerializableType<string> = {
     abiName: 'string',
@@ -61,6 +63,8 @@ export const builtins: ABISerializableType<any>[] = [
     Int64,
     Int8,
     Name,
+    PublicKey,
+    Signature,
     UInt128,
     UInt16,
     UInt256,

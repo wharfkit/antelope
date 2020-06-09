@@ -1,3 +1,5 @@
+import {ABIDecoder} from '../serializer/decoder'
+import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializable} from '../serializer/serializable'
 
 import {Base58} from '../base58'
@@ -14,6 +16,8 @@ export type SignatureType =
     | {type: string; r: Uint8Array; s: Uint8Array; recid: number}
 
 export class Signature implements ABISerializable {
+    static abiName = 'signature'
+
     /** Type, e.g. `K1` */
     type: string
     /** Signature data. */
@@ -50,6 +54,30 @@ export class Signature implements ABISerializable {
     }
 
     /** @internal */
+    static fromABI(decoder: ABIDecoder) {
+        const typeIdx = decoder.readUint8()
+        let type: string
+        switch (typeIdx) {
+            case 0:
+                type = 'K1'
+                break
+            case 1:
+                type = 'R1'
+                break
+            case 2: {
+                // same as with public keys WA type has some extra data tacked on
+                const data = new Bytes(decoder.readArray(65)) // sig
+                Bytes.fromABI(decoder) // throw away for now
+                Bytes.fromABI(decoder)
+                return new Signature('WA', data)
+            }
+            default:
+                throw new Error(`Unknown signature type: ${typeIdx}`)
+        }
+        return new Signature(type, new Bytes(decoder.readArray(65)))
+    }
+
+    /** @internal */
     constructor(type: string, data: Bytes) {
         this.type = type
         this.data = data
@@ -81,6 +109,25 @@ export class Signature implements ABISerializable {
     /** Base58check encoded string representation of this signature (`SIG_<type>_<data>`). */
     toString() {
         return `SIG_${this.type}_${Base58.encodeRipemd160Check(this.data, this.type)}`
+    }
+
+    /** @internal */
+    toABI(encoder: ABIEncoder) {
+        switch (this.type) {
+            case 'K1':
+                encoder.writeUint8(0)
+                break
+            case 'R1':
+                encoder.writeUint8(1)
+                break
+            case 'WA':
+                encoder.writeUint8(2)
+                // TODO: this isn't actually supported yet since we threw away the metadata when decoding
+                throw new Error('WA keys are not supported yet')
+            default:
+                throw new Error(`Unable to encode unknown signature type: ${this.type}`)
+        }
+        encoder.writeBytes(this.data.array)
     }
 
     /** @internal */
