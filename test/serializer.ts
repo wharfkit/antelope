@@ -5,7 +5,7 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {UInt64} from '../src/chain/integer'
+import {UInt256, UInt64} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -123,6 +123,65 @@ suite('serializer', function () {
             JSON.stringify(decoded),
             '{"foo":"bar","things":["a","b","c"],"keys":null,"other":{"doeet":true}}'
         )
+    })
+
+    test('struct decorators', function () {
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
+
+        const transfer = Transfer.from({
+            from: 'alice',
+            to: 'bob',
+            quantity: '3.5 GMZ',
+            memo: 'for you',
+        })
+
+        transfer.quantity.value += 38.5
+
+        assert.equal(
+            Serializer.encode({object: transfer}).hexString,
+            '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75'
+        )
+
+        assert.equal(
+            JSON.stringify(transfer),
+            '{"from":"alice","to":"bob","quantity":"42.0 GMZ","memo":"for you"}'
+        )
+
+        assert.equal(
+            JSON.stringify(Serializer.synthesize(Transfer)),
+            '{"version":"eosio::abi/1.1","types":[{"type":"transfer","newTypeName":"root"}],"variants":[],' +
+                '"structs":[{"base":"","name":"transfer","fields":[{"name":"from","type":"name"},{"name":"' +
+                'to","type":"name"},{"name":"quantity","type":"asset"},{"name":"memo","type":"string"}]}],' +
+                '"actions":[],"tables":[],"ricardian_clauses":[]}'
+        )
+    })
+
+    test('untyped struct', function () {
+        const object = {
+            name: Name.from('foobar'),
+            string: 'hello',
+            flag: false,
+            nest: {
+                grains: UInt256.from('75000000000000000000000'),
+            },
+        }
+        assert.equal(
+            Serializer.encode({object}).hexString,
+            '000000005c73285d0568656c6c6f000000e038f8e815c2e10f00000000000000000000000000000000000000000000'
+        )
+        assert.throws(() => {
+            Serializer.encode({
+                object: {
+                    numbers: 123,
+                },
+            })
+        })
     })
 
     test('string', function () {

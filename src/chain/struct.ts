@@ -1,4 +1,4 @@
-import {ABIField, ABISerializable} from '../serializer/serializable'
+import {ABIField, ABISerializable, ABISerializableType} from '../serializer/serializable'
 import {decode, ResolvedStruct} from '../serializer/decoder'
 
 export class Struct implements ABISerializable {
@@ -33,5 +33,24 @@ export class Struct implements ABISerializable {
             rv[field.name] = this[field.name]
         }
         return rv
+    }
+}
+
+export namespace Struct {
+    /* eslint-disable @typescript-eslint/ban-types */
+    export function type(name: string) {
+        return function <T extends {new (...args: any[]): {}}>(struct: T) {
+            struct['abiName'] = name
+            return struct
+        }
+    }
+    export function field(type: ABISerializableType | string, options?: Partial<ABIField>) {
+        if (!options) options = {}
+        return (target: any, name: string) => {
+            if (!target.constructor.abiFields) {
+                target.constructor.abiFields = []
+            }
+            target.constructor.abiFields.push({...options, name, type})
+        }
     }
 }

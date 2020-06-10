@@ -1,6 +1,6 @@
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
-import {ABISerializableType} from './serializable'
+import {ABIField, ABISerializableType} from './serializable'
 import {Bytes} from '../chain/bytes'
 import {Name} from '../chain/name'
 
@@ -22,6 +22,7 @@ import {Asset} from '../chain/asset'
 import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
 import {Signature} from '../chain/signature'
 import {PublicKey} from '../chain/public-key'
+import {Struct} from '../chain/struct'
 
 const StringType: ABISerializableType<string> = {
     abiName: 'string',
@@ -85,4 +86,29 @@ export function buildTypeLookup(additional: ABISerializableType[] = []): TypeLoo
         rv[type.abiName] = type
     }
     return rv
+}
+
+export function getType(object: any, name = 'jsobj'): ABISerializableType<any> | undefined {
+    if (object.constructor && object.constructor['abiName'] !== undefined) {
+        return object.constructor
+    }
+    const objectType = typeof object
+    if (objectType === 'object' && object !== null) {
+        const fields: ABIField[] = Object.keys(object).map((key) => {
+            return {name: key, type: getType(object[key], name + '_nested')!}
+        })
+        if (fields.find((field) => !field.type)) {
+            return // encountered unknown type
+        }
+        return class extends Struct {
+            static abiName = name
+            static abiFields = fields
+        }
+    }
+    switch (typeof object) {
+        case 'boolean':
+            return BoolType
+        case 'string':
+            return StringType
+    }
 }

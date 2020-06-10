@@ -8,7 +8,8 @@ import {ABI, ABIType} from '../chain/abi'
 import {Bytes} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
-import {buildTypeLookup} from './builtins'
+import {buildTypeLookup, getType} from './builtins'
+import {Struct} from '../chain/struct'
 
 interface EncodeArgs {
     object: ABISerializable | any
@@ -19,28 +20,16 @@ interface EncodeArgs {
 
 export function encode(args: EncodeArgs): Bytes {
     let type: ABISerializableType<any> | undefined
-    let typeName: string
+    let typeName: string | undefined
     if (typeof args.type === 'string') {
         typeName = args.type
     } else if (args.type && args.type.abiName !== undefined) {
         type = args.type
         typeName = args.type.abiName
-    } else if (args.object.constructor && args.object.constructor['abiName'] !== undefined) {
-        type = args.object.constructor
-        typeName = args.object.constructor.abiName
     } else {
-        switch (typeof args.object) {
-            case 'boolean':
-                typeName = 'bool'
-                break
-            case 'string':
-                typeName = 'string'
-                break
-            default:
-                throw new Error(
-                    'Unable to determine the type of the object to be encoded. ' +
-                        'To encode custom ABI types you must pass the type argument.'
-                )
+        type = getType(args.object)
+        if (type) {
+            typeName = type.abiName
         }
     }
 
@@ -49,15 +38,19 @@ export function encode(args: EncodeArgs): Bytes {
         customTypes.unshift(type)
     }
     let rootType: ABI.ResolvedType
-    if (args.abi) {
+    if (args.abi && typeName) {
         rootType = ABI.from(args.abi).resolveType(typeName)
     } else if (type) {
         const synthesized = synthesizeABI(type)
-        rootType = synthesized.abi.resolveType(typeName)
+        rootType = synthesized.abi.resolveType(type.abiName)
         customTypes.push(...synthesized.types)
-    } else {
-        // TODO: sanity check that we actually have the type?
+    } else if (typeName) {
         rootType = new ABI.ResolvedType(typeName)
+    } else {
+        throw new Error(
+            'Unable to determine the type of the object to be encoded. ' +
+                'To encode custom ABI types you must pass the type argument.'
+        )
     }
     const types = buildTypeLookup(customTypes)
     const encoder = new ABIEncoder()
@@ -161,6 +154,14 @@ export class ABIEncoder {
         this.pos += size
     }
 
+    writeBnInt(bits: number, value: BN) {
+        this.writeBytes(value.toTwos(bits).toArrayLike(Uint8Array as any, 'le', bits / 8))
+    }
+
+    writeBnUint(bits: number, value: BN) {
+        this.writeBytes(value.toArrayLike(Uint8Array as any, 'le', bits / 8))
+    }
+
     writeInt8(value: number) {
         this.ensure(1)
         this.data.setInt8(this.pos++, value)
@@ -179,7 +180,15 @@ export class ABIEncoder {
     }
 
     writeInt64(value: BN) {
-        this.writeBytes(value.toTwos(64).toArrayLike(Uint8Array as any, 'le', 8))
+        this.writeBnInt(64, value)
+    }
+
+    writeInt128(value: BN) {
+        this.writeBnInt(128, value)
+    }
+
+    writeInt256(value: BN) {
+        this.writeBnInt(256, value)
     }
 
     writeUint8(value: number) {
@@ -200,7 +209,15 @@ export class ABIEncoder {
     }
 
     writeUint64(value: BN) {
-        this.writeBytes(value.toArrayLike(Uint8Array as any, 'le', 8))
+        this.writeBnUint(64, value)
+    }
+
+    writeUint128(value: BN) {
+        this.writeBnUint(128, value)
+    }
+
+    writeUint256(value: BN) {
+        this.writeBnUint(256, value)
     }
 
     writeFloat32(value: number) {
