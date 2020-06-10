@@ -5,7 +5,7 @@ import {Int64, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 
-type AssetType = Asset | string
+export type AssetType = Asset | string
 
 export class Asset implements ABISerializable {
     static abiName = 'asset'
