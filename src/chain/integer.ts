@@ -178,6 +178,34 @@ export class UInt256 extends BNInt {
     static isSigned = false
 }
 
+export class VarInt extends Int {
+    static abiName = 'varint32'
+    static byteWidth = 32
+    static isSigned = true
+
+    static fromABI<T extends typeof Int>(this: T, decoder: ABIDecoder): InstanceType<T> {
+        return new this(decoder.readVarint32()) as InstanceType<T>
+    }
+
+    toABI(encoder: ABIEncoder) {
+        encoder.writeVarint32(this.value)
+    }
+}
+
+export class VarUInt extends Int {
+    static abiName = 'varuint32'
+    static byteWidth = 32
+    static isSigned = false
+
+    static fromABI<T extends typeof Int>(this: T, decoder: ABIDecoder): InstanceType<T> {
+        return new this(decoder.readVaruint32()) as InstanceType<T>
+    }
+
+    toABI(encoder: ABIEncoder) {
+        encoder.writeVaruint32(this.value)
+    }
+}
+
 function clamp(num: number, min: number, max: number) {
     return Math.min(Math.max(num, min), max)
 }

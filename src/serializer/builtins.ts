@@ -17,6 +17,8 @@ import {
     UInt32,
     UInt64,
     UInt8,
+    VarInt,
+    VarUInt,
 } from '../chain/integer'
 import {Asset} from '../chain/asset'
 import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
@@ -72,6 +74,8 @@ export const builtins: ABISerializableType<any>[] = [
     UInt32,
     UInt64,
     UInt8,
+    VarInt,
+    VarUInt,
 ]
 
 export type TypeLookup = {[name: string]: ABISerializableType}
