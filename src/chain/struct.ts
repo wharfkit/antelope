@@ -1,11 +1,15 @@
 import {ABIField, ABISerializable, ABISerializableType} from '../serializer/serializable'
 import {decode, ResolvedStruct} from '../serializer/decoder'
 
+export interface StructConstructor extends ABISerializableType {
+    new (...args: any[]): ABISerializable
+}
+
 export class Struct implements ABISerializable {
     static abiName: string
     static abiFields: ABIField[]
 
-    static from<T extends typeof Struct>(this: T, value: any): InstanceType<T> {
+    static from<T extends StructConstructor>(this: T, value: any): InstanceType<T> {
         if (value[ResolvedStruct] === true) {
             // objects already resolved
             return new this(value) as InstanceType<T>
@@ -14,7 +18,7 @@ export class Struct implements ABISerializable {
             return value as InstanceType<T>
         }
         const object: any = {}
-        for (const field of this.abiFields) {
+        for (const field of this.abiFields || []) {
             const v = value[field.name] === undefined ? field.default : value[field.name]
             if (v === undefined && !(field.optional === true || field.name.includes('?'))) {
                 throw new Error(`Missing value for non optional field: ${field.name}`)
