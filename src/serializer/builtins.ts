@@ -99,6 +99,20 @@ export function getType(object: any, name = 'jsobj'): ABISerializableType<any> |
     if (object.constructor && object.constructor['abiName'] !== undefined) {
         return object.constructor
     }
+    if (Array.isArray(object)) {
+        // check for array of all ABISerializableType with same type name
+        const types = object.map((v) => {
+            return getType(v, name)
+        })
+        const type = types[0]
+        if (!type) {
+            return // some type not known
+        }
+        if (!types.every((t) => t && t.abiName === type.abiName)) {
+            return // not all types are the same
+        }
+        return type
+    }
     const objectType = typeof object
     if (objectType === 'object' && object !== null) {
         const fields: ABIField[] = Object.keys(object).map((key) => {

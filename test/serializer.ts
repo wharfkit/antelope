@@ -24,6 +24,42 @@ suite('serializer', function () {
         assert.throws(() => {
             Serializer.decode({object: 'banana', type: 'string[]'})
         })
+        class CustomType extends Struct {
+            static abiName = 'custom'
+            static abiFields = [{name: 'foo', type: 'string[]'}]
+            foo!: string[]
+        }
+        const customArray = ['hello', 'world'].map((s) => {
+            return CustomType.from({foo: s.split('')})
+        })
+        assert.equal(
+            Serializer.encode({
+                object: customArray,
+                type: 'custom[]',
+                customTypes: [CustomType],
+            }).hexString,
+            '020501680165016c016c016f050177016f0172016c0164'
+        )
+        assert.equal(
+            Serializer.encode({
+                object: customArray,
+            }).hexString,
+            '020501680165016c016c016f050177016f0172016c0164'
+        )
+        assert.equal(
+            Serializer.encode({
+                object: [{foo: ['h', 'e', 'l', 'l', 'o']}, {foo: ['w', 'o', 'r', 'l', 'd']}],
+                type: 'custom[]',
+                customTypes: [CustomType],
+            }).hexString,
+            '020501680165016c016c016f050177016f0172016c0164'
+        )
+        assert.throws(() => {
+            Serializer.encode({object: [Name.from('foo'), false]})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: [1, 2]})
+        })
     })
 
     test('name', function () {

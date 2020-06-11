@@ -10,6 +10,26 @@ import {Bytes} from '../chain/bytes'
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
 import {buildTypeLookup, getType} from './builtins'
 
+class EncodingError extends Error {
+    ctx: EncodingContext
+    underlyingError: Error
+    constructor(ctx: EncodingContext, underlyingError: Error) {
+        const path = ctx.codingPath
+            .map(({field, type}) => {
+                if (typeof field === 'number') {
+                    return field
+                } else {
+                    return `${field}<${type.typeName}>`
+                }
+            })
+            .join('.')
+        super(`Encoding error at ${path}: ${underlyingError.message}`)
+        this.stack = underlyingError.stack
+        this.ctx = ctx
+        this.underlyingError = underlyingError
+    }
+}
+
 interface EncodeArgs {
     object: ABISerializable | any
     abi?: ABIType
@@ -29,19 +49,25 @@ export function encode(args: EncodeArgs): Bytes {
         type = getType(args.object)
         if (type) {
             typeName = type.abiName
+            if (Array.isArray(args.object)) {
+                typeName += '[]'
+            }
         }
     }
 
     const customTypes = args.customTypes || []
     if (type) {
         customTypes.unshift(type)
+    } else if (typeName) {
+        const rootName = new ABI.ResolvedType(typeName).name
+        type = customTypes.find((t) => t.abiName === rootName)
     }
     let rootType: ABI.ResolvedType
     if (args.abi && typeName) {
         rootType = ABI.from(args.abi).resolveType(typeName)
     } else if (type) {
         const synthesized = synthesizeABI(type)
-        rootType = synthesized.abi.resolveType(type.abiName)
+        rootType = synthesized.abi.resolveType(typeName || type.abiName)
         customTypes.push(...synthesized.types)
     } else if (typeName) {
         rootType = new ABI.ResolvedType(typeName)
@@ -53,7 +79,16 @@ export function encode(args: EncodeArgs): Bytes {
     }
     const types = buildTypeLookup(customTypes)
     const encoder = new ABIEncoder()
-    encodeAny(args.object, rootType, {types, encoder})
+    const ctx: EncodingContext = {
+        types,
+        encoder,
+        codingPath: [{field: 'root', type: rootType}],
+    }
+    try {
+        encodeAny(args.object, rootType, ctx)
+    } catch (error) {
+        throw new EncodingError(ctx, error)
+    }
     return Bytes.from(encoder.getData())
 }
 
@@ -71,12 +106,20 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
         if (!Array.isArray(value)) {
             throw new Error(`Expected array for: ${type.typeName}`)
         }
-        ctx.encoder.writeVaruint32(value.length)
-        value.map(encodeInner)
+        const len = value.length
+        ctx.encoder.writeVaruint32(len)
+        for (let i = 0; i < len; i++) {
+            ctx.codingPath.push({field: i, type})
+            encodeInner(value[i])
+            ctx.codingPath.pop()
+        }
     } else {
         encodeInner(value)
     }
     function encodeInner(value: any) {
+        while (type.ref) {
+            type = type.ref
+        }
         const abiType = ctx.types[type.name]
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding
@@ -96,7 +139,9 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                     throw new Error(`Expected object for: ${type.name}`)
                 }
                 for (const field of type.fields) {
+                    ctx.codingPath.push({field: field.name, type: field.type})
                     encodeAny(value[field.name], field.type, ctx)
+                    ctx.codingPath.pop()
                 }
             } else if (type.variant) {
                 throw new Error('TODO: handle variant encoding')
@@ -117,6 +162,7 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
 interface EncodingContext {
     encoder: ABIEncoder
     types: ReturnType<typeof buildTypeLookup>
+    codingPath: {field: string | number; type: ABI.ResolvedType}[]
 }
 
 export class ABIEncoder {
