@@ -235,14 +235,14 @@ export class ABIDecoder {
 
     readInt16(): number {
         this.ensure(2)
-        const rv = this.data.getInt16(this.pos)
+        const rv = this.data.getInt16(this.pos, true)
         this.pos += 2
         return rv
     }
 
     readInt32(): number {
         this.ensure(4)
-        const rv = this.data.getInt32(this.pos)
+        const rv = this.data.getInt32(this.pos, true)
         this.pos += 4
         return rv
     }
@@ -263,14 +263,14 @@ export class ABIDecoder {
 
     readUint16(): number {
         this.ensure(2)
-        const rv = this.data.getUint16(this.pos)
+        const rv = this.data.getUint16(this.pos, true)
         this.pos += 2
         return rv
     }
 
     readUint32(): number {
         this.ensure(4)
-        const rv = this.data.getUint32(this.pos)
+        const rv = this.data.getUint32(this.pos, true)
         this.pos += 4
         return rv
     }

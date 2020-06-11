@@ -169,26 +169,14 @@ export class ABIEncoder {
 
     writeInt16(value: number) {
         this.ensure(2)
-        this.data.setInt16(this.pos, value)
+        this.data.setInt16(this.pos, value, true)
         this.pos += 2
     }
 
     writeInt32(value: number) {
         this.ensure(4)
-        this.data.setInt32(this.pos, value)
+        this.data.setInt32(this.pos, value, true)
         this.pos += 4
-    }
-
-    writeInt64(value: BN) {
-        this.writeBnInt(64, value)
-    }
-
-    writeInt128(value: BN) {
-        this.writeBnInt(128, value)
-    }
-
-    writeInt256(value: BN) {
-        this.writeBnInt(256, value)
     }
 
     writeUint8(value: number) {
@@ -198,26 +186,14 @@ export class ABIEncoder {
 
     writeUint16(value: number) {
         this.ensure(2)
-        this.data.setUint16(this.pos, value)
+        this.data.setUint16(this.pos, value, true)
         this.pos += 2
     }
 
     writeUint32(value: number) {
         this.ensure(4)
-        this.data.setUint32(this.pos, value)
+        this.data.setUint32(this.pos, value, true)
         this.pos += 4
-    }
-
-    writeUint64(value: BN) {
-        this.writeBnUint(64, value)
-    }
-
-    writeUint128(value: BN) {
-        this.writeBnUint(128, value)
-    }
-
-    writeUint256(value: BN) {
-        this.writeBnUint(256, value)
     }
 
     writeFloat32(value: number) {

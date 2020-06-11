@@ -6,7 +6,7 @@ import {ABIEncoder} from '../serializer/encoder'
 
 export type IntType = Int | number | string | BN
 
-class Int implements ABISerializable {
+export class Int implements ABISerializable {
     static isSigned: boolean
     static byteWidth: number
 
@@ -87,9 +87,12 @@ class BNInt implements ABISerializable {
     }
 
     toABI(encoder: ABIEncoder) {
-        let type = this.constructor['isSigned'] ? 'Uint' : 'Int'
-        type += this.constructor['byteWidth'] * 8
-        encoder['write' + type](this.value)
+        const bits = this.constructor['byteWidth'] * 8
+        if (this.constructor['isSigned']) {
+            encoder.writeBnInt(bits, this.value)
+        } else {
+            encoder.writeBnUint(bits, this.value)
+        }
     }
 
     toString() {
