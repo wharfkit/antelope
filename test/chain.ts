@@ -4,6 +4,7 @@ import 'mocha'
 import {Asset} from '../src/chain/asset'
 import {Int64} from '../src/chain/integer'
 import {Bytes} from '../src/chain/bytes'
+import {TimePoint, TimePointSec} from '../src/chain/time'
 
 suite('chain', function () {
     test('asset', function () {
@@ -79,6 +80,18 @@ suite('chain', function () {
         })
         assert.throws(() => {
             Bytes.from('babababa').toString('latin' as any)
+        })
+    })
+
+    test('time', function () {
+        const now = new Date()
+        assert.equal(TimePoint.from(now).toMilliseconds(), now.getTime())
+        assert.equal(
+            TimePointSec.from(TimePointSec.from(now)).toMilliseconds() / 1000,
+            Math.round(now.getTime() / 1000)
+        )
+        assert.throws(() => {
+            TimePoint.from('blah')
         })
     })
 })

@@ -9,7 +9,6 @@ import {Bytes} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
 import {buildTypeLookup, getType} from './builtins'
-import {Struct} from '../chain/struct'
 
 interface EncodeArgs {
     object: ABISerializable | any

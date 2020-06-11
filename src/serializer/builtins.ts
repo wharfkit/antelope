@@ -25,6 +25,7 @@ import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
 import {Signature} from '../chain/signature'
 import {PublicKey} from '../chain/public-key'
 import {Struct} from '../chain/struct'
+import {TimePoint, TimePointSec} from '../chain/time'
 
 const StringType: ABISerializableType<string> = {
     abiName: 'string',
@@ -68,6 +69,8 @@ export const builtins: ABISerializableType<any>[] = [
     Name,
     PublicKey,
     Signature,
+    TimePoint,
+    TimePointSec,
     UInt128,
     UInt16,
     UInt256,

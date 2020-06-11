@@ -10,6 +10,7 @@ import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
 import {Struct} from '../src/chain/struct'
+import {TimePoint, TimePointSec} from '../src/chain/time'
 
 suite('serializer', function () {
     test('array', function () {
@@ -227,6 +228,28 @@ suite('serializer', function () {
         assert.equal(Serializer.encode({object}).hexString, data)
         assert.equal(JSON.stringify(Serializer.decode({data, type: Signature})), json)
         assert.equal(JSON.stringify(Serializer.decode({json, type: 'signature'})), json)
+        assert.equal(JSON.stringify(object), json)
+    })
+
+    test('time point', function () {
+        const data = 'f8b88a3cd5620400'
+        const object = TimePoint.from(1234567890123000)
+        const json = '"2009-02-13T23:31:30.123"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: TimePoint})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'time_point'})), json)
+        assert.equal(JSON.stringify(object), json)
+    })
+
+    test('time point sec', function () {
+        const data = 'd2029649'
+        const object = TimePointSec.from(1234567890)
+        const json = '"2009-02-13T23:31:30"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: TimePointSec})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'time_point_sec'})), json)
         assert.equal(JSON.stringify(object), json)
     })
 
