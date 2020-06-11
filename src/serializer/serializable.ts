@@ -13,6 +13,7 @@ export interface ABIField {
     optional?: boolean
     array?: boolean
     extension?: boolean
+    default?: any
 }
 
 export interface ABISerializableType<T = ABISerializable> {
