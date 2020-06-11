@@ -23,6 +23,11 @@ export {PrivateKey, PrivateKeyType} from './chain/private-key'
 export {PublicKey, PublicKeyType} from './chain/public-key'
 export {Signature, SignatureType} from './chain/signature'
 export {Struct} from './chain/struct'
+export {TimePoint, TimePointSec, TimePointType} from './chain/time'
+
+// api
+export {APIClient, APIClientOptions} from './api/client'
+export {APIProvider, FetchProvider, FetchProviderOptions} from './api/provider'
 
 // utils
 export {Serializer} from './serializer'
