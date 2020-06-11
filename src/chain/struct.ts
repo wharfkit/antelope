@@ -5,13 +5,21 @@ export class Struct implements ABISerializable {
     static abiName: string
     static abiFields: ABIField[]
 
-    static from<T extends typeof Struct>(this: T, object: any): InstanceType<T> {
-        if (object[ResolvedStruct] === true) {
+    static from<T extends typeof Struct>(this: T, value: any): InstanceType<T> {
+        if (value[ResolvedStruct] === true) {
             // objects already resolved
-            return new this(object) as InstanceType<T>
+            return new this(value) as InstanceType<T>
         }
-        if (object instanceof this) {
-            return object as InstanceType<T>
+        if (value instanceof this) {
+            return value as InstanceType<T>
+        }
+        const object: any = {}
+        for (const field of this.abiFields) {
+            const v = value[field.name] === undefined ? field.default : value[field.name]
+            if (v === undefined && !(field.optional === true || field.name.includes('?'))) {
+                throw new Error(`Missing value for non optional field: ${field.name}`)
+            }
+            object[field.name] = v
         }
         return decode({object, type: this}) as InstanceType<T>
     }
