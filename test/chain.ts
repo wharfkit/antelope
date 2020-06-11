@@ -1,10 +1,14 @@
 import * as assert from 'assert'
 import 'mocha'
 
+import {Action} from '../src/chain/action'
 import {Asset} from '../src/chain/asset'
-import {Int64} from '../src/chain/integer'
 import {Bytes} from '../src/chain/bytes'
+import {Int64} from '../src/chain/integer'
+import {Name} from '../src/chain/name'
+import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
+import {Transaction} from '../src/chain/transaction'
 
 suite('chain', function () {
     test('asset', function () {
@@ -93,5 +97,36 @@ suite('chain', function () {
         assert.throws(() => {
             TimePoint.from('blah')
         })
+    })
+
+    test('transaction', function () {
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
+        const action = Action.from({
+            authorization: [],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'foo',
+                to: 'bar',
+                quantity: '1.0000 EOS',
+                memo: 'hello',
+            }),
+        })
+        const transaction = Transaction.from({
+            ref_block_num: 0,
+            ref_block_prefix: 0,
+            expiration: 0,
+            actions: [action],
+        })
+        assert.equal(
+            transaction.id.hexString,
+            '97b4d267ce0e0bd6c78c52f85a27031bd16def0920703ca3b72c28c2c5a1a79b'
+        )
     })
 })
