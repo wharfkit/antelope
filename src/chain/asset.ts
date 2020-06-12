@@ -19,9 +19,7 @@ export class Asset implements ABISerializable {
         }
         const parts = value.split(' ')
         if (parts.length !== 2) {
-            throw new Error(
-                'Invalid asset string, amount and symbol should be separated by a space'
-            )
+            throw new Error('Invalid asset string')
         }
         const amount = parts[0].replace('.', '')
         const precision = (parts[0].split('.')[1] || '').length

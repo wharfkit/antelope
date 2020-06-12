@@ -20,7 +20,14 @@ export interface ActionFields {
     /** The permissions authorizing the action. */
     authorization: PermissionLevelType[]
     /** The ABI-encoded action data. */
-    data: BytesType | ABISerializable
+    data: BytesType
+}
+
+interface InternalActionFields {
+    account: NameType
+    name: NameType
+    authorization: PermissionLevelType[]
+    data: ABISerializable
 }
 
 export type ActionType = Action | ActionFields
@@ -36,7 +43,10 @@ export class Action extends Struct {
     /** The ABI-encoded action data. */
     @Struct.field('bytes') data!: Bytes
 
-    static from<T extends StructConstructor>(this: T, object: ActionType): InstanceType<T> {
+    static from<T extends StructConstructor>(
+        this: T,
+        object: ActionType | InternalActionFields
+    ): InstanceType<T> {
         if (
             !(object.data instanceof Bytes) &&
             (object.data.constructor as any).abiName !== undefined

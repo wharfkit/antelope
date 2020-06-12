@@ -14,7 +14,7 @@ export class Name implements ABISerializable {
     static pattern = /^[a-z1-5.]{0,13}$/
 
     /** The raw representation of the name. */
-    value: UInt64
+    rawValue: UInt64
 
     /** Create a new Name instance from any of its representing types. */
     static from(value: NameType): Name {
@@ -31,17 +31,17 @@ export class Name implements ABISerializable {
         return new Name(UInt64.fromABI(decoder))
     }
 
-    constructor(value: UInt64) {
-        this.value = value
+    constructor(rawValue: UInt64) {
+        this.rawValue = rawValue
     }
 
     /** Return string representation of this name. */
     toString() {
-        return nameToString(this.value)
+        return nameToString(this.rawValue)
     }
 
     toABI(encoder: ABIEncoder) {
-        this.value.toABI(encoder)
+        this.rawValue.toABI(encoder)
     }
 
     /** @internal */

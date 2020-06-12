@@ -3,8 +3,14 @@ import {APIClient} from '../client'
 import {Checksum256} from '../../chain/checksum'
 import {Name} from '../../chain/name'
 import {Struct} from '../../chain/struct'
-import {TimePoint} from '../../chain/time'
+import {TimePoint, TimePointSec} from '../../chain/time'
 import {UInt32, UInt64} from '../../chain/integer'
+import {
+    PackedTransaction,
+    SignedTransaction,
+    SignedTransactionType,
+    TransactionHeader,
+} from '../../chain/transaction'
 
 class APIResponse extends Struct {
     static abiName = 'api_response'
@@ -18,6 +24,16 @@ export class ChainAPI {
             path: '/v1/chain/get_info',
             responseType: ChainAPI.GetInfoResponse,
         }) as Promise<ChainAPI.GetInfoResponse>
+    }
+
+    async push_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!(tx instanceof PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call({
+            path: '/v1/chain/push_transaction',
+            params: tx,
+        }) as Promise<ChainAPI.PushTransactionResponse>
     }
 }
 
@@ -53,5 +69,34 @@ export namespace ChainAPI {
         @Struct.field('uint32') fork_db_head_block_num?: UInt32
         /** Hash representing the best known head in the fork database tree. */
         @Struct.field('checksum256') fork_db_head_block_id?: Checksum256
+
+        getTransactionHeader(secondsAhead = 120): TransactionHeader {
+            const expiration = TimePointSec.fromMilliseconds(
+                this.head_block_time.toMilliseconds() + secondsAhead * 1000
+            )
+            const id = this.last_irreversible_block_id
+            const prefixArray = id.array.subarray(8, 12)
+            const prefix = new Uint32Array(prefixArray.buffer, prefixArray.byteOffset, 1)[0]
+            return TransactionHeader.from({
+                expiration,
+                ref_block_num: this.last_irreversible_block_num.value & 0xffff,
+                ref_block_prefix: prefix,
+            })
+        }
+    }
+
+    export interface PushTransactionResponse {
+        transaction_id: string
+        processed: {
+            id: string
+            block_num: number
+            block_time: string
+            receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
+            elapsed: number
+            net_usage: number
+            scheduled: boolean
+            action_traces: any[]
+            account_ram_delta: any
+        }
     }
 }

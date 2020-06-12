@@ -34,9 +34,11 @@ export class MockProvider implements APIProvider {
 
     async call(path: string, params?: unknown) {
         const filename = this.getFilename(path, params)
-        const existing = await this.getExisting(filename)
-        if (existing) {
-            return existing
+        if (process.env['MOCK_RECORD'] !== 'overwrite') {
+            const existing = await this.getExisting(filename)
+            if (existing) {
+                return existing
+            }
         }
         if (process.env['MOCK_RECORD']) {
             const response = await this.recordProvider.call(path, params)

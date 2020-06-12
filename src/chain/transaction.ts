@@ -6,6 +6,8 @@ import {Struct, StructConstructor} from './struct'
 import {TimePointSec, TimePointType} from './time'
 
 import {encode} from '../serializer/encoder'
+import {Signature, SignatureType} from './signature'
+import {decode} from '../serializer/decoder'
 
 @Struct.type('transaction_extension')
 export class TransactionExtension extends Struct {
@@ -45,7 +47,10 @@ export class TransactionHeader extends Struct {
     /** Number of seconds to delay this transaction for during which it may be canceled. */
     @Struct.field('varuint32', {default: 0}) delay_sec!: VarUInt
 
-    static from<T extends StructConstructor>(object: TransactionHeaderType): InstanceType<T> {
+    static from<T extends StructConstructor>(
+        this: T,
+        object: TransactionHeaderType
+    ): InstanceType<T> {
         return super.from(object) as InstanceType<T>
     }
 }
@@ -59,7 +64,7 @@ export interface TransactionFields extends TransactionHeaderFields {
     transaction_extensions?: {type: IntType; data: BytesType}[]
 }
 
-export type TransactionType = Transaction | TransactionHeaderFields
+export type TransactionType = Transaction | TransactionFields
 
 @Struct.type('transaction')
 export class Transaction extends TransactionHeader {
@@ -77,5 +82,69 @@ export class Transaction extends TransactionHeader {
 
     get id(): Checksum256 {
         return encode({object: this}).sha256Digest
+    }
+
+    signingDigest(chainId: Checksum256): Checksum256 {
+        let data = Bytes.from(chainId.array)
+        data = data.appending(encode({object: this}))
+        data = data.appending(new Uint8Array(32))
+        return data.sha256Digest
+    }
+}
+
+export interface SignedTransactionFields extends TransactionFields {
+    /** List of signatures. */
+    signatures?: SignatureType[]
+    /** Context-free action data, for each context-free action, there is an entry here. */
+    context_free_data?: BytesType[]
+}
+
+export type SignedTransactionType = SignedTransaction | SignedTransactionFields
+
+@Struct.type('signed_transaction')
+export class SignedTransaction extends Transaction {
+    /** List of signatures. */
+    @Struct.field('signature[]', {default: []}) signatures!: Signature[]
+    /** Context-free action data, for each context-free action, there is an entry here. */
+    @Struct.field('bytes[]', {default: []}) context_free_data!: Bytes[]
+
+    static from<T extends StructConstructor>(
+        this: T,
+        object: SignedTransactionType
+    ): InstanceType<T> {
+        return super.from(object) as InstanceType<T>
+    }
+}
+
+@Struct.type('packed_transaction')
+export class PackedTransaction extends Struct {
+    @Struct.field('signature[]') signatures!: Signature[]
+    @Struct.field('uint8', {default: 0}) compression!: UInt8
+    @Struct.field('bytes') packed_context_free_data!: Bytes
+    @Struct.field('bytes') packed_trx!: Bytes
+
+    static fromSigned(signed: SignedTransaction) {
+        const tx = Transaction.from(signed)
+        return this.from({
+            signatures: signed.signatures,
+            packed_context_free_data: encode({object: signed.context_free_data, type: 'bytes[]'}),
+            packed_trx: encode({object: tx}),
+        })
+    }
+
+    getTransaction(): Transaction {
+        if (this.compression.value !== 0) {
+            throw new Error('Transaction compression not supported yet')
+        }
+        return decode({data: this.packed_trx, type: Transaction}) as Transaction
+    }
+
+    getSignedTransaction(): SignedTransaction {
+        const transaction = this.getTransaction()
+        // TODO: decode context free data
+        return SignedTransaction.from({
+            ...transaction,
+            signatures: this.signatures,
+        })
     }
 }

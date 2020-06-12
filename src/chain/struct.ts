@@ -54,6 +54,7 @@ export class Struct implements ABISerializable {
 }
 
 export namespace Struct {
+    const FieldsOwner = Symbol('FieldsOwner')
     /* eslint-disable @typescript-eslint/ban-types */
     export function type(name: string) {
         return function <T extends {new (...args: any[]): {}}>(struct: T) {
@@ -66,6 +67,12 @@ export namespace Struct {
         return (target: any, name: string) => {
             if (!target.constructor.abiFields) {
                 target.constructor.abiFields = []
+                target.constructor.abiFields[FieldsOwner] = target
+            } else if (target.constructor.abiFields[FieldsOwner] !== target) {
+                // if the target class isn't the owner we take a copy before
+                // adding fields as to not modify the parent class
+                target.constructor.abiFields = target.constructor.abiFields.slice(0)
+                target.constructor.abiFields[FieldsOwner] = target
             }
             target.constructor.abiFields.push({...options, name, type})
         }

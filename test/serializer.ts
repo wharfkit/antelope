@@ -72,7 +72,7 @@ suite('serializer', function () {
         assert.deepEqual(Serializer.decode({json, type: 'name'}), object)
         assert.deepEqual(Name.from(UInt64.from('6712742083569909760')), object)
         assert.equal(JSON.stringify(object), json)
-        assert.equal(object.value.toString(), '6712742083569909760')
+        assert.equal(object.rawValue.toString(), '6712742083569909760')
     })
 
     test('asset', function () {
