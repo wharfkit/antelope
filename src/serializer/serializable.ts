@@ -80,7 +80,7 @@ export function synthesizeABI(type: ABISerializableType) {
     // resolve the types and assign root as an alias to the first type
     const root: ABI.TypeDef = {
         type: resolve(type),
-        newTypeName: 'root',
+        new_type_name: 'root',
     }
     return {abi: ABI.from({structs, types: [root]}), types: Array.from(seen)}
 }

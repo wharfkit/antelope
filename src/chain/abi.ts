@@ -61,7 +61,7 @@ export class ABI {
             return type
         }
         types[type.typeName] = type
-        const alias = this.types.find((typeDef) => typeDef.newTypeName == type.name)
+        const alias = this.types.find((typeDef) => typeDef.new_type_name == type.name)
         if (alias) {
             type.ref = this.resolve({name: alias.type, types, parent: type})
             return type
@@ -116,7 +116,7 @@ export class ABI {
 
 export namespace ABI {
     export interface TypeDef {
-        newTypeName: string
+        new_type_name: string
         type: string
     }
     export interface Field {

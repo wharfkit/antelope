@@ -192,7 +192,7 @@ suite('serializer', function () {
 
         assert.equal(
             JSON.stringify(Serializer.synthesize(Transfer)),
-            '{"version":"eosio::abi/1.1","types":[{"type":"transfer","newTypeName":"root"}],"variants":[],' +
+            '{"version":"eosio::abi/1.1","types":[{"type":"transfer","new_type_name":"root"}],"variants":[],' +
                 '"structs":[{"base":"","name":"transfer","fields":[{"name":"from","type":"name"},{"name":"' +
                 'to","type":"name"},{"name":"quantity","type":"asset"},{"name":"memo","type":"string"}]}],' +
                 '"actions":[],"tables":[],"ricardian_clauses":[]}'
