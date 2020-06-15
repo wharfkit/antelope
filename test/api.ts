@@ -11,12 +11,30 @@ import {PrivateKey} from '../src/chain/private-key'
 import {SignedTransaction, Transaction} from '../src/chain/transaction'
 import {Struct} from '../src/chain/struct'
 
+const util = require('util');
+
 const client = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data')),
 })
 
 suite('api v1', function () {
     this.slow(200)
+
+    test('chain get_account', async function() {
+      const account = await client.v1.chain.get_account('teamgreymass')
+      assert.equal(
+        account.account_name,
+        'teamgreymass'
+      )
+    })
+
+    test('chain get_account (system account)', async function() {
+      const account = await client.v1.chain.get_account('eosio')
+      assert.equal(
+        account.account_name,
+        'eosio'
+      )
+    })
 
     test('chain get_info', async function () {
         const info = await client.v1.chain.get_info()
