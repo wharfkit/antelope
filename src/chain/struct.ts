@@ -33,7 +33,7 @@ export class Struct implements ABISerializable {
         if (object) {
             const fields = this.constructor['abiFields'] as ABIField[]
             for (const field of fields) {
-                const value = object[field.name] || field.default
+                const value = object[field.name] === undefined ? field.default : object[field.name]
                 if (value == undefined && !(field.optional === true || field.name.includes('?'))) {
                     throw new Error(`Missing value for non optional field: ${field.name}`)
                 }
