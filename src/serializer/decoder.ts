@@ -8,7 +8,7 @@ import {ABI, ABIType} from '../chain/abi'
 import {Bytes, BytesType} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
-import {buildTypeLookup, builtins, TypeLookup} from './builtins'
+import {buildTypeLookup, builtins, getTypeName, TypeLookup} from './builtins'
 
 interface DecodeArgs<T> {
     type: ABISerializableType<T> | string
@@ -49,7 +49,7 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
         try {
             let type: ABISerializableType<T>
             if (typeof args.type === 'string') {
-                const rName = new ABI.ResolvedType(args.type).name
+                const rName = new ABI.ResolvedType(args.type).name // type name w/o suffixes
                 const builtin = builtins.find((t) => t.abiName === rName)
                 if (!builtin) {
                     throw new Error(`Unknown builtin: ${args.type}`)
@@ -83,7 +83,7 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
             const bytes = Bytes.from(args.data)
             const decoder = new ABIDecoder(bytes.array)
             return decodeBinary(resolved, decoder, ctx)
-        } else if (args.object) {
+        } else if (args.object !== undefined) {
             return decodeObject(args.object, resolved, ctx)
         } else if (args.json) {
             return decodeObject(JSON.parse(args.json), resolved, ctx)
@@ -100,8 +100,8 @@ interface DecodingContext {
     codingPath: {field: string | number; type: ABI.ResolvedType}[]
 }
 
-/** Marker for structs so they know that they don't need to decode values passed in from method.  */
-export const ResolvedStruct = Symbol('ResolvedStruct')
+/** Marker for objects when they have been resolved, i.e. their types `from` factory method will not need to resolve children. */
+export const Resolved = Symbol('Resolved')
 
 function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: DecodingContext): any {
     if (type.isOptional) {
@@ -134,13 +134,25 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
                     ctx.codingPath.pop()
                 }
                 if (abiType) {
-                    rv[ResolvedStruct] = true
+                    rv[Resolved] = true
                     return abiType.from(rv)
                 } else {
                     return rv
                 }
             } else if (type.variant) {
-                throw new Error('Binary variant decoding not implemented')
+                const vIdx = decoder.readUint8()
+                const vType = type.variant[vIdx]
+                if (!vType) {
+                    throw new Error(`Unknown variant idx: ${vIdx}`)
+                }
+                ctx.codingPath.push({field: `v${vIdx}`, type: vType})
+                const rv = [vType.typeName, decodeBinary(vType, decoder, ctx)]
+                ctx.codingPath.pop()
+                if (abiType) {
+                    return abiType.from(rv)
+                } else {
+                    return rv
+                }
             } else if (abiType) {
                 throw new Error('Invalid type')
             } else {
@@ -191,13 +203,36 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
                 ctx.codingPath.pop()
             }
             if (abiType) {
-                struct[ResolvedStruct] = true
+                struct[Resolved] = true
                 return abiType.from(struct)
             } else {
                 return struct
             }
         } else if (type.variant) {
-            throw new Error('Variant not implemented')
+            let vName = getTypeName(value)
+            if (
+                !vName &&
+                Array.isArray(value) &&
+                value.length === 2 &&
+                typeof value[0] === 'string'
+            ) {
+                vName = value[0]
+                value = value[1]
+            }
+            const vIdx = type.variant.findIndex((t) => t.typeName === vName)
+            if (vIdx === -1) {
+                throw new Error(`Unknown variant type: ${vName}`)
+            }
+            const vType = type.variant[vIdx]
+            ctx.codingPath.push({field: `v${vIdx}`, type: vType})
+            const rv = [vType.typeName, decodeObject(value, vType, ctx)]
+            ctx.codingPath.pop()
+            if (abiType) {
+                rv[Resolved] = true
+                return abiType.from(rv)
+            } else {
+                return rv
+            }
         } else {
             if (!abiType) {
                 throw new Error('Unknown type')

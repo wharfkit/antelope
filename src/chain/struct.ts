@@ -1,5 +1,5 @@
 import {ABIField, ABISerializable, ABISerializableType} from '../serializer/serializable'
-import {decode, ResolvedStruct} from '../serializer/decoder'
+import {decode, Resolved} from '../serializer/decoder'
 
 export interface StructConstructor extends ABISerializableType {
     new (...args: any[]): ABISerializable
@@ -10,7 +10,7 @@ export class Struct implements ABISerializable {
     static abiFields: ABIField[]
 
     static from<T extends StructConstructor>(this: T, value: any): InstanceType<T> {
-        if (value[ResolvedStruct] === true) {
+        if (value[Resolved] === true) {
             // objects already resolved
             return new this(value) as InstanceType<T>
         }

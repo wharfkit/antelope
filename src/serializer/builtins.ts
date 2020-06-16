@@ -95,8 +95,20 @@ export function buildTypeLookup(additional: ABISerializableType[] = []): TypeLoo
     return rv
 }
 
+export function getTypeName(object: any): string | undefined {
+    if (object.constructor && object.constructor.abiName !== undefined) {
+        return object.constructor.abiName
+    }
+    switch (typeof object) {
+        case 'boolean':
+            return 'bool'
+        case 'string':
+            return 'string'
+    }
+}
+
 export function getType(object: any, name = 'jsobj'): ABISerializableType<any> | undefined {
-    if (object.constructor && object.constructor['abiName'] !== undefined) {
+    if (object.constructor && object.constructor.abiName !== undefined) {
         return object.constructor
     }
     if (Array.isArray(object)) {
@@ -126,7 +138,7 @@ export function getType(object: any, name = 'jsobj'): ABISerializableType<any> |
             static abiFields = fields
         }
     }
-    switch (typeof object) {
+    switch (objectType) {
         case 'boolean':
             return BoolType
         case 'string':

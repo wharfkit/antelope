@@ -5,12 +5,13 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {UInt256, UInt64} from '../src/chain/integer'
+import {UInt256, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
 import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
+import {Variant} from '../src/chain/variant'
 
 suite('serializer', function () {
     test('array', function () {
@@ -358,5 +359,70 @@ suite('serializer', function () {
                 'Decoding error at root<type1>.foo<type2?>.bar<type3[]>.6.baz<int8>: Read past end of buffer'
             )
         }
+    })
+
+    test('variant', function () {
+        const abi = ABI.from({
+            structs: [{base: '', name: 'struct', fields: [{name: 'field1', type: 'bool'}]}],
+            variants: [{name: 'foo', types: ['uint8', 'string[]', 'struct', 'struct?']}],
+        })
+        assert.deepEqual(Serializer.decode({data: '00ff', abi, type: 'foo'}), [
+            'uint8',
+            {value: 255},
+        ])
+        assert.deepEqual(Serializer.decode({object: UInt8.from(255), abi, type: 'foo'}), [
+            'uint8',
+            {value: 255},
+        ])
+        assert.equal(
+            Serializer.encode({object: UInt8.from(255), abi, type: 'foo'}).hexString,
+            '00ff'
+        )
+        assert.equal(
+            Serializer.encode({object: ['struct?', {field1: true}], abi, type: 'foo'}).hexString,
+            '030101'
+        )
+        assert.throws(() => {
+            Serializer.decode({data: '04ff', abi, type: 'foo'})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: UInt64.from(255), abi, type: 'foo'})
+        })
+    })
+
+    test('custom variant', function () {
+        @Struct.type('my_struct')
+        class MyStruct extends Struct {
+            @Struct.field('string?') foo?: string
+        }
+        @Variant.type('my_variant', ['string', 'bool', 'string[]', MyStruct])
+        class MyVariant extends Variant {
+            value!: string | boolean
+        }
+        assert.deepEqual(MyVariant.from('hello'), {value: 'hello'})
+        assert.deepEqual(MyVariant.from(false), {value: false})
+        assert.deepEqual(MyVariant.from(['bool', 'booly'], 'string[]'), {value: ['bool', 'booly']})
+        assert.deepEqual(MyVariant.from(['bool', 'booly'], 'string[]'), {value: ['bool', 'booly']})
+        assert.deepEqual(MyVariant.from(MyStruct.from({foo: 'bar'})), {value: {foo: 'bar'}})
+        assert.deepEqual(MyVariant.from({foo: 'bar'}, MyStruct), {value: {foo: 'bar'}})
+        assert.deepEqual(MyVariant.from({foo: 'bar'}, 'my_struct'), {value: {foo: 'bar'}})
+        assert.equal(JSON.stringify(MyVariant.from('hello')), '["string","hello"]')
+        assert.equal(Serializer.encode({object: MyVariant.from(false)}).hexString, '0100')
+        assert.equal(Serializer.encode({object: false, type: MyVariant}).hexString, '0100')
+        assert.equal(
+            Serializer.encode({object: ['string', 'hello'], type: MyVariant}).hexString,
+            '000568656c6c6f'
+        )
+        assert.deepEqual(
+            Serializer.decode({object: ['my_struct', {foo: 'bar'}], type: MyVariant}),
+            {value: {foo: 'bar'}}
+        )
+        assert.deepEqual(Serializer.decode({data: '0101', type: MyVariant}), {value: true})
+        assert.throws(() => {
+            MyVariant.from(Name.from('hello'))
+        })
+        assert.throws(() => {
+            MyVariant.from({foo: 'bar'}, 'not_my_struct')
+        })
     })
 })

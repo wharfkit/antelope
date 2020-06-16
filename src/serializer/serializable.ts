@@ -19,6 +19,7 @@ export interface ABIField {
 export interface ABISerializableType<T = ABISerializable> {
     abiName: string
     abiFields?: ABIField[]
+    abiVariant?: (ABISerializableType | string)[]
     /**
      * Create instance from JavaScript object.
      */
@@ -40,6 +41,7 @@ export interface ABISerializableType<T = ABISerializable> {
 /** Return a ABI definition for given ABISerializableType. */
 export function synthesizeABI(type: ABISerializableType) {
     const structs: ABI.Struct[] = []
+    const variants: ABI.Variant[] = []
     const seen = new Set<ABISerializableType>()
     const resolve = (t: ABISerializableType) => {
         if (!t.abiName) {
@@ -74,6 +76,12 @@ export function synthesizeABI(type: ABISerializableType) {
                 fields,
             }
             structs.push(struct)
+        } else if (t.abiVariant) {
+            const variant: ABI.Variant = {
+                name: t.abiName,
+                types: t.abiVariant.map((vt) => (typeof vt === 'string' ? vt : resolve(vt))),
+            }
+            variants.push(variant)
         }
         return t.abiName
     }
@@ -82,5 +90,5 @@ export function synthesizeABI(type: ABISerializableType) {
         type: resolve(type),
         new_type_name: 'root',
     }
-    return {abi: ABI.from({structs, types: [root]}), types: Array.from(seen)}
+    return {abi: ABI.from({structs, variants, types: [root]}), types: Array.from(seen)}
 }

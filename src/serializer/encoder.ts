@@ -8,7 +8,8 @@ import {ABI, ABIType} from '../chain/abi'
 import {Bytes} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
-import {buildTypeLookup, getType} from './builtins'
+import {buildTypeLookup, getType, getTypeName} from './builtins'
+import {Variant} from '../chain/variant'
 
 class EncodingError extends Error {
     ctx: EncodingContext
@@ -124,13 +125,8 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding
             abiType.toABI(value, ctx.encoder)
-        } else if (typeof value.toABI === 'function') {
+        } else if (typeof value.toABI === 'function' && value.constructor.abiName === type.name) {
             // instance handles encoding
-            if (value.constructor.abiName !== type.name) {
-                throw new Error(
-                    `Type mispmatch, encountered ${value.constructor.abiName} but expected: ${type.name}`
-                )
-            }
             value.toABI(ctx.encoder)
         } else {
             // encode according to abi def if possible
@@ -144,7 +140,25 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                     ctx.codingPath.pop()
                 }
             } else if (type.variant) {
-                throw new Error('TODO: handle variant encoding')
+                let vName: string | undefined
+                if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string') {
+                    vName = value[0]
+                    value = value[1]
+                } else if (value instanceof Variant) {
+                    vName = getTypeName(value.value)
+                } else {
+                    vName = getTypeName(value)
+                }
+
+                const vIdx = type.variant.findIndex((t) => t.typeName === vName)
+                if (vIdx === -1) {
+                    throw new Error(`Unknown variant type: ${vName}`)
+                }
+                const vType = type.variant[vIdx]
+                ctx.encoder.writeVaruint32(vIdx)
+                ctx.codingPath.push({field: `v${vIdx}`, type: vType})
+                encodeAny(value, vType, ctx)
+                ctx.codingPath.pop()
             } else {
                 if (!abiType) {
                     throw new Error(`Unknown type: ${type.typeName}`)
