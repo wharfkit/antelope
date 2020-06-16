@@ -72,10 +72,9 @@ export class AccountVoterInfo extends Struct {
     @Struct.field('int64') last_vote_weight!: Int64
     @Struct.field('int64') proxied_vote_weight!: Int64
     @Struct.field('bool') is_proxy!: boolean
-    // no idea what these are
-    // @Struct.field('uint32') flags1!: UInt32
-    // @Struct.field('uint32') reserved2!: UInt32
-    // @Struct.field('asset') reserved3!: Asset
+    @Struct.field('uint32') flags1!: UInt32
+    @Struct.field('uint32') reserved2!: UInt32
+    @Struct.field('string') reserved3!: string
 }
 
 @Struct.type('account_rex_info_maturities')
