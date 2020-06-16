@@ -89,13 +89,13 @@ export namespace ChainAPI {
         @Struct.field(AccountTotalResources) total_resources!: AccountTotalResources
         /** */
         @Struct.field(AccountSelfDelegatedBandwidth, {optional: true})
-        self_delegated_bandwidth!: AccountSelfDelegatedBandwidth
+        self_delegated_bandwidth?: AccountSelfDelegatedBandwidth
         /** */
-        @Struct.field(AccountRefundRequest, {optional: true}) refund_request!: AccountRefundRequest
+        @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
         /** */
-        @Struct.field(AccountVoterInfo, {optional: true}) voter_info!: AccountVoterInfo
+        @Struct.field(AccountVoterInfo, {optional: true}) voter_info?: AccountVoterInfo
         /** */
-        @Struct.field(AccountRexInfo, {optional: true}) rex_info!: AccountRexInfo
+        @Struct.field(AccountRexInfo, {optional: true}) rex_info?: AccountRexInfo
     }
 
     export class GetInfoResponse extends APIResponse {
