@@ -159,7 +159,7 @@ suite('serializer', function () {
         const decoded = Serializer.decode({data: encoded, type: Test})
         assert.equal(
             JSON.stringify(decoded),
-            '{"foo":"bar","things":["a","b","c"],"other":{"doeet":true}}'
+            '{"foo":"bar","things":["a","b","c"],"keys":null,"other":{"doeet":true}}'
         )
     })
 
