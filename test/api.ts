@@ -11,8 +11,6 @@ import {PrivateKey} from '../src/chain/private-key'
 import {SignedTransaction, Transaction} from '../src/chain/transaction'
 import {Struct} from '../src/chain/struct'
 
-const util = require('util');
-
 const client = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data')),
 })
