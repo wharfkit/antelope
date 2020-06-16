@@ -1,7 +1,6 @@
-import {ABIField, ABISerializable, ABISerializableType} from '../serializer/serializable'
+import {ABISerializable, ABISerializableType} from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
-import {getType, getTypeName} from '../serializer/builtins'
-import {ABIEncoder} from '../serializer/encoder'
+import {getTypeName} from '../serializer/builtins'
 
 export interface VariantConstructor extends ABISerializableType {
     new (...args: any[]): ABISerializable
