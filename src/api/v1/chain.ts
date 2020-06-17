@@ -1,10 +1,20 @@
 import {APIClient} from '../client'
 
+import {
+    AccountPermission,
+    AccountRefundRequest,
+    AccountResourceLimit,
+    AccountRexInfo,
+    AccountSelfDelegatedBandwidth,
+    AccountTotalResources,
+    AccountVoterInfo,
+} from '../../chain/account'
+import {Asset} from '../../chain/asset'
 import {Checksum256} from '../../chain/checksum'
 import {Name} from '../../chain/name'
 import {Struct} from '../../chain/struct'
 import {TimePoint, TimePointSec} from '../../chain/time'
-import {UInt32, UInt64} from '../../chain/integer'
+import {Int64, UInt32, UInt64} from '../../chain/integer'
 import {
     PackedTransaction,
     SignedTransaction,
@@ -18,6 +28,14 @@ class APIResponse extends Struct {
 
 export class ChainAPI {
     constructor(private client: APIClient) {}
+
+    async get_account(account_name: string) {
+        return this.client.call({
+            path: '/v1/chain/get_account',
+            params: {account_name},
+            responseType: ChainAPI.GetAccountResponse,
+        }) as Promise<ChainAPI.GetAccountResponse>
+    }
 
     async get_info() {
         return this.client.call({
@@ -38,6 +56,48 @@ export class ChainAPI {
 }
 
 export namespace ChainAPI {
+    export class GetAccountResponse extends APIResponse {
+        /** The account name of the retrieved account */
+        @Struct.field('name') account_name!: Name
+        /** Highest block number on the chain */
+        @Struct.field('uint32') head_block_num!: UInt32
+        /** Highest block unix timestamp. */
+        @Struct.field('time_point') head_block_time!: TimePoint
+        /** Indicator of if this is a privileged system account */
+        @Struct.field('bool') privileged!: boolean
+        /** Last update to accounts contract as unix timestamp. */
+        @Struct.field('time_point') last_code_update!: TimePoint
+        /** Account created as unix timestamp. */
+        @Struct.field('time_point') created!: TimePoint
+        /** Account core token balance */
+        @Struct.field('asset') core_liquid_balance!: Asset
+        /** */
+        @Struct.field('int64') ram_quota!: Int64
+        /** */
+        @Struct.field('int64') net_weight!: Int64
+        /** */
+        @Struct.field('int64') cpu_weight!: Int64
+        /** */
+        @Struct.field(AccountResourceLimit) net_limit!: AccountResourceLimit
+        /** */
+        @Struct.field(AccountResourceLimit) cpu_limit!: AccountResourceLimit
+        /** */
+        @Struct.field('uint64') ram_usage!: UInt64
+        /** */
+        @Struct.field(AccountPermission, {array: true}) permissions!: AccountPermission[]
+        /** */
+        @Struct.field(AccountTotalResources) total_resources!: AccountTotalResources
+        /** */
+        @Struct.field(AccountSelfDelegatedBandwidth, {optional: true})
+        self_delegated_bandwidth?: AccountSelfDelegatedBandwidth
+        /** */
+        @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
+        /** */
+        @Struct.field(AccountVoterInfo, {optional: true}) voter_info?: AccountVoterInfo
+        /** */
+        @Struct.field(AccountRexInfo, {optional: true}) rex_info?: AccountRexInfo
+    }
+
     export class GetInfoResponse extends APIResponse {
         /** Hash representing the last commit in the tagged release. */
         @Struct.field('string') server_version!: string

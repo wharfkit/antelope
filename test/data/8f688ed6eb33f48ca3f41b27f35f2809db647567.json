@@ -1,0 +1,82 @@
+{
+    "account_name": "eosio",
+    "head_block_num": 20228690,
+    "head_block_time": "2020-06-15T21:50:38.500",
+    "privileged": true,
+    "last_code_update": "2020-02-19T17:44:09.000",
+    "created": "2020-02-19T16:20:00.000",
+    "core_liquid_balance": "1297726368.4962 EOS",
+    "ram_quota": 134217728,
+    "net_weight": -1,
+    "cpu_weight": -1,
+    "net_limit": {
+        "used": -1,
+        "available": -1,
+        "max": -1
+    },
+    "cpu_limit": {
+        "used": -1,
+        "available": -1,
+        "max": -1
+    },
+    "ram_usage": 62967385,
+    "permissions": [
+        {
+            "perm_name": "active",
+            "parent": "owner",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [],
+                "accounts": [
+                    {
+                        "permission": {
+                            "actor": "eosio.prods",
+                            "permission": "active"
+                        },
+                        "weight": 1
+                    }
+                ],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "owner",
+            "parent": "",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [],
+                "accounts": [
+                    {
+                        "permission": {
+                            "actor": "eosio.prods",
+                            "permission": "active"
+                        },
+                        "weight": 1
+                    }
+                ],
+                "waits": []
+            }
+        }
+    ],
+    "total_resources": {
+        "owner": "eosio",
+        "net_weight": "0.0000 EOS",
+        "cpu_weight": "0.0000 EOS",
+        "ram_bytes": 1153295
+    },
+    "self_delegated_bandwidth": null,
+    "refund_request": null,
+    "voter_info": {
+        "owner": "eosio",
+        "proxy": "",
+        "producers": [],
+        "staked": 0,
+        "last_vote_weight": "0.00000000000000000",
+        "proxied_vote_weight": "0.00000000000000000",
+        "is_proxy": 0,
+        "flags1": 1,
+        "reserved2": 0,
+        "reserved3": "0 "
+    },
+    "rex_info": null
+}

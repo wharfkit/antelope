@@ -1,0 +1,98 @@
+{
+    "account_name": "teamgreymass",
+    "head_block_num": 20236779,
+    "head_block_time": "2020-06-15T22:58:07.000",
+    "privileged": false,
+    "last_code_update": "1970-01-01T00:00:00.000",
+    "created": "2020-02-26T22:28:14.000",
+    "core_liquid_balance": "0.0129 EOS",
+    "ram_quota": 5489,
+    "net_weight": 10000,
+    "cpu_weight": 9999,
+    "net_limit": {
+        "used": 185,
+        "available": 38894,
+        "max": 39079
+    },
+    "cpu_limit": {
+        "used": 367,
+        "available": 29407,
+        "max": 29774
+    },
+    "ram_usage": 4105,
+    "permissions": [
+        {
+            "perm_name": "active",
+            "parent": "owner",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "EOS6L7gzEV7JXcCrgDeAe6v63Z7bMWttd4UQeWdKKCr6twDYxDQXZ",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "owner",
+            "parent": "",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "EOS8a3i6vXFJwSZTdaUYrf7kScnZWCgEy7wdWXcAj4W9qgfgpHMu9",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        }
+    ],
+    "total_resources": {
+        "owner": "teamgreymass",
+        "net_weight": "1.0000 EOS",
+        "cpu_weight": "0.9999 EOS",
+        "ram_bytes": 4089
+    },
+    "self_delegated_bandwidth": {
+        "from": "teamgreymass",
+        "to": "teamgreymass",
+        "net_weight": "1.0000 EOS",
+        "cpu_weight": "0.9999 EOS"
+    },
+    "refund_request": {
+        "owner": "teamgreymass",
+        "request_time": "2020-06-15T22:57:44",
+        "net_amount": "0.0000 EOS",
+        "cpu_amount": "0.0001 EOS"
+    },
+    "voter_info": {
+        "owner": "teamgreymass",
+        "proxy": "",
+        "producers": [],
+        "staked": 19999,
+        "last_vote_weight": "0.00000000000000000",
+        "proxied_vote_weight": "0.00000000000000000",
+        "is_proxy": 0,
+        "flags1": 0,
+        "reserved2": 0,
+        "reserved3": "0 "
+    },
+    "rex_info": {
+        "version": 0,
+        "owner": "jesta.x",
+        "vote_stake": "2258.7011 EOS",
+        "rex_balance": "22453965.2026 REX",
+        "matured_rex": 0,
+        "rex_maturities": [
+            {
+                "key": "2106-02-07T06:28:15",
+                "value": "224539652026"
+            }
+        ]
+    }
+}
