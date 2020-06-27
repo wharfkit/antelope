@@ -4,7 +4,7 @@
 
 import BN from 'bn.js'
 
-import {ABI, ABIType} from '../chain/abi'
+import {ABI, ABIDef} from '../chain/abi'
 import {Bytes} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
@@ -34,7 +34,7 @@ class EncodingError extends Error {
 
 interface EncodeArgs {
     object: ABISerializable | any
-    abi?: ABIType
+    abi?: ABIDef
     type?: ABISerializableType<any> | string
     customTypes?: ABISerializableType<any>[]
 }

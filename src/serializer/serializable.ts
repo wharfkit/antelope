@@ -109,3 +109,17 @@ export function synthesizeABI(type: ABISerializableType) {
     aliases.push(root)
     return {abi: ABI.from({structs, variants, types: aliases}), types: Array.from(seen)}
 }
+
+export function abiTypeString(type: ABIType) {
+    let typeName = typeof type.type === 'string' ? type.type : type.type.abiName
+    if (type.array === true) {
+        typeName += '[]'
+    }
+    if (type.extension === true) {
+        typeName += '$'
+    }
+    if (type.optional === true) {
+        typeName += '?'
+    }
+    return typeName
+}

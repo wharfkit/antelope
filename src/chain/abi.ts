@@ -1,6 +1,6 @@
-import {NameType} from './name'
+import {Name, NameType} from './name'
 
-export type ABIType = string | Partial<ABI.Def> | ABI
+export type ABIDef = string | Partial<ABI.Def> | ABI
 
 export class ABI {
     static version = 'eosio::abi/1.1'
@@ -29,7 +29,7 @@ export class ABI {
         this.ricardian_clauses = args.ricardian_clauses || []
     }
 
-    static from(value: ABIType) {
+    static from(value: ABIDef) {
         if (value instanceof ABI) {
             return value
         }

@@ -1,5 +1,5 @@
 // types
-export {ABI, ABIType} from './chain/abi'
+export {ABI, ABIDef} from './chain/abi'
 export {Asset, AssetType} from './chain/asset'
 export {Bytes, BytesType} from './chain/bytes'
 export {Checksum160, Checksum256, Checksum512, ChecksumType} from './chain/checksum'

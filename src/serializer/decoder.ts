@@ -4,7 +4,7 @@
 
 import BN from 'bn.js'
 
-import {ABI, ABIType} from '../chain/abi'
+import {ABI, ABIDef} from '../chain/abi'
 import {Bytes, BytesType} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
@@ -13,8 +13,8 @@ import {resolveAliases} from './utils'
 
 interface DecodeArgs<T> {
     type: ABISerializableType<T> | string
-    abi?: ABIType
     data?: BytesType
+    abi?: ABIDef
     json?: string
     object?: any
     customTypes?: ABISerializableType<any>[]
@@ -221,6 +221,9 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             ) {
                 vName = value[0]
                 value = value[1]
+            } else if (vName == type.name && value.value !== undefined) {
+                vName = getTypeName(value.value)
+                value = value.value
             }
             const vIdx = type.variant.findIndex((t) => t.typeName === vName)
             if (vIdx === -1) {

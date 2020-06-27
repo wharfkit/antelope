@@ -1,6 +1,10 @@
-import {ABISerializable, ABISerializableType, ABIType} from '../serializer/serializable'
+import {
+    ABISerializable,
+    ABISerializableType,
+    ABIType,
+    abiTypeString,
+} from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
-import {getTypeName} from '../serializer/builtins'
 
 export interface VariantConstructor extends ABISerializableType {
     new (...args: any[]): ABISerializable
@@ -16,7 +20,7 @@ export class Variant implements ABISerializable {
         variantType?: ABISerializableType<any> | string
     ): InstanceType<T> {
         if (object[Resolved]) {
-            return new this(object[1]) as InstanceType<T>
+            return new this(object[1], object[0]) as InstanceType<T>
         }
         if (object instanceof this) {
             return object as InstanceType<T>
@@ -29,16 +33,32 @@ export class Variant implements ABISerializable {
     }
 
     value: any
+    variantIdx: number
 
     /** @internal */
-    constructor(value: any) {
+    constructor(value: any, variant: number | string) {
+        const abiVariant = (this.constructor as VariantConstructor).abiVariant!
         this.value = value
+        let variantIdx: number
+        if (typeof variant === 'string') {
+            variantIdx = abiVariant.map(abiTypeString).findIndex((t) => t === variant)
+        } else {
+            variantIdx = variant
+        }
+        if (0 > variantIdx || abiVariant.length <= variant) {
+            throw new Error(`Unknown variant ${variant}`)
+        }
+        this.variantIdx = variantIdx
+    }
+
+    get variantName(): string {
+        const variant = (this.constructor as VariantConstructor).abiVariant![this.variantIdx]
+        return abiTypeString(variant)
     }
 
     /** @internal */
     toJSON() {
-        const value = (this as any).value
-        return [getTypeName(value), value]
+        return [this.variantName, this.value]
     }
 }
 
