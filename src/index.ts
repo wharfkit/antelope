@@ -24,11 +24,13 @@ export {PublicKey, PublicKeyType} from './chain/public-key'
 export {Signature, SignatureType} from './chain/signature'
 export {Struct} from './chain/struct'
 export {TimePoint, TimePointSec, TimePointType} from './chain/time'
+export {TypeAlias} from './chain/type-alias'
+export {Variant} from './chain/variant'
 
 // api
 export {APIClient, APIClientOptions} from './api/client'
 export {APIProvider, FetchProvider, FetchProviderOptions} from './api/provider'
 
 // utils
-export {Serializer} from './serializer'
+export {Serializer, ABIDecoder, ABIEncoder} from './serializer'
 export {Base58} from './base58'
