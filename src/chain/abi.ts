@@ -106,6 +106,15 @@ export class ABI {
     getVariant(name: string): ABI.Variant | undefined {
         return this.variants.find((variant) => variant.name == name)
     }
+
+    /** Return arguments type of an action in this ABI. */
+    getActionType(actionName: NameType): string | undefined {
+        const name = Name.from(actionName).toString()
+        const action = this.actions.find((a) => a.name.toString() === name)
+        if (action) {
+            return action.type
+        }
+    }
 }
 
 export namespace ABI {
