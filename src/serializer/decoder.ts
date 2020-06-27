@@ -254,7 +254,7 @@ export class ABIDecoder {
     private textDecoder = new TextDecoder()
 
     constructor(private array: Uint8Array) {
-        this.data = new DataView(array.buffer)
+        this.data = new DataView(array.buffer, array.byteOffset, array.byteLength)
     }
 
     canRead(bytes: number): boolean {
