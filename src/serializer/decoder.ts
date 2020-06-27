@@ -13,8 +13,8 @@ import {resolveAliases} from './utils'
 
 interface DecodeArgs<T> {
     type: ABISerializableType<T> | string
-    data?: BytesType
     abi?: ABIDef
+    data?: BytesType | ABIDecoder
     json?: string
     object?: any
     customTypes?: ABISerializableType<any>[]
@@ -81,8 +81,13 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
 
     try {
         if (args.data) {
-            const bytes = Bytes.from(args.data)
-            const decoder = new ABIDecoder(bytes.array)
+            let decoder: ABIDecoder
+            if (args.data instanceof ABIDecoder) {
+                decoder = args.data
+            } else {
+                const bytes = Bytes.from(args.data)
+                decoder = new ABIDecoder(bytes.array)
+            }
             return decodeBinary(resolved, decoder, ctx)
         } else if (args.object !== undefined) {
             return decodeObject(args.object, resolved, ctx)
