@@ -41,21 +41,15 @@ export class ABI {
 
     resolveType(name: string): ABI.ResolvedType {
         const types: {[name: string]: ABI.ResolvedType} = {}
-        return this.resolve({name, types})
+        return this.resolve({name, types}, {id: 0})
     }
 
-    private resolve({
-        name,
-        parent,
-        types,
-    }: {
-        name: string
-        types: {[name: string]: ABI.ResolvedType}
-        parent?: ABI.ResolvedType
-    }): ABI.ResolvedType {
-        const type = new ABI.ResolvedType(name)
+    private resolve(
+        {name, types}: {name: string; types: {[name: string]: ABI.ResolvedType}},
+        ctx: {id: number}
+    ): ABI.ResolvedType {
+        const type = new ABI.ResolvedType(name, ++ctx.id)
         const existing = types[type.typeName]
-        type.parent = parent
         if (existing) {
             type.ref = existing
             return type
@@ -63,7 +57,7 @@ export class ABI {
         types[type.typeName] = type
         const alias = this.types.find((typeDef) => typeDef.new_type_name == type.name)
         if (alias) {
-            type.ref = this.resolve({name: alias.type, types, parent: type})
+            type.ref = this.resolve({name: alias.type, types}, ctx)
             return type
         }
         const fields = this.resolveStruct(type.name)
@@ -71,14 +65,14 @@ export class ABI {
             type.fields = fields.map((field) => {
                 return {
                     name: field.name,
-                    type: this.resolve({name: field.type, types, parent: type}),
+                    type: this.resolve({name: field.type, types}, ctx),
                 }
             })
             return type
         }
         const variant = this.getVariant(type.name)
         if (variant) {
-            type.variant = variant.types.map((name) => this.resolve({name, types, parent: type}))
+            type.variant = variant.types.map((name) => this.resolve({name, types}, ctx))
             return type
         }
         // builtin or unknown type
@@ -159,6 +153,7 @@ export namespace ABI {
     }
     export class ResolvedType {
         name: string
+        id: number
         isArray: boolean
         isOptional: boolean
         isExtension: boolean
@@ -168,7 +163,7 @@ export namespace ABI {
         variant?: ResolvedType[]
         ref?: ResolvedType
 
-        constructor(fullName: string) {
+        constructor(fullName: string, id = 0) {
             let name = fullName
             if (name.endsWith('$')) {
                 name = name.slice(0, -1)
@@ -188,6 +183,7 @@ export namespace ABI {
             } else {
                 this.isArray = false
             }
+            this.id = id
             this.name = name
         }
 
