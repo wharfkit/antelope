@@ -44,6 +44,7 @@ export function hexToArray(hex: string) {
     if (hex.length % 2) {
         throw new Error('Odd number of hex digits')
     }
+    hex = hex.toLowerCase()
     const len = hex.length / 2
     const result = new Uint8Array(len)
     for (let i = 0; i < len; i++) {
