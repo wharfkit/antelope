@@ -10,6 +10,7 @@ import {Bytes} from '../chain/bytes'
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
 import {Variant} from '../chain/variant'
+import {resolveAliases} from './utils'
 
 class EncodingError extends Error {
     ctx: EncodingContext
@@ -118,10 +119,8 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
         encodeInner(value)
     }
     function encodeInner(value: any) {
-        while (type.ref) {
-            type = type.ref
-        }
-        const abiType = ctx.types[type.name]
+        const {abiType, resolved} = resolveAliases(type, ctx.types)
+        type = resolved
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding
             abiType.toABI(value, ctx.encoder)

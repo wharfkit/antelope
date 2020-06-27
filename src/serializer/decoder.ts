@@ -8,7 +8,8 @@ import {ABI, ABIType} from '../chain/abi'
 import {Bytes, BytesType} from '../chain/bytes'
 
 import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
-import {buildTypeLookup, builtins, getTypeName, TypeLookup} from './builtins'
+import {buildTypeLookup, getTypeName, TypeLookup} from './builtins'
+import {resolveAliases} from './utils'
 
 interface DecodeArgs<T> {
     type: ABISerializableType<T> | string
@@ -49,12 +50,12 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
         try {
             let type: ABISerializableType<T>
             if (typeof args.type === 'string') {
+                const lookup = buildTypeLookup(customTypes)
                 const rName = new ABI.ResolvedType(args.type).name // type name w/o suffixes
-                const builtin = builtins.find((t) => t.abiName === rName)
-                if (!builtin) {
-                    throw new Error(`Unknown builtin: ${args.type}`)
+                type = lookup[rName] as ABISerializableType<T>
+                if (!type) {
+                    throw new Error(`Unknown type: ${args.type}`)
                 }
-                type = builtin as ABISerializableType<T>
             } else {
                 type = args.type
             }
@@ -104,6 +105,9 @@ interface DecodingContext {
 export const Resolved = Symbol('Resolved')
 
 function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: DecodingContext): any {
+    if (ctx.codingPath.length > 32) {
+        throw new Error('Maximum decoding depth exceeded')
+    }
     if (type.isOptional) {
         if (decoder.readUint8() === 0) {
             return null
@@ -122,7 +126,8 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
         return decodeInner()
     }
     function decodeInner() {
-        const abiType = ctx.types[type.name]
+        const {resolved, abiType} = resolveAliases(type, ctx.types)
+        type = resolved
         if (abiType && abiType.fromABI) {
             return abiType.fromABI(decoder)
         } else {
@@ -185,10 +190,8 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
         return decodeInner(value)
     }
     function decodeInner(value: any) {
-        while (type.ref) {
-            type = type.ref
-        }
-        const abiType = ctx.types[type.name]
+        const {resolved, abiType} = resolveAliases(type, ctx.types)
+        type = resolved
         if (type.fields) {
             if (typeof value !== 'object') {
                 throw new Error('Expected object')

@@ -20,6 +20,7 @@ export interface ABISerializableType<T = ABISerializable> {
     abiName: string
     abiFields?: ABIField[]
     abiVariant?: (ABISerializableType | string)[]
+    abiAlias?: ABISerializableType | string
     /**
      * Create instance from JavaScript object.
      */
@@ -42,6 +43,7 @@ export interface ABISerializableType<T = ABISerializable> {
 export function synthesizeABI(type: ABISerializableType) {
     const structs: ABI.Struct[] = []
     const variants: ABI.Variant[] = []
+    const aliases: ABI.TypeDef[] = []
     const seen = new Set<ABISerializableType>()
     const resolve = (t: ABISerializableType) => {
         if (!t.abiName) {
@@ -51,7 +53,15 @@ export function synthesizeABI(type: ABISerializableType) {
             return t.abiName
         }
         seen.add(t)
-        if (t.abiFields) {
+        if (t.abiAlias) {
+            let aliasType: string
+            if (typeof t.abiAlias !== 'string') {
+                aliasType = resolve(t.abiAlias)
+            } else {
+                aliasType = t.abiAlias
+            }
+            aliases.push({new_type_name: t.abiName, type: aliasType})
+        } else if (t.abiFields) {
             const fields = t.abiFields.map((field) => {
                 let fieldType: string
                 if (typeof field.type !== 'string') {
@@ -90,5 +100,6 @@ export function synthesizeABI(type: ABISerializableType) {
         type: resolve(type),
         new_type_name: 'root',
     }
-    return {abi: ABI.from({structs, variants, types: [root]}), types: Array.from(seen)}
+    aliases.push(root)
+    return {abi: ABI.from({structs, variants, types: aliases}), types: Array.from(seen)}
 }

@@ -5,13 +5,14 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {UInt256, UInt64, UInt8} from '../src/chain/integer'
+import {Int32, Int64, UInt256, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
 import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
 import {Variant} from '../src/chain/variant'
+import {TypeAlias} from '../src/chain/type-alias'
 
 suite('serializer', function () {
     test('array', function () {
@@ -423,6 +424,111 @@ suite('serializer', function () {
         })
         assert.throws(() => {
             MyVariant.from({foo: 'bar'}, 'not_my_struct')
+        })
+    })
+
+    test('alias', function () {
+        const abi = ABI.from({
+            types: [
+                {
+                    new_type_name: 'super_string',
+                    type: 'string',
+                },
+                {
+                    new_type_name: 'super_foo',
+                    type: 'foo',
+                },
+            ],
+            structs: [
+                {
+                    base: '',
+                    name: 'foo',
+                    fields: [{name: 'bar', type: 'string'}],
+                },
+            ],
+        })
+        assert.equal(
+            Serializer.encode({object: 'foo', type: 'super_string', abi}).hexString,
+            '03666f6f'
+        )
+        assert.equal(Serializer.decode({data: '03666f6f', type: 'super_string', abi}), 'foo')
+        assert.equal(
+            Serializer.encode({object: {bar: 'foo'}, type: 'super_foo', abi}).hexString,
+            '03666f6f'
+        )
+        assert.deepEqual(
+            Serializer.decode({
+                data: '03666f6f',
+                type: 'super_foo',
+                abi,
+            }),
+            {
+                bar: 'foo',
+            }
+        )
+        assert.deepEqual(
+            Serializer.decode({
+                object: {bar: 'foo'},
+                type: 'super_foo',
+                abi,
+            }),
+            {
+                bar: 'foo',
+            }
+        )
+    })
+
+    test('custom alias', function () {
+        @TypeAlias('super_int')
+        class SuperInt extends Int32 {}
+        assert.equal(
+            Serializer.encode({
+                object: SuperInt.from(42),
+            }).hexString,
+            '2a000000'
+        )
+        assert.equal(
+            Serializer.encode({
+                object: 42,
+                type: 'super_int',
+                customTypes: [SuperInt],
+            }).hexString,
+            '2a000000'
+        )
+        const decoded = Serializer.decode({
+            data: '2a000000',
+            type: 'super_int',
+            customTypes: [SuperInt],
+        })
+        assert.equal(decoded instanceof SuperInt, true)
+        assert.equal(decoded instanceof Int32, true)
+    })
+
+    test('circular alias', function () {
+        const abi = ABI.from({
+            types: [
+                {new_type_name: 'a', type: 'a'},
+                {new_type_name: 'b1', type: 'b2'},
+                {new_type_name: 'b2', type: 'b1'},
+                {new_type_name: 'c1', type: 'c2'},
+                {new_type_name: 'c2', type: 'c3'},
+            ],
+            structs: [
+                {base: '', name: 'c3', fields: [{name: 'f', type: 'c4'}]},
+                {base: '', name: 'c4', fields: [{name: 'f', type: 'c1'}]},
+            ],
+        })
+        assert.throws(() => {
+            Serializer.decode({data: 'beef', type: 'a', abi})
+        })
+        assert.throws(() => {
+            Serializer.decode({data: 'beef', type: 'b1', abi})
+        })
+        assert.throws(() => {
+            Serializer.decode({data: 'beef', type: 'c1', abi})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: {f: {f: {}}}, type: 'c1', abi})
         })
     })
 })
