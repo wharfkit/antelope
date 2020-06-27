@@ -145,6 +145,7 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                     value = value[1]
                 } else if (value instanceof Variant) {
                     vName = getTypeName(value.value)
+                    value = value.value
                 } else {
                     vName = getTypeName(value)
                 }
