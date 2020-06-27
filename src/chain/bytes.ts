@@ -45,9 +45,23 @@ export class Bytes implements ABISerializable {
         return Bytes.from(a).equals(Bytes.from(b))
     }
 
+    /** Return true if given value is a valid `BytesType`. */
+    static isBytes(value: any): value is BytesType {
+        if (value instanceof Bytes || value instanceof Uint8Array) {
+            return true
+        }
+        if (Array.isArray(value) && value.every((v) => typeof v === 'number')) {
+            return true
+        }
+        if (typeof value === 'string' && /[\da-f]/i.test(value)) {
+            return true
+        }
+        return false
+    }
+
     array: Uint8Array
 
-    constructor(array: Uint8Array) {
+    constructor(array: Uint8Array = new Uint8Array()) {
         this.array = array
     }
 
