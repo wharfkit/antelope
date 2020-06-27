@@ -26,6 +26,14 @@ export {Struct} from './chain/struct'
 export {TimePoint, TimePointSec, TimePointType} from './chain/time'
 export {TypeAlias} from './chain/type-alias'
 export {Variant} from './chain/variant'
+export {
+    Transaction,
+    TransactionType,
+    TransactionHeader,
+    TransactionHeaderType,
+} from './chain/transaction'
+export {Action, ActionType} from './chain/action'
+export {PermissionLevel, PermissionLevelType} from './chain/permission-level'
 
 // api
 export {APIClient, APIClientOptions} from './api/client'
