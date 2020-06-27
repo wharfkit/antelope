@@ -1,8 +1,11 @@
 import {Struct, StructConstructor} from './struct'
 import {Name, NameType} from './name'
 import {Bytes, BytesType} from './bytes'
-import {ABISerializable} from '../serializer/serializable'
 import {encode} from '../serializer/encoder'
+import {ABI, ABIDef} from './abi'
+import {decode} from '../serializer/decoder'
+import {ABISerializable, ABISerializableType} from '../serializer/serializable'
+import {PermissionLevel, PermissionLevelType} from './permission-level'
 
 export interface ActionFields {
     /** The account (a.k.a. contract) to run action on. */
@@ -19,7 +22,7 @@ interface InternalActionFields {
     account: NameType
     name: NameType
     authorization: PermissionLevelType[]
-    data: ABISerializable
+    data: any
 }
 
 export type ActionType = Action | ActionFields
@@ -37,15 +40,25 @@ export class Action extends Struct {
 
     static from<T extends StructConstructor>(
         this: T,
-        object: ActionType | InternalActionFields
+        object: ActionType | InternalActionFields,
+        abi?: ABIDef
     ): InstanceType<T> {
         if (
             !(object.data instanceof Bytes) &&
-            (object.data.constructor as any).abiName !== undefined
+            (object.data.constructor.abiName !== undefined || abi)
         ) {
-            const data = encode({object: object.data})
+            let type: string | undefined
+            if (abi) {
+                type = ABI.from(abi).getActionType(object.name)
+            }
+            const data = encode({object: object.data, type, abi})
             object = {...object, data}
         }
         return super.from(object) as InstanceType<T>
+    }
+
+    /** Return action data decoded as given type. */
+    decodeData<T extends ABISerializable>(type: string | ABISerializableType<any>, abi?: ABIDef) {
+        return decode<T>({data: this.data, type: type, abi})
     }
 }
