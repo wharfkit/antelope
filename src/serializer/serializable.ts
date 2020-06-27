@@ -7,20 +7,23 @@ export interface ABISerializable {
     toJSON(): any
 }
 
-export interface ABIField {
-    name: string
+export interface ABIType {
     type: string | ABISerializableType
     optional?: boolean
     array?: boolean
     extension?: boolean
+}
+
+export interface ABIField extends ABIType {
+    name: string
     default?: any
 }
 
 export interface ABISerializableType<T = ABISerializable> {
     abiName: string
     abiFields?: ABIField[]
-    abiVariant?: (ABISerializableType | string)[]
-    abiAlias?: ABISerializableType | string
+    abiVariant?: ABIType[]
+    abiAlias?: ABIType
     /**
      * Create instance from JavaScript object.
      */
@@ -45,6 +48,24 @@ export function synthesizeABI(type: ABISerializableType) {
     const variants: ABI.Variant[] = []
     const aliases: ABI.TypeDef[] = []
     const seen = new Set<ABISerializableType>()
+    const resolveAbiType = (t: ABIType) => {
+        let typeName: string
+        if (typeof t.type !== 'string') {
+            typeName = resolve(t.type)
+        } else {
+            typeName = t.type
+        }
+        if (t.array === true) {
+            typeName += '[]'
+        }
+        if (t.extension === true) {
+            typeName += '$'
+        }
+        if (t.optional === true) {
+            typeName += '?'
+        }
+        return typeName
+    }
     const resolve = (t: ABISerializableType) => {
         if (!t.abiName) {
             throw new Error('Encountered non-conforming type')
@@ -54,31 +75,16 @@ export function synthesizeABI(type: ABISerializableType) {
         }
         seen.add(t)
         if (t.abiAlias) {
-            let aliasType: string
-            if (typeof t.abiAlias !== 'string') {
-                aliasType = resolve(t.abiAlias)
-            } else {
-                aliasType = t.abiAlias
-            }
-            aliases.push({new_type_name: t.abiName, type: aliasType})
+            aliases.push({
+                new_type_name: t.abiName,
+                type: resolveAbiType(t.abiAlias),
+            })
         } else if (t.abiFields) {
             const fields = t.abiFields.map((field) => {
-                let fieldType: string
-                if (typeof field.type !== 'string') {
-                    fieldType = resolve(field.type)
-                } else {
-                    fieldType = field.type
+                return {
+                    name: field.name,
+                    type: resolveAbiType(field),
                 }
-                if (field.array === true) {
-                    fieldType += '[]'
-                }
-                if (field.extension === true) {
-                    fieldType += '$'
-                }
-                if (field.optional === true) {
-                    fieldType += '?'
-                }
-                return {name: field.name, type: fieldType}
             })
             const struct: ABI.Struct = {
                 base: '',
@@ -89,7 +95,7 @@ export function synthesizeABI(type: ABISerializableType) {
         } else if (t.abiVariant) {
             const variant: ABI.Variant = {
                 name: t.abiName,
-                types: t.abiVariant.map((vt) => (typeof vt === 'string' ? vt : resolve(vt))),
+                types: t.abiVariant.map(resolveAbiType),
             }
             variants.push(variant)
         }

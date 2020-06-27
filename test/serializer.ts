@@ -396,9 +396,15 @@ suite('serializer', function () {
         class MyStruct extends Struct {
             @Struct.field('string?') foo?: string
         }
-        @Variant.type('my_variant', ['string', 'bool', 'string[]', MyStruct])
+        @Variant.type('my_variant', [
+            'string',
+            'bool',
+            'string[]',
+            MyStruct,
+            {type: MyStruct, array: true},
+        ])
         class MyVariant extends Variant {
-            value!: string | boolean
+            value!: string | boolean | string[] | MyStruct | MyStruct[]
         }
         assert.deepEqual(MyVariant.from('hello'), {value: 'hello'})
         assert.deepEqual(MyVariant.from(false), {value: false})
@@ -407,6 +413,7 @@ suite('serializer', function () {
         assert.deepEqual(MyVariant.from(MyStruct.from({foo: 'bar'})), {value: {foo: 'bar'}})
         assert.deepEqual(MyVariant.from({foo: 'bar'}, MyStruct), {value: {foo: 'bar'}})
         assert.deepEqual(MyVariant.from({foo: 'bar'}, 'my_struct'), {value: {foo: 'bar'}})
+        assert.deepEqual(MyVariant.from([{foo: 'bar'}], 'my_struct[]'), {value: [{foo: 'bar'}]})
         assert.equal(JSON.stringify(MyVariant.from('hello')), '["string","hello"]')
         assert.equal(Serializer.encode({object: MyVariant.from(false)}).hexString, '0100')
         assert.equal(Serializer.encode({object: false, type: MyVariant}).hexString, '0100')

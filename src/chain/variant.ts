@@ -1,4 +1,4 @@
-import {ABISerializable, ABISerializableType} from '../serializer/serializable'
+import {ABISerializable, ABISerializableType, ABIType} from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
 import {getTypeName} from '../serializer/builtins'
 
@@ -8,7 +8,7 @@ export interface VariantConstructor extends ABISerializableType {
 
 export class Variant implements ABISerializable {
     static abiName: string
-    static abiVariant: (ABISerializableType<any> | string)[] = []
+    static abiVariant: ABIType[] = []
 
     static from<T extends VariantConstructor>(
         this: T,
@@ -43,10 +43,16 @@ export class Variant implements ABISerializable {
 }
 
 export namespace Variant {
-    export function type(name: string, types: (ABISerializableType<any> | string)[]) {
+    export function type(name: string, types: (ABIType | ABISerializableType<any> | string)[]) {
         return function (variant: any) {
             variant.abiName = name
-            variant.abiVariant = types
+            variant.abiVariant = types.map((t) => {
+                if (typeof t === 'string' || typeof (t as any).abiName === 'string') {
+                    return {type: t}
+                } else {
+                    return t
+                }
+            }) as ABIType[]
             return variant
         }
     }
