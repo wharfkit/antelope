@@ -1,4 +1,4 @@
-import {PermissionLevel} from './action'
+import {PermissionLevel} from './permission-level'
 import {Asset} from './asset'
 import {Struct} from './struct'
 import {Name} from './name'

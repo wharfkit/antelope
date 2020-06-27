@@ -4,14 +4,6 @@ import {Bytes, BytesType} from './bytes'
 import {ABISerializable} from '../serializer/serializable'
 import {encode} from '../serializer/encoder'
 
-export type PermissionLevelType = PermissionLevel | {actor: NameType; permission: NameType}
-
-@Struct.type('permission_level')
-export class PermissionLevel extends Struct {
-    @Struct.field('name') actor!: Name
-    @Struct.field('name') permission!: Name
-}
-
 export interface ActionFields {
     /** The account (a.k.a. contract) to run action on. */
     account: NameType
