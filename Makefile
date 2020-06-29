@@ -1,19 +1,16 @@
+PATH  := $(PATH):$(PWD)/node_modules/.bin
+SHELL := env PATH=$(PATH) /bin/bash
 SRC_FILES := $(shell find src -name '*.ts')
-export PATH := ./node_modules/.bin:$(PATH)
+LIB_FILES := lib/index.js lib/index.m.js lib/index.esm.js
 
-all: lib/index.js lib/index.es5.js lib/bundle.js
+all: $(LIB_FILES)
 
 lib:
 	mkdir lib
 
-lib/index.js: $(SRC_FILES) lib node_modules tsconfig.json
-	tsc -p tsconfig.json --outDir lib
-
-lib/index.es5.js: $(SRC_FILES) lib node_modules tsconfig.json
-	browserify -d -e src/index.ts -p [ tsify -t ES5 ] -s EOSIO --node --no-bundle-external | exorcist lib/index.es5.js.map > lib/index.es5.js
-
-lib/bundle.js: $(SRC_FILES) lib node_modules tsconfig.json
-	browserify -d -e src/index.ts -p [ tsify -t ES5 ] -s EOSIO | exorcist lib/bundle.js.map > lib/bundle.js
+.NOTPARALLEL:
+$(LIB_FILES): $(SRC_FILES) lib node_modules tsconfig.json
+	microbundle --format modern,es,cjs
 
 .PHONY: test
 test: node_modules

@@ -1,36 +1,42 @@
 {
     "name": "eosio-core",
+    "description": "Library for working with EOSIO blockchains",
     "version": "0.0.1",
-    "main": "lib/index.es5.js",
-    "module": "lib/index.js",
-    "unpkg": "lib/bundle.js",
+    "license": "BSD-3-Clause",
+    "main": "lib/index.js",
+    "module": "lib/index.m.js",
+    "esmodule": "lib/index.esm.js",
     "types": "lib/index.d.ts",
     "browser": {
         "buffer": false
     },
     "sideEffects": false,
+    "files": [
+        "lib/*",
+        "src/*"
+    ],
     "scripts": {
         "prepare": "make -j4"
     },
     "dependencies": {
-        "elliptic": "^6.5.2"
+        "bn.js": "^4.4.0",
+        "elliptic": "^6.5.2",
+        "hash.js": "^1.0.0"
     },
     "devDependencies": {
         "@types/elliptic": "^6.4.12",
         "@types/mocha": "^7.0.2",
-        "@typescript-eslint/eslint-plugin": "^3.1.0",
-        "@typescript-eslint/parser": "^3.1.0",
-        "browserify": "^16.5.1",
-        "eslint": "^7.1.0",
+        "@typescript-eslint/eslint-plugin": "^3.4.0",
+        "@typescript-eslint/parser": "^3.4.0",
+        "eslint": "^7.3.1",
         "eslint-config-prettier": "^6.11.0",
-        "eslint-plugin-prettier": "^3.1.3",
-        "exorcist": "^1.0.1",
-        "mocha": "^7.2.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "microbundle": "^0.12.2",
+        "mocha": "^8.0.1",
         "node-fetch": "^2.6.0",
         "nyc": "^15.1.0",
         "prettier": "^2.0.5",
         "ts-node": "^8.10.2",
-        "tsify": "^4.0.2",
         "typescript": "^3.9.3"
     }
 }
