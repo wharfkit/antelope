@@ -1,11 +1,11 @@
-import {ABIField, ABISerializable, ABISerializableType} from '../serializer/serializable'
+import {ABIField, ABISerializableObject, ABISerializableType} from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
 
 export interface StructConstructor extends ABISerializableType {
-    new (...args: any[]): ABISerializable
+    new (...args: any[]): Struct
 }
 
-export class Struct implements ABISerializable {
+export class Struct implements ABISerializableObject {
     static abiName: string
     static abiFields: ABIField[]
 

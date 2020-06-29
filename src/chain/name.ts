@@ -1,5 +1,5 @@
 import {UInt64} from './integer'
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 
@@ -7,7 +7,7 @@ import {ABIDecoder} from '../serializer/decoder'
 export type NameType = Name | UInt64 | string
 
 /** EOSIO Name */
-export class Name implements ABISerializable {
+export class Name implements ABISerializableObject {
     static abiName = 'name'
 
     /** Regex pattern matching a EOSIO name, case-sensitive. */

@@ -2,10 +2,17 @@ import {ABI} from '../chain/abi'
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
 
-export interface ABISerializable {
+export interface ABISerializableObject {
     toABI?(encoder: ABIEncoder): void
     toJSON(): any
 }
+
+export type ABISerializable =
+    | ABISerializableObject
+    | string
+    | boolean
+    | ABISerializable[]
+    | {[key: string]: ABISerializable}
 
 export interface ABIType {
     type: string | ABISerializableType

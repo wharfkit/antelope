@@ -7,7 +7,12 @@ import BN from 'bn.js'
 import {ABI, ABIDef} from '../chain/abi'
 import {Bytes} from '../chain/bytes'
 
-import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
+import {
+    ABISerializable,
+    ABISerializableObject,
+    ABISerializableType,
+    synthesizeABI,
+} from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
 import {Variant} from '../chain/variant'
 import {resolveAliases} from './utils'
@@ -32,12 +37,44 @@ class EncodingError extends Error {
     }
 }
 
-interface EncodeArgs {
-    object: ABISerializable | any
+interface EncodeArgsBase {
+    /**
+     * ABI definition to use when encoding.
+     */
     abi?: ABIDef
-    type?: ABISerializableType<any> | string
-    customTypes?: ABISerializableType<any>[]
+    /**
+     * Additional types to use when encoding, can be used to pass type constructors
+     * that should be used when encountering a custom type.
+     */
+    customTypes?: ABISerializableType[]
 }
+
+interface EncodeArgsUntyped extends EncodeArgsBase {
+    /**
+     * Object to encode, either a object conforming to `ABISerializable`
+     * or a JavaScript object, when the latter is used an the `type`
+     * argument must also be set.
+     */
+    object: any
+    /**
+     * Type to use when encoding the given object, either a type constructor
+     * or a string name of a builtin type or a custom type in the given `abi`.
+     */
+    type: ABISerializableType | string
+}
+
+interface EncodeArgsSerializable extends EncodeArgsBase {
+    /**
+     * Object conforming to `ABISerializable` to be encoded.
+     */
+    object: ABISerializable
+    /**
+     * Optional type-override for given serializable object.
+     */
+    type?: ABISerializableType | string
+}
+
+export type EncodeArgs = EncodeArgsSerializable | EncodeArgsUntyped
 
 export function encode(args: EncodeArgs): Bytes {
     let type: ABISerializableType<any> | undefined
@@ -163,7 +200,7 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                 if (!abiType) {
                     throw new Error(`Unknown type: ${type.typeName}`)
                 }
-                const instance = abiType.from(value)
+                const instance = abiType.from(value) as ABISerializableObject
                 if (!instance.toABI) {
                     throw new Error(`Invalid type ${type.name}, no encoding methods implemented`)
                 }

@@ -17,7 +17,7 @@ interface DecodeArgs<T> {
     data?: BytesType | ABIDecoder
     json?: string
     object?: any
-    customTypes?: ABISerializableType<any>[]
+    customTypes?: ABISerializableType[]
 }
 
 class DecodingError extends Error {

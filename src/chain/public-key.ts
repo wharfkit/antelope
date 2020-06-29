@@ -1,13 +1,13 @@
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
 import {Bytes} from './bytes'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 
-export class PublicKey implements ABISerializable {
+export class PublicKey implements ABISerializableObject {
     static abiName = 'public_key'
 
     /** Type, e.g. `K1` */

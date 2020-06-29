@@ -1,13 +1,13 @@
 import BN from 'bn.js'
 
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 import {Int64, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 
 export type AssetType = Asset | string
 
-export class Asset implements ABISerializable {
+export class Asset implements ABISerializableObject {
     static abiName = 'asset'
 
     units: Int64
@@ -80,7 +80,7 @@ export class Asset implements ABISerializable {
 export namespace Asset {
     // eslint-disable-next-line @typescript-eslint/ban-types
     export type SymbolType = Symbol | UInt64 | string
-    export class Symbol implements ABISerializable {
+    export class Symbol implements ABISerializableObject {
         static abiName = 'symbol'
         static symbolNamePattern = /^[A-Z]{1,7}$/
         static maxPrecision = 18

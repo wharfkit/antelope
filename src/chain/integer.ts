@@ -1,12 +1,12 @@
 import BN from 'bn.js'
 
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 
 export type IntType = Int | number | string | BN
 
-export class Int implements ABISerializable {
+export class Int implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 
@@ -57,7 +57,7 @@ export class Int implements ABISerializable {
     }
 }
 
-class BNInt implements ABISerializable {
+class BNInt implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 

@@ -4,7 +4,7 @@ import {Bytes, BytesType} from './bytes'
 import {encode} from '../serializer/encoder'
 import {ABI, ABIDef} from './abi'
 import {decode} from '../serializer/decoder'
-import {ABISerializable, ABISerializableType} from '../serializer/serializable'
+import {ABISerializableObject, ABISerializableType} from '../serializer/serializable'
 import {PermissionLevel, PermissionLevelType} from './permission-level'
 
 export interface ActionFields {
@@ -58,7 +58,10 @@ export class Action extends Struct {
     }
 
     /** Return action data decoded as given type. */
-    decodeData<T extends ABISerializable>(type: string | ABISerializableType<any>, abi?: ABIDef) {
+    decodeData<T extends ABISerializableObject>(
+        type: string | ABISerializableType<any>,
+        abi?: ABIDef
+    ) {
         return decode<T>({data: this.data, type: type, abi})
     }
 }

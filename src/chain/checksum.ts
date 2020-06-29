@@ -2,14 +2,14 @@ import {ripemd160, sha256, sha512} from 'hash.js'
 
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 
 import {Bytes, BytesType} from './bytes'
 import {arrayToHex} from '../utils'
 
 export type ChecksumType = Checksum | BytesType
 
-class Checksum implements ABISerializable {
+class Checksum implements ABISerializableObject {
     static byteSize: number
 
     static from<T extends typeof Checksum>(this: T, value: ChecksumType): InstanceType<T> {

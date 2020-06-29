@@ -60,7 +60,7 @@ suite('serializer', function () {
             Serializer.encode({object: [Name.from('foo'), false]})
         })
         assert.throws(() => {
-            Serializer.encode({object: [1, 2]})
+            Serializer.encode({object: [1, 2] as any})
         })
     })
 
@@ -217,7 +217,7 @@ suite('serializer', function () {
         assert.throws(() => {
             Serializer.encode({
                 object: {
-                    numbers: 123,
+                    numbers: 123 as any,
                 },
             })
         })
@@ -316,7 +316,7 @@ suite('serializer', function () {
             Serializer.encode({object: 'foo', type: BadType})
         })
         assert.throws(() => {
-            Serializer.encode({object: 42})
+            Serializer.encode({object: 42 as any})
         })
     })
 

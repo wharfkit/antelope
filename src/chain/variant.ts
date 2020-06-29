@@ -1,5 +1,5 @@
 import {
-    ABISerializable,
+    ABISerializableObject,
     ABISerializableType,
     ABIType,
     abiTypeString,
@@ -7,10 +7,10 @@ import {
 import {decode, Resolved} from '../serializer/decoder'
 
 export interface VariantConstructor extends ABISerializableType {
-    new (...args: any[]): ABISerializable
+    new (...args: any[]): ABISerializableObject
 }
 
-export class Variant implements ABISerializable {
+export class Variant implements ABISerializableObject {
     static abiName: string
     static abiVariant: ABIType[] = []
 

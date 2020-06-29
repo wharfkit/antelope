@@ -2,13 +2,13 @@ import BN from 'bn.js'
 
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 
 import {Int64, IntType, UInt32} from './integer'
 
 export type TimePointType = TimePointBase | string | Date | IntType
 
-export class TimePointBase implements ABISerializable {
+export class TimePointBase implements ABISerializableObject {
     static from<T extends typeof TimePointBase>(this: T, value: TimePointType): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>

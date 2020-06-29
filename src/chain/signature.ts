@@ -1,6 +1,6 @@
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
 import {Bytes, BytesType} from './bytes'
@@ -15,7 +15,7 @@ export type SignatureType =
     | string
     | {type: string; r: Uint8Array; s: Uint8Array; recid: number}
 
-export class Signature implements ABISerializable {
+export class Signature implements ABISerializableObject {
     static abiName = 'signature'
 
     /** Type, e.g. `K1` */

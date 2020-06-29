@@ -1,4 +1,4 @@
-import {ABISerializable} from '../serializer/serializable'
+import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {arrayEquals, arrayToHex, hexToArray} from '../utils'
@@ -8,7 +8,7 @@ export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
 
 export type BytesEncoding = 'hex' | 'utf8'
 
-export class Bytes implements ABISerializable {
+export class Bytes implements ABISerializableObject {
     static abiName = 'bytes'
 
     static from(value: BytesType, encoding?: BytesEncoding): Bytes {
