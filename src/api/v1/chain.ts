@@ -11,7 +11,7 @@ import {
 } from '../../chain/account'
 import {Asset} from '../../chain/asset'
 import {Checksum256} from '../../chain/checksum'
-import {Name} from '../../chain/name'
+import {Name, NameType} from '../../chain/name'
 import {Struct} from '../../chain/struct'
 import {TimePoint, TimePointSec} from '../../chain/time'
 import {Int64, UInt32, UInt64} from '../../chain/integer'
@@ -29,10 +29,10 @@ class APIResponse extends Struct {
 export class ChainAPI {
     constructor(private client: APIClient) {}
 
-    async get_account(account_name: string) {
+    async get_account(accountName: NameType) {
         return this.client.call({
             path: '/v1/chain/get_account',
-            params: {account_name},
+            params: {account_name: Name.from(accountName)},
             responseType: ChainAPI.GetAccountResponse,
         }) as Promise<ChainAPI.GetAccountResponse>
     }
