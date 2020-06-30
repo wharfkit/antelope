@@ -1,10 +1,10 @@
-import {PermissionLevel} from './permission-level'
-import {Asset} from './asset'
-import {Struct} from './struct'
-import {Name} from './name'
-import {PublicKey} from './public-key'
-import {Int32, Int64, UInt32, UInt64} from './integer'
-import {TimePoint} from './time'
+import {Asset} from '../../chain/asset'
+import {Int32, Int64, UInt32, UInt64} from '../../chain/integer'
+import {Name} from '../../chain/name'
+import {PermissionLevel} from '../../chain/permission-level'
+import {PublicKey} from '../../chain/public-key'
+import {Struct} from '../../chain/struct'
+import {TimePoint} from '../../chain/time'
 
 @Struct.type('account_auth')
 export class AccountAuth extends Struct {

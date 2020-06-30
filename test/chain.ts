@@ -136,6 +136,8 @@ suite('chain', function () {
     })
 
     test('equality helpers', function () {
+        this.slow(500)
+
         const name = Name.from('foo')
         assert.equal(name.equals('foo'), true)
         assert.equal(name.equals(UInt64.from('6712615244595724288')), true)

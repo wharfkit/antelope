@@ -1,14 +1,5 @@
 import {APIClient} from '../client'
 
-import {
-    AccountPermission,
-    AccountRefundRequest,
-    AccountResourceLimit,
-    AccountRexInfo,
-    AccountSelfDelegatedBandwidth,
-    AccountTotalResources,
-    AccountVoterInfo,
-} from '../../chain/account'
 import {Asset} from '../../chain/asset'
 import {Checksum256} from '../../chain/checksum'
 import {Name, NameType} from '../../chain/name'
@@ -21,6 +12,16 @@ import {
     SignedTransactionType,
     TransactionHeader,
 } from '../../chain/transaction'
+
+import {
+    AccountPermission,
+    AccountRefundRequest,
+    AccountResourceLimit,
+    AccountRexInfo,
+    AccountSelfDelegatedBandwidth,
+    AccountTotalResources,
+    AccountVoterInfo,
+} from './types'
 
 class APIResponse extends Struct {
     static abiName = 'api_response'
