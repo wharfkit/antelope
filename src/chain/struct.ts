@@ -1,5 +1,6 @@
 import {ABIField, ABISerializableObject, ABISerializableType} from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
+import {encode} from '../serializer/encoder'
 
 export interface StructConstructor extends ABISerializableType {
     new (...args: any[]): Struct
@@ -18,7 +19,7 @@ export class Struct implements ABISerializableObject {
             return value as InstanceType<T>
         }
         const object: any = {}
-        for (const field of this.abiFields || []) {
+        for (const field of this.abiFields!) {
             const v = value[field.name] === undefined ? field.default : value[field.name]
             if (v === undefined && !(field.optional === true || field.name.includes('?'))) {
                 throw new Error(`Missing value for non optional field: ${field.name}`)
@@ -30,23 +31,35 @@ export class Struct implements ABISerializableObject {
 
     /** @internal */
     constructor(object: any) {
-        if (object) {
-            const fields = this.constructor['abiFields'] as ABIField[]
-            for (const field of fields) {
-                const value = object[field.name] === undefined ? field.default : object[field.name]
-                if (value == undefined && !(field.optional === true || field.name.includes('?'))) {
-                    throw new Error(`Missing value for non optional field: ${field.name}`)
-                }
-                this[field.name] = value
-            }
+        const self = this.constructor as typeof Struct
+        for (const field of self.abiFields) {
+            this[field.name] = object[field.name]
         }
+    }
+
+    /**
+     * Return true if this struct equals the other.
+     *
+     * Note: This compares the ABI encoded bytes of both structs, subclasses
+     *       should implement their own fast equality check when possible.
+     */
+    equals(other: any) {
+        const self = this.constructor as typeof Struct
+        if (
+            other.constructor &&
+            typeof other.constructor.abiName === 'string' &&
+            other.constructor.abiName !== self.abiName
+        ) {
+            return false
+        }
+        return encode({object: this}).equals(encode({object: self.from(other)}))
     }
 
     /** @internal */
     toJSON() {
-        const fields = this.constructor['abiFields'] as ABIField[]
+        const self = this.constructor as typeof Struct
         const rv: any = {}
-        for (const field of fields) {
+        for (const field of self.abiFields) {
             rv[field.name] = this[field.name]
         }
         return rv
@@ -58,7 +71,8 @@ export namespace Struct {
     /* eslint-disable @typescript-eslint/ban-types */
     export function type(name: string) {
         return function <T extends {new (...args: any[]): {}}>(struct: T) {
-            struct['abiName'] = name
+            // eslint-disable-next-line @typescript-eslint/no-extra-semi
+            ;(struct as any).abiName = name
             return struct
         }
     }

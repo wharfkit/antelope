@@ -27,7 +27,7 @@ import {PublicKey} from '../chain/public-key'
 import {Struct} from '../chain/struct'
 import {TimePoint, TimePointSec} from '../chain/time'
 
-const StringType: ABISerializableType<string> = {
+const StringType: ABISerializableType = {
     abiName: 'string',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readString()
@@ -38,7 +38,7 @@ const StringType: ABISerializableType<string> = {
     },
 }
 
-const BoolType: ABISerializableType<boolean> = {
+const BoolType: ABISerializableType = {
     abiName: 'bool',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readByte() === 1
@@ -49,7 +49,7 @@ const BoolType: ABISerializableType<boolean> = {
     },
 }
 
-export const builtins: ABISerializableType<any>[] = [
+export const builtins: ABISerializableType[] = [
     // types represented by JavaScript builtins
     BoolType,
     StringType,
@@ -107,7 +107,7 @@ export function getTypeName(object: any): string | undefined {
     }
 }
 
-export function getType(object: any, name = 'jsobj'): ABISerializableType<any> | undefined {
+export function getType(object: any, name = 'jsobj'): ABISerializableType | undefined {
     if (object.constructor && object.constructor.abiName !== undefined) {
         return object.constructor
     }

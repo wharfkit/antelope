@@ -6,12 +6,25 @@ import {ABISerializableObject} from '../serializer/serializable'
 
 import {Int64, IntType, UInt32} from './integer'
 
-export type TimePointType = TimePointBase | string | Date | IntType
+export type TimePointType = TimePoint | TimePointSec | string | Date | IntType
 
-export class TimePointBase implements ABISerializableObject {
-    static from<T extends typeof TimePointBase>(this: T, value: TimePointType): InstanceType<T> {
+interface TimePointConstructor {
+    from(value: TimePointType): TimePointBase
+    fromInteger(value: IntType): TimePointBase
+    fromDate(value: Date): TimePointBase
+    fromString(value: string): TimePointBase
+    fromMilliseconds(value: number): TimePointBase
+    new (...args: any[]): TimePointBase
+}
+
+class TimePointBase implements ABISerializableObject {
+    static from<T extends TimePointConstructor>(this: T, value: TimePointType): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>
+        }
+        if (value instanceof TimePointBase) {
+            // converting between types
+            return this.fromMilliseconds(value.toMilliseconds()) as InstanceType<T>
         }
         if (value instanceof Date) {
             return this.fromDate(value) as InstanceType<T>
@@ -19,19 +32,20 @@ export class TimePointBase implements ABISerializableObject {
         if (typeof value === 'string') {
             return this.fromString(value) as InstanceType<T>
         }
-        return (this as any).fromInteger(value) as InstanceType<T>
+
+        return this.fromInteger(value) as InstanceType<T>
     }
 
-    static fromString<T extends typeof TimePointBase>(this: T, string: string): InstanceType<T> {
+    static fromString<T extends TimePointConstructor>(this: T, string: string): InstanceType<T> {
         const value = Date.parse(string + 'Z')
         if (!Number.isFinite(value)) {
             throw new Error('Invalid date string')
         }
-        return (this as any).fromMilliseconds(value)
+        return this.fromMilliseconds(value) as InstanceType<T>
     }
 
-    static fromDate<T extends typeof TimePointBase>(this: T, date: Date): InstanceType<T> {
-        return (this as any).fromMilliseconds(date.getTime())
+    static fromDate<T extends TimePointConstructor>(this: T, date: Date): InstanceType<T> {
+        return this.fromMilliseconds(date.getTime()) as InstanceType<T>
     }
 
     toABI(encoder: ABIEncoder) {
@@ -39,8 +53,17 @@ export class TimePointBase implements ABISerializableObject {
         self.value.toABI(encoder)
     }
 
+    equals(other: TimePointType) {
+        const self = this.constructor as TimePointConstructor
+        return this.toMilliseconds() === self.from(other).toMilliseconds()
+    }
+
+    toMilliseconds(): number {
+        throw new Error('Not implemented')
+    }
+
     toDate() {
-        return new Date((this as any).toMilliseconds())
+        return new Date(this.toMilliseconds())
     }
 
     toJSON() {

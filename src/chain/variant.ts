@@ -5,6 +5,7 @@ import {
     abiTypeString,
 } from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
+import {encode} from '../serializer/encoder'
 
 export interface VariantConstructor extends ABISerializableType {
     new (...args: any[]): ABISerializableObject
@@ -17,7 +18,7 @@ export class Variant implements ABISerializableObject {
     static from<T extends VariantConstructor>(
         this: T,
         object: any,
-        variantType?: ABISerializableType<any> | string
+        variantType?: ABISerializableType | string
     ): InstanceType<T> {
         if (object[Resolved]) {
             return new this(object[1], object[0]) as InstanceType<T>
@@ -51,6 +52,21 @@ export class Variant implements ABISerializableObject {
         this.variantIdx = variantIdx
     }
 
+    /**
+     * Return true if this variant equals the other.
+     *
+     * Note: This compares the ABI encoded bytes of both variants, subclasses
+     *       should implement their own fast equality check when possible.
+     */
+    equals(other: any) {
+        const self = this.constructor as typeof Variant
+        const otherVariant = self.from(other)
+        if (this.variantIdx !== otherVariant.variantIdx) {
+            return false
+        }
+        return encode({object: this}).equals(encode({object: otherVariant}))
+    }
+
     get variantName(): string {
         const variant = (this.constructor as VariantConstructor).abiVariant![this.variantIdx]
         return abiTypeString(variant)
@@ -63,16 +79,18 @@ export class Variant implements ABISerializableObject {
 }
 
 export namespace Variant {
-    export function type(name: string, types: (ABIType | ABISerializableType<any> | string)[]) {
-        return function (variant: any) {
+    export function type(name: string, types: (ABIType | ABISerializableType | string)[]) {
+        return function (variant: typeof Variant) {
             variant.abiName = name
-            variant.abiVariant = types.map((t) => {
-                if (typeof t === 'string' || typeof (t as any).abiName === 'string') {
-                    return {type: t}
-                } else {
-                    return t
+            variant.abiVariant = types.map((type) => {
+                if (typeof type === 'string') {
+                    return {type}
                 }
-            }) as ABIType[]
+                if (typeof (type as ABISerializableType).abiName === 'string') {
+                    return {type: type as ABISerializableType}
+                }
+                return type as ABIType
+            })
             return variant
         }
     }

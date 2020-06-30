@@ -4,8 +4,13 @@ import {Bytes, BytesType} from './bytes'
 import {encode} from '../serializer/encoder'
 import {ABI, ABIDef} from './abi'
 import {decode} from '../serializer/decoder'
-import {ABISerializableObject, ABISerializableType} from '../serializer/serializable'
+import {
+    ABISerializable,
+    ABISerializableObject,
+    ABISerializableType,
+} from '../serializer/serializable'
 import {PermissionLevel, PermissionLevelType} from './permission-level'
+import {arrayEquatableEquals} from '../utils'
 
 export interface ActionFields {
     /** The account (a.k.a. contract) to run action on. */
@@ -18,11 +23,12 @@ export interface ActionFields {
     data: BytesType
 }
 
-interface InternalActionFields {
+/** Action type that may or may not have its data encoded */
+export interface AnyAction {
     account: NameType
     name: NameType
     authorization: PermissionLevelType[]
-    data: any
+    data: BytesType | ABISerializable
 }
 
 export type ActionType = Action | ActionFields
@@ -40,28 +46,36 @@ export class Action extends Struct {
 
     static from<T extends StructConstructor>(
         this: T,
-        object: ActionType | InternalActionFields,
+        object: ActionType | AnyAction,
         abi?: ABIDef
     ): InstanceType<T> {
-        if (
-            !(object.data instanceof Bytes) &&
-            (object.data.constructor.abiName !== undefined || abi)
-        ) {
+        const data = object.data as any
+        if (!(data instanceof Bytes) && (data.constructor.abiName || abi)) {
             let type: string | undefined
             if (abi) {
                 type = ABI.from(abi).getActionType(object.name)
             }
-            const data = encode({object: object.data, type, abi})
-            object = {...object, data}
+            object = {
+                ...object,
+                data: encode({object: data, type, abi}),
+            }
         }
         return super.from(object) as InstanceType<T>
     }
 
+    /** Return true if this Action is equal to given action. */
+    equals(other: ActionType | AnyAction) {
+        const otherAction = Action.from(other)
+        return (
+            this.account.equals(otherAction.account) &&
+            this.name.equals(otherAction.name) &&
+            arrayEquatableEquals(this.authorization, otherAction.authorization) &&
+            this.data.equals(otherAction.data)
+        )
+    }
+
     /** Return action data decoded as given type. */
-    decodeData<T extends ABISerializableObject>(
-        type: string | ABISerializableType<any>,
-        abi?: ABIDef
-    ) {
+    decodeData<T extends ABISerializableObject>(type: string | ABISerializableType, abi?: ABIDef) {
         return decode<T>({data: this.data, type: type, abi})
     }
 }

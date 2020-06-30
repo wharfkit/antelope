@@ -12,7 +12,7 @@ import {buildTypeLookup, getTypeName, TypeLookup} from './builtins'
 import {resolveAliases} from './utils'
 
 interface DecodeArgs<T> {
-    type: ABISerializableType<T> | string
+    type: ABISerializableType | string
     abi?: ABIDef
     data?: BytesType | ABIDecoder
     json?: string
@@ -48,11 +48,11 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
         abi = ABI.from(args.abi)
     } else {
         try {
-            let type: ABISerializableType<T>
+            let type: ABISerializableType
             if (typeof args.type === 'string') {
                 const lookup = buildTypeLookup(customTypes)
                 const rName = new ABI.ResolvedType(args.type).name // type name w/o suffixes
-                type = lookup[rName] as ABISerializableType<T>
+                type = lookup[rName] as ABISerializableType
                 if (!type) {
                     throw new Error(`Unknown type: ${args.type}`)
                 }

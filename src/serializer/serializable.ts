@@ -3,8 +3,12 @@ import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
 
 export interface ABISerializableObject {
+    /** Called when encoding to binary abi format. */
     toABI?(encoder: ABIEncoder): void
+    /** Called when encoding to json abi format. */
     toJSON(): any
+    /** Return true if the object equals the other object passed. */
+    equals(other: any): boolean
 }
 
 export type ABISerializable =
@@ -26,20 +30,25 @@ export interface ABIField extends ABIType {
     default?: any
 }
 
-export interface ABISerializableType<T = ABISerializable> {
+export interface ABISerializableType {
+    /** Name of the type, e.g. `asset`. */
     abiName: string
+    /** For structs, the fields that this type contains. */
     abiFields?: ABIField[]
+    /** For variants, the different types this type can represent. */
     abiVariant?: ABIType[]
+    /** Alias to another type. */
     abiAlias?: ABIType
     /**
-     * Create instance from JavaScript object.
+     * Create new instance from JavaScript object.
+     * Should also accept an instance of itself and return that unchanged.
      */
-    from(value: any): T
+    from(value: any): ABISerializable
     /**
      * Create instance from binary ABI data.
      * @param decoder Decoder instance to read from.
      */
-    fromABI?(decoder: ABIDecoder): T
+    fromABI?(decoder: ABIDecoder): ABISerializable
     /**
      * Static ABI encoding can be used to encode non-class types.
      * Will be used in favor of instance.toABI if both exists.

@@ -5,7 +5,7 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
 import {Bytes, BytesType} from './bytes'
-import {arrayToHex} from '../utils'
+import {arrayEquals, arrayToHex} from '../utils'
 
 export type ChecksumType = Checksum | BytesType
 
@@ -15,6 +15,9 @@ class Checksum implements ABISerializableObject {
     static from<T extends typeof Checksum>(this: T, value: ChecksumType): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>
+        }
+        if (value instanceof Checksum) {
+            return new this(value.array) as InstanceType<T>
         }
         return new this(Bytes.from(value).array) as InstanceType<T>
     }
@@ -33,6 +36,11 @@ class Checksum implements ABISerializableObject {
             )
         }
         this.array = array
+    }
+
+    equals(other: ChecksumType) {
+        const self = this.constructor as typeof Checksum
+        return arrayEquals(this.array, self.from(other).array)
     }
 
     get hexString(): string {

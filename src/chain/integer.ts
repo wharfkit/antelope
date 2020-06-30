@@ -47,6 +47,11 @@ export class Int implements ABISerializableObject {
         this.value = clamp(value, this.constructor['min'], this.constructor['max'])
     }
 
+    equals(other: IntType) {
+        const self = this.constructor as typeof Int
+        return this.value === self.from(other).value
+    }
+
     toABI(encoder: ABIEncoder) {
         const self = this.constructor as typeof Int
         encoder.writeNum(this.value, self.byteWidth, self.isSigned)
@@ -91,6 +96,18 @@ class BNInt implements ABISerializableObject {
             throw new Error('Number too wide')
         }
         this.value = value
+    }
+
+    equals(other: BNIntType, allowCast = false) {
+        const self = this.constructor as typeof BNInt
+        if (
+            !allowCast &&
+            typeof (other.constructor as any).byteWidth === 'number' &&
+            (other.constructor as any).byteWidth !== self.byteWidth
+        ) {
+            return false
+        }
+        return this.value.eq(self.from(other).value)
     }
 
     toABI(encoder: ABIEncoder) {

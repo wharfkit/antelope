@@ -77,7 +77,7 @@ interface EncodeArgsSerializable extends EncodeArgsBase {
 export type EncodeArgs = EncodeArgsSerializable | EncodeArgsUntyped
 
 export function encode(args: EncodeArgs): Bytes {
-    let type: ABISerializableType<any> | undefined
+    let type: ABISerializableType | undefined
     let typeName: string | undefined
     if (typeof args.type === 'string') {
         typeName = args.type

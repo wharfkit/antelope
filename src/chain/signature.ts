@@ -74,6 +74,11 @@ export class Signature implements ABISerializableObject {
         this.data = data
     }
 
+    equals(other: SignatureType) {
+        const otherSig = Signature.from(other)
+        return this.type === otherSig.type && this.data.equals(otherSig.data)
+    }
+
     /** Recover public key from given message digest. */
     recoverDigest(digest: ChecksumType) {
         digest = Checksum256.from(digest)
@@ -104,20 +109,10 @@ export class Signature implements ABISerializableObject {
 
     /** @internal */
     toABI(encoder: ABIEncoder) {
-        switch (this.type) {
-            case 'K1':
-                encoder.writeByte(0)
-                break
-            case 'R1':
-                encoder.writeByte(1)
-                break
-            case 'WA':
-                encoder.writeByte(2)
-                // TODO: this isn't actually supported yet since we threw away the metadata when decoding
-                throw new Error('WA keys are not supported yet')
-            default:
-                throw new Error(`Unable to encode unknown signature type: ${this.type}`)
+        if (this.type === CurveType.WA) {
+            throw new Error('WA signatures are not supported yet')
         }
+        encoder.writeByte(CurveType.indexFor(this.type))
         encoder.writeArray(this.data.array)
     }
 

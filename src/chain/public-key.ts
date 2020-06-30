@@ -62,6 +62,11 @@ export class PublicKey implements ABISerializableObject {
         this.data = data
     }
 
+    equals(other: PublicKeyType) {
+        const otherKey = PublicKey.from(other)
+        return this.type === otherKey.type && this.data.equals(otherKey.data)
+    }
+
     /**
      * Return EOSIO legacy (`EOS<base58data>`) formatted key.
      * @throws If the key type isn't `K1`

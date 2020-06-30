@@ -4,11 +4,16 @@ import 'mocha'
 import {Action} from '../src/chain/action'
 import {Asset} from '../src/chain/asset'
 import {Bytes} from '../src/chain/bytes'
-import {Int64} from '../src/chain/integer'
+import {Int32, Int64, UInt128, UInt32, UInt64} from '../src/chain/integer'
 import {Name} from '../src/chain/name'
 import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
 import {Transaction} from '../src/chain/transaction'
+import {PrivateKey} from '../src/chain/private-key'
+import {PublicKey} from '../src/chain/public-key'
+import {Signature} from '../src/chain/signature'
+import {PermissionLevel} from '../src/chain/permission-level'
+import {Variant} from '../src/chain/variant'
 
 suite('chain', function () {
     test('asset', function () {
@@ -128,5 +133,118 @@ suite('chain', function () {
             transaction.id.hexString,
             '97b4d267ce0e0bd6c78c52f85a27031bd16def0920703ca3b72c28c2c5a1a79b'
         )
+    })
+
+    test('equality helpers', function () {
+        const name = Name.from('foo')
+        assert.equal(name.equals('foo'), true)
+        assert.equal(name.equals(UInt64.from('6712615244595724288')), true)
+        assert.equal(name.equals(UInt64.from('12345')), false)
+        assert.equal(name.equals('bar'), false)
+
+        const num = UInt64.from('123456789')
+        assert.equal(num.equals(123456789), true)
+        assert.equal(num.equals('123456789'), true)
+        assert.equal(num.equals('123456700'), false)
+        assert.equal(num.equals(1), false)
+        assert.equal(num.equals(UInt32.from(123456789)), false)
+        assert.equal(num.equals(UInt32.from(123456789), true), true)
+        assert.equal(num.equals(UInt128.from(123456789), false), false)
+        assert.equal(num.equals(UInt128.from(123456789), true), true)
+
+        const checksum = Bytes.from('hello', 'utf8').ripemd160Digest
+        assert.equal(checksum.equals('108f07b8382412612c048d07d13f814118445acd'), true)
+        assert.equal(checksum.equals('108f07b8382412612c048d07d13f814118445abe'), false)
+
+        const pubKey = PublicKey.from('EOS6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeABhJRin')
+        assert.equal(
+            pubKey.equals('PUB_K1_6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs'),
+            true
+        )
+
+        const key = PrivateKey.generate('R1')
+        const sig = Signature.from(
+            'SIG_K1_JyMXe1HU42qN2aM7GPUf5XrAcAjWPbRoojzfsKq9Rgto3dGsRcCZ4UaPsAcFPS2faGQMpRoSTRX8WQQUDEA5TfWHj8sr6q'
+        )
+        assert.equal(
+            sig.equals(
+                'SIG_K1_JyMXe1HU42qN2aM7GPUf5XrAcAjWPbRoojzfsKq9Rgto3dGsRcCZ4UaPsAcFPS2faGQMpRoSTRX8WQQUDEA5TfWHj8sr6q'
+            ),
+            true
+        )
+        assert.equal(
+            sig.equals(
+                'SIG_R1_K5VEcCFUxF2jptQJUjVhV99PNiBXur6kdz6xuHtqvjqoTnzGqcCkEpD6cuA4q9DPdEHysdXjfksLB5xfkERxBuWxb9QJ8y'
+            ),
+            false
+        )
+
+        const perm = PermissionLevel.from('foo@bar')
+        assert.equal(perm.equals(perm), true)
+        assert.equal(perm.equals({actor: 'foo', permission: 'bar'}), true)
+        assert.equal(perm.equals('bar@moo'), false)
+
+        @Struct.type('my_struct')
+        class MyStruct extends Struct {
+            @Struct.field('string') hello!: string
+        }
+        const struct = MyStruct.from({hello: 'world'})
+        assert.equal(struct.equals(struct), true)
+        assert.equal(struct.equals({hello: 'world'}), true)
+        assert.equal(struct.equals({hello: 'bollywod'}), false)
+
+        @Variant.type('my_variant', ['string', 'int32'])
+        class MyVariant extends Variant {
+            value!: string | Int32
+        }
+        const variant = MyVariant.from('hello')
+        assert.equal(variant.equals(variant), true)
+        assert.equal(variant.equals('hello'), true)
+        assert.equal(variant.equals('boo'), false)
+        assert.equal(variant.equals(Int32.from(1)), false)
+        assert.equal(variant.equals(MyVariant.from('haj')), false)
+
+        const action = Action.from({
+            account: 'foo',
+            name: 'bar',
+            authorization: [perm],
+            data: variant,
+        })
+        assert.equal(action.equals(action), true)
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [perm],
+                data: variant,
+            }),
+            true
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [],
+                data: variant,
+            }),
+            false
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [{actor: 'maa', permission: 'jong'}],
+                data: variant,
+            }),
+            false
+        )
+
+        const time = TimePointSec.from(1)
+        assert.equal(time.equals(time), true)
+        assert.equal(time.equals('1970-01-01T00:00:01'), true)
+        assert.equal(time.equals('2020-02-20T02:20:20'), false)
+        assert.equal(time.equals(1), true)
+        assert.equal(time.equals(2), false)
+        assert.equal(time.equals(TimePoint.from(1 * 1000000)), true)
     })
 })

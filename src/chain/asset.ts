@@ -38,6 +38,11 @@ export class Asset implements ABISerializableObject {
         this.symbol = symbol
     }
 
+    equals(other: AssetType) {
+        const {symbol, units} = Asset.from(other)
+        return this.symbol.value.equals(symbol.value) && this.units.equals(units)
+    }
+
     get value(): number {
         return this.symbol.convertUnits(this.units)
     }
@@ -119,6 +124,10 @@ export namespace Asset {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
+        }
+
+        equals(other: SymbolType) {
+            return this.value.equals(Symbol.from(other).value)
         }
 
         get name(): string {

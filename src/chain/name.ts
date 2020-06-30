@@ -35,6 +35,11 @@ export class Name implements ABISerializableObject {
         this.rawValue = rawValue
     }
 
+    /** Return true if this name is equal to passed name. */
+    equals(other: NameType) {
+        return this.rawValue.equals(Name.from(other).rawValue)
+    }
+
     /** Return string representation of this name. */
     toString() {
         return nameToString(this.rawValue)

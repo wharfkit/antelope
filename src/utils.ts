@@ -1,3 +1,5 @@
+import {ABISerializableObject} from './serializer/serializable'
+
 export function arrayEquals(a: ArrayLike<number>, b: ArrayLike<number>) {
     const len = a.length
     if (len !== b.length) {
@@ -5,6 +7,19 @@ export function arrayEquals(a: ArrayLike<number>, b: ArrayLike<number>) {
     }
     for (let i = 0; i < len; i++) {
         if (a[i] !== b[i]) {
+            return false
+        }
+    }
+    return true
+}
+
+export function arrayEquatableEquals(a: ABISerializableObject[], b: ABISerializableObject[]) {
+    const len = a.length
+    if (len !== b.length) {
+        return false
+    }
+    for (let i = 0; i < len; i++) {
+        if (!a[i].equals(b[i])) {
             return false
         }
     }

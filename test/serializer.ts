@@ -5,7 +5,7 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int32, Int64, UInt256, UInt64, UInt8} from '../src/chain/integer'
+import {Int32, UInt256, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
