@@ -1,6 +1,6 @@
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
-import {ABIField, ABISerializableType} from './serializable'
+import {ABIField, ABISerializableConstructor} from './serializable'
 import {Bytes} from '../chain/bytes'
 import {Name} from '../chain/name'
 
@@ -27,7 +27,7 @@ import {PublicKey} from '../chain/public-key'
 import {Struct} from '../chain/struct'
 import {TimePoint, TimePointSec} from '../chain/time'
 
-const StringType: ABISerializableType = {
+const StringType: ABISerializableConstructor = {
     abiName: 'string',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readString()
@@ -38,7 +38,7 @@ const StringType: ABISerializableType = {
     },
 }
 
-const BoolType: ABISerializableType = {
+const BoolType: ABISerializableConstructor = {
     abiName: 'bool',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readByte() === 1
@@ -49,7 +49,7 @@ const BoolType: ABISerializableType = {
     },
 }
 
-export const builtins: ABISerializableType[] = [
+export const builtins: ABISerializableConstructor[] = [
     // types represented by JavaScript builtins
     BoolType,
     StringType,
@@ -81,9 +81,9 @@ export const builtins: ABISerializableType[] = [
     VarUInt,
 ]
 
-export type TypeLookup = {[name: string]: ABISerializableType}
+export type TypeLookup = {[name: string]: ABISerializableConstructor}
 
-export function buildTypeLookup(additional: ABISerializableType[] = []): TypeLookup {
+export function buildTypeLookup(additional: ABISerializableConstructor[] = []): TypeLookup {
     const rv: TypeLookup = {}
     for (const type of builtins) {
         rv[type.abiName] = type
@@ -107,7 +107,7 @@ export function getTypeName(object: any): string | undefined {
     }
 }
 
-export function getType(object: any, name = 'jsobj'): ABISerializableType | undefined {
+export function getType(object: any, name = 'jsobj'): ABISerializableConstructor | undefined {
     if (object.constructor && object.constructor.abiName !== undefined) {
         return object.constructor
     }

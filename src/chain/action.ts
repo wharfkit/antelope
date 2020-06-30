@@ -75,7 +75,7 @@ export class Action extends Struct {
     }
 
     /** Return action data decoded as given type. */
-    decodeData<T extends ABISerializableObject>(type: string | ABISerializableType, abi?: ABIDef) {
+    decodeData<T extends ABISerializableObject>(type: ABISerializableType, abi?: ABIDef) {
         return decode<T>({data: this.data, type: type, abi})
     }
 }

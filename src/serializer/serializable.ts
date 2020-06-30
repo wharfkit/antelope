@@ -2,6 +2,18 @@ import {ABI} from '../chain/abi'
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
 
+/** A self-describing object that can be ABI encoded and decoded. */
+export type ABISerializable =
+    | ABISerializableObject
+    | string
+    | boolean
+    | ABISerializable[]
+    | {[key: string]: ABISerializable}
+
+/** Type describing an ABI type, either a string (e.g. `uint32[]`) or a ABI type class. */
+export type ABISerializableType = string | ABISerializableConstructor
+
+/** Interface that should be implemented by ABI serializable objects. */
 export interface ABISerializableObject {
     /** Called when encoding to binary abi format. */
     toABI?(encoder: ABIEncoder): void
@@ -11,15 +23,8 @@ export interface ABISerializableObject {
     equals(other: any): boolean
 }
 
-export type ABISerializable =
-    | ABISerializableObject
-    | string
-    | boolean
-    | ABISerializable[]
-    | {[key: string]: ABISerializable}
-
 export interface ABIType {
-    type: string | ABISerializableType
+    type: ABISerializableType
     optional?: boolean
     array?: boolean
     extension?: boolean
@@ -30,7 +35,7 @@ export interface ABIField extends ABIType {
     default?: any
 }
 
-export interface ABISerializableType {
+export interface ABISerializableConstructor {
     /** Name of the type, e.g. `asset`. */
     abiName: string
     /** For structs, the fields that this type contains. */
@@ -59,11 +64,11 @@ export interface ABISerializableType {
 }
 
 /** Return a ABI definition for given ABISerializableType. */
-export function synthesizeABI(type: ABISerializableType) {
+export function synthesizeABI(type: ABISerializableConstructor) {
     const structs: ABI.Struct[] = []
     const variants: ABI.Variant[] = []
     const aliases: ABI.TypeDef[] = []
-    const seen = new Set<ABISerializableType>()
+    const seen = new Set<ABISerializableConstructor>()
     const resolveAbiType = (t: ABIType) => {
         let typeName: string
         if (typeof t.type !== 'string') {
@@ -82,7 +87,7 @@ export function synthesizeABI(type: ABISerializableType) {
         }
         return typeName
     }
-    const resolve = (t: ABISerializableType) => {
+    const resolve = (t: ABISerializableConstructor) => {
         if (!t.abiName) {
             throw new Error('Encountered non-conforming type')
         }

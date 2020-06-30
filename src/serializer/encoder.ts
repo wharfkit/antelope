@@ -9,6 +9,7 @@ import {Bytes} from '../chain/bytes'
 
 import {
     ABISerializable,
+    ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
     synthesizeABI,
@@ -46,7 +47,7 @@ interface EncodeArgsBase {
      * Additional types to use when encoding, can be used to pass type constructors
      * that should be used when encountering a custom type.
      */
-    customTypes?: ABISerializableType[]
+    customTypes?: ABISerializableConstructor[]
 }
 
 interface EncodeArgsUntyped extends EncodeArgsBase {
@@ -60,7 +61,7 @@ interface EncodeArgsUntyped extends EncodeArgsBase {
      * Type to use when encoding the given object, either a type constructor
      * or a string name of a builtin type or a custom type in the given `abi`.
      */
-    type: ABISerializableType | string
+    type: ABISerializableType
 }
 
 interface EncodeArgsSerializable extends EncodeArgsBase {
@@ -71,13 +72,13 @@ interface EncodeArgsSerializable extends EncodeArgsBase {
     /**
      * Optional type-override for given serializable object.
      */
-    type?: ABISerializableType | string
+    type?: ABISerializableType
 }
 
 export type EncodeArgs = EncodeArgsSerializable | EncodeArgsUntyped
 
 export function encode(args: EncodeArgs): Bytes {
-    let type: ABISerializableType | undefined
+    let type: ABISerializableConstructor | undefined
     let typeName: string | undefined
     if (typeof args.type === 'string') {
         typeName = args.type

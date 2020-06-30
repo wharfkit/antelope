@@ -1,14 +1,21 @@
 import {encode as abiEncode} from './encoder'
 import {decode as abiDecode} from './decoder'
-import {ABISerializableType, synthesizeABI} from './serializable'
+import {ABISerializableConstructor, synthesizeABI} from './serializable'
 
 export {ABIEncoder} from './encoder'
 export {ABIDecoder} from './decoder'
 
+export {
+    ABISerializable,
+    ABISerializableType,
+    ABISerializableObject,
+    ABISerializableConstructor,
+} from './serializable'
+
 export namespace Serializer {
     export const encode = abiEncode
     export const decode = abiDecode
-    export function synthesize(type: ABISerializableType) {
+    export function synthesize(type: ABISerializableConstructor) {
         return synthesizeABI(type).abi
     }
 }

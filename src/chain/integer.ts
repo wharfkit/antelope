@@ -6,7 +6,7 @@ import {ABIEncoder} from '../serializer/encoder'
 
 export type IntType = Int | BNInt | number | string | BN
 
-export class Int implements ABISerializableObject {
+class Int implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 
@@ -62,13 +62,11 @@ export class Int implements ABISerializableObject {
     }
 }
 
-type BNIntType = IntType | Uint8Array
-
 class BNInt implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 
-    static from<T extends typeof BNInt>(this: T, value: BNIntType): InstanceType<T> {
+    static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>
         }
@@ -98,7 +96,7 @@ class BNInt implements ABISerializableObject {
         this.value = value
     }
 
-    equals(other: BNIntType, allowCast = false) {
+    equals(other: IntType | Uint8Array, allowCast = false) {
         const self = this.constructor as typeof BNInt
         if (
             !allowCast &&

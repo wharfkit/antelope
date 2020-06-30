@@ -7,17 +7,22 @@ import BN from 'bn.js'
 import {ABI, ABIDef} from '../chain/abi'
 import {Bytes, BytesType} from '../chain/bytes'
 
-import {ABISerializable, ABISerializableType, synthesizeABI} from './serializable'
+import {
+    ABISerializable,
+    ABISerializableConstructor,
+    ABISerializableType,
+    synthesizeABI,
+} from './serializable'
 import {buildTypeLookup, getTypeName, TypeLookup} from './builtins'
 import {resolveAliases} from './utils'
 
-interface DecodeArgs<T> {
-    type: ABISerializableType | string
+interface DecodeArgs {
+    type: ABISerializableType
     abi?: ABIDef
     data?: BytesType | ABIDecoder
     json?: string
     object?: any
-    customTypes?: ABISerializableType[]
+    customTypes?: ABISerializableConstructor[]
 }
 
 class DecodingError extends Error {
@@ -40,7 +45,7 @@ class DecodingError extends Error {
     }
 }
 
-export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
+export function decode<T extends ABISerializable>(args: DecodeArgs): T {
     const typeName = typeof args.type === 'string' ? args.type : args.type.abiName
     const customTypes = args.customTypes || []
     let abi: ABI
@@ -48,11 +53,11 @@ export function decode<T extends ABISerializable>(args: DecodeArgs<T>): T {
         abi = ABI.from(args.abi)
     } else {
         try {
-            let type: ABISerializableType
+            let type: ABISerializableConstructor
             if (typeof args.type === 'string') {
                 const lookup = buildTypeLookup(customTypes)
                 const rName = new ABI.ResolvedType(args.type).name // type name w/o suffixes
-                type = lookup[rName] as ABISerializableType
+                type = lookup[rName] as ABISerializableConstructor
                 if (!type) {
                     throw new Error(`Unknown type: ${args.type}`)
                 }

@@ -1,4 +1,5 @@
 import {
+    ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
     ABIType,
@@ -7,7 +8,7 @@ import {
 import {decode, Resolved} from '../serializer/decoder'
 import {encode} from '../serializer/encoder'
 
-export interface VariantConstructor extends ABISerializableType {
+export interface VariantConstructor extends ABISerializableConstructor {
     new (...args: any[]): ABISerializableObject
 }
 
@@ -18,7 +19,7 @@ export class Variant implements ABISerializableObject {
     static from<T extends VariantConstructor>(
         this: T,
         object: any,
-        variantType?: ABISerializableType | string
+        variantType?: ABISerializableType
     ): InstanceType<T> {
         if (object[Resolved]) {
             return new this(object[1], object[0]) as InstanceType<T>
@@ -79,15 +80,15 @@ export class Variant implements ABISerializableObject {
 }
 
 export namespace Variant {
-    export function type(name: string, types: (ABIType | ABISerializableType | string)[]) {
+    export function type(name: string, types: (ABIType | ABISerializableType)[]) {
         return function <T extends typeof Variant>(variant: T) {
             variant.abiName = name
             variant.abiVariant = types.map((type) => {
                 if (typeof type === 'string') {
                     return {type}
                 }
-                if (typeof (type as ABISerializableType).abiName === 'string') {
-                    return {type: type as ABISerializableType}
+                if (typeof (type as ABISerializableConstructor).abiName === 'string') {
+                    return {type: type as ABISerializableConstructor}
                 }
                 return type as ABIType
             })
