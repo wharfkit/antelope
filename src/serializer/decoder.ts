@@ -114,7 +114,7 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
         throw new Error('Maximum decoding depth exceeded')
     }
     if (type.isOptional) {
-        if (decoder.readUint8() === 0) {
+        if (decoder.readByte() === 0) {
             return null
         }
     }
@@ -150,7 +150,7 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
                     return rv
                 }
             } else if (type.variant) {
-                const vIdx = decoder.readUint8()
+                const vIdx = decoder.readByte()
                 const vType = type.variant[vIdx]
                 if (!vType) {
                     throw new Error(`Unknown variant idx: ${vIdx}`)
@@ -272,67 +272,61 @@ export class ABIDecoder {
         }
     }
 
-    readInt8(): number {
+    /** Read one byte. */
+    readByte(): number {
         this.ensure(1)
-        const rv = this.data.getInt8(this.pos)
-        this.pos += 1
+        return this.array[this.pos++]
+    }
+
+    /** Read integer as JavaScript number, up to 32 bits. */
+    readNum(byteWidth: number, isSigned: boolean) {
+        this.ensure(byteWidth)
+        const d = this.data,
+            p = this.pos
+        let rv: number
+        switch (byteWidth * (isSigned ? -1 : 1)) {
+            case 1:
+                rv = d.getUint8(p)
+                break
+            case 2:
+                rv = d.getUint16(p, true)
+                break
+            case 4:
+                rv = d.getUint32(p, true)
+                break
+            case -1:
+                rv = d.getInt8(p)
+                break
+            case -2:
+                rv = d.getInt16(p, true)
+                break
+            case -4:
+                rv = d.getInt32(p, true)
+                break
+            default:
+                throw new Error('Invalid integer width')
+        }
+        this.pos += byteWidth
         return rv
     }
 
-    readInt16(): number {
-        this.ensure(2)
-        const rv = this.data.getInt16(this.pos, true)
-        this.pos += 2
-        return rv
-    }
-
-    readInt32(): number {
-        this.ensure(4)
-        const rv = this.data.getInt32(this.pos, true)
-        this.pos += 4
-        return rv
-    }
-
-    readInt64(): BN {
-        this.ensure(8)
-        const rv = new BN(this.array.subarray(this.pos, this.pos + 8), 'le')
-        this.pos += 8
-        return rv.fromTwos(64)
-    }
-
-    readUint8(): number {
-        this.ensure(1)
-        const rv = this.data.getUint8(this.pos)
-        this.pos += 1
-        return rv
-    }
-
-    readUint16(): number {
-        this.ensure(2)
-        const rv = this.data.getUint16(this.pos, true)
-        this.pos += 2
-        return rv
-    }
-
-    readUint32(): number {
-        this.ensure(4)
-        const rv = this.data.getUint32(this.pos, true)
-        this.pos += 4
-        return rv
-    }
-
-    readUint64(): BN {
-        this.ensure(8)
-        const rv = new BN(this.array.subarray(this.pos, this.pos + 8), 'le')
-        this.pos += 8
-        return rv
+    /** Read integer as a bn.js number. */
+    readBn(bytes: number, signed: boolean) {
+        this.ensure(bytes)
+        const bn = new BN(this.array.subarray(this.pos, this.pos + bytes), 'le')
+        this.pos += bytes
+        if (signed) {
+            return bn.fromTwos(bytes * 8)
+        } else {
+            return bn
+        }
     }
 
     readVaruint32() {
         let v = 0
         let bit = 0
         for (;;) {
-            const b = this.readUint8()
+            const b = this.readByte()
             v |= (b & 0x7f) << bit
             bit += 7
             if (!(b & 0x80)) {

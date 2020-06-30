@@ -134,7 +134,7 @@ export function encode(args: EncodeArgs): Bytes {
 export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingContext) {
     const valueExists = value !== undefined && value !== null
     if (type.isOptional) {
-        ctx.encoder.writeUint8(valueExists ? 1 : 0)
+        ctx.encoder.writeByte(valueExists ? 1 : 0)
     } else if (!valueExists) {
         throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
     }
@@ -243,53 +243,56 @@ export class ABIEncoder {
         this.array = array
     }
 
-    writeBytes(bytes: ArrayLike<number>) {
+    /** Write a single byte. */
+    writeByte(byte: number) {
+        this.ensure(1)
+        this.array[this.pos++] = byte
+    }
+
+    /** Write an array of bytes. */
+    writeArray(bytes: ArrayLike<number>) {
         const size = bytes.length
         this.ensure(size)
         this.array.set(bytes, this.pos)
         this.pos += size
     }
 
-    writeBnInt(bits: number, value: BN) {
-        this.writeBytes(value.toTwos(bits).toArrayLike(Uint8Array as any, 'le', bits / 8))
+    /** Write a JavaScript number as integer, up to 32 bits. */
+    writeNum(value: number, byteWidth: number, isSigned: boolean) {
+        this.ensure(byteWidth)
+        const d = this.data,
+            p = this.pos
+        switch (byteWidth * (isSigned ? -1 : 1)) {
+            case 1:
+                d.setUint8(p, value)
+                break
+            case 2:
+                d.setUint16(p, value, true)
+                break
+            case 4:
+                d.setUint32(p, value, true)
+                break
+            case -1:
+                d.setInt8(p, value)
+                break
+            case -2:
+                d.setInt16(p, value, true)
+                break
+            case -4:
+                d.setInt32(p, value, true)
+                break
+            default:
+                throw new Error('Invalid integer width')
+        }
+        this.pos += byteWidth
     }
 
-    writeBnUint(bits: number, value: BN) {
-        this.writeBytes(value.toArrayLike(Uint8Array as any, 'le', bits / 8))
-    }
-
-    writeInt8(value: number) {
-        this.ensure(1)
-        this.data.setInt8(this.pos++, value)
-    }
-
-    writeInt16(value: number) {
-        this.ensure(2)
-        this.data.setInt16(this.pos, value, true)
-        this.pos += 2
-    }
-
-    writeInt32(value: number) {
-        this.ensure(4)
-        this.data.setInt32(this.pos, value, true)
-        this.pos += 4
-    }
-
-    writeUint8(value: number) {
-        this.ensure(1)
-        this.data.setUint8(this.pos++, value)
-    }
-
-    writeUint16(value: number) {
-        this.ensure(2)
-        this.data.setUint16(this.pos, value, true)
-        this.pos += 2
-    }
-
-    writeUint32(value: number) {
-        this.ensure(4)
-        this.data.setUint32(this.pos, value, true)
-        this.pos += 4
+    /** Write a bn.js number. */
+    writeBn(value: BN, byteWidth: number, isSigned: boolean) {
+        if (isSigned) {
+            value = value.toTwos(byteWidth * 8)
+        }
+        this.writeArray(value.toArrayLike(Uint8Array as any, 'le', byteWidth))
     }
 
     writeFloat32(value: number) {
@@ -323,7 +326,7 @@ export class ABIEncoder {
 
     writeString(v: string) {
         this.writeVaruint32(v.length)
-        this.writeBytes(this.textEncoder.encode(v))
+        this.writeArray(this.textEncoder.encode(v))
     }
 
     getData(): Uint8Array {

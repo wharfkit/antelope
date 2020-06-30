@@ -26,7 +26,7 @@ class Checksum implements ABISerializableObject {
     array: Uint8Array
 
     constructor(array: Uint8Array) {
-        const byteSize = this.constructor['byteSize']
+        const byteSize = (this.constructor as typeof Checksum).byteSize
         if (array.byteLength !== byteSize) {
             throw new Error(
                 `Checksum size mismatch, expected ${byteSize} bytes got ${array.byteLength}`
@@ -40,7 +40,7 @@ class Checksum implements ABISerializableObject {
     }
 
     toABI(encoder: ABIEncoder) {
-        encoder.writeBytes(this.array)
+        encoder.writeArray(this.array)
     }
 
     toString() {

@@ -41,11 +41,11 @@ const StringType: ABISerializableType<string> = {
 const BoolType: ABISerializableType<boolean> = {
     abiName: 'bool',
     fromABI: (decoder: ABIDecoder) => {
-        return decoder.readUint8() === 1
+        return decoder.readByte() === 1
     },
     from: (value: boolean): boolean => value,
     toABI: (value: boolean, encoder: ABIEncoder) => {
-        encoder.writeUint8(value === true ? 1 : 0)
+        encoder.writeByte(value === true ? 1 : 0)
     },
 }
 

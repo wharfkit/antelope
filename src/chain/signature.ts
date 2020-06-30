@@ -55,7 +55,7 @@ export class Signature implements ABISerializableObject {
 
     /** @internal */
     static fromABI(decoder: ABIDecoder) {
-        const typeIdx = decoder.readUint8()
+        const typeIdx = decoder.readByte()
         let type: string
         switch (typeIdx) {
             case 0:
@@ -115,19 +115,19 @@ export class Signature implements ABISerializableObject {
     toABI(encoder: ABIEncoder) {
         switch (this.type) {
             case 'K1':
-                encoder.writeUint8(0)
+                encoder.writeByte(0)
                 break
             case 'R1':
-                encoder.writeUint8(1)
+                encoder.writeByte(1)
                 break
             case 'WA':
-                encoder.writeUint8(2)
+                encoder.writeByte(2)
                 // TODO: this isn't actually supported yet since we threw away the metadata when decoding
                 throw new Error('WA keys are not supported yet')
             default:
                 throw new Error(`Unable to encode unknown signature type: ${this.type}`)
         }
-        encoder.writeBytes(this.data.array)
+        encoder.writeArray(this.data.array)
     }
 
     /** @internal */

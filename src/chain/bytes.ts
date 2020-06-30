@@ -122,7 +122,7 @@ export class Bytes implements ABISerializableObject {
 
     toABI(encoder: ABIEncoder) {
         encoder.writeVaruint32(this.array.byteLength)
-        encoder.writeBytes(this.array)
+        encoder.writeArray(this.array)
     }
 
     toJSON() {

@@ -4,7 +4,7 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 
-export type IntType = Int | number | string | BN
+export type IntType = Int | BNInt | number | string | BN
 
 export class Int implements ABISerializableObject {
     static isSigned: boolean
@@ -24,17 +24,18 @@ export class Int implements ABISerializableObject {
         }
         if (typeof value === 'string') {
             value = Number.parseInt(value, 10)
-        }
-        if (BN.isBN(value)) {
+        } else if (value instanceof BNInt) {
+            value = value.value.toNumber()
+        } else if (value instanceof Int) {
+            value = value.value
+        } else if (BN.isBN(value)) {
             value = value.toNumber()
         }
         return new this(value) as InstanceType<T>
     }
 
     static fromABI<T extends typeof Int>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(
-            decoder[`read${this.isSigned ? 'Int' : 'Uint'}${this.byteWidth * 8}`]()
-        ) as InstanceType<T>
+        return new this(decoder.readNum(this.byteWidth, this.isSigned)) as InstanceType<T>
     }
 
     value: number
@@ -47,9 +48,8 @@ export class Int implements ABISerializableObject {
     }
 
     toABI(encoder: ABIEncoder) {
-        let type = this.constructor['isSigned'] ? 'Uint' : 'Int'
-        type += this.constructor['byteWidth'] * 8
-        encoder['write' + type](this.value)
+        const self = this.constructor as typeof Int
+        encoder.writeNum(this.value, self.byteWidth, self.isSigned)
     }
 
     toJSON() {
@@ -57,42 +57,45 @@ export class Int implements ABISerializableObject {
     }
 }
 
+type BNIntType = IntType | Uint8Array
+
 class BNInt implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 
-    static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T> {
+    static from<T extends typeof BNInt>(this: T, value: BNIntType): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>
+        }
+        if (value instanceof BNInt) {
+            return new this(value.value) as InstanceType<T>
         }
         if (value instanceof Uint8Array) {
             return new this(new BN(value, undefined, 'le')) as InstanceType<T>
         }
-        return new this(new BN(value as any)) as InstanceType<T>
+        if (value instanceof Int) {
+            value = value.value
+        }
+        return new this(new BN(value)) as InstanceType<T>
     }
 
     static fromABI<T extends typeof BNInt>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(
-            decoder[`read${this.isSigned ? 'Int' : 'Uint'}${this.byteWidth * 8}`]()
-        ) as InstanceType<T>
+        return new this(decoder.readBn(this.byteWidth, this.isSigned)) as InstanceType<T>
     }
 
     value: BN
 
     constructor(value: BN) {
-        if (value.byteLength > this.constructor['byteWidth']) {
+        const self = this.constructor as typeof BNInt
+        if (value.byteLength() > self.byteWidth) {
             throw new Error('Number too wide')
         }
         this.value = value
     }
 
     toABI(encoder: ABIEncoder) {
-        const bits = this.constructor['byteWidth'] * 8
-        if (this.constructor['isSigned']) {
-            encoder.writeBnInt(bits, this.value)
-        } else {
-            encoder.writeBnUint(bits, this.value)
-        }
+        const self = this.constructor as typeof BNInt
+        encoder.writeBn(this.value, self.byteWidth, self.isSigned)
     }
 
     toString() {

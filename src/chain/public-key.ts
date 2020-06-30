@@ -103,7 +103,7 @@ export class PublicKey implements ABISerializableObject {
             default:
                 throw new Error(`Unable to encode unknown key type: ${this.type}`)
         }
-        encoder.writeBytes(this.data.array)
+        encoder.writeArray(this.data.array)
     }
 
     /** @internal */
