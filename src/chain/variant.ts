@@ -80,7 +80,7 @@ export class Variant implements ABISerializableObject {
 
 export namespace Variant {
     export function type(name: string, types: (ABIType | ABISerializableType | string)[]) {
-        return function (variant: typeof Variant) {
+        return function <T extends typeof Variant>(variant: T) {
             variant.abiName = name
             variant.abiVariant = types.map((type) => {
                 if (typeof type === 'string') {
