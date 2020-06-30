@@ -3,7 +3,9 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
+
 import {Bytes} from './bytes'
+import {CurveType} from './curve-type'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 
@@ -11,7 +13,7 @@ export class PublicKey implements ABISerializableObject {
     static abiName = 'public_key'
 
     /** Type, e.g. `K1` */
-    type: string
+    type: CurveType
     /** Compressed public key point. */
     data: Bytes
 
@@ -21,21 +23,21 @@ export class PublicKey implements ABISerializableObject {
             return value
         }
         if (typeof value === 'object') {
-            return new PublicKey(value.type, new Bytes(value.compressed))
+            return new PublicKey(CurveType.from(value.type), new Bytes(value.compressed))
         }
         if (value.startsWith('PUB_')) {
             const parts = value.split('_')
             if (parts.length !== 3) {
                 throw new Error('Invalid signature string')
             }
-            const type = parts[1]
-            const size = type === 'K1' || type === 'R1' ? 33 : undefined
+            const type = CurveType.from(parts[1])
+            const size = type === CurveType.K1 || type === CurveType.R1 ? 33 : undefined
             const data = Base58.decodeRipemd160Check(parts[2], size, type)
             return new PublicKey(type, data)
         } else if (value.length >= 50) {
             // Legacy EOS key
             const data = Base58.decodeRipemd160Check(value.slice(-50))
-            return new PublicKey('K1', data)
+            return new PublicKey(CurveType.K1, data)
         } else {
             throw new Error('Invalid signature string')
         }
@@ -43,30 +45,19 @@ export class PublicKey implements ABISerializableObject {
 
     /** @internal */
     static fromABI(decoder: ABIDecoder) {
-        const typeIdx = decoder.readUint8()
-        let type: string
-        switch (typeIdx) {
-            case 0:
-                type = 'K1'
-                break
-            case 1:
-                type = 'R1'
-                break
-            case 2: {
-                // "WA" keys pack some sort of metadata
-                // we probably need to restructure key data storage into containers like FC does
-                const data = new Bytes(decoder.readArray(33))
-                Bytes.fromABI(decoder)
-                return new PublicKey('WA', data)
-            }
-            default:
-                throw new Error(`Unknown public key type: ${typeIdx}`)
+        const type = CurveType.from(decoder.readByte())
+        if (type == CurveType.WA) {
+            // "WA" keys pack some sort of metadata
+            // we probably need to restructure key data storage into containers like FC does
+            const data = new Bytes(decoder.readArray(33))
+            Bytes.fromABI(decoder) // throw away metadata for now
+            return new PublicKey(type, data)
         }
         return new PublicKey(type, new Bytes(decoder.readArray(33)))
     }
 
     /** @internal */
-    constructor(type: string, data: Bytes) {
+    constructor(type: CurveType, data: Bytes) {
         this.type = type
         this.data = data
     }
@@ -76,7 +67,7 @@ export class PublicKey implements ABISerializableObject {
      * @throws If the key type isn't `K1`
      */
     toLegacyString(prefix = 'EOS') {
-        if (this.type !== 'K1') {
+        if (this.type !== CurveType.K1) {
             throw new Error('Unable to create legacy formatted string for non-K1 key')
         }
         return `${prefix}${Base58.encodeRipemd160Check(this.data)}`
@@ -89,20 +80,10 @@ export class PublicKey implements ABISerializableObject {
 
     /** @internal */
     toABI(encoder: ABIEncoder) {
-        switch (this.type) {
-            case 'K1':
-                encoder.writeUint8(0)
-                break
-            case 'R1':
-                encoder.writeUint8(1)
-                break
-            case 'WA':
-                encoder.writeUint8(2)
-                // TODO: this isn't actually supported yet since we threw away the metadata when decoding
-                throw new Error('WA keys are not supported yet')
-            default:
-                throw new Error(`Unable to encode unknown key type: ${this.type}`)
+        if (this.type === CurveType.WA) {
+            throw new Error('WA keys are not supported yet')
         }
+        encoder.writeByte(CurveType.indexFor(this.type))
         encoder.writeArray(this.data.array)
     }
 

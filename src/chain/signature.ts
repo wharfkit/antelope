@@ -9,6 +9,7 @@ import {PublicKey} from './public-key'
 
 import {recover} from '../crypto/recover'
 import {verify} from '../crypto/verify'
+import {CurveType} from './curve-type'
 
 export type SignatureType =
     | Signature
@@ -19,7 +20,7 @@ export class Signature implements ABISerializableObject {
     static abiName = 'signature'
 
     /** Type, e.g. `K1` */
-    type: string
+    type: CurveType
     /** Signature data. */
     data: Bytes
 
@@ -31,21 +32,22 @@ export class Signature implements ABISerializableObject {
         if (typeof value === 'object') {
             const data = new Uint8Array(1 + 32 + 32)
             let recid = value.recid
-            if (value.type === 'K1' || value.type === 'R1') {
+            const type = CurveType.from(value.type)
+            if (value.type === CurveType.K1 || value.type === CurveType.R1) {
                 recid += 31
             }
             data[0] = recid
             data.set(value.r, 1)
             data.set(value.s, 33)
-            return new Signature(value.type, new Bytes(data))
+            return new Signature(type, new Bytes(data))
         }
         if (value.startsWith('SIG_')) {
             const parts = value.split('_')
             if (parts.length !== 3) {
                 throw new Error('Invalid signature string')
             }
-            const type = parts[1]
-            const size = type === 'K1' || type === 'R1' ? 65 : undefined
+            const type = CurveType.from(parts[1])
+            const size = type === CurveType.K1 || type === CurveType.R1 ? 65 : undefined
             const data = Base58.decodeRipemd160Check(parts[2], size, type)
             return new Signature(type, data)
         } else {
@@ -55,30 +57,19 @@ export class Signature implements ABISerializableObject {
 
     /** @internal */
     static fromABI(decoder: ABIDecoder) {
-        const typeIdx = decoder.readByte()
-        let type: string
-        switch (typeIdx) {
-            case 0:
-                type = 'K1'
-                break
-            case 1:
-                type = 'R1'
-                break
-            case 2: {
-                // same as with public keys WA type has some extra data tacked on
-                const data = new Bytes(decoder.readArray(65)) // sig
-                Bytes.fromABI(decoder) // throw away for now
-                Bytes.fromABI(decoder)
-                return new Signature('WA', data)
-            }
-            default:
-                throw new Error(`Unknown signature type: ${typeIdx}`)
+        const type = CurveType.from(decoder.readByte())
+        if (type === CurveType.WA) {
+            // same as with public keys WA type has some extra data tacked on
+            const data = new Bytes(decoder.readArray(65)) // sig
+            Bytes.fromABI(decoder) // throw away for now
+            Bytes.fromABI(decoder)
+            return new Signature(CurveType.WA, data)
         }
         return new Signature(type, new Bytes(decoder.readArray(65)))
     }
 
     /** @internal */
-    constructor(type: string, data: Bytes) {
+    constructor(type: CurveType, data: Bytes) {
         this.type = type
         this.data = data
     }

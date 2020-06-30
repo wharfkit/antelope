@@ -9,11 +9,12 @@ import {getPublic} from '../crypto/get-public'
 import {sharedSecret} from '../crypto/shared-secret'
 import {sign} from '../crypto/sign'
 import {generate} from '../crypto/generate'
+import {CurveType} from './curve-type'
 
 export type PrivateKeyType = PrivateKey | string
 
 export class PrivateKey {
-    type: string
+    type: CurveType
     data: Bytes
 
     /** Create PrivateKey object from representing types. */
@@ -27,13 +28,13 @@ export class PrivateKey {
             if (parts.length !== 3) {
                 throw new Error('Invalid private key string')
             }
-            const type = parts[1]
+            const type = CurveType.from(parts[1])
             let size: number | undefined
             switch (type) {
-                case 'K1':
+                case CurveType.K1:
                     size = 33
                     break
-                case 'R1':
+                case CurveType.R1:
                     size = 32
                     break
             }
@@ -41,7 +42,7 @@ export class PrivateKey {
             return new PrivateKey(type, type === 'K1' ? data.droppingFirst() : data)
         } else {
             // WIF format
-            const type = 'K1'
+            const type = CurveType.K1
             const data = Base58.decodeCheck(value)
             if (data.array[0] !== 0x80) {
                 throw new Error('Invalid private key wif')
@@ -54,12 +55,12 @@ export class PrivateKey {
      * Generate new PrivateKey.
      * @throws If a secure random source isn't available.
      */
-    static generate(type: string) {
-        return new PrivateKey(type, new Bytes(generate(type)))
+    static generate(type: CurveType | string) {
+        return new PrivateKey(CurveType.from(type), new Bytes(generate(type)))
     }
 
     /** @internal */
-    constructor(type: string, data: Bytes) {
+    constructor(type: CurveType, data: Bytes) {
         this.type = type
         this.data = data
     }
@@ -104,7 +105,7 @@ export class PrivateKey {
      * @throws If the key type isn't K1.
      */
     toWif() {
-        if (this.type !== 'K1') {
+        if (this.type !== CurveType.K1) {
             throw new Error('Unable to generate WIF for non-k1 key')
         }
         return Base58.encodeCheck(Bytes.from([0x80]).appending(this.data))
