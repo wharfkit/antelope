@@ -29,9 +29,9 @@ export class FetchProvider implements APIProvider {
         this.url = url
         if (!options.fetch) {
             if (typeof window !== 'undefined' && window.fetch) {
-                this.fetch = window.fetch
+                this.fetch = window.fetch.bind(window)
             } else if (typeof global !== 'undefined' && global.fetch) {
-                this.fetch = global.fetch
+                this.fetch = global.fetch.bind(global)
             } else {
                 throw new Error('Missing fetch')
             }
