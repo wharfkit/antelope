@@ -32,14 +32,12 @@ export class PrivateKey {
             let size: number | undefined
             switch (type) {
                 case CurveType.K1:
-                    size = 33
-                    break
                 case CurveType.R1:
                     size = 32
                     break
             }
             const data = Base58.decodeRipemd160Check(parts[2], size, type)
-            return new PrivateKey(type, type === 'K1' ? data.droppingFirst() : data)
+            return new PrivateKey(type, data)
         } else {
             // WIF format
             const type = CurveType.K1
@@ -116,5 +114,9 @@ export class PrivateKey {
      */
     toString() {
         return `PVT_${this.type}_${Base58.encodeRipemd160Check(this.data, this.type)}`
+    }
+
+    toJSON() {
+        return this.toString()
     }
 }

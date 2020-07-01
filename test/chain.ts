@@ -135,6 +135,12 @@ suite('chain', function () {
         )
     })
 
+    test('random', function () {
+        assert.equal(UInt128.random().value.byteLength(), 16)
+        assert.notEqual(UInt128.random().toString(), UInt128.random().toString())
+        assert.notEqual(Int32.random().toString(), Int32.random().toString())
+    })
+
     test('equality helpers', function () {
         this.slow(500)
 

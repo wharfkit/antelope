@@ -45,6 +45,10 @@ export class Bytes implements ABISerializableObject {
         return Bytes.from(a).equals(Bytes.from(b))
     }
 
+    static random(length: number) {
+        return new Bytes(secureRandom(length))
+    }
+
     /** Return true if given value is a valid `BytesType`. */
     static isBytes(value: any): value is BytesType {
         if (value instanceof Bytes || value instanceof Uint8Array) {

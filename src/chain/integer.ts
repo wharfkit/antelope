@@ -38,6 +38,12 @@ class Int implements ABISerializableObject {
         return new this(decoder.readNum(this.byteWidth, this.isSigned)) as InstanceType<T>
     }
 
+    static random() {
+        const bytes = secureRandom(this.byteWidth)
+        const decoder = new ABIDecoder(bytes)
+        return this.fromABI(decoder)
+    }
+
     value: number
 
     constructor(value: number) {
@@ -55,6 +61,10 @@ class Int implements ABISerializableObject {
     toABI(encoder: ABIEncoder) {
         const self = this.constructor as typeof Int
         encoder.writeNum(this.value, self.byteWidth, self.isSigned)
+    }
+
+    toString() {
+        return this.value.toFixed(0)
     }
 
     toJSON() {
@@ -84,6 +94,12 @@ class BNInt implements ABISerializableObject {
 
     static fromABI<T extends typeof BNInt>(this: T, decoder: ABIDecoder): InstanceType<T> {
         return new this(decoder.readBn(this.byteWidth, this.isSigned)) as InstanceType<T>
+    }
+
+    static random<T extends typeof BNInt>(this: T): InstanceType<T> {
+        const bytes = secureRandom(this.byteWidth)
+        const decoder = new ABIDecoder(bytes)
+        return this.fromABI(decoder) as InstanceType<T>
     }
 
     value: BN
