@@ -1,7 +1,7 @@
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
-import {arrayEquals, arrayToHex, hexToArray} from '../utils'
+import {arrayEquals, arrayToHex, hexToArray, secureRandom} from '../utils'
 import {Checksum160, Checksum256, Checksum512} from './checksum'
 
 export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string

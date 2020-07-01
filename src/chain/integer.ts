@@ -3,6 +3,7 @@ import BN from 'bn.js'
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
+import {secureRandom} from '../utils'
 
 export type IntType = Int | BNInt | number | string | BN
 
