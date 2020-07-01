@@ -1,4 +1,4 @@
-import {Action, ActionType} from './action'
+import {Action, ActionType, AnyAction} from './action'
 import {Bytes, BytesType} from './bytes'
 import {Checksum256} from './checksum'
 import {IntType, UInt16, UInt32, UInt8, VarUInt} from './integer'
@@ -64,6 +64,15 @@ export interface TransactionFields extends TransactionHeaderFields {
     transaction_extensions?: {type: IntType; data: BytesType}[]
 }
 
+export interface AnyTransaction extends TransactionHeaderFields {
+    /** The context free actions in the transaction. */
+    context_free_actions?: AnyAction[]
+    /** The actions in the transaction. */
+    actions?: AnyAction[]
+    /** Transaction extensions. */
+    transaction_extensions?: {type: IntType; data: BytesType}[]
+}
+
 export type TransactionType = Transaction | TransactionFields
 
 @Struct.type('transaction')
@@ -76,8 +85,26 @@ export class Transaction extends TransactionHeader {
     @Struct.field(Action, {array: true, default: []})
     transaction_extensions!: TransactionExtension[]
 
-    static from<T extends StructConstructor>(this: T, object: TransactionType): InstanceType<T> {
-        return super.from(object) as InstanceType<T>
+    static from<T extends StructConstructor>(
+        this: T,
+        object: TransactionType | AnyTransaction
+    ): InstanceType<T> {
+        const actions = (object.actions || []).map((action) => Action.from(action))
+        const context_free_actions = (object.context_free_actions || []).map((action) =>
+            Action.from(action)
+        )
+        const transaction = {
+            ...object,
+            context_free_actions,
+            actions,
+        }
+        return super.from(transaction) as InstanceType<T>
+    }
+
+    /** Return true if this transaction is equal to given transaction. */
+    equals(other: TransactionType | AnyTransaction) {
+        const tx = Transaction.from(other)
+        return this.id.equals(tx.id)
     }
 
     get id(): Checksum256 {

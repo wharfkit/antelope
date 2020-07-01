@@ -1,25 +1,25 @@
 {
     "account_name": "teamgreymass",
-    "head_block_num": 20236779,
-    "head_block_time": "2020-06-15T22:58:07.000",
+    "head_block_num": 22952282,
+    "head_block_time": "2020-07-01T16:16:12.000",
     "privileged": false,
     "last_code_update": "1970-01-01T00:00:00.000",
     "created": "2020-02-26T22:28:14.000",
-    "core_liquid_balance": "0.0129 EOS",
+    "core_liquid_balance": "0.0722 EOS",
     "ram_quota": 5489,
     "net_weight": 10000,
     "cpu_weight": 9999,
     "net_limit": {
-        "used": 185,
-        "available": 38894,
+        "used": 0,
+        "available": 39079,
         "max": 39079
     },
     "cpu_limit": {
-        "used": 367,
-        "available": 29407,
-        "max": 29774
+        "used": 190,
+        "available": 29583,
+        "max": 29773
     },
-    "ram_usage": 4105,
+    "ram_usage": 3446,
     "permissions": [
         {
             "perm_name": "active",
@@ -64,12 +64,7 @@
         "net_weight": "1.0000 EOS",
         "cpu_weight": "0.9999 EOS"
     },
-    "refund_request": {
-        "owner": "teamgreymass",
-        "request_time": "2020-06-15T22:57:44",
-        "net_amount": "0.0000 EOS",
-        "cpu_amount": "0.0001 EOS"
-    },
+    "refund_request": null,
     "voter_info": {
         "owner": "teamgreymass",
         "proxy": "",
@@ -82,17 +77,5 @@
         "reserved2": 0,
         "reserved3": "0 "
     },
-    "rex_info": {
-        "version": 0,
-        "owner": "jesta.x",
-        "vote_stake": "2258.7011 EOS",
-        "rex_balance": "22453965.2026 REX",
-        "matured_rex": 0,
-        "rex_maturities": [
-            {
-                "key": "2106-02-07T06:28:15",
-                "value": "224539652026"
-            }
-        ]
-    }
+    "rex_info": null
 }

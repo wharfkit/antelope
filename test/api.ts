@@ -18,20 +18,14 @@ const client = new APIClient({
 suite('api v1', function () {
     this.slow(200)
 
-    test('chain get_account', async function() {
-      const account = await client.v1.chain.get_account('teamgreymass')
-      assert.equal(
-        account.account_name,
-        'teamgreymass'
-      )
+    test('chain get_account', async function () {
+        const account = await client.v1.chain.get_account('teamgreymass')
+        assert.equal(account.account_name, 'teamgreymass')
     })
 
-    test('chain get_account (system account)', async function() {
-      const account = await client.v1.chain.get_account('eosio')
-      assert.equal(
-        account.account_name,
-        'eosio'
-      )
+    test('chain get_account (system account)', async function () {
+        const account = await client.v1.chain.get_account('eosio')
+        assert.equal(account.account_name, 'eosio')
     })
 
     test('chain get_info', async function () {
