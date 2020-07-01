@@ -40,6 +40,8 @@ export interface ABISerializableConstructor {
     abiName: string
     /** For structs, the fields that this type contains. */
     abiFields?: ABIField[]
+    /** For structs, the base class this type extends. */
+    abiBase?: ABISerializableConstructor
     /** For variants, the different types this type can represent. */
     abiVariant?: ABIType[]
     /** Alias to another type. */
@@ -61,7 +63,10 @@ export interface ABISerializableConstructor {
      * @param encoder The encoder to write the value to.
      */
     toABI?(value: any, encoder: ABIEncoder): void
-    // new <T extends ABISerializableObject>(...args: any[]): T
+    /**
+     * Create a new instance, don't use this other than from a custom `from` factory method.
+     * @internal
+     */
     new (...args: any[]): ABISerializableObject
 }
 
@@ -110,7 +115,7 @@ export function synthesizeABI(type: ABISerializableConstructor) {
                 }
             })
             const struct: ABI.Struct = {
-                base: '',
+                base: t.abiBase ? resolve(t.abiBase) : '',
                 name: t.abiName,
                 fields,
             }
@@ -124,13 +129,8 @@ export function synthesizeABI(type: ABISerializableConstructor) {
         }
         return t.abiName
     }
-    // resolve the types and assign root as an alias to the first type
-    const root: ABI.TypeDef = {
-        type: resolve(type),
-        new_type_name: 'root',
-    }
-    aliases.push(root)
-    return {abi: ABI.from({structs, variants, types: aliases}), types: Array.from(seen)}
+    const root = resolve(type)
+    return {abi: ABI.from({structs, variants, types: aliases}), types: Array.from(seen), root}
 }
 
 export function abiTypeString(type: ABIType) {

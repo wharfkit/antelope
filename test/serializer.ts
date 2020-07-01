@@ -13,6 +13,7 @@ import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
 import {Variant} from '../src/chain/variant'
 import {TypeAlias} from '../src/chain/type-alias'
+import {Transaction} from '../src/chain/transaction'
 
 suite('serializer', function () {
     test('array', function () {
@@ -190,14 +191,6 @@ suite('serializer', function () {
         assert.equal(
             JSON.stringify(transfer),
             '{"from":"alice","to":"bob","quantity":"42.0 GMZ","memo":"for you"}'
-        )
-
-        assert.equal(
-            JSON.stringify(Serializer.synthesize(Transfer)),
-            '{"version":"eosio::abi/1.1","types":[{"type":"transfer","new_type_name":"root"}],"variants":[],' +
-                '"structs":[{"base":"","name":"transfer","fields":[{"name":"from","type":"name"},{"name":"' +
-                'to","type":"name"},{"name":"quantity","type":"asset"},{"name":"memo","type":"string"}]}],' +
-                '"actions":[],"tables":[],"ricardian_clauses":[]}'
         )
     })
 
@@ -530,6 +523,64 @@ suite('serializer', function () {
         })
         assert.equal(decoded instanceof SuperInt, true)
         assert.equal(decoded instanceof Int32, true)
+    })
+
+    test('synthesize abi', function () {
+        @TypeAlias('my_transaction')
+        class MyTransaction extends Transaction {}
+
+        @Variant.type('my_variant', ['string', MyTransaction])
+        class MyVariant extends Variant {}
+
+        assert.deepEqual(Serializer.synthesize(MyVariant), {
+            version: 'eosio::abi/1.1',
+            types: [{new_type_name: 'my_transaction', type: 'transaction'}],
+            variants: [{name: 'my_variant', types: ['string', 'my_transaction']}],
+            structs: [
+                {
+                    base: '',
+                    name: 'permission_level',
+                    fields: [
+                        {name: 'actor', type: 'name'},
+                        {name: 'permission', type: 'name'},
+                    ],
+                },
+                {
+                    base: '',
+                    name: 'action',
+                    fields: [
+                        {name: 'account', type: 'name'},
+                        {name: 'name', type: 'name'},
+                        {name: 'authorization', type: 'permission_level[]'},
+                        {name: 'data', type: 'bytes'},
+                    ],
+                },
+                {
+                    base: '',
+                    name: 'transaction_header',
+                    fields: [
+                        {name: 'expiration', type: 'time_point_sec'},
+                        {name: 'ref_block_num', type: 'uint16'},
+                        {name: 'ref_block_prefix', type: 'uint32'},
+                        {name: 'max_net_usage_words', type: 'varuint32'},
+                        {name: 'max_cpu_usage_ms', type: 'uint8'},
+                        {name: 'delay_sec', type: 'varuint32'},
+                    ],
+                },
+                {
+                    base: 'transaction_header',
+                    name: 'transaction',
+                    fields: [
+                        {name: 'context_free_actions', type: 'action[]'},
+                        {name: 'actions', type: 'action[]'},
+                        {name: 'transaction_extensions', type: 'action[]'},
+                    ],
+                },
+            ],
+            actions: [],
+            tables: [],
+            ricardian_clauses: [],
+        })
     })
 
     test('circular alias', function () {

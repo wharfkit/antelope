@@ -1,11 +1,13 @@
+import {ABI} from '../../chain/abi'
 import {Asset} from '../../chain/asset'
+import {Checksum256} from '../../chain/checksum'
 import {Int32, Int64, UInt32, UInt64} from '../../chain/integer'
 import {Name} from '../../chain/name'
 import {PermissionLevel} from '../../chain/permission-level'
 import {PublicKey} from '../../chain/public-key'
 import {Struct} from '../../chain/struct'
 import {TimePoint, TimePointSec} from '../../chain/time'
-import {ABI, Checksum256, TransactionHeader} from '../../chain'
+import {TransactionHeader} from '../../chain/transaction'
 
 @Struct.type('account_auth')
 export class AccountAuth extends Struct {

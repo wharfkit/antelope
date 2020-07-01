@@ -9,35 +9,51 @@ import {encode} from '../serializer/encoder'
 
 export interface StructConstructor extends ABISerializableConstructor {
     new <T extends Struct>(...args: any[]): T
+    structFields: ABIField[]
 }
 
 export class Struct implements ABISerializableObject {
     static abiName: string
     static abiFields: ABIField[]
+    static abiBase: ABISerializableConstructor
 
     static from<T extends StructConstructor>(this: T, value: any): InstanceType<T> {
         if (value[Resolved] === true) {
             // objects already resolved
-            return new this(value) as InstanceType<T>
+            return new this(value)
         }
         if (value instanceof this) {
-            return value as InstanceType<T>
+            return value
         }
         const object: any = {}
-        for (const field of this.abiFields!) {
+        for (const field of this.structFields) {
             const v = value[field.name] === undefined ? field.default : value[field.name]
             if (v === undefined && !(field.optional === true || field.name.includes('?'))) {
                 throw new Error(`Missing value for non optional field: ${field.name}`)
             }
             object[field.name] = v
         }
-        return decode({object, type: this}) as InstanceType<T>
+        return decode({object, type: this})
+    }
+
+    static get structFields() {
+        const rv: ABIField[] = []
+        const walk = (t: ABISerializableConstructor) => {
+            if (t.abiBase) {
+                walk(t.abiBase)
+            }
+            for (const field of t.abiFields || []) {
+                rv.push(field)
+            }
+        }
+        walk(this)
+        return rv
     }
 
     /** @internal */
     constructor(object: any) {
         const self = this.constructor as typeof Struct
-        for (const field of self.abiFields) {
+        for (const field of self.structFields) {
             this[field.name] = object[field.name]
         }
     }
@@ -82,16 +98,18 @@ export namespace Struct {
     export function field(type: ABISerializableType, options?: Partial<ABIField>) {
         if (!options) options = {}
         return (target: any, name: string) => {
-            if (!target.constructor.abiFields) {
-                target.constructor.abiFields = []
-                target.constructor.abiFields[FieldsOwner] = target
-            } else if (target.constructor.abiFields[FieldsOwner] !== target) {
+            const ctor = target.constructor as StructConstructor
+            if (!ctor.abiFields) {
+                ctor.abiFields = []
+                ctor.abiFields[FieldsOwner] = ctor
+            } else if (ctor.abiFields[FieldsOwner] !== ctor) {
                 // if the target class isn't the owner we take a copy before
                 // adding fields as to not modify the parent class
-                target.constructor.abiFields = target.constructor.abiFields.slice(0)
-                target.constructor.abiFields[FieldsOwner] = target
+                ctor.abiBase = ctor.abiFields[FieldsOwner]
+                ctor.abiFields = []
+                ctor.abiFields[FieldsOwner] = ctor
             }
-            target.constructor.abiFields.push({...options, name, type})
+            ctor.abiFields.push({...options, name, type})
         }
     }
 }

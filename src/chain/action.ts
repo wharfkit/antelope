@@ -1,4 +1,4 @@
-import {Struct, StructConstructor} from './struct'
+import {Struct} from './struct'
 import {Name, NameType} from './name'
 import {Bytes, BytesType} from './bytes'
 import {encode} from '../serializer/encoder'
@@ -7,7 +7,6 @@ import {decode} from '../serializer/decoder'
 import {
     ABISerializable,
     ABISerializableConstructor,
-    ABISerializableObject,
     ABISerializableType,
 } from '../serializer/serializable'
 import {PermissionLevel, PermissionLevelType} from './permission-level'
@@ -46,11 +45,7 @@ export class Action extends Struct {
     /** The ABI-encoded action data. */
     @Struct.field('bytes') data!: Bytes
 
-    static from<T extends StructConstructor>(
-        this: T,
-        object: ActionType | AnyAction,
-        abi?: ABIDef
-    ): InstanceType<T> {
+    static from(object: ActionType | AnyAction, abi?: ABIDef) {
         const data = object.data as any
         if (!Bytes.isBytes(data)) {
             let type: string | undefined
@@ -66,7 +61,7 @@ export class Action extends Struct {
                 data: encode({object: data, type, abi}),
             }
         }
-        return super.from(object) as InstanceType<T>
+        return super.from(object) as Action
     }
 
     /** Return true if this Action is equal to given action. */

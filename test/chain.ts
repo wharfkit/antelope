@@ -8,14 +8,13 @@ import {Int32, Int64, UInt128, UInt32, UInt64} from '../src/chain/integer'
 import {Name} from '../src/chain/name'
 import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
-import {AnyTransaction, Transaction, TransactionHeader} from '../src/chain/transaction'
+import {AnyTransaction, Transaction} from '../src/chain/transaction'
 import {PrivateKey} from '../src/chain/private-key'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
 import {PermissionLevel} from '../src/chain/permission-level'
 import {Variant} from '../src/chain/variant'
-import {ABI, ABIDef} from '../src/chain'
-import {Serializer} from '../src/serializer'
+import {ABIDef} from '../src/chain/abi'
 
 suite('chain', function () {
     test('asset', function () {
