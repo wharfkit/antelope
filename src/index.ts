@@ -1,6 +1,7 @@
 // api
 export * from './api/client'
 export * from './api/provider'
+export * as API from './api/types'
 
 // chain types
 export * from './chain/abi'

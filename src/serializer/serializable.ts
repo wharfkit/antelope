@@ -61,6 +61,8 @@ export interface ABISerializableConstructor {
      * @param encoder The encoder to write the value to.
      */
     toABI?(value: any, encoder: ABIEncoder): void
+    // new <T extends ABISerializableObject>(...args: any[]): T
+    new (...args: any[]): ABISerializableObject
 }
 
 /** Return a ABI definition for given ABISerializableType. */

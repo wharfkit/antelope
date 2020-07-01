@@ -6,11 +6,13 @@ import {ABI, ABIDef} from './abi'
 import {decode} from '../serializer/decoder'
 import {
     ABISerializable,
+    ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
 } from '../serializer/serializable'
 import {PermissionLevel, PermissionLevelType} from './permission-level'
 import {arrayEquatableEquals} from '../utils'
+import {BuiltinTypes} from '../serializer/builtins'
 
 export interface ActionFields {
     /** The account (a.k.a. contract) to run action on. */
@@ -50,10 +52,14 @@ export class Action extends Struct {
         abi?: ABIDef
     ): InstanceType<T> {
         const data = object.data as any
-        if (!(data instanceof Bytes) && (data.constructor.abiName || abi)) {
+        if (!Bytes.isBytes(data)) {
             let type: string | undefined
             if (abi) {
                 type = ABI.from(abi).getActionType(object.name)
+            } else if (!data.constructor || data.constructor.abiName === undefined) {
+                throw new Error(
+                    'Missing ABI definition when creating action with untyped action data'
+                )
             }
             object = {
                 ...object,
@@ -74,8 +80,23 @@ export class Action extends Struct {
         )
     }
 
-    /** Return action data decoded as given type. */
-    decodeData<T extends ABISerializableObject>(type: ABISerializableType, abi?: ABIDef) {
-        return decode<T>({data: this.data, type: type, abi})
+    /** Return action data decoded as given type or using abi. */
+    decodeData<T extends ABISerializableConstructor>(type: T): InstanceType<T>
+    decodeData<T extends keyof BuiltinTypes>(type: T): BuiltinTypes[T]
+    decodeData(abi: ABIDef): ABISerializable
+    decodeData(typeOrAbi: ABISerializableType | ABIDef) {
+        if (typeof typeOrAbi === 'string' || (typeOrAbi as ABISerializableConstructor).abiName) {
+            return decode({
+                data: this.data,
+                type: typeOrAbi as string,
+            })
+        } else {
+            const abi = ABI.from(typeOrAbi as ABIDef)
+            const type = abi.getActionType(this.name)
+            if (!type) {
+                throw new Error(`Action ${this.name} does not exist in provided ABI`)
+            }
+            return decode({data: this.data, type, abi})
+        }
     }
 }

@@ -13,16 +13,27 @@ import {
     ABISerializableType,
     synthesizeABI,
 } from './serializable'
-import {buildTypeLookup, getTypeName, TypeLookup} from './builtins'
+import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
 import {resolveAliases} from './utils'
 
-interface DecodeArgs {
-    type: ABISerializableType
+interface DecodeArgsBase {
     abi?: ABIDef
     data?: BytesType | ABIDecoder
     json?: string
     object?: any
     customTypes?: ABISerializableConstructor[]
+}
+
+interface TypedDecodeArgs<T extends ABISerializableType> extends DecodeArgsBase {
+    type: T
+}
+
+interface BuiltinDecodeArgs<T extends keyof BuiltinTypes> extends DecodeArgsBase {
+    type: T
+}
+
+interface UntypedDecodeArgs extends DecodeArgsBase {
+    type: ABISerializableType
 }
 
 class DecodingError extends Error {
@@ -45,7 +56,12 @@ class DecodingError extends Error {
     }
 }
 
-export function decode<T extends ABISerializable>(args: DecodeArgs): T {
+export function decode<T extends keyof BuiltinTypes>(args: BuiltinDecodeArgs<T>): BuiltinTypes[T]
+export function decode<T extends ABISerializableConstructor>(
+    args: TypedDecodeArgs<T>
+): InstanceType<T>
+export function decode(args: UntypedDecodeArgs): ABISerializable
+export function decode(args: UntypedDecodeArgs | TypedDecodeArgs<any> | TypedDecodeArgs<any>) {
     const typeName = typeof args.type === 'string' ? args.type : args.type.abiName
     const customTypes = args.customTypes || []
     let abi: ABI

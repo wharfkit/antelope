@@ -8,12 +8,14 @@ import {Int32, Int64, UInt128, UInt32, UInt64} from '../src/chain/integer'
 import {Name} from '../src/chain/name'
 import {Struct} from '../src/chain/struct'
 import {TimePoint, TimePointSec} from '../src/chain/time'
-import {Transaction} from '../src/chain/transaction'
+import {AnyTransaction, Transaction, TransactionHeader} from '../src/chain/transaction'
 import {PrivateKey} from '../src/chain/private-key'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
 import {PermissionLevel} from '../src/chain/permission-level'
 import {Variant} from '../src/chain/variant'
+import {ABI, ABIDef} from '../src/chain'
+import {Serializer} from '../src/serializer'
 
 suite('chain', function () {
     test('asset', function () {
@@ -133,8 +135,61 @@ suite('chain', function () {
             transaction.id.hexString,
             '97b4d267ce0e0bd6c78c52f85a27031bd16def0920703ca3b72c28c2c5a1a79b'
         )
+        const transfer = transaction.actions[0].decodeData(Transfer)
+        assert.equal(String(transfer.from), 'foo')
     })
 
+    test('any transaction', function () {
+        const tx: AnyTransaction = {
+            delay_sec: 0,
+            expiration: '2020-07-01T17:32:13',
+            max_cpu_usage_ms: 0,
+            max_net_usage_words: 0,
+            ref_block_num: 55253,
+            ref_block_prefix: 3306698594,
+            actions: [
+                {
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{actor: 'foo', permission: 'active'}],
+                    data: {
+                        from: 'donkeyhunter',
+                        memo: 'Anchor is the best! Thank you <3',
+                        quantity: '0.0001 EOS',
+                        to: 'teamgreymass',
+                    },
+                },
+            ],
+        }
+        const abi: ABIDef = {
+            structs: [
+                {
+                    base: '',
+                    name: 'transfer',
+                    fields: [
+                        {name: 'from', type: 'name'},
+                        {name: 'to', type: 'name'},
+                        {name: 'quantity', type: 'asset'},
+                        {name: 'memo', type: 'string'},
+                    ],
+                },
+            ],
+            actions: [{name: 'transfer', type: 'transfer', ricardian_contract: ''}],
+        }
+        const r1 = Transaction.from(tx, abi)
+        const r2 = Transaction.from(tx, [{abi, contract: 'eosio.token'}])
+        assert.equal(r1.equals(r2), true)
+        assert.deepEqual(
+            JSON.parse(JSON.stringify(r1.actions[0].decodeData(abi))),
+            tx.actions![0].data
+        )
+        assert.throws(() => {
+            Transaction.from(tx)
+        })
+        assert.throws(() => {
+            Transaction.from(tx, [{abi, contract: 'ethereum.token'}])
+        })
+    })
     test('random', function () {
         assert.equal(UInt128.random().value.byteLength(), 16)
         assert.notEqual(UInt128.random().toString(), UInt128.random().toString())

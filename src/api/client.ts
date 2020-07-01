@@ -1,7 +1,8 @@
 import {APIProvider, FetchProvider, FetchProviderOptions} from './provider'
-import {ABISerializableType} from '../serializer/serializable'
+import {ABISerializableConstructor, ABISerializableType} from '../serializer/serializable'
 import {decode} from '../serializer/decoder'
 import {ChainAPI} from './v1/chain'
+import {BuiltinTypes} from '../serializer/builtins'
 
 export interface APIClientOptions extends FetchProviderOptions {
     /** URL to the API node to use, only used if the provider option is not set. */
@@ -27,13 +28,23 @@ export class APIClient {
         chain: new ChainAPI(this),
     }
 
-    async call(args: {
+    async call<T extends ABISerializableConstructor>(args: {
         path: string
         params?: unknown
-        /** Type to decode response as. */
-        responseType?: ABISerializableType
-    }) {
-        const response = await this.provider.call(args.path, args.params)
+        responseType: T
+    }): Promise<InstanceType<T>>
+    async call<T extends keyof BuiltinTypes>(args: {
+        path: string
+        params?: unknown
+        responseType: T
+    }): Promise<BuiltinTypes[T]>
+    async call<T = unknown>(args: {path: string; params?: unknown}): Promise<T>
+    async call(args: {path: string; params?: unknown; responseType?: ABISerializableType}) {
+        const response = (await this.provider.call(args.path, args.params)) as any
+        if (response.error) {
+            // TODO: eosio error class
+            throw new Error('Node error' + JSON.stringify(response.error))
+        }
         if (args.responseType) {
             return decode({type: args.responseType, object: response})
         }

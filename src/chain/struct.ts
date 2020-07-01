@@ -8,7 +8,7 @@ import {decode, Resolved} from '../serializer/decoder'
 import {encode} from '../serializer/encoder'
 
 export interface StructConstructor extends ABISerializableConstructor {
-    new (...args: any[]): Struct
+    new <T extends Struct>(...args: any[]): T
 }
 
 export class Struct implements ABISerializableObject {

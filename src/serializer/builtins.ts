@@ -27,7 +27,7 @@ import {PublicKey} from '../chain/public-key'
 import {Struct} from '../chain/struct'
 import {TimePoint, TimePointSec} from '../chain/time'
 
-const StringType: ABISerializableConstructor = {
+const StringType = {
     abiName: 'string',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readString()
@@ -38,7 +38,7 @@ const StringType: ABISerializableConstructor = {
     },
 }
 
-const BoolType: ABISerializableConstructor = {
+const BoolType = {
     abiName: 'bool',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readByte() === 1
@@ -49,10 +49,121 @@ const BoolType: ABISerializableConstructor = {
     },
 }
 
-export const builtins: ABISerializableConstructor[] = [
+export interface BuiltinTypes {
+    asset: Asset
+    'asset?'?: Asset
+    'asset[]': Asset[]
+    'asset[]?'?: Asset[]
+    bool: boolean
+    'bool?'?: boolean
+    'bool[]': boolean[]
+    'bool[]?'?: boolean[]
+    bytes: Bytes
+    'bytes?'?: Bytes
+    'bytes[]': Bytes[]
+    'bytes[]?'?: Bytes[]
+    checksum160: Checksum160
+    'checksum160?'?: Checksum160
+    'checksum160[]': Checksum160[]
+    'checksum160[]?'?: Checksum160[]
+    checksum256: Checksum256
+    'checksum256?'?: Checksum256
+    'checksum256[]': Checksum256[]
+    'checksum256[]?'?: Checksum256[]
+    checksum512: Checksum512
+    'checksum512?'?: Checksum512
+    'checksum512[]': Checksum512[]
+    'checksum512[]?'?: Checksum512[]
+    name: Name
+    'name?'?: Name
+    'name[]': Name[]
+    'name[]?'?: Name[]
+    publickey: PublicKey
+    'publickey?'?: PublicKey
+    'publickey[]': PublicKey[]
+    'publickey[]?'?: PublicKey[]
+    signature: Signature
+    'signature?'?: Signature
+    'signature[]': Signature[]
+    'signature[]?'?: Signature[]
+    string: string
+    'string?'?: string
+    'string[]': string[]
+    'string[]?'?: string[]
+    symbol: Asset.Symbol
+    'symbol?'?: Asset.Symbol
+    'symbol[]': Asset.Symbol[]
+    'symbol[]?'?: Asset.Symbol[]
+    time_point: TimePoint
+    'time_point?'?: TimePoint
+    'time_point[]': TimePoint[]
+    'time_point[]?'?: TimePoint[]
+    time_point_sec: TimePointSec
+    'time_point_sec?'?: TimePointSec
+    'time_point_sec[]': TimePointSec[]
+    'time_point_sec[]?'?: TimePointSec[]
+    int8: Int8
+    'int8?'?: Int8
+    'int8[]': Int8[]
+    'int8[]?'?: Int8[]
+    int16: Int16
+    'int16?'?: Int16
+    'int16[]': Int16[]
+    'int16[]?'?: Int16[]
+    int32: Int32
+    'int32?'?: Int32
+    'int32[]': Int32[]
+    'int32[]?'?: Int32[]
+    int64: Int64
+    'int64?'?: Int64
+    'int64[]': Int64[]
+    'int64[]?'?: Int64[]
+    int128: Int128
+    'int128?'?: Int128
+    'int128[]': Int128[]
+    'int128[]?'?: Int128[]
+    int256: Int256
+    'int256?'?: Int256
+    'int256[]': Int256[]
+    'int256[]?'?: Int256[]
+    uint8: UInt8
+    'uint8?'?: UInt8
+    'uint8[]': UInt8[]
+    'uint8[]?'?: UInt8[]
+    uint16: UInt16
+    'uint16?'?: UInt16
+    'uint16[]': UInt16[]
+    'uint16[]?'?: UInt16[]
+    uint32: UInt32
+    'uint32?'?: UInt32
+    'uint32[]': UInt32[]
+    'uint32[]?'?: UInt32[]
+    uint64: UInt64
+    'uint64?'?: UInt64
+    'uint64[]': UInt64[]
+    'uint64[]?'?: UInt64[]
+    uint128: UInt128
+    'uint128?'?: UInt128
+    'uint128[]': UInt128[]
+    'uint128[]?'?: UInt128[]
+    uint256: UInt256
+    'uint256?'?: UInt256
+    'uint256[]': UInt256[]
+    'uint256[]?'?: UInt256[]
+    varint: VarInt
+    'varint?'?: VarInt
+    'varint[]': VarInt[]
+    'varint[]?'?: VarInt[]
+    varuint: VarUInt
+    'varuint?'?: VarUInt
+    'varuint[]': VarUInt[]
+    'varuint[]?'?: VarUInt[]
+}
+
+const builtins = [
     // types represented by JavaScript builtins
-    BoolType,
-    StringType,
+    BoolType as ABISerializableConstructor,
+    StringType as ABISerializableConstructor,
     // types represented by Classes
     Asset,
     Asset.Symbol,
@@ -140,8 +251,8 @@ export function getType(object: any, name = 'jsobj'): ABISerializableConstructor
     }
     switch (objectType) {
         case 'boolean':
-            return BoolType
+            return BoolType as ABISerializableConstructor
         case 'string':
-            return StringType
+            return StringType as ABISerializableConstructor
     }
 }

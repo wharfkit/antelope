@@ -8,6 +8,8 @@ import {TimePointSec, TimePointType} from './time'
 import {encode} from '../serializer/encoder'
 import {Signature, SignatureType} from './signature'
 import {decode} from '../serializer/decoder'
+import {ABIDef} from './abi'
+import {Name, NameType} from './name'
 
 @Struct.type('transaction_extension')
 export class TransactionExtension extends Struct {
@@ -85,24 +87,34 @@ export class Transaction extends TransactionHeader {
     @Struct.field(Action, {array: true, default: []})
     transaction_extensions!: TransactionExtension[]
 
-    static from<T extends StructConstructor>(
-        this: T,
-        object: TransactionType | AnyTransaction
-    ): InstanceType<T> {
-        const actions = (object.actions || []).map((action) => Action.from(action))
-        const context_free_actions = (object.context_free_actions || []).map((action) =>
-            Action.from(action)
-        )
+    static from(
+        object: TransactionType | AnyTransaction,
+        abis?: ABIDef | {contract: NameType; abi: ABIDef}[]
+    ) {
+        const abiFor = (contract: NameType) => {
+            if (!abis) {
+                return
+            } else if (Array.isArray(abis)) {
+                return abis
+                    .filter((abi) => Name.from(abi.contract).equals(contract))
+                    .map(({abi}) => abi)[0]
+            } else {
+                return abis
+            }
+        }
+        const resolveAction = (action: AnyAction) => Action.from(action, abiFor(action.account))
+        const actions = (object.actions || []).map(resolveAction)
+        const context_free_actions = (object.context_free_actions || []).map(resolveAction)
         const transaction = {
             ...object,
             context_free_actions,
             actions,
         }
-        return super.from(transaction) as InstanceType<T>
+        return super.from(transaction) as Transaction
     }
 
     /** Return true if this transaction is equal to given transaction. */
-    equals(other: TransactionType | AnyTransaction) {
+    equals(other: TransactionType) {
         const tx = Transaction.from(other)
         return this.id.equals(tx.id)
     }
