@@ -501,7 +501,12 @@ suite('serializer', function () {
 
     test('custom alias', function () {
         @TypeAlias('super_int')
-        class SuperInt extends Int32 {}
+        class SuperInt extends Int32 {
+            didIt = false
+            doIt() {
+                this.didIt = true
+            }
+        }
         assert.equal(
             Serializer.encode({
                 object: SuperInt.from(42),
@@ -523,6 +528,10 @@ suite('serializer', function () {
         })
         assert.equal(decoded instanceof SuperInt, true)
         assert.equal(decoded instanceof Int32, true)
+        const sint = SuperInt.from(Int32.from(4))
+        assert.strictEqual(sint.didIt, false)
+        sint.doIt()
+        assert.strictEqual(sint.didIt, true)
     })
 
     test('synthesize abi', function () {

@@ -4,7 +4,7 @@ import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
 import {Bytes, BytesType} from './bytes'
-import {Checksum256, ChecksumType} from './checksum'
+import {Checksum256, Checksum256Type} from './checksum'
 import {PublicKey} from './public-key'
 
 import {recover} from '../crypto/recover'
@@ -80,7 +80,7 @@ export class Signature implements ABISerializableObject {
     }
 
     /** Recover public key from given message digest. */
-    recoverDigest(digest: ChecksumType) {
+    recoverDigest(digest: Checksum256Type) {
         digest = Checksum256.from(digest)
         const compressed = recover(this.data.array, digest.array, this.type)
         return PublicKey.from({compressed, type: this.type})
@@ -92,7 +92,7 @@ export class Signature implements ABISerializableObject {
     }
 
     /** Verify this signature with given message digest and public key. */
-    verifyDigest(digest: ChecksumType, publicKey: PublicKey) {
+    verifyDigest(digest: Checksum256Type, publicKey: PublicKey) {
         digest = Checksum256.from(digest)
         return verify(this.data.array, digest.array, publicKey.data.array, this.type)
     }

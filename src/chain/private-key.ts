@@ -1,7 +1,7 @@
 import {Base58} from '../base58'
 
 import {Bytes, BytesType} from './bytes'
-import {Checksum256, ChecksumType} from './checksum'
+import {Checksum256, Checksum256Type} from './checksum'
 import {PublicKey} from './public-key'
 import {Signature} from './signature'
 
@@ -67,7 +67,7 @@ export class PrivateKey {
      * Sign message digest using this key.
      * @throws If the key type isn't R1 or K1.
      */
-    signDigest(digest: ChecksumType) {
+    signDigest(digest: Checksum256Type) {
         digest = Checksum256.from(digest)
         return Signature.from(sign(this.data.array, digest.array, this.type))
     }

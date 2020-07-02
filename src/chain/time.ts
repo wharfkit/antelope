@@ -4,13 +4,13 @@ import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
-import {Int64, IntType, UInt32} from './integer'
+import {AnyInt, Int64, Int64Type, UInt32, UInt32Type} from './integer'
 
-export type TimePointType = TimePoint | TimePointSec | string | Date | IntType
+export type TimePointType = TimePoint | TimePointSec | string | Date | AnyInt
 
 interface TimePointConstructor {
     from(value: TimePointType): TimePointBase
-    fromInteger(value: IntType): TimePointBase
+    fromInteger(value: AnyInt): TimePointBase
     fromDate(value: Date): TimePointBase
     fromString(value: string): TimePointBase
     fromMilliseconds(value: number): TimePointBase
@@ -84,7 +84,7 @@ export class TimePoint extends TimePointBase {
         return new TimePoint(Int64.from(Math.round(ms * 1000)))
     }
 
-    static fromInteger(value: IntType) {
+    static fromInteger(value: Int64Type) {
         return new TimePoint(Int64.from(value))
     }
 
@@ -111,7 +111,7 @@ export class TimePointSec extends TimePointBase {
         return new TimePointSec(UInt32.from(Math.round(ms / 1000)))
     }
 
-    static fromInteger(value: IntType) {
+    static fromInteger(value: UInt32Type) {
         return new TimePointSec(UInt32.from(value))
     }
 

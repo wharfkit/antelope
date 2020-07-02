@@ -1,7 +1,16 @@
 import {Action, ActionType, AnyAction} from './action'
 import {Bytes, BytesType} from './bytes'
 import {Checksum256} from './checksum'
-import {IntType, UInt16, UInt32, UInt8, VarUInt} from './integer'
+import {
+    UInt16,
+    UInt16Type,
+    UInt32,
+    UInt32Type,
+    UInt8,
+    UInt8Type,
+    VarUInt,
+    VarUIntType,
+} from './integer'
 import {Struct, StructConstructor} from './struct'
 import {TimePointSec, TimePointType} from './time'
 
@@ -21,15 +30,15 @@ export interface TransactionHeaderFields {
     /** The time at which a transaction expires. */
     expiration: TimePointType
     /** *Specifies a block num in the last 2^16 blocks. */
-    ref_block_num: IntType
+    ref_block_num: UInt16Type
     /** Specifies the lower 32 bits of the block id. */
-    ref_block_prefix: IntType
+    ref_block_prefix: UInt32Type
     /** Upper limit on total network bandwidth (in 8 byte words) billed for this transaction. */
-    max_net_usage_words?: IntType
+    max_net_usage_words?: VarUIntType
     /** Upper limit on the total CPU time billed for this transaction. */
-    max_cpu_usage_ms?: IntType
+    max_cpu_usage_ms?: UInt8Type
     /** Number of seconds to delay this transaction for during which it may be canceled. */
-    delay_sec?: IntType
+    delay_sec?: VarUIntType
 }
 
 export type TransactionHeaderType = TransactionHeader | TransactionHeaderFields
@@ -63,7 +72,7 @@ export interface TransactionFields extends TransactionHeaderFields {
     /** The actions in the transaction. */
     actions?: ActionType[]
     /** Transaction extensions. */
-    transaction_extensions?: {type: IntType; data: BytesType}[]
+    transaction_extensions?: {type: UInt16Type; data: BytesType}[]
 }
 
 export interface AnyTransaction extends TransactionHeaderFields {
@@ -72,7 +81,7 @@ export interface AnyTransaction extends TransactionHeaderFields {
     /** The actions in the transaction. */
     actions?: AnyAction[]
     /** Transaction extensions. */
-    transaction_extensions?: {type: IntType; data: BytesType}[]
+    transaction_extensions?: {type: UInt16Type; data: BytesType}[]
 }
 
 export type TransactionType = Transaction | TransactionFields
