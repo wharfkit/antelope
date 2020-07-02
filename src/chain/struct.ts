@@ -80,7 +80,7 @@ export class Struct implements ABISerializableObject {
     toJSON() {
         const self = this.constructor as typeof Struct
         const rv: any = {}
-        for (const field of self.abiFields) {
+        for (const field of self.structFields) {
             rv[field.name] = this[field.name]
         }
         return rv
