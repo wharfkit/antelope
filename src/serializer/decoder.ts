@@ -15,6 +15,7 @@ import {
 } from './serializable'
 import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
 import {resolveAliases} from './utils'
+import {Variant} from '../chain/variant'
 
 interface DecodeArgsBase {
     abi?: ABIDef
@@ -238,18 +239,15 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
                 return struct
             }
         } else if (type.variant) {
-            let vName = getTypeName(value)
-            if (
-                !vName &&
-                Array.isArray(value) &&
-                value.length === 2 &&
-                typeof value[0] === 'string'
-            ) {
+            let vName: string | undefined
+            if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string') {
                 vName = value[0]
                 value = value[1]
-            } else if (vName == type.name && value.value !== undefined) {
-                vName = getTypeName(value.value)
+            } else if (value instanceof Variant) {
+                vName = value.variantName
                 value = value.value
+            } else {
+                vName = getTypeName(value)
             }
             const vIdx = type.variant.findIndex((t) => t.typeName === vName)
             if (vIdx === -1) {

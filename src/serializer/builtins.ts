@@ -210,6 +210,14 @@ export function getTypeName(object: any): string | undefined {
     if (object.constructor && object.constructor.abiName !== undefined) {
         return object.constructor.abiName
     }
+    if (Array.isArray(object)) {
+        const types = object.map(getTypeName)
+        const type = types[0]
+        if (!type || !types.every((t) => t === type)) {
+            return
+        }
+        return type + '[]'
+    }
     switch (typeof object) {
         case 'boolean':
             return 'bool'
