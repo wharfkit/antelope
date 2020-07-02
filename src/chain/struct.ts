@@ -97,14 +97,13 @@ export namespace Struct {
     }
     export function field(type: ABISerializableType, options?: Partial<ABIField>) {
         if (!options) options = {}
-        return (target: any, name: string) => {
+        return <T extends Struct>(target: T, name: string) => {
             const ctor = target.constructor as StructConstructor
             if (!ctor.abiFields) {
                 ctor.abiFields = []
                 ctor.abiFields[FieldsOwner] = ctor
             } else if (ctor.abiFields[FieldsOwner] !== ctor) {
-                // if the target class isn't the owner we take a copy before
-                // adding fields as to not modify the parent class
+                // if the target class isn't the owner we set the base and start new fields
                 ctor.abiBase = ctor.abiFields[FieldsOwner]
                 ctor.abiFields = []
                 ctor.abiFields[FieldsOwner] = ctor

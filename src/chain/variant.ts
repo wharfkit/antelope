@@ -9,7 +9,7 @@ import {decode, Resolved} from '../serializer/decoder'
 import {encode} from '../serializer/encoder'
 
 export interface VariantConstructor extends ABISerializableConstructor {
-    new (...args: any[]): ABISerializableObject
+    new <T extends Variant>(...args: any[]): T
 }
 
 export class Variant implements ABISerializableObject {
@@ -25,13 +25,13 @@ export class Variant implements ABISerializableObject {
             return new this(object[1], object[0]) as InstanceType<T>
         }
         if (object instanceof this) {
-            return object as InstanceType<T>
+            return object
         }
         // for special cases like string[] where we can't determine the type reliably
         if (variantType) {
             object = [typeof variantType === 'string' ? variantType : variantType.abiName, object]
         }
-        return decode({object, type: this}) as InstanceType<T>
+        return decode({object, type: this})
     }
 
     value: any
@@ -81,7 +81,7 @@ export class Variant implements ABISerializableObject {
 
 export namespace Variant {
     export function type(name: string, types: (ABIType | ABISerializableType)[]) {
-        return function <T extends typeof Variant>(variant: T) {
+        return function <T extends VariantConstructor>(variant: T) {
             variant.abiName = name
             variant.abiVariant = types.map((type) => {
                 if (typeof type === 'string') {
