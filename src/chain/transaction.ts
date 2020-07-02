@@ -84,7 +84,7 @@ export class Transaction extends TransactionHeader {
     /** The actions in the transaction. */
     @Struct.field(Action, {array: true, default: []}) actions!: Action[]
     /** Transaction extensions. */
-    @Struct.field(Action, {array: true, default: []})
+    @Struct.field(TransactionExtension, {array: true, default: []})
     transaction_extensions!: TransactionExtension[]
 
     static from(

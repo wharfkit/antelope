@@ -557,6 +557,14 @@ suite('serializer', function () {
                 },
                 {
                     base: '',
+                    name: 'transaction_extension',
+                    fields: [
+                        {name: 'type', type: 'uint16'},
+                        {name: 'data', type: 'bytes'},
+                    ],
+                },
+                {
+                    base: '',
                     name: 'transaction_header',
                     fields: [
                         {name: 'expiration', type: 'time_point_sec'},
@@ -573,7 +581,7 @@ suite('serializer', function () {
                     fields: [
                         {name: 'context_free_actions', type: 'action[]'},
                         {name: 'actions', type: 'action[]'},
-                        {name: 'transaction_extensions', type: 'action[]'},
+                        {name: 'transaction_extensions', type: 'transaction_extension[]'},
                     ],
                 },
             ],
