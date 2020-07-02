@@ -74,14 +74,12 @@ class Int implements ABISerializableObject {
     }
 }
 
-type BNIntType = IntType | Uint8Array
-
 class BNInt implements ABISerializableObject {
     static abiName: string
     static isSigned: boolean
     static byteWidth: number
 
-    static from<T extends typeof BNInt>(this: T, value: BNIntType): InstanceType<T> {
+    static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T> {
         if (value instanceof this) {
             return value as InstanceType<T>
         }
@@ -117,7 +115,7 @@ class BNInt implements ABISerializableObject {
         this.value = value
     }
 
-    equals(other: BNIntType, allowCast = false) {
+    equals(other: IntType | Uint8Array, allowCast = false) {
         const self = this.constructor as typeof BNInt
         if (
             !allowCast &&
@@ -181,35 +179,35 @@ export class Int32 extends Int {
     }
 }
 
-export type Int64Type = Int64 | BNIntType
+export type Int64Type = Int64 | IntType
 export class Int64 extends BNInt {
     static abiName = 'int64'
     static byteWidth = 8
     static isSigned = true
 
-    static from<T extends typeof Int64>(this: T, value: Int64Type): InstanceType<T> {
+    static from<T extends typeof Int64>(this: T, value: Int64Type | Uint8Array): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
 
-export type Int128Type = Int128 | BNIntType
+export type Int128Type = Int128 | IntType
 export class Int128 extends BNInt {
     static abiName = 'int128'
     static byteWidth = 16
     static isSigned = true
 
-    static from<T extends typeof Int128>(this: T, value: Int128Type): InstanceType<T> {
+    static from<T extends typeof Int128>(this: T, value: Int128Type | Uint8Array): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
 
-export type Int256Type = Int256 | BNIntType
+export type Int256Type = Int256 | IntType
 export class Int256 extends BNInt {
     static abiName = 'int256'
     static byteWidth = 32
     static isSigned = true
 
-    static from<T extends typeof Int256>(this: T, value: Int256Type): InstanceType<T> {
+    static from<T extends typeof Int256>(this: T, value: Int256Type | Uint8Array): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
@@ -247,35 +245,41 @@ export class UInt32 extends Int {
     }
 }
 
-export type UInt64Type = UInt64 | BNIntType
+export type UInt64Type = UInt64 | IntType
 export class UInt64 extends BNInt {
     static abiName = 'uint64'
     static byteWidth = 8
     static isSigned = false
 
-    static from<T extends typeof UInt64>(this: T, value: UInt64Type): InstanceType<T> {
+    static from<T extends typeof UInt64>(this: T, value: UInt64Type | Uint8Array): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
 
-export type UInt128Type = UInt128 | BNIntType
+export type UInt128Type = UInt128 | IntType
 export class UInt128 extends BNInt {
     static abiName = 'uint128'
     static byteWidth = 16
     static isSigned = false
 
-    static from<T extends typeof UInt128>(this: T, value: UInt128Type): InstanceType<T> {
+    static from<T extends typeof UInt128>(
+        this: T,
+        value: UInt128Type | Uint8Array
+    ): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
 
-export type UInt256Type = UInt256 | BNIntType
+export type UInt256Type = UInt256 | IntType
 export class UInt256 extends BNInt {
     static abiName = 'uint256'
     static byteWidth = 32
     static isSigned = false
 
-    static from<T extends typeof UInt256>(this: T, value: UInt256Type): InstanceType<T> {
+    static from<T extends typeof UInt256>(
+        this: T,
+        value: UInt256Type | Uint8Array
+    ): InstanceType<T> {
         return super.from(value) as InstanceType<T>
     }
 }
