@@ -138,7 +138,7 @@ class BNInt implements ABISerializableObject {
 
     toJSON() {
         // match FCs behavior and return strings for anything above Uint32
-        if (this.value.gt(new BN(0xffffffff))) {
+        if (this.value.bitLength() > 32) {
             return this.value.toString()
         } else {
             return this.value.toNumber()
