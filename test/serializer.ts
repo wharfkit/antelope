@@ -5,7 +5,7 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int32, UInt256, UInt64, UInt8} from '../src/chain/integer'
+import {Int256, Int32, UInt256, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -625,6 +625,90 @@ suite('serializer', function () {
         })
         assert.throws(() => {
             Serializer.encode({object: {f: {f: {}}}, type: 'c1', abi})
+        })
+    })
+
+    test('complex type', function () {
+        @TypeAlias('do_you_even')
+        class DoYouEven extends Int256 {}
+        @Variant.type('several_things', [{type: Transaction, array: true}, 'bool?', DoYouEven])
+        class SeveralThings extends Variant {}
+        @Struct.type('complex')
+        class Complex extends Struct {
+            @Struct.field(SeveralThings) things!: SeveralThings
+            @Struct.field(Complex, {optional: true}) self?: Complex
+        }
+        const object = Complex.from({
+            things: [
+                'transaction[]',
+                [
+                    {
+                        actions: [
+                            {
+                                account: 'eosio.token',
+                                name: 'transfer',
+                                authorization: [{actor: 'foo', permission: 'active'}],
+                                data:
+                                    '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                            },
+                        ],
+                        context_free_actions: [],
+                        delay_sec: 123,
+                        expiration: '2018-02-15T00:00:00',
+                        max_cpu_usage_ms: 99,
+                        max_net_usage_words: 0,
+                        ref_block_num: 0,
+                        ref_block_prefix: 0,
+                        transaction_extensions: [],
+                    },
+                ],
+            ],
+            self: {
+                things: ['do_you_even', 2],
+                self: {
+                    things: [
+                        'do_you_even',
+                        '-102030405060708091011121314151223242526272829303132333435363738394',
+                    ],
+                },
+            },
+        })
+        const recoded = Serializer.decode({data: Serializer.encode({object}), type: Complex})
+        assert.deepStrictEqual(JSON.parse(JSON.stringify(recoded)), {
+            things: [
+                'transaction[]',
+                [
+                    {
+                        delay_sec: 123,
+                        expiration: '2018-02-15T00:00:00',
+                        max_cpu_usage_ms: 99,
+                        max_net_usage_words: 0,
+                        ref_block_num: 0,
+                        ref_block_prefix: 0,
+                        context_free_actions: [],
+                        actions: [
+                            {
+                                account: 'eosio.token',
+                                name: 'transfer',
+                                authorization: [{actor: 'foo', permission: 'active'}],
+                                data:
+                                    '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                            },
+                        ],
+                        transaction_extensions: [],
+                    },
+                ],
+            ],
+            self: {
+                things: ['do_you_even', 2],
+                self: {
+                    things: [
+                        'do_you_even',
+                        '-102030405060708091011121314151223242526272829303132333435363738394',
+                    ],
+                    self: null,
+                },
+            },
         })
     })
 })
