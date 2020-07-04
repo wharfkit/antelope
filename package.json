@@ -1,7 +1,7 @@
 {
     "name": "eosio-core",
     "description": "Library for working with EOSIO blockchains",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "BSD-3-Clause",
     "main": "lib/index.js",
     "module": "lib/index.m.js",
