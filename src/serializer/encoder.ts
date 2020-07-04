@@ -16,7 +16,6 @@ import {
 } from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
 import {Variant} from '../chain/variant'
-import {resolveAliases} from './utils'
 
 class EncodingError extends Error {
     ctx: EncodingContext
@@ -136,11 +135,9 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
     const valueExists = value !== undefined && value !== null
     if (type.isOptional) {
         ctx.encoder.writeByte(valueExists ? 1 : 0)
-    } else if (!valueExists) {
-        throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
-    }
-    if (!valueExists) {
-        return
+        if (!valueExists) {
+            return
+        }
     }
     if (type.isArray) {
         if (!Array.isArray(value)) {
@@ -157,8 +154,15 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
         encodeInner(value)
     }
     function encodeInner(value: any) {
-        const {abiType, resolved} = resolveAliases(type, ctx.types)
-        type = resolved
+        if (type.ref) {
+            // type is alias, follow it
+            encodeAny(value, type.ref, ctx)
+            return
+        }
+        if (!valueExists) {
+            throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
+        }
+        const abiType = ctx.types[type.name]
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding
             abiType.toABI(value, ctx.encoder)
@@ -182,15 +186,15 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                     vName = value[0]
                     value = value[1]
                 } else if (value instanceof Variant) {
-                    vName = getTypeName(value.value)
+                    vName = value.variantName
                     value = value.value
                 } else {
                     vName = getTypeName(value)
                 }
-
                 const vIdx = type.variant.findIndex((t) => t.typeName === vName)
                 if (vIdx === -1) {
-                    throw new Error(`Unknown variant type: ${vName}`)
+                    const types = type.variant.map((t) => `'${t.typeName}'`).join(', ')
+                    throw new Error(`Unknown variant type '${vName}', expected one of ${types}`)
                 }
                 const vType = type.variant[vIdx]
                 ctx.encoder.writeVaruint32(vIdx)
@@ -296,16 +300,19 @@ export class ABIEncoder {
         this.writeArray(value.toArrayLike(Uint8Array as any, 'le', byteWidth))
     }
 
-    writeFloat32(value: number) {
-        this.ensure(4)
-        this.data.setFloat32(this.pos, value)
-        this.pos += 4
-    }
-
-    writeFloat64(value: number) {
-        this.ensure(8)
-        this.data.setFloat64(this.pos, value)
-        this.pos += 8
+    writeFloat(value: number, byteWidth: number) {
+        this.ensure(byteWidth)
+        switch (byteWidth) {
+            case 4:
+                this.data.setFloat32(this.pos, value, true)
+                break
+            case 8:
+                this.data.setFloat64(this.pos, value, true)
+                break
+            default:
+                throw new Error('Invalid float size')
+        }
+        this.pos += byteWidth
     }
 
     writeVaruint32(v: number) {

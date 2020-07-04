@@ -5,7 +5,7 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int256, Int32, UInt256, UInt64, UInt8} from '../src/chain/integer'
+import {Int128, Int32, UInt128, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -200,12 +200,12 @@ suite('serializer', function () {
             string: 'hello',
             flag: false,
             nest: {
-                grains: UInt256.from('75000000000000000000000'),
+                grains: UInt128.from('75000000000000000'),
             },
         }
         assert.equal(
             Serializer.encode({object}).hexString,
-            '000000005c73285d0568656c6c6f000000e038f8e815c2e10f00000000000000000000000000000000000000000000'
+            '000000005c73285d0568656c6c6f00008027461a740a010000000000000000'
         )
         assert.throws(() => {
             Serializer.encode({
@@ -630,7 +630,7 @@ suite('serializer', function () {
 
     test('complex type', function () {
         @TypeAlias('do_you_even')
-        class DoYouEven extends Int256 {}
+        class DoYouEven extends Int128 {}
         @Variant.type('several_things', [{type: Transaction, array: true}, 'bool?', DoYouEven])
         class SeveralThings extends Variant {}
         @Struct.type('complex')
@@ -666,10 +666,7 @@ suite('serializer', function () {
             self: {
                 things: ['do_you_even', 2],
                 self: {
-                    things: [
-                        'do_you_even',
-                        '-102030405060708091011121314151223242526272829303132333435363738394',
-                    ],
+                    things: ['do_you_even', '-170141183460469231731687303715884105727'],
                 },
             },
         })
@@ -702,13 +699,78 @@ suite('serializer', function () {
             self: {
                 things: ['do_you_even', 2],
                 self: {
-                    things: [
-                        'do_you_even',
-                        '-102030405060708091011121314151223242526272829303132333435363738394',
-                    ],
+                    things: ['do_you_even', '-170141183460469231731687303715884105727'],
                     self: null,
                 },
             },
         })
+    })
+
+    test('typestresser abi', function () {
+        const abi = require('fs')
+            .readFileSync(__dirname + '/typestresser.abi.json')
+            .toString()
+        const object = {
+            bool: true,
+            int8: 127,
+            uint8: 255,
+            int16: 32767,
+            uint16: 65535,
+            int32: 2147483647,
+            uint32: 4294967295,
+            int64: '9223372036854775807',
+            uint64: '18446744073709551615',
+            int128: '170141183460469231731687303715884105727',
+            uint128: '340282366920938463463374607431768211455',
+            varint32: 2147483647,
+            varuint32: 4294967295,
+            float32: '3.1415925',
+            float64: '3.141592653589793',
+            float128: '0xbeefbeefbeefbeefbeefbeefbeefbeef',
+            time_point: '2020-02-02T02:02:02.222',
+            time_point_sec: '2020-02-02T02:02:02',
+            block_timestamp_type: '2020-02-02T02:02:02.500',
+            name: 'foobar',
+            bytes: 'beef',
+            string: 'hello',
+            checksum160: 'ffffffffffffffffffffffffffffffffffffffff',
+            checksum256: 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+            checksum512:
+                'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+            public_key: 'PUB_K1_5AHoNnWetuDhKWSDx3WUf8W7Dg5xjHCMc4yHmmSiaJCFvvAgnB',
+            signature:
+                'SIG_K1_KfPLgpw35iX8nfDzhbcmSBCr7nEGNEYXgmmempQspDJYBCKuAEs5rm3s4ZuLJY428Ca8ZhvR2Dkwu118y3NAoMDxhicRj9',
+            symbol: '7,PI',
+            symbol_code: 'PI',
+            asset: '3.1415926 PI',
+            extended_asset: {
+                quantity: '3.1415926 PI',
+                contract: 'pi.token',
+            },
+            alias1: true,
+            alias2: true,
+            alias3: {
+                bool: true,
+            },
+            alias4: ['int8', 1],
+            alias5: [true, true],
+            alias6: null,
+        }
+
+        const data = Serializer.encode({object, type: 'all_types', abi})
+        assert.equal(
+            data.hexString,
+            '017fffff7fffffffffff7fffffffffffffffffffffff7fffffffffffffffffffffffffffffffffffffffffffffff7fffff' +
+                'fffffffffffffffffffffffffffffeffffff0fffffffff0fda0f4940182d4454fb210940beefbeefbeefbeefbeefbeefbe' +
+                'efbeefb07d56318e9d05009a2d365e35d4914b000000005c73285d02beef0568656c6c6fffffffffffffffffffffffffff' +
+                'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' +
+                'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' +
+                'ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393' +
+                'fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6' +
+                'c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750' +
+                '49000000000000000053419a81ab010101000102010100'
+        )
+        const decoded = Serializer.decode({data, type: 'all_types', abi})
+        assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)
     })
 })

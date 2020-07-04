@@ -129,3 +129,29 @@ export class TimePointSec extends TimePointBase {
         return this.value.value * 1000
     }
 }
+
+export class BlockTimestamp extends TimePointBase {
+    static abiName = 'block_timestamp_type'
+
+    static fromMilliseconds(ms: number) {
+        return new TimePointSec(UInt32.from(Math.round((ms - 946684800000) / 500)))
+    }
+
+    static fromInteger(value: UInt32Type) {
+        return new TimePointSec(UInt32.from(value))
+    }
+
+    static fromABI(decoder: ABIDecoder) {
+        return new this(UInt32.fromABI(decoder))
+    }
+
+    value!: UInt32
+
+    toString() {
+        return this.toDate().toISOString().slice(0, -1)
+    }
+
+    toMilliseconds() {
+        return this.value.value * 500 + 946684800000
+    }
+}

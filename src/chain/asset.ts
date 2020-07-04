@@ -4,6 +4,7 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {Int64, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
+import {Name, NameType} from './name'
 
 export type AssetType = Asset | string
 
@@ -138,6 +139,10 @@ export namespace Asset {
             return toSymbolPrecision(this.value)
         }
 
+        get code(): SymbolCode {
+            return new SymbolCode(UInt64.from(this.value.value.clone().iushrn(8)))
+        }
+
         toABI(encoder: ABIEncoder) {
             this.value.toABI(encoder)
         }
@@ -170,6 +175,87 @@ export namespace Asset {
             return this.toString()
         }
     }
+
+    export type SymbolCodeType = SymbolCode | UInt64 | string | number
+    export class SymbolCode implements ABISerializableObject {
+        static abiName = 'symbol_code'
+
+        static from(value: SymbolCodeType) {
+            if (value instanceof SymbolCode) {
+                return value
+            }
+            if (typeof value === 'string') {
+                value = UInt64.from(new BN(toRawSymbolCode(value), 'le'))
+            }
+            return new this(UInt64.from(value))
+        }
+
+        static fromABI(decoder: ABIDecoder) {
+            return new SymbolCode(UInt64.fromABI(decoder))
+        }
+
+        value: UInt64
+
+        constructor(value: UInt64) {
+            this.value = value
+        }
+
+        equals(other: SymbolCodeType) {
+            return this.value.equals(SymbolCode.from(other).value)
+        }
+
+        toABI(encoder: ABIEncoder) {
+            this.value.toABI(encoder)
+        }
+
+        toString() {
+            return charsToSymbolName(this.value.value.toArray('be'))
+        }
+
+        toJSON() {
+            return this.toString()
+        }
+    }
+}
+
+export type ExtendedAssetType = ExtendedAsset | {quantity: AssetType; contract: NameType}
+export class ExtendedAsset implements ABISerializableObject {
+    static abiName = 'extended_asset'
+
+    static from(value: ExtendedAssetType) {
+        if (value instanceof ExtendedAsset) {
+            return value
+        }
+        return new this(Asset.from(value.quantity), Name.from(value.contract))
+    }
+
+    static fromABI(decoder: ABIDecoder) {
+        return new ExtendedAsset(Asset.fromABI(decoder), Name.fromABI(decoder))
+    }
+
+    quantity: Asset
+    contract: Name
+
+    constructor(quantity: Asset, contract: Name) {
+        this.quantity = quantity
+        this.contract = contract
+    }
+
+    equals(other: ExtendedAssetType) {
+        return this.quantity.equals(other.quantity) && this.contract.equals(other.contract)
+    }
+
+    toABI(encoder: ABIEncoder) {
+        this.quantity.toABI(encoder)
+        this.contract.toABI(encoder)
+    }
+
+    toJSON() {
+        return {
+            quantity: this.quantity,
+            contract: this.contract,
+        }
+    }
 }
 
 function toSymbolPrecision(rawSymbol: UInt64) {
@@ -178,6 +264,10 @@ function toSymbolPrecision(rawSymbol: UInt64) {
 
 function toSymbolName(rawSymbol: UInt64) {
     const chars = rawSymbol.value.toArray('be').slice(0, -1)
+    return charsToSymbolName(chars)
+}
+
+function charsToSymbolName(chars: number[]) {
     return chars
         .map((char) => String.fromCharCode(char))
         .reverse()
@@ -185,10 +275,16 @@ function toSymbolName(rawSymbol: UInt64) {
 }
 
 function toRawSymbol(name: string, precision: number) {
-    const array: number[] = [precision]
+    const array = toRawSymbolCode(name)
+    array.unshift(precision)
+    return UInt64.from(new BN(array, 'le'))
+}
+
+function toRawSymbolCode(name: string) {
+    const array: number[] = []
     const length = Math.min(name.length, 7)
     for (let i = 0; i < length; i++) {
         array.push(name.charCodeAt(i))
     }
-    return UInt64.from(new BN(array, 'le'))
+    return array
 }

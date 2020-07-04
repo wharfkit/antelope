@@ -14,7 +14,6 @@ import {
     synthesizeABI,
 } from './serializable'
 import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
-import {resolveAliases} from './utils'
 import {Variant} from '../chain/variant'
 
 interface DecodeArgsBase {
@@ -153,12 +152,17 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
         return decodeInner()
     }
     function decodeInner() {
-        const {resolved, abiType} = resolveAliases(type, ctx.types)
-        type = resolved
+        const abiType = ctx.types[type.name]
         if (abiType && abiType.fromABI) {
             return abiType.fromABI(decoder)
         } else {
-            if (type.fields) {
+            if (type.ref) {
+                // follow type alias
+                ctx.codingPath.push({field: '', type: type.ref})
+                const rv = decodeBinary(type.ref, decoder, ctx)
+                ctx.codingPath.pop()
+                return rv
+            } else if (type.fields) {
                 const rv: any = {}
                 for (const field of type.fields) {
                     ctx.codingPath.push({field: field.name, type: field.type})
@@ -217,9 +221,11 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
         return decodeInner(value)
     }
     function decodeInner(value: any) {
-        const {resolved, abiType} = resolveAliases(type, ctx.types)
-        type = resolved
-        if (type.fields) {
+        const abiType = ctx.types[type.name]
+        if (type.ref) {
+            // follow type alias
+            return decodeObject(value, type.ref, ctx)
+        } else if (type.fields) {
             if (typeof value !== 'object') {
                 throw new Error('Expected object')
             }
@@ -339,6 +345,24 @@ export class ABIDecoder {
         } else {
             return bn
         }
+    }
+
+    /** Read floating point as JavaScript number, 32 or 64 bits. */
+    readFloat(byteWidth: number) {
+        this.ensure(byteWidth)
+        let rv: number
+        switch (byteWidth) {
+            case 4:
+                rv = this.data.getFloat32(this.pos, true)
+                break
+            case 8:
+                rv = this.data.getFloat64(this.pos, true)
+                break
+            default:
+                throw new Error('Invalid float size')
+        }
+        this.pos += byteWidth
+        return rv
     }
 
     readVaruint32() {

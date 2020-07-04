@@ -48,12 +48,11 @@ export class ABI {
         {name, types}: {name: string; types: {[name: string]: ABI.ResolvedType}},
         ctx: {id: number}
     ): ABI.ResolvedType {
-        const type = new ABI.ResolvedType(name, ++ctx.id)
-        const existing = types[type.typeName]
+        const existing = types[name]
         if (existing) {
-            type.ref = existing
-            return type
+            return existing
         }
+        const type = new ABI.ResolvedType(name, ++ctx.id)
         types[type.typeName] = type
         const alias = this.types.find((typeDef) => typeDef.new_type_name == type.name)
         if (alias) {

@@ -3,29 +3,27 @@ import {ABIEncoder} from './encoder'
 import {ABIField, ABISerializableConstructor} from './serializable'
 import {Bytes} from '../chain/bytes'
 import {Name} from '../chain/name'
-
+import {Float128, Float32, Float64} from '../chain/float'
 import {
     Int128,
     Int16,
-    Int256,
     Int32,
     Int64,
     Int8,
     UInt128,
     UInt16,
-    UInt256,
     UInt32,
     UInt64,
     UInt8,
     VarInt,
     VarUInt,
 } from '../chain/integer'
-import {Asset} from '../chain/asset'
+import {Asset, ExtendedAsset} from '../chain/asset'
 import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
 import {Signature} from '../chain/signature'
 import {PublicKey} from '../chain/public-key'
 import {Struct} from '../chain/struct'
-import {TimePoint, TimePointSec} from '../chain/time'
+import {BlockTimestamp, TimePoint, TimePointSec} from '../chain/time'
 
 const StringType = {
     abiName: 'string',
@@ -54,6 +52,10 @@ export interface BuiltinTypes {
     'asset?'?: Asset
     'asset[]': Asset[]
     'asset[]?'?: Asset[]
+    extended_asset: ExtendedAsset
+    'extended_asset?'?: ExtendedAsset
+    'extended_asset[]': ExtendedAsset[]
+    'extended_asset[]?'?: ExtendedAsset[]
     bool: boolean
     'bool?'?: boolean
     'bool[]': boolean[]
@@ -94,6 +96,10 @@ export interface BuiltinTypes {
     'symbol?'?: Asset.Symbol
     'symbol[]': Asset.Symbol[]
     'symbol[]?'?: Asset.Symbol[]
+    symbol_code: Asset.SymbolCode
+    'symbol_code?'?: Asset.SymbolCode
+    'symbol_code[]': Asset.SymbolCode[]
+    'symbol_code[]?'?: Asset.SymbolCode[]
     time_point: TimePoint
     'time_point?'?: TimePoint
     'time_point[]': TimePoint[]
@@ -102,6 +108,10 @@ export interface BuiltinTypes {
     'time_point_sec?'?: TimePointSec
     'time_point_sec[]': TimePointSec[]
     'time_point_sec[]?'?: TimePointSec[]
+    block_timestamp_type: BlockTimestamp
+    'block_timestamp_type?'?: BlockTimestamp
+    'block_timestamp_type[]': BlockTimestamp[]
+    'block_timestamp_type[]?'?: BlockTimestamp[]
     int8: Int8
     'int8?'?: Int8
     'int8[]': Int8[]
@@ -122,10 +132,6 @@ export interface BuiltinTypes {
     'int128?'?: Int128
     'int128[]': Int128[]
     'int128[]?'?: Int128[]
-    int256: Int256
-    'int256?'?: Int256
-    'int256[]': Int256[]
-    'int256[]?'?: Int256[]
     uint8: UInt8
     'uint8?'?: UInt8
     'uint8[]': UInt8[]
@@ -146,10 +152,6 @@ export interface BuiltinTypes {
     'uint128?'?: UInt128
     'uint128[]': UInt128[]
     'uint128[]?'?: UInt128[]
-    uint256: UInt256
-    'uint256?'?: UInt256
-    'uint256[]': UInt256[]
-    'uint256[]?'?: UInt256[]
     varint: VarInt
     'varint?'?: VarInt
     'varint[]': VarInt[]
@@ -158,6 +160,18 @@ export interface BuiltinTypes {
     'varuint?'?: VarUInt
     'varuint[]': VarUInt[]
     'varuint[]?'?: VarUInt[]
+    float32: Float32
+    'float32?'?: Float32
+    'float32[]': Float32[]
+    'float32[]?'?: Float32[]
+    float64: Float64
+    'float64?'?: Float64
+    'float64[]': Float64[]
+    'float64[]?'?: Float64[]
+    float128: Float128
+    'float128?'?: Float128
+    'float128[]': Float128[]
+    'float128[]?'?: Float128[]
 }
 
 const builtins = [
@@ -167,27 +181,31 @@ const builtins = [
     // types represented by Classes
     Asset,
     Asset.Symbol,
+    Asset.SymbolCode,
+    ExtendedAsset,
     Bytes,
     Checksum160,
     Checksum256,
     Checksum512,
-    Int128,
+    Int8,
     Int16,
-    Int256,
     Int32,
     Int64,
-    Int8,
+    Int128,
+    Float32,
+    Float64,
+    Float128,
     Name,
     PublicKey,
     Signature,
     TimePoint,
     TimePointSec,
-    UInt128,
+    BlockTimestamp,
+    UInt8,
     UInt16,
-    UInt256,
     UInt32,
     UInt64,
-    UInt8,
+    UInt128,
     VarInt,
     VarUInt,
 ]

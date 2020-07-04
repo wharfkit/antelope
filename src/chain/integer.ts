@@ -201,17 +201,6 @@ export class Int128 extends BNInt {
     }
 }
 
-export type Int256Type = Int256 | IntType
-export class Int256 extends BNInt {
-    static abiName = 'int256'
-    static byteWidth = 32
-    static isSigned = true
-
-    static from<T extends typeof Int256>(this: T, value: Int256Type | Uint8Array): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
-}
-
 export type UInt8Type = UInt8 | IntType
 export class UInt8 extends Int {
     static abiName = 'uint8'
@@ -270,20 +259,6 @@ export class UInt128 extends BNInt {
     }
 }
 
-export type UInt256Type = UInt256 | IntType
-export class UInt256 extends BNInt {
-    static abiName = 'uint256'
-    static byteWidth = 32
-    static isSigned = false
-
-    static from<T extends typeof UInt256>(
-        this: T,
-        value: UInt256Type | Uint8Array
-    ): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
-}
-
 export type VarIntType = VarInt | IntType
 export class VarInt extends Int {
     static abiName = 'varint32'
@@ -327,13 +302,11 @@ export type AnyInt =
     | Int32Type
     | Int64Type
     | Int128Type
-    | Int256Type
     | UInt8Type
     | UInt16Type
     | UInt32Type
     | UInt64Type
     | UInt128Type
-    | UInt256Type
     | VarIntType
     | VarUIntType
 
