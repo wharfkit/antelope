@@ -227,7 +227,7 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
     }
     function decodeInner(value: any) {
         const abiType = ctx.types[type.name]
-        if (type.ref) {
+        if (type.ref && !abiType) {
             // follow type alias
             return decodeObject(value, type.ref, ctx)
         } else if (type.fields) {

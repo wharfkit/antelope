@@ -5,7 +5,7 @@ import {Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int128, Int32, UInt128, UInt64, UInt8} from '../src/chain/integer'
+import {Int128, Int32, Int32Type, UInt128, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -502,6 +502,12 @@ suite('serializer', function () {
     test('custom alias', function () {
         @TypeAlias('super_int')
         class SuperInt extends Int32 {
+            static from<T extends typeof Int32>(this: T, value: Int32Type) {
+                if (typeof value === 'number' && value < 100) {
+                    value *= 42
+                }
+                return super.from(value) as InstanceType<T>
+            }
             didIt = false
             doIt() {
                 this.didIt = true
@@ -509,29 +515,38 @@ suite('serializer', function () {
         }
         assert.equal(
             Serializer.encode({
-                object: SuperInt.from(42),
+                object: SuperInt.from(10),
             }).hexString,
-            '2a000000'
+            'a4010000'
         )
         assert.equal(
             Serializer.encode({
-                object: 42,
+                object: 10,
                 type: 'super_int',
                 customTypes: [SuperInt],
             }).hexString,
-            '2a000000'
+            'a4010000'
         )
         const decoded = Serializer.decode({
-            data: '2a000000',
+            data: 'a4010000',
             type: 'super_int',
             customTypes: [SuperInt],
         })
         assert.equal(decoded instanceof SuperInt, true)
         assert.equal(decoded instanceof Int32, true)
-        const sint = SuperInt.from(Int32.from(4))
+        const sint = Serializer.decode({
+            data: 'a4010000',
+            type: SuperInt,
+        })
         assert.strictEqual(sint.didIt, false)
         sint.doIt()
         assert.strictEqual(sint.didIt, true)
+        @Variant.type('my_variant', ['string', SuperInt])
+        class MyVariant extends Variant {}
+        const v = MyVariant.from(1, 'super_int')
+        assert.equal(v.value instanceof SuperInt, true)
+        const v2 = Serializer.decode({data: '01a4010000', type: MyVariant})
+        assert.equal(v2.value instanceof SuperInt, true)
     })
 
     test('synthesize abi', function () {
@@ -707,6 +722,7 @@ suite('serializer', function () {
     })
 
     test('typestresser abi', function () {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const abi = require('fs')
             .readFileSync(__dirname + '/typestresser.abi.json')
             .toString()

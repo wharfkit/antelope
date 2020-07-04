@@ -154,7 +154,8 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
         encodeInner(value)
     }
     function encodeInner(value: any) {
-        if (type.ref) {
+        const abiType = ctx.types[type.name]
+        if (type.ref && !abiType) {
             // type is alias, follow it
             encodeAny(value, type.ref, ctx)
             return
@@ -165,7 +166,6 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
             }
             throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
         }
-        const abiType = ctx.types[type.name]
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding
             abiType.toABI(value, ctx.encoder)
