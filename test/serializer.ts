@@ -401,11 +401,7 @@ suite('serializer', function () {
         }
         assert.deepEqual(MyVariant.from('hello'), {value: 'hello', variantIdx: 0})
         assert.deepEqual(MyVariant.from(false), {value: false, variantIdx: 1})
-        assert.deepEqual(MyVariant.from(['bool', 'booly'], 'string[]'), {
-            value: ['bool', 'booly'],
-            variantIdx: 2,
-        })
-        assert.deepEqual(MyVariant.from(['bool', 'booly'], 'string[]'), {
+        assert.deepEqual(MyVariant.from(['string[]', ['bool', 'booly']]), {
             value: ['bool', 'booly'],
             variantIdx: 2,
         })
@@ -413,15 +409,11 @@ suite('serializer', function () {
             value: {foo: 'bar'},
             variantIdx: 3,
         })
-        assert.deepEqual(MyVariant.from({foo: 'bar'}, MyStruct), {
+        assert.deepEqual(MyVariant.from(['my_struct', {foo: 'bar'}]), {
             value: {foo: 'bar'},
             variantIdx: 3,
         })
-        assert.deepEqual(MyVariant.from({foo: 'bar'}, 'my_struct'), {
-            value: {foo: 'bar'},
-            variantIdx: 3,
-        })
-        assert.deepEqual(MyVariant.from([{foo: 'bar'}], 'my_struct[]'), {
+        assert.deepEqual(MyVariant.from(['my_struct[]', [{foo: 'bar'}]]), {
             value: [{foo: 'bar'}],
             variantIdx: 4,
         })
@@ -444,7 +436,7 @@ suite('serializer', function () {
             MyVariant.from(Name.from('hello'))
         })
         assert.throws(() => {
-            MyVariant.from({foo: 'bar'}, 'not_my_struct')
+            MyVariant.from(['not_my_struct', {foo: 'bar'}])
         })
     })
 
@@ -543,7 +535,7 @@ suite('serializer', function () {
         assert.strictEqual(sint.didIt, true)
         @Variant.type('my_variant', ['string', SuperInt])
         class MyVariant extends Variant {}
-        const v = MyVariant.from(1, 'super_int')
+        const v = MyVariant.from(['super_int', 1])
         assert.equal(v.value instanceof SuperInt, true)
         const v2 = Serializer.decode({data: '01a4010000', type: MyVariant})
         assert.equal(v2.value instanceof SuperInt, true)

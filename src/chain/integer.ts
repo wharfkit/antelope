@@ -8,7 +8,7 @@ import {secureRandom} from '../utils'
 type IntType = Int | BNInt | number | string | BN
 
 class Int implements ABISerializableObject {
-    static abiName
+    static abiName: string
     static isSigned: boolean
     static byteWidth: number
 

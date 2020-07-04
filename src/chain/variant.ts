@@ -1,4 +1,5 @@
 import {
+    ABISerializable,
     ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
@@ -12,43 +13,32 @@ export interface VariantConstructor extends ABISerializableConstructor {
     new <T extends Variant>(...args: any[]): T
 }
 
+export type AnyVariant = Variant | ABISerializable | [string, any]
+
 export class Variant implements ABISerializableObject {
     static abiName: string
     static abiVariant: ABIType[] = []
 
-    static from<T extends VariantConstructor>(
-        this: T,
-        object: any,
-        variantType?: ABISerializableType
-    ): InstanceType<T> {
+    static from<T extends VariantConstructor>(this: T, object: AnyVariant): InstanceType<T> {
         if (object[Resolved]) {
-            return new this(object[1], object[0]) as InstanceType<T>
+            return new this(object) as InstanceType<T>
         }
         if (object instanceof this) {
-            return object
-        }
-        // for special cases like string[] where we can't determine the type reliably
-        if (variantType) {
-            object = [typeof variantType === 'string' ? variantType : variantType.abiName, object]
+            return object as InstanceType<T>
         }
         return decode({object, type: this})
     }
 
-    value: any
+    value: ABISerializable
     variantIdx: number
 
     /** @internal */
-    constructor(value: any, variant: number | string) {
+    constructor(variant: [string, ABISerializable]) {
         const abiVariant = (this.constructor as VariantConstructor).abiVariant!
-        this.value = value
-        let variantIdx: number
-        if (typeof variant === 'string') {
-            variantIdx = abiVariant.map(abiTypeString).findIndex((t) => t === variant)
-        } else {
-            variantIdx = variant
-        }
-        if (0 > variantIdx || abiVariant.length <= variant) {
-            throw new Error(`Unknown variant ${variant}`)
+        this.value = variant[1]
+        const variantIdx = abiVariant.map(abiTypeString).findIndex((t) => t === variant[0])
+        if (0 > variantIdx || abiVariant.length <= variantIdx) {
+            throw new Error(`Unknown variant ${variant[0]}`)
         }
         this.variantIdx = variantIdx
     }
@@ -59,7 +49,7 @@ export class Variant implements ABISerializableObject {
      * Note: This compares the ABI encoded bytes of both variants, subclasses
      *       should implement their own fast equality check when possible.
      */
-    equals(other: any) {
+    equals(other: AnyVariant) {
         const self = this.constructor as typeof Variant
         const otherVariant = self.from(other)
         if (this.variantIdx !== otherVariant.variantIdx) {
