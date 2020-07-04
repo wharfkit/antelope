@@ -160,6 +160,9 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
             return
         }
         if (!valueExists) {
+            if (type.isExtension) {
+                return
+            }
             throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
         }
         const abiType = ctx.types[type.name]

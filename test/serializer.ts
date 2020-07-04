@@ -755,6 +755,12 @@ suite('serializer', function () {
             alias4: ['int8', 1],
             alias5: [true, true],
             alias6: null,
+            extension: {
+                message: 'hello',
+                extension: {
+                    message: 'world',
+                },
+            },
         }
 
         const data = Serializer.encode({object, type: 'all_types', abi})
@@ -768,7 +774,7 @@ suite('serializer', function () {
                 'ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393' +
                 'fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6' +
                 'c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750' +
-                '49000000000000000053419a81ab010101000102010100'
+                '49000000000000000053419a81ab0101010001020101000568656c6c6f05776f726c64'
         )
         const decoded = Serializer.decode({data, type: 'all_types', abi})
         assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)

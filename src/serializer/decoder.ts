@@ -134,6 +134,11 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
     if (ctx.codingPath.length > 32) {
         throw new Error('Maximum decoding depth exceeded')
     }
+    if (type.isExtension) {
+        if (!decoder.canRead()) {
+            return undefined
+        }
+    }
     if (type.isOptional) {
         if (decoder.readByte() === 0) {
             return null
@@ -200,7 +205,7 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
 
 function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext): any {
     if (value === null || value === undefined) {
-        if (type.isOptional) {
+        if (type.isOptional || type.isExtension) {
             return null
         } else {
             throw new Error(`Unexpectedly encountered ${value} for non-optional`)
@@ -287,7 +292,7 @@ export class ABIDecoder {
         this.data = new DataView(array.buffer, array.byteOffset, array.byteLength)
     }
 
-    canRead(bytes: number): boolean {
+    canRead(bytes = 1): boolean {
         return !(this.pos + bytes > this.array.byteLength)
     }
 

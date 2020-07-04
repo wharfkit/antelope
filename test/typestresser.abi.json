@@ -59,7 +59,16 @@
                 {"name": "alias3", "type": "alias3"},
                 {"name": "alias4", "type": "alias4"},
                 {"name": "alias5", "type": "alias5"},
-                {"name": "alias6", "type": "alias6"}
+                {"name": "alias6", "type": "alias6"},
+                {"name": "extension", "type": "extension$"}
+            ]
+        },
+        {
+            "name": "extension",
+            "base": "",
+            "fields": [
+                {"name": "message", "type": "string"},
+                {"name": "extension", "type": "extension$"}
             ]
         }
     ],
@@ -74,7 +83,5 @@
     "ricardian_clauses": [],
     "error_messages": [],
     "abi_extensions": [],
-    "variants": [
-        {"name": "variant1", "types": ["int8", "string"]}
-    ]
+    "variants": [{"name": "variant1", "types": ["int8", "string"]}]
 }
