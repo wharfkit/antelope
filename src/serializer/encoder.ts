@@ -47,6 +47,14 @@ interface EncodeArgsBase {
      * that should be used when encountering a custom type.
      */
     customTypes?: ABISerializableConstructor[]
+    /**
+     * Can be passed to use a custom ABIEncoder instance.
+     */
+    encoder?: ABIEncoder
+    /**
+     * Optional metadata to pass to the encoder.
+     */
+    metadata?: Record<string, any>
 }
 
 interface EncodeArgsUntyped extends EncodeArgsBase {
@@ -117,7 +125,10 @@ export function encode(args: EncodeArgs): Bytes {
         )
     }
     const types = buildTypeLookup(customTypes)
-    const encoder = new ABIEncoder()
+    const encoder = args.encoder || new ABIEncoder()
+    if (args.metadata) {
+        encoder.metadata = args.metadata
+    }
     const ctx: EncodingContext = {
         types,
         encoder,
@@ -228,8 +239,10 @@ export class ABIEncoder {
     private pos = 0
     private data: DataView
     private array: Uint8Array
-
     private textEncoder = new TextEncoder()
+
+    /** User declared metadata, can be used to pass info to instances when encoding.  */
+    metadata: Record<string, any> = {}
 
     constructor(private pageSize = 1024) {
         const buffer = new ArrayBuffer(pageSize)

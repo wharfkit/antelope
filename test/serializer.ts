@@ -1,11 +1,11 @@
 import * as assert from 'assert'
 import 'mocha'
 
-import {Serializer} from '../src/serializer'
+import {ABIDecoder, ABIEncoder, Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int128, Int32, Int32Type, UInt128, UInt64, UInt8} from '../src/chain/integer'
+import {Int128, Int32, Int32Type, Int64, UInt128, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -14,6 +14,7 @@ import {TimePoint, TimePointSec} from '../src/chain/time'
 import {Variant} from '../src/chain/variant'
 import {TypeAlias} from '../src/chain/type-alias'
 import {Transaction} from '../src/chain/transaction'
+import BN from 'bn.js'
 
 suite('serializer', function () {
     test('array', function () {
@@ -786,5 +787,46 @@ suite('serializer', function () {
         )
         const decoded = Serializer.decode({data, type: 'all_types', abi})
         assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)
+    })
+
+    test('coder metadata', function () {
+        @TypeAlias('endian_int64')
+        class EndianInt64 extends Int64 {
+            static fromABI<T extends typeof Int64>(decoder: ABIDecoder): InstanceType<T> {
+                const bigEndian = decoder.metadata['endian'] === 'big'
+                const data = decoder.readArray(8)
+                const bn = new BN(data, undefined, bigEndian ? 'be' : 'le')
+                return new this(bn) as InstanceType<T>
+            }
+            toABI(encoder: ABIEncoder) {
+                const bigEndian = encoder.metadata['endian'] === 'big'
+                const data = this.value.toArray(bigEndian ? 'be' : 'le', 8)
+                encoder.writeArray(data)
+            }
+        }
+        const bigData = Serializer.encode({
+            object: 255,
+            type: EndianInt64,
+            metadata: {endian: 'big'},
+        })
+        const littleData = Serializer.encode({
+            object: 255,
+            type: EndianInt64,
+            metadata: {endian: 'little'},
+        })
+        assert.equal(bigData.hexString, '00000000000000ff')
+        assert.equal(littleData.hexString, 'ff00000000000000')
+        const valueFromBig = Serializer.decode({
+            data: bigData,
+            type: EndianInt64,
+            metadata: {endian: 'big'},
+        })
+        const valueFromLittle = Serializer.decode({
+            data: littleData,
+            type: EndianInt64,
+            metadata: {endian: 'little'},
+        })
+        assert.equal(valueFromBig.toNumber(), 255)
+        assert.equal(valueFromLittle.toNumber(), 255)
     })
 })

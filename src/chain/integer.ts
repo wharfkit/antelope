@@ -65,6 +65,10 @@ class Int implements ABISerializableObject {
         encoder.writeNum(this.value, self.byteWidth, self.isSigned)
     }
 
+    toNumber() {
+        return this.value
+    }
+
     toString() {
         return this.value.toFixed(0)
     }
@@ -130,6 +134,14 @@ class BNInt implements ABISerializableObject {
     toABI(encoder: ABIEncoder) {
         const self = this.constructor as typeof BNInt
         encoder.writeBn(this.value, self.byteWidth, self.isSigned)
+    }
+
+    /**
+     * Return JavaScript number for this instance.
+     * @throws If the number is larger than 53-bits.
+     **/
+    toNumber() {
+        return this.value.toNumber()
     }
 
     toString() {

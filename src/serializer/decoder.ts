@@ -22,6 +22,8 @@ interface DecodeArgsBase {
     json?: string
     object?: any
     customTypes?: ABISerializableConstructor[]
+    /** Optional encoder metadata.  */
+    metadata?: Record<string, any>
 }
 
 interface TypedDecodeArgs<T extends ABISerializableType> extends DecodeArgsBase {
@@ -108,6 +110,9 @@ export function decode(args: UntypedDecodeArgs | TypedDecodeArgs<any> | TypedDec
             } else {
                 const bytes = Bytes.from(args.data)
                 decoder = new ABIDecoder(bytes.array)
+            }
+            if (args.metadata) {
+                decoder.metadata = args.metadata
             }
             return decodeBinary(resolved, decoder, ctx)
         } else if (args.object !== undefined) {
@@ -287,6 +292,9 @@ export class ABIDecoder {
     private pos = 0
     private data: DataView
     private textDecoder = new TextDecoder()
+
+    /** User declared metadata, can be used to pass info to instances when decoding.  */
+    metadata: Record<string, any> = {}
 
     constructor(private array: Uint8Array) {
         this.data = new DataView(array.buffer, array.byteOffset, array.byteLength)
