@@ -1,5 +1,5 @@
 {
-    "name": "eosio-core",
+    "name": "@greymass/eosio",
     "description": "Library for working with EOSIO blockchains",
     "version": "0.0.2",
     "license": "BSD-3-Clause",
@@ -8,7 +8,8 @@
     "esmodule": "lib/index.esm.js",
     "types": "lib/index.d.ts",
     "browser": {
-        "buffer": false
+        "buffer": false,
+        "crypto": false
     },
     "sideEffects": false,
     "files": [
