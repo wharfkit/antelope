@@ -1,8 +1,15 @@
 import {APIClient} from '../client'
+import {UInt32} from '../../chain/integer'
 import {Name, NameType} from '../../chain/name'
 import {PackedTransaction, SignedTransaction, SignedTransactionType} from '../../chain/transaction'
 
-import {AccountObject, GetAbiResponse, GetInfoResponse, PushTransactionResponse} from './types'
+import {
+    AccountObject,
+    GetAbiResponse,
+    GetBlockResponse,
+    GetInfoResponse,
+    PushTransactionResponse,
+} from './types'
 
 export class ChainAPI {
     constructor(private client: APIClient) {}
@@ -19,6 +26,14 @@ export class ChainAPI {
             path: '/v1/chain/get_account',
             params: {account_name: Name.from(accountName)},
             responseType: AccountObject,
+        })
+    }
+
+    async get_block(block_num_or_id: string | number | UInt32) {
+        return this.client.call({
+            path: '/v1/chain/get_block',
+            params: {block_num_or_id},
+            responseType: GetBlockResponse,
         })
     }
 

@@ -8,7 +8,7 @@ import {APIClient} from '../src/api/client'
 import {Asset} from '../src/chain/asset'
 import {Name} from '../src/chain/name'
 import {PrivateKey} from '../src/chain/private-key'
-import {SignedTransaction, Transaction} from '../src/chain/transaction'
+import {SignedTransaction, Transaction, TransactionReceipt} from '../src/chain/transaction'
 import {Struct} from '../src/chain/struct'
 
 const client = new APIClient({
@@ -32,6 +32,23 @@ suite('api v1', function () {
         const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
         balances.forEach((balance) => {
           assert.equal(balance instanceof Asset, true)
+        })
+    })
+
+    test('chain get_block', async function () {
+        const block = await client.v1.chain.get_block(8482113)
+        assert.equal(block.block_num, 8482113)
+        assert.equal(
+            block.id.hexString,
+            '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
+    })
+
+    test('chain get_block w/ transactions', async function () {
+        const block = await client.v1.chain.get_block(124472078)
+        assert.equal(block.block_num, 124472078)
+        block.transactions.forEach((tx) => {
+          assert.equal(tx instanceof TransactionReceipt, true)
         })
     })
 

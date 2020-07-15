@@ -1,13 +1,14 @@
 import {ABI} from '../../chain/abi'
 import {Asset} from '../../chain/asset'
 import {Checksum256} from '../../chain/checksum'
-import {Int32, Int64, UInt32, UInt64} from '../../chain/integer'
+import {Int32, Int64, UInt16, UInt32, UInt64} from '../../chain/integer'
 import {Name} from '../../chain/name'
 import {PermissionLevel} from '../../chain/permission-level'
 import {PublicKey} from '../../chain/public-key'
 import {Struct} from '../../chain/struct'
 import {TimePoint, TimePointSec} from '../../chain/time'
-import {TransactionHeader} from '../../chain/transaction'
+import {Signature} from '../../chain/signature'
+import {TransactionHeader, TransactionReceipt} from '../../chain/transaction'
 
 @Struct.type('account_auth')
 export class AccountAuth extends Struct {
@@ -131,6 +132,26 @@ export class AccountObject extends Struct {
     @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
     @Struct.field(AccountVoterInfo, {optional: true}) voter_info?: AccountVoterInfo
     @Struct.field(AccountRexInfo, {optional: true}) rex_info?: AccountRexInfo
+}
+
+@Struct.type('get_block_response')
+export class GetBlockResponse extends Struct {
+    @Struct.field('time_point') timestamp!: TimePoint
+    @Struct.field('name') producer!: Name
+    @Struct.field('uint16') confirmed!: UInt16
+    @Struct.field('checksum256') previous!: Checksum256
+    @Struct.field('checksum256') transaction_mroot!: Checksum256
+    @Struct.field('checksum256') action_mroot!: Checksum256
+    @Struct.field('uint32') schedule_version!: UInt32
+    @Struct.field('any', {optional: true}) new_producers?: any
+    @Struct.field('any', {optional: true}) header_extensions?: any
+    @Struct.field('any', {optional: true}) new_protocol_features?: any
+    @Struct.field('signature') producer_signature!: Signature
+    @Struct.field(TransactionReceipt, {array: true}) transactions!: TransactionReceipt[]
+    @Struct.field('any', {optional: true}) block_extensions!: any
+    @Struct.field('checksum256') id!: Checksum256
+    @Struct.field('uint32') block_num!: UInt32
+    @Struct.field('uint32') ref_block_prefix!: UInt32
 }
 
 @Struct.type('get_info_response')

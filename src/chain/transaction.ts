@@ -196,3 +196,10 @@ export class PackedTransaction extends Struct {
         })
     }
 }
+
+@Struct.type('transaction_receipt')
+export class TransactionReceipt extends Struct {
+    @Struct.field('string') status!: string
+    @Struct.field('uint32') cpu_usage_us!: UInt32
+    @Struct.field('uint32') net_usage_words!: UInt32
+}
