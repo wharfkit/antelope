@@ -28,13 +28,6 @@ suite('api v1', function () {
         assert.equal(account.account_name, 'eosio')
     })
 
-    test('chain get_currency_balance', async function () {
-        const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
-        balances.forEach((balance) => {
-          assert.equal(balance instanceof Asset, true)
-        })
-    })
-
     test('chain get_block', async function () {
         const block = await client.v1.chain.get_block(8482113)
         assert.equal(block.block_num, 8482113)
@@ -49,6 +42,13 @@ suite('api v1', function () {
         assert.equal(block.block_num, 124472078)
         block.transactions.forEach((tx) => {
           assert.equal(tx instanceof TransactionReceipt, true)
+        })
+    })
+
+    test('chain get_currency_balance', async function () {
+        const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
+        balances.forEach((balance) => {
+          assert.equal(balance instanceof Asset, true)
         })
     })
 
