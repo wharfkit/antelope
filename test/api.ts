@@ -28,7 +28,16 @@ suite('api v1', function () {
         assert.equal(account.account_name, 'eosio')
     })
 
-    test('chain get_block', async function () {
+    test('chain get_block (by id)', async function () {
+        const block = await client.v1.chain.get_block('00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9')
+        assert.equal(block.block_num, 8482113)
+        assert.equal(
+            block.id.hexString,
+            '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
+    })
+
+    test('chain get_block (by num)', async function () {
         const block = await client.v1.chain.get_block(8482113)
         assert.equal(block.block_num, 8482113)
         assert.equal(
