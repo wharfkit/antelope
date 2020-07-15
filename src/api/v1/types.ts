@@ -134,6 +134,18 @@ export class AccountObject extends Struct {
     @Struct.field(AccountRexInfo, {optional: true}) rex_info?: AccountRexInfo
 }
 
+@Struct.type('new_producers_entry')
+export class NewProducersEntry extends Struct {
+    @Struct.field('name') producer_name!: Name
+    @Struct.field('public_key') block_signing_key!: PublicKey
+}
+
+@Struct.type('new_producers')
+export class NewProducers extends Struct {
+  @Struct.field('uint32') version!: UInt32
+  @Struct.field(NewProducersEntry, {array: true}) producers!: NewProducersEntry
+}
+
 @Struct.type('get_block_response')
 export class GetBlockResponse extends Struct {
     @Struct.field('time_point') timestamp!: TimePoint
@@ -143,7 +155,7 @@ export class GetBlockResponse extends Struct {
     @Struct.field('checksum256') transaction_mroot!: Checksum256
     @Struct.field('checksum256') action_mroot!: Checksum256
     @Struct.field('uint32') schedule_version!: UInt32
-    @Struct.field('any', {optional: true}) new_producers?: any
+    @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
     @Struct.field('any', {optional: true}) header_extensions?: any
     @Struct.field('any', {optional: true}) new_protocol_features?: any
     @Struct.field('signature') producer_signature!: Signature

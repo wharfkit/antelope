@@ -37,6 +37,11 @@ suite('api v1', function () {
         )
     })
 
+    test('chain get_block w/ new_producers', async function () {
+        const block = await client.v1.chain.get_block(92565371)
+        assert.equal(block.block_num, 92565371)
+    })
+
     test('chain get_block w/ transactions', async function () {
         const block = await client.v1.chain.get_block(124472078)
         assert.equal(block.block_num, 124472078)
