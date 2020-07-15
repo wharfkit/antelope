@@ -38,6 +38,7 @@ export class ChainAPI {
     }
 
     async get_currency_balance(contract: NameType, accountName: NameType, symbol?: NameType) {
+    async get_currency_balance(contract: NameType, accountName: NameType, symbol?: string) {
         const params: any = {
             account: Name.from(accountName),
             code: Name.from(contract),
