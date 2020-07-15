@@ -142,8 +142,8 @@ export class NewProducersEntry extends Struct {
 
 @Struct.type('new_producers')
 export class NewProducers extends Struct {
-  @Struct.field('uint32') version!: UInt32
-  @Struct.field(NewProducersEntry, {array: true}) producers!: NewProducersEntry
+    @Struct.field('uint32') version!: UInt32
+    @Struct.field(NewProducersEntry, {array: true}) producers!: NewProducersEntry
 }
 
 @Struct.type('get_block_response')
