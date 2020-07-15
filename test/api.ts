@@ -71,6 +71,23 @@ suite('api v1', function () {
         })
     })
 
+    test('chain get_block', async function () {
+        const block = await client.v1.chain.get_block(8482113)
+        assert.equal(block.block_num, 8482113)
+        assert.equal(
+            block.id.hexString,
+            '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
+    })
+
+    test('chain get_block w/ transactions', async function () {
+        const block = await client.v1.chain.get_block(124472078)
+        assert.equal(block.block_num, 124472078)
+        block.transactions.forEach((tx) => {
+          assert.equal(tx instanceof TransactionReceipt, true)
+        })
+    })
+
     test('chain get_info', async function () {
         const info = await client.v1.chain.get_info()
         assert.equal(
