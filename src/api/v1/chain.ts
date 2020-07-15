@@ -22,6 +22,21 @@ export class ChainAPI {
         })
     }
 
+    async get_currency_balance(contract: NameType, accountName: NameType, symbol?: NameType) {
+        const params: any = {
+            account: Name.from(accountName),
+            code: Name.from(contract),
+        }
+        if (symbol) {
+            params.symbol = symbol
+        }
+        return this.client.call({
+            path: '/v1/chain/get_currency_balance',
+            params,
+            responseType: 'asset[]',
+        })
+    }
+
     async get_info() {
         return this.client.call({
             path: '/v1/chain/get_info',

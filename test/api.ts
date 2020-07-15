@@ -28,6 +28,13 @@ suite('api v1', function () {
         assert.equal(account.account_name, 'eosio')
     })
 
+    test('chain get_currency_balance', async function () {
+        const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
+        balances.forEach((balance) => {
+          assert.equal(balance instanceof Asset, true)
+        })
+    })
+
     test('chain get_info', async function () {
         const info = await client.v1.chain.get_info()
         assert.equal(
