@@ -829,4 +829,51 @@ suite('serializer', function () {
         assert.equal(valueFromBig.toNumber(), 255)
         assert.equal(valueFromLittle.toNumber(), 255)
     })
+
+    test('object-only any coding', function () {
+        @Struct.type('my_struct')
+        class MyStruct extends Struct {
+            @Struct.field('any') foo!: any
+            @Struct.field('any[]') bar!: any[]
+            @Struct.field('any', {optional: true}) baz?: any
+            @Struct.field('name') account!: Name
+        }
+        const decoded = Serializer.decode({
+            object: {
+                foo: 'hello',
+                bar: [1, 'two', false],
+                account: 'foobar1234',
+            },
+            type: MyStruct,
+        })
+        assert.deepEqual(JSON.parse(JSON.stringify(decoded)), {
+            foo: 'hello',
+            bar: [1, 'two', false],
+            baz: null,
+            account: 'foobar1234',
+        })
+        const abi = Serializer.synthesize(MyStruct)
+        const decoded2 = Serializer.decode({
+            object: {
+                foo: {nested: 'obj'},
+                bar: [],
+                baz: {b: {a: {z: 'zz'}}},
+                account: 'foo',
+            },
+            type: 'my_struct',
+            abi,
+        })
+        assert.deepEqual(JSON.parse(JSON.stringify(decoded2)), {
+            foo: {nested: 'obj'},
+            bar: [],
+            baz: {b: {a: {z: 'zz'}}},
+            account: 'foo',
+        })
+        assert.throws(() => {
+            Serializer.decode({data: 'beef', type: MyStruct})
+        })
+        assert.throws(() => {
+            Serializer.encode({object: decoded})
+        })
+    })
 })

@@ -217,7 +217,9 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                 ctx.codingPath.pop()
             } else {
                 if (!abiType) {
-                    throw new Error(`Unknown type: ${type.typeName}`)
+                    throw new Error(
+                        type.name === 'any' ? 'Unable to encode any type to binary' : 'Unknown type'
+                    )
                 }
                 const instance = abiType.from(value) as ABISerializableObject
                 if (!instance.toABI) {

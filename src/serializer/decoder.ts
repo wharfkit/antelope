@@ -202,7 +202,9 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
             } else if (abiType) {
                 throw new Error('Invalid type')
             } else {
-                throw new Error('Unknown type')
+                throw new Error(
+                    type.name === 'any' ? 'Unable to decode any type from binary' : 'Unknown type'
+                )
             }
         }
     }
@@ -281,6 +283,10 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             }
         } else {
             if (!abiType) {
+                // special case for `any` when decoding from object
+                if (type.name === 'any') {
+                    return value
+                }
                 throw new Error('Unknown type')
             }
             return abiType.from(value)
