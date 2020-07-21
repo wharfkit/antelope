@@ -1,5 +1,6 @@
 import {ABI} from '../../chain/abi'
 import {Asset} from '../../chain/asset'
+import {Bytes} from '../../chain/bytes'
 import {Checksum256} from '../../chain/checksum'
 import {Int32, Int64, UInt16, UInt32, UInt64} from '../../chain/integer'
 import {Name} from '../../chain/name'
@@ -142,8 +143,20 @@ export class NewProducersEntry extends Struct {
 
 @Struct.type('new_producers')
 export class NewProducers extends Struct {
-    @Struct.field('uint32') version!: UInt32
-    @Struct.field(NewProducersEntry, {array: true}) producers!: NewProducersEntry
+  @Struct.field('uint32') version!: UInt32
+  @Struct.field(NewProducersEntry, {array: true}) producers!: NewProducersEntry
+}
+
+@Struct.type('block_extension')
+export class BlockExtension extends Struct {
+    @Struct.field('uint16') type!: UInt16
+    @Struct.field('bytes') data!: Bytes
+}
+
+@Struct.type('header_extension')
+export class HeaderExtension extends Struct {
+    @Struct.field('uint16') type!: UInt16
+    @Struct.field('bytes') data!: Bytes
 }
 
 @Struct.type('get_block_response')
@@ -156,11 +169,11 @@ export class GetBlockResponse extends Struct {
     @Struct.field('checksum256') action_mroot!: Checksum256
     @Struct.field('uint32') schedule_version!: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
-    @Struct.field('any', {optional: true}) header_extensions?: any
+    @Struct.field('header_extension', {optional: true}) header_extensions?: HeaderExtension[]
     @Struct.field('any', {optional: true}) new_protocol_features?: any
     @Struct.field('signature') producer_signature!: Signature
     @Struct.field(TransactionReceipt, {array: true}) transactions!: TransactionReceipt[]
-    @Struct.field('any', {optional: true}) block_extensions!: any
+    @Struct.field('block_extension', {optional: true}) block_extensions!: BlockExtension[]
     @Struct.field('checksum256') id!: Checksum256
     @Struct.field('uint32') block_num!: UInt32
     @Struct.field('uint32') ref_block_prefix!: UInt32
