@@ -179,6 +179,56 @@ export class GetBlockResponse extends Struct {
     @Struct.field('uint32') ref_block_prefix!: UInt32
 }
 
+@Struct.type('active_schedule_producer_authority')
+export class ActiveScheduleProducerAuthority extends Struct {
+    @Struct.field('name') producer_name!: Name
+    @Struct.field('any') authority!: any
+}
+
+@Struct.type('active_schedule_producer')
+export class ActiveScheduleProducer extends Struct {
+    @Struct.field('name') producer_name!: Name
+    @Struct.field(ActiveScheduleProducerAuthority) authority!: ActiveScheduleProducerAuthority
+}
+
+@Struct.type('active_schedule')
+export class ActiveSchedule extends Struct {
+    @Struct.field('uint32') version!: UInt32
+    @Struct.field(ActiveScheduleProducer, {array: true}) producers!: ActiveScheduleProducer[]
+}
+
+@Struct.type('block_state_header')
+export class BlockStateHeader extends Struct {
+    @Struct.field('time_point') timestamp!: TimePoint
+    @Struct.field('name') producer!: Name
+    @Struct.field('uint16') confirmed!: UInt16
+    @Struct.field('checksum256') previous!: Checksum256
+    @Struct.field('checksum256') transaction_mroot!: Checksum256
+    @Struct.field('checksum256') action_mroot!: Checksum256
+    @Struct.field('uint32') schedule_version!: UInt32
+    @Struct.field(HeaderExtension, {array: true, optional: true}) header_extensions?: HeaderExtension[]
+    @Struct.field('signature') producer_signature!: Signature
+}
+
+@Struct.type('get_block_header_state_response')
+export class GetBlockHeaderStateResponse extends Struct {
+    @Struct.field('uint32') block_num!: UInt32
+    @Struct.field('uint32') dpos_proposed_irreversible_blocknum!: UInt32
+    @Struct.field('uint32') dpos_irreversible_blocknum!: UInt32
+    @Struct.field('checksum256') id!: Checksum256
+    @Struct.field(BlockStateHeader) header!: BlockStateHeader
+    /** Unstructured any fields specific to header state calls */
+    @Struct.field('any') active_schedule!: any
+    @Struct.field('any') blockroot_merkle!: any
+    @Struct.field('any') producer_to_last_produced!: any
+    @Struct.field('any') producer_to_last_implied_irb!: any
+    @Struct.field('any') valid_block_signing_authority!: any
+    @Struct.field('any') confirm_count!: any
+    @Struct.field('any') pending_schedule!: any
+    @Struct.field('any') activated_protocol_features!: any
+    @Struct.field('any') additional_signatures!: any
+}
+
 @Struct.type('get_info_response')
 export class GetInfoResponse extends Struct {
     /** Hash representing the last commit in the tagged release. */

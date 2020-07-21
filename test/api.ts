@@ -59,6 +59,11 @@ suite('api v1', function () {
         })
     })
 
+    test('chain get_block_header_state', async function() {
+        const header = await client.v1.chain.get_block_header_state(131384206)
+        assert.equal(header.block_num, 131384206)
+    })
+
     test('chain get_currency_balance', async function () {
         const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
         balances.forEach((balance) => {

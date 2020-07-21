@@ -7,6 +7,7 @@ import {
     AccountObject,
     GetAbiResponse,
     GetBlockResponse,
+    GetBlockHeaderStateResponse,
     GetInfoResponse,
     PushTransactionResponse,
 } from './types'
@@ -34,6 +35,14 @@ export class ChainAPI {
             path: '/v1/chain/get_block',
             params: {block_num_or_id},
             responseType: GetBlockResponse,
+        })
+    }
+
+    async get_block_header_state(block_num_or_id: string | number | UInt32) {
+        return this.client.call({
+            path: '/v1/chain/get_block_header_state',
+            params: {block_num_or_id},
+            responseType: GetBlockHeaderStateResponse,
         })
     }
 
