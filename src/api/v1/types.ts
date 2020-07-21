@@ -206,7 +206,8 @@ export class BlockStateHeader extends Struct {
     @Struct.field('checksum256') transaction_mroot!: Checksum256
     @Struct.field('checksum256') action_mroot!: Checksum256
     @Struct.field('uint32') schedule_version!: UInt32
-    @Struct.field(HeaderExtension, {array: true, optional: true}) header_extensions?: HeaderExtension[]
+    @Struct.field(HeaderExtension, {array: true, optional: true})
+    header_extensions?: HeaderExtension[]
     @Struct.field('signature') producer_signature!: Signature
 }
 

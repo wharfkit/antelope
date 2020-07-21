@@ -6,8 +6,8 @@ import {PackedTransaction, SignedTransaction, SignedTransactionType} from '../..
 import {
     AccountObject,
     GetAbiResponse,
-    GetBlockResponse,
     GetBlockHeaderStateResponse,
+    GetBlockResponse,
     GetInfoResponse,
     PushTransactionResponse,
 } from './types'
