@@ -11,7 +11,9 @@ import {
     ABISerializable,
     ABISerializableConstructor,
     ABISerializableType,
+    abiTypeString,
     synthesizeABI,
+    toTypeDescriptor,
 } from './serializable'
 import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
 import {Variant} from '../chain/variant'
@@ -63,8 +65,9 @@ export function decode<T extends ABISerializableConstructor>(
     args: TypedDecodeArgs<T>
 ): InstanceType<T>
 export function decode(args: UntypedDecodeArgs): ABISerializable
-export function decode(args: UntypedDecodeArgs | TypedDecodeArgs<any> | TypedDecodeArgs<any>) {
-    const typeName = typeof args.type === 'string' ? args.type : args.type.abiName
+export function decode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | TypedDecodeArgs<any>) {
+    const descriptor = toTypeDescriptor(args.type)
+    const typeName = abiTypeString(descriptor)
     const customTypes = args.customTypes || []
     let abi: ABI
     if (args.abi) {
@@ -72,15 +75,15 @@ export function decode(args: UntypedDecodeArgs | TypedDecodeArgs<any> | TypedDec
     } else {
         try {
             let type: ABISerializableConstructor
-            if (typeof args.type === 'string') {
+            if (typeof descriptor.type === 'string') {
                 const lookup = buildTypeLookup(customTypes)
-                const rName = new ABI.ResolvedType(args.type).name // type name w/o suffixes
+                const rName = new ABI.ResolvedType(descriptor.type).name // type name w/o suffixes
                 type = lookup[rName] as ABISerializableConstructor
                 if (!type) {
-                    throw new Error(`Unknown type: ${args.type}`)
+                    throw new Error(`Unknown type: ${descriptor.type}`)
                 }
             } else {
-                type = args.type
+                type = descriptor.type
             }
             const synthesized = synthesizeABI(type)
             abi = synthesized.abi
@@ -93,8 +96,8 @@ export function decode(args: UntypedDecodeArgs | TypedDecodeArgs<any> | TypedDec
         }
     }
     const resolved = abi.resolveType(typeName)
-    if (typeof args.type !== 'string') {
-        customTypes.unshift(args.type)
+    if (typeof descriptor.type !== 'string') {
+        customTypes.unshift(descriptor.type)
     }
 
     const ctx: DecodingContext = {

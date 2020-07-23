@@ -5,7 +5,7 @@ import {ABIDecoder, ABIEncoder, Serializer} from '../src/serializer'
 
 import {Name} from '../src/chain/name'
 import {ABI} from '../src/chain/abi'
-import {Int128, Int32, Int32Type, Int64, UInt128, UInt64, UInt8} from '../src/chain/integer'
+import {Int128, Int32, Int32Type, Int64, UInt128, UInt16, UInt64, UInt8} from '../src/chain/integer'
 import {Asset} from '../src/chain/asset'
 import {PublicKey} from '../src/chain/public-key'
 import {Signature} from '../src/chain/signature'
@@ -875,5 +875,45 @@ suite('serializer', function () {
         assert.throws(() => {
             Serializer.encode({object: decoded})
         })
+    })
+
+    test('coding with type descriptors', function () {
+        const array = Serializer.decode({
+            data: '020000ffff',
+            type: {type: UInt16, array: true},
+        }) as UInt16[]
+        assert.deepEqual(array.map(Number), [0, 65535])
+        const optional = Serializer.decode({
+            data: '00',
+            type: {type: Transaction, optional: true},
+        })
+        assert.strictEqual(optional, null)
+        const obj = Serializer.decode({
+            object: [false, true, false],
+            type: {type: 'bool', array: true},
+        })
+        assert.deepEqual(obj, [false, true, false])
+        @Struct.type('my_struct')
+        class MyStruct extends Struct {
+            @Struct.field('uint16') foo!: UInt16
+        }
+        const encoded = Serializer.encode({
+            object: [{foo: 0}, {foo: 65535}],
+            type: {type: MyStruct, array: true},
+        })
+        assert.equal(encoded.hexString, '020000ffff')
+        const decoded = Serializer.decode({
+            data: '020000ffff',
+            type: {type: MyStruct, array: true},
+        }) as MyStruct[]
+        assert.equal(decoded.length, 2)
+        assert.equal(
+            decoded.every((v) => v instanceof MyStruct),
+            true
+        )
+        assert.deepEqual(
+            decoded.map((v) => Number(v.foo)),
+            [0, 65535]
+        )
     })
 })

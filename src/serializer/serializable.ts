@@ -11,7 +11,7 @@ export type ABISerializable =
     | {[key: string]: ABISerializable}
 
 /** Type describing an ABI type, either a string (e.g. `uint32[]`) or a ABI type class. */
-export type ABISerializableType = string | ABISerializableConstructor
+export type ABISerializableType = string | ABISerializableConstructor | ABITypeDescriptor
 
 /** Interface that should be implemented by ABI serializable objects. */
 export interface ABISerializableObject {
@@ -23,14 +23,14 @@ export interface ABISerializableObject {
     equals(other: any): boolean
 }
 
-export interface ABIType {
-    type: ABISerializableType
+export interface ABITypeDescriptor {
+    type: ABISerializableConstructor | string
     optional?: boolean
     array?: boolean
     extension?: boolean
 }
 
-export interface ABIField extends ABIType {
+export interface ABIField extends ABITypeDescriptor {
     name: string
     default?: any
 }
@@ -43,9 +43,9 @@ export interface ABISerializableConstructor {
     /** For structs, the base class this type extends. */
     abiBase?: ABISerializableConstructor
     /** For variants, the different types this type can represent. */
-    abiVariant?: ABIType[]
+    abiVariant?: ABITypeDescriptor[]
     /** Alias to another type. */
-    abiAlias?: ABIType
+    abiAlias?: ABITypeDescriptor
     /**
      * Create new instance from JavaScript object.
      * Should also accept an instance of itself and return that unchanged.
@@ -76,7 +76,7 @@ export function synthesizeABI(type: ABISerializableConstructor) {
     const variants: ABI.Variant[] = []
     const aliases: ABI.TypeDef[] = []
     const seen = new Set<ABISerializableConstructor>()
-    const resolveAbiType = (t: ABIType) => {
+    const resolveAbiType = (t: ABITypeDescriptor) => {
         let typeName: string
         if (typeof t.type !== 'string') {
             typeName = resolve(t.type)
@@ -133,7 +133,7 @@ export function synthesizeABI(type: ABISerializableConstructor) {
     return {abi: ABI.from({structs, variants, types: aliases}), types: Array.from(seen), root}
 }
 
-export function abiTypeString(type: ABIType) {
+export function abiTypeString(type: ABITypeDescriptor) {
     let typeName = typeof type.type === 'string' ? type.type : type.type.abiName
     if (type.array === true) {
         typeName += '[]'
@@ -145,4 +145,22 @@ export function abiTypeString(type: ABIType) {
         typeName += '?'
     }
     return typeName
+}
+
+export function isTypeDescriptor(type: ABISerializableType): type is ABITypeDescriptor {
+    return (
+        typeof type !== 'string' &&
+        (type as any).abiName === undefined &&
+        (type as any).type !== undefined
+    )
+}
+
+export function toTypeDescriptor(type: ABISerializableType): ABITypeDescriptor {
+    if (typeof type === 'string') {
+        return {type}
+    }
+    if (typeof (type as ABISerializableConstructor).abiName !== 'undefined') {
+        return {type: type as ABISerializableConstructor}
+    }
+    return type as ABITypeDescriptor
 }

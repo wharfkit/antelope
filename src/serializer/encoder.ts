@@ -12,6 +12,8 @@ import {
     ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
+    abiTypeString,
+    isTypeDescriptor,
     synthesizeABI,
 } from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
@@ -89,6 +91,11 @@ export function encode(args: EncodeArgs): Bytes {
     let typeName: string | undefined
     if (typeof args.type === 'string') {
         typeName = args.type
+    } else if (args.type && isTypeDescriptor(args.type)) {
+        if (typeof args.type.type !== 'string') {
+            type = args.type.type
+        }
+        typeName = abiTypeString(args.type)
     } else if (args.type && args.type.abiName !== undefined) {
         type = args.type
         typeName = args.type.abiName

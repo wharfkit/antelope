@@ -3,8 +3,9 @@ import {
     ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
-    ABIType,
+    ABITypeDescriptor,
     abiTypeString,
+    toTypeDescriptor,
 } from '../serializer/serializable'
 import {decode, Resolved} from '../serializer/decoder'
 import {encode} from '../serializer/encoder'
@@ -17,7 +18,7 @@ export type AnyVariant = Variant | ABISerializable | [string, any]
 
 export class Variant implements ABISerializableObject {
     static abiName: string
-    static abiVariant: ABIType[] = []
+    static abiVariant: ABITypeDescriptor[] = []
 
     static from<T extends VariantConstructor>(this: T, object: AnyVariant): InstanceType<T> {
         if (object[Resolved]) {
@@ -70,18 +71,10 @@ export class Variant implements ABISerializableObject {
 }
 
 export namespace Variant {
-    export function type(name: string, types: (ABIType | ABISerializableType)[]) {
+    export function type(name: string, types: ABISerializableType[]) {
         return function <T extends VariantConstructor>(variant: T) {
             variant.abiName = name
-            variant.abiVariant = types.map((type) => {
-                if (typeof type === 'string') {
-                    return {type}
-                }
-                if (typeof (type as ABISerializableConstructor).abiName === 'string') {
-                    return {type: type as ABISerializableConstructor}
-                }
-                return type as ABIType
-            })
+            variant.abiVariant = types.map(toTypeDescriptor)
             return variant
         }
     }
