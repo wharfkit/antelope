@@ -29,7 +29,9 @@ suite('api v1', function () {
     })
 
     test('chain get_block (by id)', async function () {
-        const block = await client.v1.chain.get_block('00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9')
+        const block = await client.v1.chain.get_block(
+            '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
         assert.equal(block.block_num, 8482113)
         assert.equal(
             block.id.hexString,
@@ -55,20 +57,13 @@ suite('api v1', function () {
         const block = await client.v1.chain.get_block(124472078)
         assert.equal(block.block_num, 124472078)
         block.transactions.forEach((tx) => {
-          assert.equal(tx instanceof TransactionReceipt, true)
+            assert.equal(tx instanceof TransactionReceipt, true)
         })
     })
 
-    test('chain get_block_header_state', async function() {
+    test('chain get_block_header_state', async function () {
         const header = await client.v1.chain.get_block_header_state(131384206)
         assert.equal(header.block_num, 131384206)
-    })
-
-    test('chain get_currency_balance', async function () {
-        const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
-        balances.forEach((balance) => {
-          assert.equal(balance instanceof Asset, true)
-        })
     })
 
     test('chain get_block', async function () {
@@ -89,15 +84,27 @@ suite('api v1', function () {
         const block = await client.v1.chain.get_block(124472078)
         assert.equal(block.block_num, 124472078)
         block.transactions.forEach((tx) => {
-          assert.equal(tx instanceof TransactionReceipt, true)
+            assert.equal(tx instanceof TransactionReceipt, true)
         })
     })
 
     test('chain get_currency_balance', async function () {
         const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
-        balances.forEach((balance) => {
-          assert.equal(balance instanceof Asset, true)
+        assert.equal(balances.length, 2)
+        balances.forEach((asset) => {
+            assert.equal(asset instanceof Asset, true)
         })
+        assert.deepEqual(balances.map(String), ['900195467.8183 EOS', '100200.0000 JUNGLE'])
+    })
+
+    test('chain get_currency_balance w/ symbol', async function () {
+        const balances = await client.v1.chain.get_currency_balance(
+            'eosio.token',
+            'lioninjungle',
+            'JUNGLE'
+        )
+        assert.equal(balances.length, 1)
+        assert.equal(balances[0].value, 100200)
     })
 
     test('chain get_info', async function () {
