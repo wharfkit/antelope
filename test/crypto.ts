@@ -44,6 +44,14 @@ suite('crypto', function () {
         })
     })
 
+    test('public key prefix', function () {
+        const privKey = PrivateKey.from('5J4zo6Af9QnAeJmNEQeAR4MNhaG7SKVReAYgZC8655hpkbbBscr')
+        const pubKey = privKey.toPublic()
+        assert.equal(pubKey.toString(), 'PUB_K1_87DUhBcZrLhyFfBVDyu1iWZJUGURqbk6CQxwv5g6iWUD2X45Hv')
+        assert.equal(pubKey.toLegacyString(), 'EOS87DUhBcZrLhyFfBVDyu1iWZJUGURqbk6CQxwv5g6iWUCy9dCUJ')
+        assert.equal(pubKey.toLegacyString('FIO'), 'FIO87DUhBcZrLhyFfBVDyu1iWZJUGURqbk6CQxwv5g6iWUCy9dCUJ')
+    })
+
     test('public from private', function () {
         const privKey = PrivateKey.from('5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zFu')
         const pubKey = privKey.toPublic()
