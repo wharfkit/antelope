@@ -46,9 +46,14 @@ export class FetchProvider implements APIProvider {
             method: 'POST',
             body: params !== undefined ? JSON.stringify(params) : undefined,
         })
-        if (!response.ok) {
-            throw Error('Not ok')
+        try {
+            return response.json()
+        } catch (error) {
+            if (!response.ok) {
+                throw Error(`HTTP ${response.status}: ${response.statusText}`)
+            }
+            error.message = `Unable to parse JSON response from server: ${error.message}`
+            throw error
         }
-        return response.json()
     }
 }

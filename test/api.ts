@@ -4,7 +4,7 @@ import {join as joinPath} from 'path'
 import {MockProvider} from './utils/mock-provider'
 
 import {Action} from '../src/chain/action'
-import {APIClient} from '../src/api/client'
+import {APIClient, APIError} from '../src/api/client'
 import {Asset} from '../src/chain/asset'
 import {Name} from '../src/chain/name'
 import {PrivateKey} from '../src/chain/private-key'
@@ -153,5 +153,25 @@ suite('api v1', function () {
         })
         const result = await client.v1.chain.push_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('api errors', async function () {
+        try {
+            await client.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
+            assert.fail()
+        } catch (error) {
+            assert.equal(error instanceof APIError, true)
+            assert.equal(error.message, 'Invalid name at /v1/chain/get_account')
+            assert.equal(error.name, 'name_type_exception')
+            assert.equal(error.code, 3010001)
+            assert.deepEqual(error.details, [
+                {
+                    file: 'name.cpp',
+                    line_number: 15,
+                    message: 'Name not properly normalized (name: ., normalized: ) ',
+                    method: 'set',
+                },
+            ])
+        }
     })
 })

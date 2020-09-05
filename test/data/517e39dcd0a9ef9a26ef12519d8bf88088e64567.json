@@ -1,0 +1,17 @@
+{
+    "code": 500,
+    "message": "Internal Service Error",
+    "error": {
+        "code": 3010001,
+        "name": "name_type_exception",
+        "what": "Invalid name",
+        "details": [
+            {
+                "message": "Name not properly normalized (name: ., normalized: ) ",
+                "file": "name.cpp",
+                "line_number": 15,
+                "method": "set"
+            }
+        ]
+    }
+}
