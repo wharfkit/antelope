@@ -1,6 +1,6 @@
 import {Action, ActionType, AnyAction} from './action'
 import {Bytes, BytesType} from './bytes'
-import {Checksum256} from './checksum'
+import {Checksum256, Checksum256Type} from './checksum'
 import {
     UInt16,
     UInt16Type,
@@ -132,8 +132,8 @@ export class Transaction extends TransactionHeader {
         return encode({object: this}).sha256Digest
     }
 
-    signingDigest(chainId: Checksum256): Checksum256 {
-        let data = Bytes.from(chainId.array)
+    signingDigest(chainId: Checksum256Type): Checksum256 {
+        let data = Bytes.from(Checksum256.from(chainId).array)
         data = data.appending(encode({object: this}))
         data = data.appending(new Uint8Array(32))
         return data.sha256Digest

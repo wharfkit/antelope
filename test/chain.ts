@@ -15,6 +15,7 @@ import {Signature} from '../src/chain/signature'
 import {PermissionLevel} from '../src/chain/permission-level'
 import {Variant} from '../src/chain/variant'
 import {ABIDef} from '../src/chain/abi'
+import {Checksum256} from '../src/chain/checksum'
 
 suite('chain', function () {
     test('asset', function () {
@@ -308,5 +309,35 @@ suite('chain', function () {
         assert.equal(time.equals(1), true)
         assert.equal(time.equals(2), false)
         assert.equal(time.equals(TimePoint.from(1 * 1000000)), true)
+    })
+
+    test('transaction signingDigest', async function () {
+        const transaction = Transaction.from({
+            expiration: '1970-01-01T00:00:00',
+            ref_block_num: 0,
+            ref_block_prefix: 0,
+            max_net_usage_words: 0,
+            max_cpu_usage_ms: 0,
+            delay_sec: 0,
+            context_free_actions: [],
+            actions: [
+                {
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{actor: 'corecorecore', permission: 'active'}],
+                    data:
+                        'a02e45ea52a42e4580b1915e5d268dcaba0100000000000004454f5300' +
+                        '00000019656f73696f2d636f7265206973207468652062657374203c33',
+                },
+            ],
+            transaction_extensions: [],
+        })
+        const chainId = Checksum256.from(
+            '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
+        )
+        const digest1 = transaction.signingDigest(chainId)
+        const digest2 = transaction.signingDigest(chainId.toString())
+        assert.equal(digest1.equals(digest2), true)
+        assert.equal(digest1.toString(), digest2.toString())
     })
 })
