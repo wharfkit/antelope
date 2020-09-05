@@ -29,7 +29,7 @@ export class Signature implements ABISerializableObject {
         if (value instanceof Signature) {
             return value
         }
-        if (typeof value === 'object') {
+        if (typeof value === 'object' && value.r && value.s) {
             const data = new Uint8Array(1 + 32 + 32)
             let recid = value.recid
             const type = CurveType.from(value.type)
@@ -40,6 +40,9 @@ export class Signature implements ABISerializableObject {
             data.set(value.r, 1)
             data.set(value.s, 33)
             return new Signature(type, new Bytes(data))
+        }
+        if (typeof value !== 'string') {
+            throw new Error('Invalid signature')
         }
         if (value.startsWith('SIG_')) {
             const parts = value.split('_')

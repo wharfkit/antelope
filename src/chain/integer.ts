@@ -33,6 +33,9 @@ class Int implements ABISerializableObject {
         } else if (BN.isBN(value)) {
             value = value.toNumber()
         }
+        if (typeof value !== 'number') {
+            throw new Error('Invalid integer')
+        }
         return new this(value) as InstanceType<T>
     }
 

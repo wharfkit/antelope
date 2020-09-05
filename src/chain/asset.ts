@@ -18,7 +18,7 @@ export class Asset implements ABISerializableObject {
         if (value instanceof Asset) {
             return value
         }
-        const parts = value.split(' ')
+        const parts = (typeof value === 'string' ? value : '').split(' ')
         if (parts.length !== 2) {
             throw new Error('Invalid asset string')
         }

@@ -22,13 +22,16 @@ export class PublicKey implements ABISerializableObject {
         if (value instanceof PublicKey) {
             return value
         }
-        if (typeof value === 'object') {
+        if (typeof value === 'object' && value.type && value.compressed) {
             return new PublicKey(CurveType.from(value.type), new Bytes(value.compressed))
+        }
+        if (typeof value !== 'string') {
+            throw new Error('Invalid public key')
         }
         if (value.startsWith('PUB_')) {
             const parts = value.split('_')
             if (parts.length !== 3) {
-                throw new Error('Invalid signature string')
+                throw new Error('Invalid public key string')
             }
             const type = CurveType.from(parts[1])
             const size = type === CurveType.K1 || type === CurveType.R1 ? 33 : undefined
@@ -39,7 +42,7 @@ export class PublicKey implements ABISerializableObject {
             const data = Base58.decodeRipemd160Check(value.slice(-50))
             return new PublicKey(CurveType.K1, data)
         } else {
-            throw new Error('Invalid signature string')
+            throw new Error('Invalid public key string')
         }
     }
 

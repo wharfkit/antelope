@@ -22,6 +22,9 @@ export class PrivateKey {
         if (value instanceof PrivateKey) {
             return value
         }
+        if (typeof value !== 'string') {
+            throw new Error('Invalid private key')
+        }
         if (value.startsWith('PVT_')) {
             // EOSIO format
             const parts = value.split('_')

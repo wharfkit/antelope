@@ -20,11 +20,13 @@ export class Name implements ABISerializableObject {
     static from(value: NameType): Name {
         if (value instanceof Name) {
             return value
-        }
-        if (typeof value === 'string') {
+        } else if (typeof value === 'string') {
             return new Name(stringToName(value))
+        } else if (value instanceof UInt64) {
+            return new Name(value)
+        } else {
+            throw new Error('Invalid name')
         }
-        return new Name(value)
     }
 
     static fromABI(decoder: ABIDecoder) {
