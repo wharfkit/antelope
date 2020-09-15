@@ -340,4 +340,46 @@ suite('chain', function () {
         assert.equal(digest1.equals(digest2), true)
         assert.equal(digest1.toString(), digest2.toString())
     })
+
+    test('action with no arguments', function () {
+        const abi = {
+            structs: [{name: 'noop', base: '', fields: []}],
+            actions: [
+                {
+                    name: 'noop',
+                    type: 'noop',
+                    ricardian_contract: '',
+                },
+            ],
+        }
+        const a1 = Action.from(
+            {
+                account: 'greymassnoop',
+                name: 'noop',
+                authorization: [{actor: 'greymassfuel', permission: 'cosign'}],
+                data: '',
+            },
+            abi
+        )
+        const a2 = Action.from(
+            {
+                account: 'greymassnoop',
+                name: 'noop',
+                authorization: [{actor: 'greymassfuel', permission: 'cosign'}],
+                data: {},
+            },
+            abi
+        )
+        const a3 = Action.from(
+            {
+                account: 'greymassnoop',
+                name: 'noop',
+                authorization: [{actor: 'greymassfuel', permission: 'cosign'}],
+                data: [],
+            },
+            abi
+        )
+        assert.equal(a1.equals(a2), true)
+        assert.equal(a1.equals(a3), true)
+    })
 })

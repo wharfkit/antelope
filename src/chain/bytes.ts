@@ -57,7 +57,7 @@ export class Bytes implements ABISerializableObject {
         if (Array.isArray(value) && value.every((v) => typeof v === 'number')) {
             return true
         }
-        if (typeof value === 'string' && /[\da-f]/i.test(value)) {
+        if (typeof value === 'string' && (/[\da-f]/i.test(value) || value === '')) {
             return true
         }
         return false
