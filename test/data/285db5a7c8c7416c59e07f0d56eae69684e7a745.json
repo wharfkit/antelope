@@ -1,11 +1,11 @@
 {
     "account_name": "eosio",
-    "head_block_num": 22952283,
-    "head_block_time": "2020-07-01T16:16:12.500",
+    "head_block_num": 37648409,
+    "head_block_time": "2020-09-24T20:52:07.000",
     "privileged": true,
-    "last_code_update": "2020-02-19T17:44:09.000",
+    "last_code_update": "2020-08-15T19:12:13.000",
     "created": "2020-02-19T16:20:00.000",
-    "core_liquid_balance": "1297726368.4962 EOS",
+    "core_liquid_balance": "1297726468.4963 EOS",
     "ram_quota": 134217728,
     "net_weight": -1,
     "cpu_weight": -1,
@@ -19,7 +19,7 @@
         "available": -1,
         "max": -1
     },
-    "ram_usage": 62967361,
+    "ram_usage": 63261046,
     "permissions": [
         {
             "perm_name": "active",

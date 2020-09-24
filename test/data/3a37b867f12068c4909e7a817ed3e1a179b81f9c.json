@@ -1,0 +1,18 @@
+{
+    "server_version": "c173d52d",
+    "chain_id": "2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840",
+    "head_block_num": 37648418,
+    "last_irreversible_block_num": 37648082,
+    "last_irreversible_block_id": "023e76d2fedb02d431d48683fd3cdf877d37b90a238787754fd448e8263dc87b",
+    "head_block_id": "023e7822071d30b55c4b12f1017fa8ae0200c1076f08ea427f3e7f618f68284e",
+    "head_block_time": "2020-09-24T20:52:11.500",
+    "head_block_producer": "lioninjungle",
+    "virtual_block_cpu_limit": 400000000,
+    "virtual_block_net_limit": 524288000,
+    "block_cpu_limit": 399999,
+    "block_net_limit": 524288,
+    "server_version_string": "v2.0.6",
+    "fork_db_head_block_num": 37648418,
+    "fork_db_head_block_id": "023e7822071d30b55c4b12f1017fa8ae0200c1076f08ea427f3e7f618f68284e",
+    "server_full_version_string": "v2.0.6-2281ba064ffa5de0efbe492a2fbf8e4249eda508-dirty"
+}

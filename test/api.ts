@@ -11,25 +11,33 @@ import {PrivateKey} from '../src/chain/private-key'
 import {SignedTransaction, Transaction, TransactionReceipt} from '../src/chain/transaction'
 import {Struct} from '../src/chain/struct'
 
-const client = new APIClient({
+const jungle = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data')),
+})
+
+const eos = new APIClient({
+    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://eos.greymass.com'),
+})
+
+const beos = new APIClient({
+    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://api.beos.world'),
 })
 
 suite('api v1', function () {
     this.slow(200)
 
     test('chain get_account', async function () {
-        const account = await client.v1.chain.get_account('teamgreymass')
+        const account = await jungle.v1.chain.get_account('teamgreymass')
         assert.equal(account.account_name, 'teamgreymass')
     })
 
     test('chain get_account (system account)', async function () {
-        const account = await client.v1.chain.get_account('eosio')
+        const account = await jungle.v1.chain.get_account('eosio')
         assert.equal(account.account_name, 'eosio')
     })
 
     test('chain get_block (by id)', async function () {
-        const block = await client.v1.chain.get_block(
+        const block = await eos.v1.chain.get_block(
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
         )
         assert.equal(block.block_num, 8482113)
@@ -40,7 +48,7 @@ suite('api v1', function () {
     })
 
     test('chain get_block (by num)', async function () {
-        const block = await client.v1.chain.get_block(8482113)
+        const block = await eos.v1.chain.get_block(8482113)
         assert.equal(block.block_num, 8482113)
         assert.equal(
             block.id.hexString,
@@ -49,12 +57,12 @@ suite('api v1', function () {
     })
 
     test('chain get_block w/ new_producers', async function () {
-        const block = await client.v1.chain.get_block(92565371)
+        const block = await eos.v1.chain.get_block(92565371)
         assert.equal(block.block_num, 92565371)
     })
 
     test('chain get_block w/ transactions', async function () {
-        const block = await client.v1.chain.get_block(124472078)
+        const block = await eos.v1.chain.get_block(124472078)
         assert.equal(block.block_num, 124472078)
         block.transactions.forEach((tx) => {
             assert.equal(tx instanceof TransactionReceipt, true)
@@ -62,12 +70,13 @@ suite('api v1', function () {
     })
 
     test('chain get_block_header_state', async function () {
-        const header = await client.v1.chain.get_block_header_state(131384206)
-        assert.equal(header.block_num, 131384206)
+        const header = await eos.v1.chain.get_block_header_state(143671483)
+        console.log(header)
+        assert.equal(header.block_num, 143671483)
     })
 
     test('chain get_block', async function () {
-        const block = await client.v1.chain.get_block(8482113)
+        const block = await eos.v1.chain.get_block(8482113)
         assert.equal(block.block_num, 8482113)
         assert.equal(
             block.id.hexString,
@@ -76,12 +85,12 @@ suite('api v1', function () {
     })
 
     test('chain get_block w/ new_producers', async function () {
-        const block = await client.v1.chain.get_block(92565371)
+        const block = await eos.v1.chain.get_block(92565371)
         assert.equal(block.block_num, 92565371)
     })
 
     test('chain get_block w/ transactions', async function () {
-        const block = await client.v1.chain.get_block(124472078)
+        const block = await eos.v1.chain.get_block(124472078)
         assert.equal(block.block_num, 124472078)
         block.transactions.forEach((tx) => {
             assert.equal(tx instanceof TransactionReceipt, true)
@@ -89,26 +98,26 @@ suite('api v1', function () {
     })
 
     test('chain get_currency_balance', async function () {
-        const balances = await client.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
+        const balances = await jungle.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
         assert.equal(balances.length, 2)
         balances.forEach((asset) => {
             assert.equal(asset instanceof Asset, true)
         })
-        assert.deepEqual(balances.map(String), ['900195467.8183 EOS', '100200.0000 JUNGLE'])
+        assert.deepEqual(balances.map(String), ['881307350.1453 EOS', '100400.0000 JUNGLE'])
     })
 
     test('chain get_currency_balance w/ symbol', async function () {
-        const balances = await client.v1.chain.get_currency_balance(
+        const balances = await jungle.v1.chain.get_currency_balance(
             'eosio.token',
             'lioninjungle',
             'JUNGLE'
         )
         assert.equal(balances.length, 1)
-        assert.equal(balances[0].value, 100200)
+        assert.equal(balances[0].value, 100400)
     })
 
     test('chain get_info', async function () {
-        const info = await client.v1.chain.get_info()
+        const info = await jungle.v1.chain.get_info()
         assert.equal(
             info.chain_id.hexString,
             '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
@@ -116,10 +125,7 @@ suite('api v1', function () {
     })
 
     test('chain get_info (beos)', async function () {
-        const apiclient = new APIClient({
-            provider: new MockProvider(joinPath(__dirname, 'data'), 'https://api.beos.world'),
-        })
-        const info = await apiclient.v1.chain.get_info()
+        const info = await beos.v1.chain.get_info()
         assert.equal(
             info.chain_id.hexString,
             'cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112'
@@ -134,7 +140,7 @@ suite('api v1', function () {
             @Struct.field('asset') quantity!: Asset
             @Struct.field('string') memo!: string
         }
-        const info = await client.v1.chain.get_info()
+        const info = await jungle.v1.chain.get_info()
         const header = info.getTransactionHeader()
         const action = Action.from({
             authorization: [
@@ -162,13 +168,13 @@ suite('api v1', function () {
             ...transaction,
             signatures: [signature],
         })
-        const result = await client.v1.chain.push_transaction(signedTransaction)
+        const result = await jungle.v1.chain.push_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
     test('api errors', async function () {
         try {
-            await client.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
+            await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
             assert.fail()
         } catch (error) {
             assert.equal(error instanceof APIError, true)

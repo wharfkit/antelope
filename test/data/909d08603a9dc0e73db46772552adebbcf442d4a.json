@@ -1,25 +1,25 @@
 {
     "account_name": "teamgreymass",
-    "head_block_num": 22952282,
-    "head_block_time": "2020-07-01T16:16:12.000",
+    "head_block_num": 37648408,
+    "head_block_time": "2020-09-24T20:52:06.500",
     "privileged": false,
     "last_code_update": "1970-01-01T00:00:00.000",
     "created": "2020-02-26T22:28:14.000",
-    "core_liquid_balance": "0.0722 EOS",
+    "core_liquid_balance": "511617.3405 EOS",
     "ram_quota": 5489,
     "net_weight": 10000,
     "cpu_weight": 9999,
     "net_limit": {
-        "used": 0,
-        "available": 39079,
-        "max": 39079
+        "used": 105,
+        "available": 38792,
+        "max": 38897
     },
     "cpu_limit": {
-        "used": 190,
-        "available": 29583,
-        "max": 29773
+        "used": 366,
+        "available": 28902,
+        "max": 29268
     },
-    "ram_usage": 3446,
+    "ram_usage": 4560,
     "permissions": [
         {
             "perm_name": "active",
@@ -29,6 +29,21 @@
                 "keys": [
                     {
                         "key": "EOS6L7gzEV7JXcCrgDeAe6v63Z7bMWttd4UQeWdKKCr6twDYxDQXZ",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "claim",
+            "parent": "active",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "EOS6DLD9HxMcwn73U41jjdGsNe9vDFRKB26um6qTAqrtYcJFtED4C",
                         "weight": 1
                     }
                 ],
