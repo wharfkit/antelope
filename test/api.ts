@@ -115,6 +115,17 @@ suite('api v1', function () {
         )
     })
 
+    test('chain get_info (beos)', async function () {
+        const apiclient = new APIClient({
+            provider: new MockProvider(joinPath(__dirname, 'data'), 'https://api.beos.world'),
+        })
+        const info = await apiclient.v1.chain.get_info()
+        assert.equal(
+            info.chain_id.hexString,
+            'cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112'
+        )
+    })
+
     test('chain push_transaction', async function () {
         @Struct.type('transfer')
         class Transfer extends Struct {

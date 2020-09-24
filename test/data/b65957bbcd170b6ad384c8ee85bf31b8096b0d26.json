@@ -1,0 +1,15 @@
+{
+    "server_version": "88d4b2db",
+    "chain_id": "cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112",
+    "head_block_num": 93531350,
+    "last_irreversible_block_num": 93531022,
+    "last_irreversible_block_id": "05932b8e98143be5eb742484c06fcc9543b5f108b92eb1016c9fe47f77c53793",
+    "head_block_id": "05932cd6026a957ee496b4229cbc819508c012121aa228dd55d51cc4ac3f79f6",
+    "head_block_time": "2020-09-24T20:50:37.500",
+    "head_block_producer": "beos.prodc",
+    "virtual_block_cpu_limit": 400000000,
+    "virtual_block_net_limit": 1048576000,
+    "block_cpu_limit": 399900,
+    "block_net_limit": 1048576,
+    "server_version_string": "BEOS-JURISDICTION-RELEASE"
+}
