@@ -259,9 +259,9 @@ export class GetInfoResponse extends Struct {
     /** String representation of server version. */
     @Struct.field('string?') server_version_string?: string
     /** Sequential block number representing the best known head in the fork database tree. */
-    @Struct.field('uint32') fork_db_head_block_num?: UInt32
+    @Struct.field('uint32?') fork_db_head_block_num?: UInt32
     /** Hash representing the best known head in the fork database tree. */
-    @Struct.field('checksum256') fork_db_head_block_id?: Checksum256
+    @Struct.field('checksum256?') fork_db_head_block_id?: Checksum256
 
     getTransactionHeader(secondsAhead = 120): TransactionHeader {
         const expiration = TimePointSec.fromMilliseconds(
