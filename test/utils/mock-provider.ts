@@ -11,12 +11,12 @@ import {Bytes} from '../../src/chain/bytes'
 import {FetchProvider} from '../../src/api/provider'
 
 export class MockProvider implements APIProvider {
-    recordProvider = new FetchProvider('https://jungle3.greymass.com', {fetch})
+    recordProvider = new FetchProvider(this.api, {fetch})
 
-    constructor(private dir: string) {}
+    constructor(private dir: string, private api: string = 'https://jungle3.greymass.com') {}
 
     getFilename(path: string, params?: unknown) {
-        const digest = Bytes.from(path + (params ? JSON.stringify(params) : ''), 'utf8')
+        const digest = Bytes.from(this.api + path + (params ? JSON.stringify(params) : ''), 'utf8')
             .ripemd160Digest.hexString
         return joinPath(this.dir, digest + '.json')
     }
