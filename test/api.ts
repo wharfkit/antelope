@@ -71,7 +71,6 @@ suite('api v1', function () {
 
     test('chain get_block_header_state', async function () {
         const header = await eos.v1.chain.get_block_header_state(143671483)
-        console.log(header)
         assert.equal(header.block_num, 143671483)
     })
 
