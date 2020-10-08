@@ -300,7 +300,7 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
 export class ABIDecoder {
     private pos = 0
     private data: DataView
-    private textDecoder = new TextDecoder()
+    private textDecoder = new TextDecoder('utf-8', {fatal: true})
 
     /** User declared metadata, can be used to pass info to instances when decoding.  */
     metadata: Record<string, any> = {}

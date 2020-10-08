@@ -358,8 +358,9 @@ export class ABIEncoder {
     }
 
     writeString(v: string) {
-        this.writeVaruint32(v.length)
-        this.writeArray(this.textEncoder.encode(v))
+        const data = this.textEncoder.encode(v)
+        this.writeVaruint32(data.byteLength)
+        this.writeArray(data)
     }
 
     getData(): Uint8Array {

@@ -916,4 +916,10 @@ suite('serializer', function () {
             [0, 65535]
         )
     })
+
+    test('unicode', function () {
+        const data = Serializer.encode({object: '😷'})
+        const text = Serializer.decode({data, type: 'string'})
+        assert.strictEqual(text, '😷')
+    })
 })
