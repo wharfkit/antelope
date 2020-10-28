@@ -93,9 +93,18 @@ suite('crypto', function () {
         const key = PrivateKey.from('5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zFu')
         const message = Bytes.from('I like turtles', 'utf8')
         const signature = key.signMessage(message)
+        const recoveredKey = signature.recoverMessage(message)
         assert.equal(
-            signature.recoverMessage(message).toString(),
+            recoveredKey.toString(),
             'PUB_K1_6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs'
+        )
+        assert.equal(
+            recoveredKey.toLegacyString(),
+            'EOS6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeABhJRin'
+        )
+        assert.equal(
+            recoveredKey.toLegacyString('FIO'),
+            'FIO6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeABhJRin'
         )
         assert.notEqual(
             signature.recoverMessage('beef').toString(),
