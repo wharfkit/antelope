@@ -1,7 +1,7 @@
 {
     "name": "@greymass/eosio",
     "description": "Library for working with EOSIO blockchains",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "license": "BSD-3-Clause",
     "main": "lib/index.js",
     "module": "lib/index.m.js",
