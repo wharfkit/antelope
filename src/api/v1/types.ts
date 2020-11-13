@@ -1,15 +1,17 @@
 import {ABI} from '../../chain/abi'
 import {Asset} from '../../chain/asset'
 import {Bytes} from '../../chain/bytes'
-import {Checksum256} from '../../chain/checksum'
-import {Int32, Int64, UInt16, UInt32, UInt64} from '../../chain/integer'
-import {Name} from '../../chain/name'
+import {Checksum160, Checksum256} from '../../chain/checksum'
+import {Int128, Int32, Int64, UInt16, UInt32, UInt32Type, UInt64} from '../../chain/integer'
+import {Name, NameType} from '../../chain/name'
 import {PermissionLevel} from '../../chain/permission-level'
 import {PublicKey} from '../../chain/public-key'
 import {Struct} from '../../chain/struct'
 import {TimePoint, TimePointSec} from '../../chain/time'
 import {Signature} from '../../chain/signature'
 import {TransactionHeader, TransactionReceipt} from '../../chain/transaction'
+import {ABISerializableType} from '../../serializer'
+import {Float128, Float64} from '../../chain/float'
 
 @Struct.type('account_auth')
 export class AccountAuth extends Struct {
@@ -291,4 +293,68 @@ export interface PushTransactionResponse {
         action_traces: any[]
         account_ram_delta: any
     }
+}
+
+export interface TableIndexTypes {
+    float128: Float128
+    float64: Float64
+    i128: Int128
+    i64: Int64
+    name: Name
+    ripemd160: Checksum160
+    sha256: Checksum256
+}
+
+export type TableIndexType = Name | Int64 | Int128 | Float64 | Checksum256 | Checksum160
+
+export interface GetTableRowsParams<Index = TableIndexType | string> {
+    /** The name of the smart contract that controls the provided table. */
+    code: NameType
+    /** Name of the table to query. */
+    table: NameType
+    /** The account to which this data belongs, if omitted will be set to be same as `code`. */
+    scope?: string
+    /** Lower lookup bound. */
+    lower_bound?: Index
+    /** Upper lookup bound. */
+    upper_bound?: Index
+    /** How many rows to fetch, defaults to 10 if unset. */
+    limit?: UInt32Type
+    /** Whether to iterate records in reverse order. */
+    reverse?: boolean
+    /** Position of the index used, defaults to primary. */
+    index_position?:
+        | 'primary'
+        | 'secondary'
+        | 'tertiary'
+        | 'fourth'
+        | 'fifth'
+        | 'sixth'
+        | 'seventh'
+        | 'eighth'
+        | 'ninth'
+        | 'tenth'
+    /**
+     * Whether node should try to decode row data using code abi.
+     * Determined automatically based the `type` param if omitted.
+     */
+    json?: boolean
+}
+
+export interface GetTableRowsParamsKeyed<Index = TableIndexType, Key = keyof TableIndexTypes>
+    extends GetTableRowsParams<Index> {
+    /** Index key type, determined automatically when passing a typed `upper_bound` or `lower_bound`. */
+    key_type: Key
+}
+
+export interface GetTableRowsParamsTyped<Index = TableIndexType | string, Row = ABISerializableType>
+    extends GetTableRowsParams<Index> {
+    /** Result type for each row. */
+    type: Row
+}
+
+export interface GetTableRowsResponse<Index = TableIndexType, Row = any> {
+    rows: Row[]
+    more: boolean
+    next_key?: Index
 }

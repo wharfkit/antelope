@@ -10,6 +10,7 @@ import {Name} from '../src/chain/name'
 import {PrivateKey} from '../src/chain/private-key'
 import {SignedTransaction, Transaction, TransactionReceipt} from '../src/chain/transaction'
 import {Struct} from '../src/chain/struct'
+import {Float64} from '../src/chain/float'
 
 const jungle = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data')),
@@ -169,6 +170,44 @@ suite('api v1', function () {
         })
         const result = await jungle.v1.chain.push_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain get_table_rows (untyped)', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.Symbol.from('4,EOS').code.value.toString(),
+            key_type: 'i64',
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(res.rows[0].max_supply, '10000000000.0000 EOS')
+    })
+
+    test('chain get_table_rows (typed)', async function () {
+        @Struct.type('user')
+        class User extends Struct {
+            @Struct.field('name') account!: Name
+            @Struct.field('float64') balance!: Float64
+        }
+        const res1 = await eos.v1.chain.get_table_rows({
+            code: 'fuel.gm',
+            table: 'users',
+            type: User,
+            limit: 1,
+        })
+        assert.equal(res1.rows[0].account instanceof Name, true)
+        assert.equal(res1.more, true)
+        assert.equal(String(res1.rows[0].account), 'aaaa')
+        const res2 = await eos.v1.chain.get_table_rows({
+            code: 'fuel.gm',
+            table: 'users',
+            type: User,
+            limit: 2,
+            lower_bound: res1.next_key,
+        })
+        assert.equal(String(res2.rows[0].account), 'funds.gm')
+        assert.equal(String(res2.next_key), 'xxx')
+        assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.00005).toFixed(6))
     })
 
     test('api errors', async function () {
