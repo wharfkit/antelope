@@ -26,7 +26,7 @@ ci-lint: node_modules
 	@eslint src --ext .ts --max-warnings 0 --format unix && echo "Ok"
 
 node_modules:
-	yarn install --non-interactive --frozen-lockfile --ignore-scripts
+	yarn install --non-interactive --frozen-lockfile
 
 .PHONY: clean
 clean:
