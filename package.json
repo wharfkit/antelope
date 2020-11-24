@@ -3,10 +3,9 @@
     "description": "Library for working with EOSIO blockchains",
     "version": "0.0.8",
     "license": "BSD-3-Clause",
-    "main": "lib/index.js",
-    "module": "lib/index.m.js",
-    "esmodule": "lib/index.esm.js",
-    "types": "lib/index.d.ts",
+    "main": "lib/eosio-core.js",
+    "module": "lib/eosio-core.mjs",
+    "types": "lib/eosio-core.d.ts",
     "browser": {
         "buffer": false,
         "crypto": false
@@ -17,7 +16,7 @@
         "src/*"
     ],
     "scripts": {
-        "prepare": "make -j4"
+        "prepare": "make"
     },
     "dependencies": {
         "bn.js": "^4.4.0",
@@ -27,17 +26,20 @@
     "devDependencies": {
         "@types/elliptic": "^6.4.12",
         "@types/mocha": "^8.0.3",
-        "@typescript-eslint/eslint-plugin": "^4.7.0",
-        "@typescript-eslint/parser": "^4.7.0",
-        "eslint": "^7.13.0",
+        "@typescript-eslint/eslint-plugin": "^4.8.2",
+        "@typescript-eslint/parser": "^4.8.2",
+        "esbuild": "^0.8.14",
+        "eslint": "^7.14.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-prettier": "^3.1.4",
-        "microbundle": "^0.12.4",
         "mocha": "^8.2.1",
         "node-fetch": "^2.6.1",
         "nyc": "^15.1.0",
-        "prettier": "^2.1.2",
+        "prettier": "^2.2.0",
+        "rollup": "^2.33.3",
+        "rollup-plugin-dts": "^2.0.0",
+        "@cush/rollup-plugin-esbuild": "2.5.2-canary.138",
         "ts-node": "^9.0.0",
-        "typescript": "^4.0.5"
+        "typescript": "^4.1.2"
     }
 }

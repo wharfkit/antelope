@@ -4,13 +4,14 @@
         "downlevelIteration": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
-        "lib": ["DOM", "ESNext"],
-        "moduleResolution": "Node",
+        "lib": ["dom", "esnext"],
+        "moduleResolution": "node",
+        "isolatedModules": true,
         "noImplicitAny": false,
         "outDir": "lib",
         "sourceMap": true,
         "strict": true,
-        "target": "ESNext"
+        "target": "esnext"
     },
     "include": ["src/**/*"]
 }

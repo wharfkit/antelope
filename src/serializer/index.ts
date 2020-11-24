@@ -5,7 +5,7 @@ import {ABISerializableConstructor, synthesizeABI} from './serializable'
 export {ABIEncoder} from './encoder'
 export {ABIDecoder} from './decoder'
 
-export {
+export type {
     ABISerializable,
     ABISerializableType,
     ABISerializableObject,

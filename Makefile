@@ -1,16 +1,9 @@
 PATH  := $(PATH):$(PWD)/node_modules/.bin
 SHELL := env PATH=$(PATH) /bin/bash
 SRC_FILES := $(shell find src -name '*.ts')
-LIB_FILES := lib/index.js lib/index.m.js lib/index.esm.js
 
-all: $(LIB_FILES)
-
-lib:
-	mkdir lib
-
-.NOTPARALLEL:
-$(LIB_FILES): $(SRC_FILES) lib node_modules tsconfig.json
-	microbundle --format modern,es,cjs
+lib: ${SRC_FILES} node_modules
+	@rollup -c && touch lib
 
 .PHONY: test
 test: node_modules
