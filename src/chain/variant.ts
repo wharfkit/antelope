@@ -7,8 +7,8 @@ import {
     abiTypeString,
     toTypeDescriptor,
 } from '../serializer/serializable'
-import {decode, Resolved} from '../serializer/decoder'
-import {encode} from '../serializer/encoder'
+import {abiDecode, Resolved} from '../serializer/decoder'
+import {abiEncode} from '../serializer/encoder'
 
 export interface VariantConstructor extends ABISerializableConstructor {
     new <T extends Variant>(...args: any[]): T
@@ -27,7 +27,7 @@ export class Variant implements ABISerializableObject {
         if (object instanceof this) {
             return object as InstanceType<T>
         }
-        return decode({object, type: this})
+        return abiDecode({object, type: this})
     }
 
     value: ABISerializable
@@ -56,7 +56,7 @@ export class Variant implements ABISerializableObject {
         if (this.variantIdx !== otherVariant.variantIdx) {
             return false
         }
-        return encode({object: this}).equals(encode({object: otherVariant}))
+        return abiEncode({object: this}).equals(abiEncode({object: otherVariant}))
     }
 
     get variantName(): string {

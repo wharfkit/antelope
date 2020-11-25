@@ -60,12 +60,12 @@ class DecodingError extends Error {
     }
 }
 
-export function decode<T extends keyof BuiltinTypes>(args: BuiltinDecodeArgs<T>): BuiltinTypes[T]
-export function decode<T extends ABISerializableConstructor>(
+export function abiDecode<T extends keyof BuiltinTypes>(args: BuiltinDecodeArgs<T>): BuiltinTypes[T]
+export function abiDecode<T extends ABISerializableConstructor>(
     args: TypedDecodeArgs<T>
 ): InstanceType<T>
-export function decode(args: UntypedDecodeArgs): ABISerializable
-export function decode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | TypedDecodeArgs<any>) {
+export function abiDecode(args: UntypedDecodeArgs): ABISerializable
+export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | TypedDecodeArgs<any>) {
     const descriptor = toTypeDescriptor(args.type)
     const typeName = abiTypeString(descriptor)
     const customTypes = args.customTypes || []

@@ -1,9 +1,9 @@
 import {Struct} from './struct'
 import {Name, NameType} from './name'
 import {Bytes, BytesType} from './bytes'
-import {encode} from '../serializer/encoder'
+import {abiEncode} from '../serializer/encoder'
 import {ABI, ABIDef} from './abi'
-import {decode} from '../serializer/decoder'
+import {abiDecode} from '../serializer/decoder'
 import {
     ABISerializable,
     ABISerializableConstructor,
@@ -58,7 +58,7 @@ export class Action extends Struct {
             }
             object = {
                 ...object,
-                data: encode({object: data, type, abi}),
+                data: abiEncode({object: data, type, abi}),
             }
         }
         return super.from(object) as Action
@@ -81,7 +81,7 @@ export class Action extends Struct {
     decodeData(abi: ABIDef): ABISerializable
     decodeData(typeOrAbi: ABISerializableType | ABIDef) {
         if (typeof typeOrAbi === 'string' || (typeOrAbi as ABISerializableConstructor).abiName) {
-            return decode({
+            return abiDecode({
                 data: this.data,
                 type: typeOrAbi as string,
             })
@@ -91,7 +91,7 @@ export class Action extends Struct {
             if (!type) {
                 throw new Error(`Action ${this.name} does not exist in provided ABI`)
             }
-            return decode({data: this.data, type, abi})
+            return abiDecode({data: this.data, type, abi})
         }
     }
 }

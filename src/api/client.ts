@@ -1,6 +1,6 @@
 import {APIProvider, FetchProvider, FetchProviderOptions} from './provider'
 import {ABISerializableConstructor, ABISerializableType} from '../serializer/serializable'
-import {decode} from '../serializer/decoder'
+import {abiDecode} from '../serializer/decoder'
 import {ChainAPI} from './v1/chain'
 import {BuiltinTypes} from '../serializer/builtins'
 
@@ -90,7 +90,7 @@ export class APIClient {
             throw new APIError(args.path, response.error)
         }
         if (args.responseType) {
-            return decode({type: args.responseType, object: response})
+            return abiDecode({type: args.responseType, object: response})
         }
         return response
     }

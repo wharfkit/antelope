@@ -3,8 +3,8 @@ import {
     ABISerializableConstructor,
     ABISerializableObject,
 } from '../serializer/serializable'
-import {decode, Resolved} from '../serializer/decoder'
-import {encode} from '../serializer/encoder'
+import {abiDecode, Resolved} from '../serializer/decoder'
+import {abiEncode} from '../serializer/encoder'
 
 export interface StructConstructor extends ABISerializableConstructor {
     new <T extends Struct>(...args: any[]): T
@@ -32,7 +32,7 @@ export class Struct implements ABISerializableObject {
             }
             object[field.name] = v
         }
-        return decode({object, type: this})
+        return abiDecode({object, type: this})
     }
 
     static get structFields() {
@@ -72,7 +72,7 @@ export class Struct implements ABISerializableObject {
         ) {
             return false
         }
-        return encode({object: this}).equals(encode({object: self.from(other)}))
+        return abiEncode({object: this}).equals(abiEncode({object: self.from(other)}))
     }
 
     /** @internal */

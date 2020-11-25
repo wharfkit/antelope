@@ -14,9 +14,9 @@ import {
 import {Struct, StructConstructor} from './struct'
 import {TimePointSec, TimePointType} from './time'
 
-import {encode} from '../serializer/encoder'
+import {abiEncode} from '../serializer/encoder'
 import {Signature, SignatureType} from './signature'
-import {decode} from '../serializer/decoder'
+import {abiDecode} from '../serializer/decoder'
 import {ABIDef} from './abi'
 import {Name, NameType} from './name'
 
@@ -129,12 +129,12 @@ export class Transaction extends TransactionHeader {
     }
 
     get id(): Checksum256 {
-        return encode({object: this}).sha256Digest
+        return abiEncode({object: this}).sha256Digest
     }
 
     signingDigest(chainId: Checksum256Type): Checksum256 {
         let data = Bytes.from(Checksum256.from(chainId).array)
-        data = data.appending(encode({object: this}))
+        data = data.appending(abiEncode({object: this}))
         data = data.appending(new Uint8Array(32))
         return data.sha256Digest
     }
@@ -175,8 +175,11 @@ export class PackedTransaction extends Struct {
         const tx = Transaction.from(signed)
         return this.from({
             signatures: signed.signatures,
-            packed_context_free_data: encode({object: signed.context_free_data, type: 'bytes[]'}),
-            packed_trx: encode({object: tx}),
+            packed_context_free_data: abiEncode({
+                object: signed.context_free_data,
+                type: 'bytes[]',
+            }),
+            packed_trx: abiEncode({object: tx}),
         })
     }
 
@@ -184,7 +187,7 @@ export class PackedTransaction extends Struct {
         if (this.compression.value !== 0) {
             throw new Error('Transaction compression not supported yet')
         }
-        return decode({data: this.packed_trx, type: Transaction}) as Transaction
+        return abiDecode({data: this.packed_trx, type: Transaction}) as Transaction
     }
 
     getSignedTransaction(): SignedTransaction {

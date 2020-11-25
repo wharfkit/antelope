@@ -1,5 +1,5 @@
-import {encode as abiEncode} from './encoder'
-import {decode as abiDecode} from './decoder'
+import {abiEncode} from './encoder'
+import {abiDecode} from './decoder'
 import {ABISerializableConstructor, synthesizeABI} from './serializable'
 
 export {ABIEncoder} from './encoder'
