@@ -1,5 +1,5 @@
 import {ABISerializableObject} from './serializer/serializable'
-import {rand} from 'elliptic'
+import rand from 'brorand'
 
 export function arrayEquals(a: ArrayLike<number>, b: ArrayLike<number>) {
     const len = a.length
