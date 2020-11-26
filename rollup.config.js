@@ -1,13 +1,13 @@
-import dts from 'rollup-plugin-dts'
-import esbuild from '@cush/rollup-plugin-esbuild' // https://github.com/egoist/rollup-plugin-esbuild/pull/138
 import fs from 'fs'
+import dts from 'rollup-plugin-dts'
+import ts from '@wessberg/rollup-plugin-ts'
 
-const license = fs.readFileSync('LICENSE').toString('utf-8')
+import pkg from './package.json'
 
+const license = fs.readFileSync('LICENSE').toString('utf-8').trim()
 const banner = `
 /**
- * EOSIO Core by Greymass
- * Library for working with EOSIO blockchains in JavaScript environments
+ * EOSIO Core v${pkg.version}
  * https://github.com/greymass/eosio-core
  *
  * @license
@@ -15,30 +15,51 @@ const banner = `
  */
 `.trim()
 
-const name = require('./package.json').main.replace(/\.js$/, '')
-const ext = (format) => (format == 'dts' ? 'd.ts' : format == 'cjs' ? 'js' : 'mjs')
-const bundle = (format) => ({
-    input: 'src/index.ts',
-    output: {
-        file: `${name}.${ext(format)}`,
-        format: format == 'cjs' ? 'cjs' : 'es',
-        sourcemap: format != 'dts',
-        banner,
-    },
-    plugins:
-        format == 'dts'
-            ? [dts()]
-            : [
-                  esbuild({
-                      target: format == 'cjs' ? 'es2015' : 'esnext',
-                  }),
-              ],
-    external: (id) => !/^[./]/.test(id),
-    onwarn(warning, rollupWarn) {
-        if (warning.code !== 'CIRCULAR_DEPENDENCY') {
-            rollupWarn(warning)
-        }
-    },
-})
+const external = Object.keys(pkg.dependencies)
 
-export default [bundle('es'), bundle('cjs'), bundle('dts')]
+export default [
+    {
+        input: 'src/index.ts',
+        output: {banner, file: pkg.main, format: 'cjs', sourcemap: true},
+        plugins: [
+            ts({
+                tsconfig: (conf) => ({
+                    ...conf,
+                    declaration: false,
+                    target: 'es6',
+                    module: 'commonjs',
+                }),
+            }),
+        ],
+        external,
+        onwarn,
+    },
+    {
+        input: 'src/index.ts',
+        output: {banner, file: pkg.module, format: 'esm', sourcemap: true},
+        plugins: [
+            ts({
+                tsconfig: (conf) => ({
+                    ...conf,
+                    declaration: false,
+                    target: 'esnext',
+                    module: 'esnext',
+                }),
+            }),
+        ],
+        external,
+        onwarn,
+    },
+    {
+        input: 'src/index.ts',
+        output: {banner, file: pkg.types, format: 'esm'},
+        onwarn,
+        plugins: [dts()],
+    },
+]
+
+function onwarn(warning, rollupWarn) {
+    if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+        rollupWarn(warning)
+    }
+}
