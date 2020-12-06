@@ -7,11 +7,11 @@ lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.js
 
 .PHONY: test
 test: node_modules
-	@mocha -u tdd -r ts-node/register --extension ts test/*.ts --grep '$(grep)'
+	@TS_NODE_PROJECT='./test/tsconfig.json' mocha -u tdd -r ts-node/register --extension ts test/*.ts --grep '$(grep)'
 
 .PHONY: coverage
 coverage: node_modules
-	@nyc --reporter=html mocha -u tdd -r ts-node/register --extension ts test/*.ts -R nyan && open coverage/index.html
+	@TS_NODE_PROJECT='./test/tsconfig.json' nyc --reporter=html mocha -u tdd -r ts-node/register --extension ts test/*.ts -R nyan && open coverage/index.html
 
 .PHONY: lint
 lint: node_modules
@@ -19,7 +19,7 @@ lint: node_modules
 
 .PHONY: ci-test
 ci-test: node_modules
-	@nyc --reporter=text mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list
+	@TS_NODE_PROJECT='./test/tsconfig.json' nyc --reporter=text mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list
 
 .PHONY: ci-lint
 ci-lint: node_modules
