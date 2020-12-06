@@ -2,9 +2,10 @@
     "name": "@greymass/eosio",
     "description": "Library for working with EOSIO blockchains",
     "version": "0.1.3",
+    "homepage": "https://github.com/greymass/eosio-core",
     "license": "BSD-3-Clause",
     "main": "lib/eosio-core.js",
-    "module": "lib/eosio-core.mjs",
+    "module": "lib/eosio-core.m.js",
     "types": "lib/eosio-core.d.ts",
     "browser": {
         "buffer": false,
@@ -20,26 +21,27 @@
     },
     "dependencies": {
         "bn.js": "^4.4.0",
-        "brorand": "^1.1.0",
+        "brorand": "^1.0.1",
         "elliptic": "^6.5.3",
-        "hash.js": "^1.0.0"
+        "hash.js": "^1.0.0",
+        "tslib": "^2.0.3"
     },
     "devDependencies": {
+        "@rollup/plugin-typescript": "^8.0.0",
         "@types/elliptic": "^6.4.12",
         "@types/mocha": "^8.0.3",
-        "@typescript-eslint/eslint-plugin": "^4.8.2",
-        "@typescript-eslint/parser": "^4.8.2",
-        "@wessberg/rollup-plugin-ts": "^1.3.8",
-        "eslint": "^7.14.0",
-        "eslint-config-prettier": "^6.15.0",
-        "eslint-plugin-prettier": "^3.1.4",
+        "@typescript-eslint/eslint-plugin": "^4.9.0",
+        "@typescript-eslint/parser": "^4.9.0",
+        "eslint": "^7.15.0",
+        "eslint-config-prettier": "^7.0.0",
+        "eslint-plugin-prettier": "^3.2.0",
         "mocha": "^8.2.1",
         "node-fetch": "^2.6.1",
         "nyc": "^15.1.0",
-        "prettier": "^2.2.0",
-        "rollup": "^2.33.3",
+        "prettier": "^2.2.1",
+        "rollup": "^2.34.1",
         "rollup-plugin-dts": "^2.0.0",
-        "ts-node": "^9.0.0",
+        "ts-node": "^9.1.0",
         "typescript": "^4.1.2"
     }
 }

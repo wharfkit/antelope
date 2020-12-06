@@ -1,6 +1,6 @@
 import fs from 'fs'
 import dts from 'rollup-plugin-dts'
-import ts from '@wessberg/rollup-plugin-ts'
+import typescript from '@rollup/plugin-typescript'
 
 import pkg from './package.json'
 
@@ -8,7 +8,7 @@ const license = fs.readFileSync('LICENSE').toString('utf-8').trim()
 const banner = `
 /**
  * EOSIO Core v${pkg.version}
- * https://github.com/greymass/eosio-core
+ * ${pkg.homepage}
  *
  * @license
  * ${license.replace(/\n/g, '\n * ')}
@@ -20,33 +20,25 @@ const external = Object.keys(pkg.dependencies)
 export default [
     {
         input: 'src/index.ts',
-        output: {banner, file: pkg.main, format: 'cjs', sourcemap: true},
-        plugins: [
-            ts({
-                tsconfig: (conf) => ({
-                    ...conf,
-                    declaration: false,
-                    target: 'es6',
-                    module: 'commonjs',
-                }),
-            }),
-        ],
+        output: {
+            banner,
+            file: pkg.main,
+            format: 'cjs',
+            sourcemap: true,
+        },
+        plugins: [typescript({target: 'es5'})],
         external,
         onwarn,
     },
     {
         input: 'src/index.ts',
-        output: {banner, file: pkg.module, format: 'esm', sourcemap: true},
-        plugins: [
-            ts({
-                tsconfig: (conf) => ({
-                    ...conf,
-                    declaration: false,
-                    target: 'esnext',
-                    module: 'esnext',
-                }),
-            }),
-        ],
+        output: {
+            banner,
+            file: pkg.module,
+            format: 'esm',
+            sourcemap: true,
+        },
+        plugins: [typescript({target: 'esnext'})],
         external,
         onwarn,
     },
@@ -59,7 +51,18 @@ export default [
 ]
 
 function onwarn(warning, rollupWarn) {
-    if (warning.code !== 'CIRCULAR_DEPENDENCY') {
-        rollupWarn(warning)
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+        // unnecessary warning
+        return
     }
+    if (
+        warning.code === 'UNUSED_EXTERNAL_IMPORT' &&
+        warning.source === 'tslib' &&
+        warning.names[0] === '__read'
+    ) {
+        // when using ts with importHelpers: true rollup complains about this
+        // seems safe to ignore since __read is not actually imported or used anywhere in the resulting bundles
+        return
+    }
+    rollupWarn(warning)
 }

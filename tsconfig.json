@@ -1,16 +1,15 @@
 {
     "compilerOptions": {
-        "declaration": true,
         "downlevelIteration": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
-        "lib": ["dom", "esnext"],
-        "moduleResolution": "node",
+        "importHelpers": true,
         "isolatedModules": true,
-        "noImplicitAny": false,
-        "outDir": "lib",
-        "sourceMap": true,
+        "lib": ["dom", "esnext"],
         "module": "esnext",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "sourceMap": true,
         "strict": true,
         "target": "esnext"
     },
