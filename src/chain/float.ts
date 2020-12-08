@@ -1,7 +1,7 @@
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {secureRandom} from '../utils'
+import {isInstanceOf, secureRandom} from '../utils'
 import {Bytes, BytesType} from './bytes'
 
 type FloatType = Float | number | string
@@ -11,12 +11,12 @@ class Float implements ABISerializableObject {
     static byteWidth: number
 
     static from<T extends typeof Float>(this: T, value: FloatType): InstanceType<T> {
-        if (value instanceof this) {
+        if (isInstanceOf(value, this as any)) {
             return value as InstanceType<T>
         }
         if (typeof value === 'string') {
             value = Number.parseFloat(value)
-        } else if ((value as any) instanceof Float) {
+        } else if (isInstanceOf(value, Float)) {
             value = (value as any).value as number
         }
         return new this(value) as InstanceType<T>
@@ -90,7 +90,7 @@ export class Float128 implements ABISerializableObject {
     static byteWidth = 16
 
     static from<T extends typeof Float128>(this: T, value: Float128Type): InstanceType<T> {
-        if (value instanceof this) {
+        if (isInstanceOf(value, this as typeof Float128)) {
             return value as InstanceType<T>
         }
         if (typeof value === 'string' && value.startsWith('0x')) {

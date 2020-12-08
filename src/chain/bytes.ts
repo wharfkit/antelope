@@ -1,7 +1,7 @@
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
-import {arrayEquals, arrayToHex, hexToArray, secureRandom} from '../utils'
+import {arrayEquals, arrayToHex, hexToArray, isInstanceOf, secureRandom} from '../utils'
 import {Checksum160, Checksum256, Checksum512} from './checksum'
 
 export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
@@ -12,13 +12,13 @@ export class Bytes implements ABISerializableObject {
     static abiName = 'bytes'
 
     static from(value: BytesType, encoding?: BytesEncoding): Bytes {
-        if (value instanceof Bytes) {
+        if (isInstanceOf(value, Bytes)) {
             return value
         }
         if (typeof value === 'string') {
             return Bytes.fromString(value, encoding)
         }
-        if (value instanceof Uint8Array) {
+        if (isInstanceOf(value, Uint8Array)) {
             return new Bytes(value)
         }
         return new Bytes(new Uint8Array(value))
@@ -51,7 +51,7 @@ export class Bytes implements ABISerializableObject {
 
     /** Return true if given value is a valid `BytesType`. */
     static isBytes(value: any): value is BytesType {
-        if (value instanceof Bytes || value instanceof Uint8Array) {
+        if (isInstanceOf(value, Bytes) || isInstanceOf(value, Uint8Array)) {
             return true
         }
         if (Array.isArray(value) && value.every((v) => typeof v === 'number')) {

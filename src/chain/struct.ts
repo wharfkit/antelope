@@ -5,6 +5,7 @@ import {
 } from '../serializer/serializable'
 import {abiDecode, Resolved} from '../serializer/decoder'
 import {abiEncode} from '../serializer/encoder'
+import {isInstanceOf} from '../utils'
 
 export interface StructConstructor extends ABISerializableConstructor {
     new <T extends Struct>(...args: any[]): T
@@ -21,7 +22,7 @@ export class Struct implements ABISerializableObject {
             // objects already resolved
             return new this(value)
         }
-        if (value instanceof this) {
+        if (isInstanceOf(value, this)) {
             return value
         }
         const object: any = {}

@@ -77,3 +77,32 @@ export function hexToArray(hex: string) {
 export function secureRandom(length: number): Uint8Array {
     return rand(length)
 }
+
+/** Used in isInstanceOf checks so we don't spam with warnings. */
+let didWarn = false
+
+/** Check if object in instance of class. */
+export function isInstanceOf<T extends {new (...args: any[]): InstanceType<T>}>(
+    object: any,
+    someClass: T
+): object is InstanceType<T> {
+    if (object instanceof someClass) {
+        return true
+    }
+    // not an actual instance but since bundlers can fail to dedupe stuff or
+    // multiple versions can be included we check for compatibility if possible
+    const className = someClass['__className'] || someClass['abiName']
+    if (!className || !object.constructor) {
+        return false
+    }
+    const isAlienInstance =
+        (object.constructor['__className'] || object.constructor['abiName']) === className
+    if (isAlienInstance && !didWarn) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            `Detected alien instance of ${className}, this usually means more than one version of @greymass/eosio has been included in your bundle.`
+        )
+        didWarn = true
+    }
+    return isAlienInstance
+}

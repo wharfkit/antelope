@@ -3,6 +3,7 @@ import BN from 'bn.js'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
+import {isInstanceOf} from '../utils'
 
 import {AnyInt, Int64, Int64Type, UInt32, UInt32Type} from './integer'
 
@@ -19,14 +20,14 @@ interface TimePointConstructor {
 
 class TimePointBase implements ABISerializableObject {
     static from<T extends TimePointConstructor>(this: T, value: TimePointType): InstanceType<T> {
-        if (value instanceof this) {
+        if (isInstanceOf(value, this as TimePointConstructor)) {
             return value as InstanceType<T>
         }
-        if (value instanceof TimePointBase) {
+        if (isInstanceOf(value, TimePointBase)) {
             // converting between types
             return this.fromMilliseconds(value.toMilliseconds()) as InstanceType<T>
         }
-        if (value instanceof Date) {
+        if (isInstanceOf(value, Date)) {
             return this.fromDate(value) as InstanceType<T>
         }
         if (typeof value === 'string') {

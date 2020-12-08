@@ -1,8 +1,10 @@
+import {isInstanceOf} from '../utils'
 import {Name, NameType} from './name'
 
 export type ABIDef = string | Partial<ABI.Def> | ABI
 
 export class ABI {
+    static __className = 'ABI'
     static version = 'eosio::abi/1.1'
 
     version: string
@@ -30,7 +32,7 @@ export class ABI {
     }
 
     static from(value: ABIDef) {
-        if (value instanceof ABI) {
+        if (isInstanceOf(value, ABI)) {
             return value
         }
         if (typeof value === 'string') {

@@ -10,6 +10,7 @@ import {PublicKey} from './public-key'
 import {recover} from '../crypto/recover'
 import {verify} from '../crypto/verify'
 import {CurveType} from './curve-type'
+import {isInstanceOf} from '../utils'
 
 export type SignatureType =
     | Signature
@@ -26,7 +27,7 @@ export class Signature implements ABISerializableObject {
 
     /** Create Signature object from representing types. */
     static from(value: SignatureType) {
-        if (value instanceof Signature) {
+        if (isInstanceOf(value, Signature)) {
             return value
         }
         if (typeof value === 'object' && value.r && value.s) {

@@ -26,6 +26,8 @@ export interface APIErrorData {
 }
 
 export class APIError extends Error {
+    static __className = 'APIError'
+
     static formatError(error: APIErrorData) {
         if (error.what === 'unspecified' && error.details && error.details.length > 0) {
             return error.details[0].message
@@ -57,6 +59,8 @@ export class APIError extends Error {
 }
 
 export class APIClient {
+    static __className = 'APIClient'
+
     readonly provider: APIProvider
 
     constructor(options: APIClientOptions) {

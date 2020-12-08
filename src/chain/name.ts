@@ -2,6 +2,7 @@ import {UInt64} from './integer'
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
+import {isInstanceOf} from '../utils'
 
 /** Type representing a name. */
 export type NameType = Name | UInt64 | string
@@ -18,11 +19,11 @@ export class Name implements ABISerializableObject {
 
     /** Create a new Name instance from any of its representing types. */
     static from(value: NameType): Name {
-        if (value instanceof Name) {
+        if (isInstanceOf(value, Name)) {
             return value
         } else if (typeof value === 'string') {
             return new Name(stringToName(value))
-        } else if (value instanceof UInt64) {
+        } else if (isInstanceOf(value, UInt64)) {
             return new Name(value)
         } else {
             throw new Error('Invalid name')

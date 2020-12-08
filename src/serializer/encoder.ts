@@ -18,8 +18,10 @@ import {
 } from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
 import {Variant} from '../chain/variant'
+import {isInstanceOf} from '../utils'
 
 class EncodingError extends Error {
+    static __className = 'EncodingError'
     ctx: EncodingContext
     underlyingError: Error
     constructor(ctx: EncodingContext, underlyingError: Error) {
@@ -206,7 +208,7 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                 if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string') {
                     vName = value[0]
                     value = value[1]
-                } else if (value instanceof Variant) {
+                } else if (isInstanceOf(value, Variant)) {
                     vName = value.variantName
                     value = value.value
                 } else {
@@ -245,6 +247,8 @@ interface EncodingContext {
 }
 
 export class ABIEncoder {
+    static __className = 'ABIEncoder'
+
     private pos = 0
     private data: DataView
     private array: Uint8Array

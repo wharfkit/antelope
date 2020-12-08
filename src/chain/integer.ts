@@ -3,7 +3,7 @@ import BN from 'bn.js'
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
-import {secureRandom} from '../utils'
+import {isInstanceOf, secureRandom} from '../utils'
 
 type IntType = Int | BNInt | number | string | BN
 
@@ -21,14 +21,14 @@ class Int implements ABISerializableObject {
     }
 
     static from<T extends typeof Int>(this: T, value: IntType): InstanceType<T> {
-        if (value instanceof this) {
+        if (isInstanceOf(value, this as typeof Int)) {
             return value as InstanceType<T>
         }
         if (typeof value === 'string') {
             value = Number.parseInt(value, 10)
-        } else if (value instanceof BNInt) {
+        } else if (isInstanceOf(value, BNInt)) {
             value = value.value.toNumber()
-        } else if (value instanceof Int) {
+        } else if (isInstanceOf(value, Int)) {
             value = value.value
         } else if (BN.isBN(value)) {
             value = value.toNumber()
@@ -87,16 +87,16 @@ class BNInt implements ABISerializableObject {
     static byteWidth: number
 
     static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T> {
-        if (value instanceof this) {
+        if (isInstanceOf(value, this as typeof BNInt)) {
             return value as InstanceType<T>
         }
-        if (value instanceof BNInt) {
+        if (isInstanceOf(value, BNInt)) {
             return new this(value.value) as InstanceType<T>
         }
-        if (value instanceof Uint8Array) {
+        if (isInstanceOf(value, Uint8Array)) {
             return new this(new BN(value, undefined, 'le')) as InstanceType<T>
         }
-        if (value instanceof Int) {
+        if (isInstanceOf(value, Int)) {
             value = value.value
         }
         return new this(new BN(value)) as InstanceType<T>

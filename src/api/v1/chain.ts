@@ -21,6 +21,7 @@ import {ABISerializableConstructor, ABISerializableType, Serializer} from '../..
 import {Checksum160, Checksum256} from '../../chain/checksum'
 import {Float128, Float64} from '../../chain/float'
 import {Bytes} from '../../chain/bytes'
+import {isInstanceOf} from '../../utils'
 
 export class ChainAPI {
     constructor(private client: APIClient) {}
@@ -79,7 +80,7 @@ export class ChainAPI {
     }
 
     async push_transaction(tx: SignedTransactionType | PackedTransaction) {
-        if (!(tx instanceof PackedTransaction)) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
             tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
         }
         return this.client.call<PushTransactionResponse>({
@@ -112,13 +113,13 @@ export class ChainAPI {
         const someBound = params.lower_bound || params.upper_bound
         if (!key_type && someBound) {
             // determine key type from bounds type
-            if (someBound instanceof Int64) {
+            if (isInstanceOf(someBound, Int64)) {
                 key_type = 'i64'
-            } else if (someBound instanceof Int128) {
+            } else if (isInstanceOf(someBound, Int128)) {
                 key_type = 'i128'
-            } else if (someBound instanceof Checksum256) {
+            } else if (isInstanceOf(someBound, Checksum256)) {
                 key_type = 'sha256'
-            } else if (someBound instanceof Checksum160) {
+            } else if (isInstanceOf(someBound, Checksum160)) {
                 key_type = 'ripemd160'
             }
         }

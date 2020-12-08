@@ -5,14 +5,14 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
 import {Bytes, BytesType} from './bytes'
-import {arrayEquals, arrayToHex} from '../utils'
+import {arrayEquals, arrayToHex, isInstanceOf} from '../utils'
 
 class Checksum implements ABISerializableObject {
     static abiName: string
     static byteSize: number
 
     static from(value: any) {
-        if (value instanceof Checksum) {
+        if (isInstanceOf(value, Checksum)) {
             return new this(value.array)
         }
         return new this(Bytes.from(value).array)

@@ -17,6 +17,7 @@ import {
 } from './serializable'
 import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
 import {Variant} from '../chain/variant'
+import {isInstanceOf} from '../utils'
 
 interface DecodeArgsBase {
     abi?: ABIDef
@@ -41,6 +42,7 @@ interface UntypedDecodeArgs extends DecodeArgsBase {
 }
 
 class DecodingError extends Error {
+    static __className = 'DecodingError'
     ctx: DecodingContext
     underlyingError: Error
     constructor(ctx: DecodingContext, underlyingError: Error) {
@@ -108,7 +110,7 @@ export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | Typ
     try {
         if (args.data) {
             let decoder: ABIDecoder
-            if (args.data instanceof ABIDecoder) {
+            if (isInstanceOf(args.data, ABIDecoder)) {
                 decoder = args.data
             } else {
                 const bytes = Bytes.from(args.data)
@@ -244,7 +246,7 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             if (typeof value !== 'object') {
                 throw new Error('Expected object')
             }
-            if (typeof abiType === 'function' && value instanceof abiType) {
+            if (typeof abiType === 'function' && isInstanceOf(value, abiType)) {
                 return value
             }
             const struct: any = {}
@@ -264,7 +266,7 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string') {
                 vName = value[0]
                 value = value[1]
-            } else if (value instanceof Variant) {
+            } else if (isInstanceOf(value, Variant)) {
                 vName = value.variantName
                 value = value.value
             } else {
@@ -298,6 +300,8 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
 }
 
 export class ABIDecoder {
+    static __className = 'ABIDecoder'
+
     private pos = 0
     private data: DataView
     private textDecoder = new TextDecoder('utf-8', {fatal: true})

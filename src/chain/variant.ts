@@ -9,6 +9,7 @@ import {
 } from '../serializer/serializable'
 import {abiDecode, Resolved} from '../serializer/decoder'
 import {abiEncode} from '../serializer/encoder'
+import {isInstanceOf} from '../utils'
 
 export interface VariantConstructor extends ABISerializableConstructor {
     new <T extends Variant>(...args: any[]): T
@@ -24,7 +25,7 @@ export class Variant implements ABISerializableObject {
         if (object[Resolved]) {
             return new this(object) as InstanceType<T>
         }
-        if (object instanceof this) {
+        if (isInstanceOf(object, this)) {
             return object as InstanceType<T>
         }
         return abiDecode({object, type: this})

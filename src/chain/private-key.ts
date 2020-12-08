@@ -10,6 +10,7 @@ import {sharedSecret} from '../crypto/shared-secret'
 import {sign} from '../crypto/sign'
 import {generate} from '../crypto/generate'
 import {CurveType} from './curve-type'
+import {isInstanceOf} from '../utils'
 
 export type PrivateKeyType = PrivateKey | string
 
@@ -19,7 +20,7 @@ export class PrivateKey {
 
     /** Create PrivateKey object from representing types. */
     static from(value: PrivateKeyType) {
-        if (value instanceof PrivateKey) {
+        if (isInstanceOf(value, PrivateKey)) {
             return value
         }
         if (typeof value !== 'string') {

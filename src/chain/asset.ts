@@ -5,6 +5,7 @@ import {Int64, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {Name, NameType} from './name'
+import {isInstanceOf} from '../utils'
 
 export type AssetType = Asset | string
 
@@ -15,7 +16,7 @@ export class Asset implements ABISerializableObject {
     symbol: Asset.Symbol
 
     static from(value: AssetType) {
-        if (value instanceof Asset) {
+        if (isInstanceOf(value, Asset)) {
             return value
         }
         const parts = (typeof value === 'string' ? value : '').split(' ')
@@ -92,10 +93,10 @@ export namespace Asset {
         static maxPrecision = 18
 
         static from(value: SymbolType) {
-            if (value instanceof Symbol) {
+            if (isInstanceOf(value, Symbol)) {
                 return value
             }
-            if (value instanceof UInt64) {
+            if (isInstanceOf(value, UInt64)) {
                 return new Symbol(value)
             }
             const parts = value.split(',')
@@ -181,7 +182,7 @@ export namespace Asset {
         static abiName = 'symbol_code'
 
         static from(value: SymbolCodeType) {
-            if (value instanceof SymbolCode) {
+            if (isInstanceOf(value, SymbolCode)) {
                 return value
             }
             if (typeof value === 'string') {
@@ -223,7 +224,7 @@ export class ExtendedAsset implements ABISerializableObject {
     static abiName = 'extended_asset'
 
     static from(value: ExtendedAssetType) {
-        if (value instanceof ExtendedAsset) {
+        if (isInstanceOf(value, ExtendedAsset)) {
             return value
         }
         return new this(Asset.from(value.quantity), Name.from(value.contract))

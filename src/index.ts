@@ -25,3 +25,4 @@ export * from './chain/variant'
 // utils
 export * from './serializer'
 export * from './base58'
+export {isInstanceOf} from './utils'

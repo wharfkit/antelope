@@ -6,6 +6,7 @@ import {Base58} from '../base58'
 
 import {Bytes} from './bytes'
 import {CurveType} from './curve-type'
+import {isInstanceOf} from '../utils'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 
@@ -19,7 +20,7 @@ export class PublicKey implements ABISerializableObject {
 
     /** Create PublicKey object from representing types. */
     static from(value: PublicKeyType) {
-        if (value instanceof PublicKey) {
+        if (isInstanceOf(value, PublicKey)) {
             return value
         }
         if (typeof value === 'object' && value.type && value.compressed) {
