@@ -45,6 +45,11 @@ suite('chain', function () {
         assert.equal(asset.value, 10)
         assert.equal(Number(asset.units), 100000)
 
+        asset = Asset.from(3.0040, '4,RAR')
+        asset.value += 1.0010
+        assert.equal(asset.toString(), '4.0050 RAR')
+        assert.equal(asset.value, 4.004)
+
         asset = Asset.fromUnits(1, '10,KEK')
         assert.equal(asset.value, 0.0000000001)
         assert.equal(Number(asset.units), 1)
