@@ -15,6 +15,7 @@ import {Variant} from '../src/chain/variant'
 import {TypeAlias} from '../src/chain/type-alias'
 import {Transaction} from '../src/chain/transaction'
 import BN from 'bn.js'
+import {PermissionLevel} from '../src/chain/permission-level'
 
 suite('serializer', function () {
     test('array', function () {
@@ -921,5 +922,22 @@ suite('serializer', function () {
         const data = Serializer.encode({object: '😷'})
         const text = Serializer.decode({data, type: 'string'})
         assert.strictEqual(text, '😷')
+    })
+
+    test('argument mutation', function () {
+        // should never mutate input values to 'from' methods
+        @Struct.type('test_obj')
+        class TestObj extends Struct {
+            @Struct.field('asset') asset!: Asset
+            @Struct.field('int32') int32!: Int32
+            @Struct.field(PermissionLevel) auth!: PermissionLevel
+        }
+        const object = {asset: '1.3 ROCKS', int32: 1234, auth: {actor: 'foo', permission: 'bar'}}
+        const original = JSON.parse(JSON.stringify(object))
+        assert.deepStrictEqual(object, original)
+        TestObj.from(object)
+        assert.deepStrictEqual(object, original)
+        Serializer.decode({object, type: 'test_obj', customTypes: [TestObj]})
+        assert.deepStrictEqual(object, original)
     })
 })
