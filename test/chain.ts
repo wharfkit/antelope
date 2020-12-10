@@ -26,7 +26,7 @@ suite('chain', function () {
         assert.equal(Asset.from('-99999999999 DUCKS').toString(), '-99999999999 DUCKS')
         assert.equal(Asset.from('-0.0000000000001 DUCKS').toString(), '-0.0000000000001 DUCKS')
 
-        const asset = Asset.from(Asset.from('1.000000000 FOO'))
+        let asset = Asset.from(Asset.from('1.000000000 FOO'))
         assert.equal(asset.value, 1.0)
         asset.value += 0.000000001
         assert.equal(asset.value, 1.000000001)
@@ -40,6 +40,14 @@ suite('chain', function () {
         assert.equal(symbol.name, 'K')
         assert.equal(symbol.precision, '10')
         assert.equal(Asset.Symbol.from(symbol.value).toString(), symbol.toString())
+
+        asset = Asset.from(10, '4,POX')
+        assert.equal(asset.value, 10)
+        assert.equal(Number(asset.units), 100000)
+
+        asset = Asset.fromUnits(1, '10,KEK')
+        assert.equal(asset.value, 0.0000000001)
+        assert.equal(Number(asset.units), 1)
 
         assert.throws(() => {
             symbol.convertUnits(Int64.from('9223372036854775807'))

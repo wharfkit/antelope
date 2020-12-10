@@ -1,7 +1,7 @@
 import BN from 'bn.js'
 
 import {ABISerializableObject} from '../serializer/serializable'
-import {Int64, UInt64} from './integer'
+import {Int64, Int64Type, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {Name, NameType} from './name'
@@ -15,10 +15,26 @@ export class Asset implements ABISerializableObject {
     units: Int64
     symbol: Asset.Symbol
 
-    static from(value: AssetType) {
+    static from(value: AssetType): Asset
+    static from(value: number, symbol: Asset.SymbolType): Asset
+    static from(value: AssetType | number, symbol?: Asset.SymbolType) {
         if (isInstanceOf(value, Asset)) {
             return value
         }
+        switch (typeof value) {
+            case 'number':
+                if (!symbol) {
+                    throw new Error('Symbol is required when creating Asset from number')
+                }
+                return this.fromFloat(value, symbol)
+            case 'string':
+                return this.fromString(value)
+            default:
+                throw new Error('Invalid asset')
+        }
+    }
+
+    static fromString(value: string) {
         const parts = (typeof value === 'string' ? value : '').split(' ')
         if (parts.length !== 2) {
             throw new Error('Invalid asset string')
@@ -27,6 +43,15 @@ export class Asset implements ABISerializableObject {
         const precision = (parts[0].split('.')[1] || '').length
         const symbol = Asset.Symbol.fromParts(parts[1], precision)
         return new Asset(Int64.from(amount), symbol)
+    }
+
+    static fromFloat(value: number, symbol: Asset.SymbolType) {
+        const s = Asset.Symbol.from(symbol)
+        return new Asset(s.convertFloat(value), s)
+    }
+
+    static fromUnits(value: Int64Type, symbol: Asset.SymbolType) {
+        return new Asset(Int64.from(value), Asset.Symbol.from(symbol))
     }
 
     static fromABI(decoder: ABIDecoder): Asset {
