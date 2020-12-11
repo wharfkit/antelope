@@ -183,15 +183,10 @@ export namespace Asset {
 
         /**
          * Convert floating point to units according to symbol precision.
-         * @throws If the resulting units can't be represented in 53 bits.
+         * Note that the value will be rounded to closest precision.
          **/
         convertFloat(float: number): Int64 {
-            const p = this.precision
-            const rv = Math.pow(10, p) * float
-            if (rv >= 0x20000000000000) {
-                throw new Error('Conversion looses precision')
-            }
-            return Int64.from(rv.toFixed(p).split('.')[0])
+            return Int64.from(float.toFixed(this.precision).replace('.', ''))
         }
 
         toString() {

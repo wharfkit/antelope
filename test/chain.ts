@@ -30,8 +30,6 @@ suite('chain', function () {
         assert.equal(asset.value, 1.0)
         asset.value += 0.000000001
         assert.equal(asset.value, 1.000000001)
-        asset.value += 0.000000000999 // truncates outside precision
-        assert.equal(asset.value, 1.000000001)
         asset.value = -100
         assert.equal(asset.toString(), '-100.000000000 FOO')
         assert.equal(asset.units.toString(), '-100000000000')
@@ -53,6 +51,12 @@ suite('chain', function () {
         asset = Asset.from(3.004, '4,RAR')
         asset.value += 1
         assert.equal(asset.toString(), '4.0040 RAR')
+        assert.equal(asset.value, 4.004)
+
+        asset = Asset.from(3.004, '8,RAR')
+        asset.value += 1
+        assert.equal(asset.units.toNumber(), 400400000)
+        assert.equal(asset.toString(), '4.00400000 RAR')
         assert.equal(asset.value, 4.004)
 
         assert.throws(() => {
