@@ -186,11 +186,12 @@ export namespace Asset {
          * @throws If the resulting units can't be represented in 53 bits.
          **/
         convertFloat(float: number): Int64 {
-            const rv = Math.pow(10, this.precision) * float
+            const p = this.precision
+            const rv = Math.pow(10, p) * float
             if (rv >= 0x20000000000000) {
                 throw new Error('Conversion looses precision')
             }
-            return Int64.from(rv)
+            return Int64.from(rv.toFixed(p).split('.')[0])
         }
 
         toString() {
