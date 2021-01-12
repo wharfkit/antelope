@@ -20,6 +20,10 @@ const eos = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data'), 'https://eos.greymass.com'),
 })
 
+const fio = new APIClient({
+    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://fio.greymass.com'),
+})
+
 const beos = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data'), 'https://api.beos.world'),
 })
@@ -35,6 +39,11 @@ suite('api v1', function () {
     test('chain get_account (system account)', async function () {
         const account = await jungle.v1.chain.get_account('eosio')
         assert.equal(account.account_name, 'eosio')
+    })
+
+    test('chain get_account (fio)', async function () {
+        const account = await fio.v1.chain.get_account('lhp1ytjibtea')
+        assert.equal(account.account_name, 'lhp1ytjibtea')
     })
 
     test('chain get_block (by id)', async function () {
