@@ -1,0 +1,106 @@
+{
+    "account_name": "lhp1ytjibtea",
+    "head_block_num": 53192708,
+    "head_block_time": "2021-01-26T22:00:54.000",
+    "privileged": false,
+    "last_code_update": "1970-01-01T00:00:00.000",
+    "created": "2020-03-26T15:34:46.500",
+    "ram_quota": -1,
+    "net_weight": -1,
+    "cpu_weight": -1,
+    "net_limit": {
+        "used": -1,
+        "available": -1,
+        "max": -1
+    },
+    "cpu_limit": {
+        "used": -1,
+        "available": -1,
+        "max": -1
+    },
+    "ram_usage": 12847,
+    "permissions": [
+        {
+            "perm_name": "active",
+            "parent": "owner",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "FIO7hF6waZH6pBvVLrLj5ZLNTcUfcT6nNYiCVtYAmahnmzanqU1aA",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "claim",
+            "parent": "active",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "FIO6DLD9HxMcwn73U41jjdGsNe9vDFRKB26um6qTAqrtYcJFtED4C",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "fees",
+            "parent": "active",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "FIO6h38QvgXo4iAGfLEgVR1NpftjWKVBux2ouUtRSmd8NKvsT6UKV",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        },
+        {
+            "perm_name": "owner",
+            "parent": "",
+            "required_auth": {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "FIO7hF6waZH6pBvVLrLj5ZLNTcUfcT6nNYiCVtYAmahnmzanqU1aA",
+                        "weight": 1
+                    }
+                ],
+                "accounts": [],
+                "waits": []
+            }
+        }
+    ],
+    "total_resources": {
+        "owner": "lhp1ytjibtea",
+        "net_weight": "0.000000000 FIO",
+        "cpu_weight": "0.000000000 FIO",
+        "ram_bytes": 0
+    },
+    "self_delegated_bandwidth": null,
+    "refund_request": null,
+    "voter_info": {
+        "id": 40,
+        "fioaddress": "",
+        "addresshash": "0x00000000000000000000000000000000",
+        "owner": "lhp1ytjibtea",
+        "proxy": "",
+        "producers": [],
+        "last_vote_weight": "136989812121948.00000000000000000",
+        "proxied_vote_weight": "0.00000000000000000",
+        "is_proxy": 0,
+        "is_auto_proxy": 0,
+        "reserved2": 0,
+        "reserved3": "0 "
+    }
+}
