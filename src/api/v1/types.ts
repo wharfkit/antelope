@@ -138,7 +138,7 @@ export class AccountObject extends Struct {
 
     getPermission(permission: NameType): AccountPermission {
         const name = Name.from(permission)
-        const match = this.permissions.find(p => p.perm_name.equals(name))
+        const match = this.permissions.find((p) => p.perm_name.equals(name))
         if (!match) {
             throw new Error(`Unknown permission ${name} on account ${this.account_name}.`)
         }
