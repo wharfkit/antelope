@@ -135,6 +135,15 @@ export class AccountObject extends Struct {
     @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
     @Struct.field(AccountVoterInfo, {optional: true}) voter_info?: AccountVoterInfo
     @Struct.field(AccountRexInfo, {optional: true}) rex_info?: AccountRexInfo
+
+    getPermission(permission: NameType): AccountPermission {
+        const name = Name.from(permission)
+        const match = this.permissions.find(p => p.perm_name.equals(name))
+        if (!match) {
+            throw new Error(`Unknown permission ${name} on account ${this.account_name}.`)
+        }
+        return match
+    }
 }
 
 @Struct.type('new_producers_entry')

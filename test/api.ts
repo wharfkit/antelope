@@ -4,6 +4,7 @@ import {join as joinPath} from 'path'
 import {MockProvider} from './utils/mock-provider'
 
 import {Action} from '../src/chain/action'
+import {API} from '../src'
 import {APIClient, APIError} from '../src/api/client'
 import {Asset} from '../src/chain/asset'
 import {Name} from '../src/chain/name'
@@ -44,6 +45,27 @@ suite('api v1', function () {
     test('chain get_account (fio)', async function () {
         const account = await fio.v1.chain.get_account('lhp1ytjibtea')
         assert.equal(account.account_name, 'lhp1ytjibtea')
+    })
+
+    test('chain get_account / getPermission with string', async function () {
+        const account = await jungle.v1.chain.get_account('teamgreymass')
+        const permission = account.getPermission('active')
+        assert.equal(permission instanceof API.v1.AccountPermission, true)
+        assert.equal(permission.perm_name, 'active')
+    })
+
+    test('chain get_account / getPermission with name', async function () {
+        const account = await jungle.v1.chain.get_account('teamgreymass')
+        const permission = account.getPermission(Name.from('active'))
+        assert.equal(permission instanceof API.v1.AccountPermission, true)
+        assert.equal(permission.perm_name, 'active')
+    })
+
+    test('chain get_account / getPermission throws error', async function () {
+        const account = await jungle.v1.chain.get_account('teamgreymass')
+        assert.throws(() => {
+            account.getPermission('invalid')
+        })
     })
 
     test('chain get_block (by id)', async function () {
