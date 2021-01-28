@@ -96,7 +96,7 @@ export class Transaction extends TransactionHeader {
     static from(
         object: TransactionType | AnyTransaction,
         abis?: ABIDef | {contract: NameType; abi: ABIDef}[]
-    ) {
+    ): Transaction {
         const abiFor = (contract: NameType) => {
             if (!abis) {
                 return

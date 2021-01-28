@@ -66,7 +66,7 @@ export class Struct implements ABISerializableObject {
      * Note: This compares the ABI encoded bytes of both structs, subclasses
      *       should implement their own fast equality check when possible.
      */
-    equals(other: any) {
+    equals(other: any): boolean {
         const self = this.constructor as typeof Struct
         if (
             other.constructor &&

@@ -53,7 +53,7 @@ export class Variant implements ABISerializableObject {
      * Note: This compares the ABI encoded bytes of both variants, subclasses
      *       should implement their own fast equality check when possible.
      */
-    equals(other: AnyVariant) {
+    equals(other: AnyVariant): boolean {
         const self = this.constructor as typeof Variant
         const otherVariant = self.from(other)
         if (this.variantIdx !== otherVariant.variantIdx) {

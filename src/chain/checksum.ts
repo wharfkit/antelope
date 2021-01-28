@@ -40,7 +40,7 @@ class Checksum implements ABISerializableObject {
         this.array = array
     }
 
-    equals(other: Checksum160Type | Checksum256Type | Checksum512Type) {
+    equals(other: Checksum160Type | Checksum256Type | Checksum512Type): boolean {
         const self = this.constructor as typeof Checksum
         return arrayEquals(this.array, self.from(other).array)
     }

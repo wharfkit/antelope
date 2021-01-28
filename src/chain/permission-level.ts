@@ -10,7 +10,7 @@ export class PermissionLevel extends Struct {
     @Struct.field('name') permission!: Name
 
     /** Create new permission level from representing types. Can be expressed as a string in the format `<actor>@<permission>`. */
-    static from(value: PermissionLevelType | string) {
+    static from(value: PermissionLevelType | string): PermissionLevel {
         if (typeof value === 'string') {
             const parts = value.split('@')
             if (parts.length !== 2 && parts[0].length > 0 && parts[1].length > 0) {
