@@ -17,10 +17,7 @@ export class Struct implements ABISerializableObject {
     static abiFields: ABIField[]
     static abiBase: ABISerializableConstructor
 
-    static from<T extends StructConstructor>(
-        this: T,
-        value: Record<string, any> | InstanceType<T>
-    ): InstanceType<T>
+    static from<T extends StructConstructor>(this: T, value: any): InstanceType<T>
     static from(value: any): unknown
     static from(value: any) {
         if (value[Resolved] === true) {
