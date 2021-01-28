@@ -17,7 +17,12 @@ export class Struct implements ABISerializableObject {
     static abiFields: ABIField[]
     static abiBase: ABISerializableConstructor
 
-    static from<T extends StructConstructor>(this: T, value: any): InstanceType<T> {
+    static from<T extends StructConstructor>(
+        this: T,
+        value: Record<string, any> | InstanceType<T>
+    ): InstanceType<T>
+    static from(value: any): unknown
+    static from(value: any) {
         if (value[Resolved] === true) {
             // objects already resolved
             return new this(value)
@@ -73,7 +78,7 @@ export class Struct implements ABISerializableObject {
         ) {
             return false
         }
-        return abiEncode({object: this}).equals(abiEncode({object: self.from(other)}))
+        return abiEncode({object: this}).equals(abiEncode({object: self.from(other) as any}))
     }
 
     /** @internal */

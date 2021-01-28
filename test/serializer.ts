@@ -496,11 +496,11 @@ suite('serializer', function () {
     test('custom alias', function () {
         @TypeAlias('super_int')
         class SuperInt extends Int32 {
-            static from<T extends typeof Int32>(this: T, value: Int32Type) {
+            static from(value: Int32Type) {
                 if (typeof value === 'number' && value < 100) {
                     value *= 42
                 }
-                return super.from(value) as InstanceType<T>
+                return super.from(value) as SuperInt
             }
             didIt = false
             doIt() {
@@ -793,11 +793,11 @@ suite('serializer', function () {
     test('coder metadata', function () {
         @TypeAlias('endian_int64')
         class EndianInt64 extends Int64 {
-            static fromABI<T extends typeof Int64>(decoder: ABIDecoder): InstanceType<T> {
+            static fromABI(decoder: ABIDecoder) {
                 const bigEndian = decoder.metadata['endian'] === 'big'
                 const data = decoder.readArray(8)
                 const bn = new BN(data, undefined, bigEndian ? 'be' : 'le')
-                return new this(bn) as InstanceType<T>
+                return new this(bn)
             }
             toABI(encoder: ABIEncoder) {
                 const bigEndian = encoder.metadata['endian'] === 'big'

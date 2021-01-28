@@ -1,5 +1,5 @@
 import {Name, NameType} from './name'
-import {Struct, StructConstructor} from './struct'
+import {Struct} from './struct'
 
 export type PermissionLevelType = PermissionLevel | {actor: NameType; permission: NameType}
 
@@ -10,10 +10,7 @@ export class PermissionLevel extends Struct {
     @Struct.field('name') permission!: Name
 
     /** Create new permission level from representing types. Can be expressed as a string in the format `<actor>@<permission>`. */
-    static from<T extends StructConstructor>(
-        this: T,
-        value: PermissionLevelType | string
-    ): InstanceType<T> {
+    static from(value: PermissionLevelType | string) {
         if (typeof value === 'string') {
             const parts = value.split('@')
             if (parts.length !== 2 && parts[0].length > 0 && parts[1].length > 0) {
@@ -23,7 +20,7 @@ export class PermissionLevel extends Struct {
             }
             value = {actor: parts[0], permission: parts[1]}
         }
-        return super.from(value) as InstanceType<T>
+        return super.from(value) as PermissionLevel
     }
 
     /** Return true if this permission level equals other. */

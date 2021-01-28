@@ -7,22 +7,28 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {Bytes, BytesType} from './bytes'
 import {arrayEquals, arrayToHex, isInstanceOf} from '../utils'
 
+type ChecksumType = Checksum | BytesType
+
 class Checksum implements ABISerializableObject {
     static abiName: string
     static byteSize: number
 
-    static from(value: any) {
+    static from<T extends typeof Checksum>(this: T, value: ChecksumType): InstanceType<T>
+    static from(value: ChecksumType): unknown
+    static from(value: ChecksumType) {
         if (isInstanceOf(value, Checksum)) {
             return new this(value.array)
         }
         return new this(Bytes.from(value).array)
     }
 
+    static fromABI<T extends typeof Checksum>(this: T, decoder: ABIDecoder): InstanceType<T>
+    static fromABI(decoder: ABIDecoder): unknown
     static fromABI(decoder: ABIDecoder) {
         return new this(decoder.readArray(this.byteSize))
     }
 
-    array: Uint8Array
+    readonly array: Uint8Array
 
     constructor(array: Uint8Array) {
         const byteSize = (this.constructor as typeof Checksum).byteSize
@@ -61,8 +67,8 @@ export class Checksum256 extends Checksum {
     static abiName = 'checksum256'
     static byteSize = 32
 
-    static from<T extends typeof Checksum256>(this: T, value: Checksum256Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
+    static from(value: Checksum256Type) {
+        return super.from(value) as Checksum256
     }
 
     static hash(data: BytesType): Checksum256 {
@@ -76,8 +82,8 @@ export class Checksum512 extends Checksum {
     static abiName = 'checksum512'
     static byteSize = 64
 
-    static from<T extends typeof Checksum512>(this: T, value: Checksum512Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
+    static from(value: Checksum512Type) {
+        return super.from(value) as Checksum512
     }
 
     static hash(data: BytesType): Checksum512 {
@@ -91,8 +97,8 @@ export class Checksum160 extends Checksum {
     static abiName = 'checksum160'
     static byteSize = 20
 
-    static from<T extends typeof Checksum160>(this: T, value: Checksum160Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
+    static from(value: Checksum160Type) {
+        return super.from(value) as Checksum160
     }
 
     static hash(data: BytesType): Checksum160 {

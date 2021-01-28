@@ -10,22 +10,28 @@ class Float implements ABISerializableObject {
     static abiName: string
     static byteWidth: number
 
-    static from<T extends typeof Float>(this: T, value: FloatType): InstanceType<T> {
+    static from<T extends typeof Float>(this: T, value: FloatType): InstanceType<T>
+    static from(value: FloatType): unknown
+    static from(value: FloatType) {
         if (isInstanceOf(value, this as any)) {
-            return value as InstanceType<T>
+            return value
         }
         if (typeof value === 'string') {
             value = Number.parseFloat(value)
         } else if (isInstanceOf(value, Float)) {
             value = (value as any).value as number
         }
-        return new this(value) as InstanceType<T>
+        return new this(value)
     }
 
-    static fromABI<T extends typeof Float>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(decoder.readFloat(this.byteWidth)) as InstanceType<T>
+    static fromABI<T extends typeof Float>(this: T, decoder: ABIDecoder): InstanceType<T>
+    static fromABI(decoder: ABIDecoder): unknown
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readFloat(this.byteWidth))
     }
 
+    static random<T extends typeof Float>(this: T): InstanceType<T>
+    static random(): unknown
     static random() {
         const bytes = secureRandom(this.byteWidth)
         const decoder = new ABIDecoder(bytes)
@@ -68,20 +74,12 @@ export class Float32 extends Float {
     toString() {
         return this.value.toFixed(7)
     }
-
-    static from<T extends typeof Float>(this: T, value: Float32Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Float64Type = Float64 | FloatType
 export class Float64 extends Float {
     static abiName = 'float64'
     static byteWidth = 8
-
-    static from<T extends typeof Float>(this: T, value: Float64Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Float128Type = Float128 | BytesType
@@ -89,18 +87,18 @@ export class Float128 implements ABISerializableObject {
     static abiName = 'float128'
     static byteWidth = 16
 
-    static from<T extends typeof Float128>(this: T, value: Float128Type): InstanceType<T> {
-        if (isInstanceOf(value, this as typeof Float128)) {
-            return value as InstanceType<T>
+    static from(value: Float128Type) {
+        if (isInstanceOf(value, this)) {
+            return value
         }
         if (typeof value === 'string' && value.startsWith('0x')) {
             value = value.slice(2)
         }
-        return new this(Bytes.from(value)) as InstanceType<T>
+        return new this(Bytes.from(value))
     }
 
-    static fromABI<T extends typeof Float128>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(new Bytes(decoder.readArray(this.byteWidth))) as InstanceType<T>
+    static fromABI(decoder: ABIDecoder) {
+        return new this(new Bytes(decoder.readArray(this.byteWidth)))
     }
 
     static random() {

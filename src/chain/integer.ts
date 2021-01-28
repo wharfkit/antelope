@@ -20,9 +20,11 @@ class Int implements ABISerializableObject {
         return this.isSigned ? -(this.max + 1) : 0
     }
 
-    static from<T extends typeof Int>(this: T, value: IntType): InstanceType<T> {
+    static from<T extends typeof Int>(this: T, value: IntType): InstanceType<T>
+    static from(value: any): unknown
+    static from(value: any): any {
         if (isInstanceOf(value, this as typeof Int)) {
-            return value as InstanceType<T>
+            return value
         }
         if (typeof value === 'string') {
             value = Number.parseInt(value, 10)
@@ -36,13 +38,17 @@ class Int implements ABISerializableObject {
         if (typeof value !== 'number') {
             throw new Error('Invalid integer')
         }
-        return new this(value) as InstanceType<T>
+        return new this(value)
     }
 
-    static fromABI<T extends typeof Int>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(decoder.readNum(this.byteWidth, this.isSigned)) as InstanceType<T>
+    static fromABI<T extends typeof Int>(this: T, decoder: ABIDecoder): InstanceType<T>
+    static fromABI(decoder: ABIDecoder): unknown
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readNum(this.byteWidth, this.isSigned))
     }
 
+    static random<T extends typeof Int>(this: T): InstanceType<T>
+    static random(): unknown
     static random() {
         const bytes = secureRandom(this.byteWidth)
         const decoder = new ABIDecoder(bytes)
@@ -86,30 +92,36 @@ class BNInt implements ABISerializableObject {
     static isSigned: boolean
     static byteWidth: number
 
-    static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T> {
+    static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T>
+    static from(value: any): unknown
+    static from(value: any): any {
         if (isInstanceOf(value, this as typeof BNInt)) {
-            return value as InstanceType<T>
+            return value
         }
         if (isInstanceOf(value, BNInt)) {
-            return new this(value.value) as InstanceType<T>
+            return new this(value.value)
         }
         if (isInstanceOf(value, Uint8Array)) {
-            return new this(new BN(value, undefined, 'le')) as InstanceType<T>
+            return new this(new BN(value, undefined, 'le'))
         }
         if (isInstanceOf(value, Int)) {
             value = value.value
         }
-        return new this(new BN(value)) as InstanceType<T>
+        return new this(new BN(value))
     }
 
-    static fromABI<T extends typeof BNInt>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(decoder.readBn(this.byteWidth, this.isSigned)) as InstanceType<T>
+    static fromABI<T extends typeof BNInt>(this: T, decoder: ABIDecoder): InstanceType<T>
+    static fromABI(decoder: ABIDecoder): unknown
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readBn(this.byteWidth, this.isSigned))
     }
 
-    static random<T extends typeof BNInt>(this: T): InstanceType<T> {
+    static random<T extends typeof BNInt>(this: T): InstanceType<T>
+    static random(): unknown
+    static random() {
         const bytes = secureRandom(this.byteWidth)
         const decoder = new ABIDecoder(bytes)
-        return this.fromABI(decoder) as InstanceType<T>
+        return this.fromABI(decoder)
     }
 
     value: BN
@@ -166,10 +178,6 @@ export class Int8 extends Int {
     static abiName = 'int8'
     static byteWidth = 1
     static isSigned = true
-
-    static from<T extends typeof Int8>(this: T, value: Int8Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Int16Type = Int16 | IntType
@@ -177,10 +185,6 @@ export class Int16 extends Int {
     static abiName = 'int16'
     static byteWidth = 2
     static isSigned = true
-
-    static from<T extends typeof Int16>(this: T, value: Int16Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Int32Type = Int32 | IntType
@@ -188,10 +192,6 @@ export class Int32 extends Int {
     static abiName = 'int32'
     static byteWidth = 4
     static isSigned = true
-
-    static from<T extends typeof Int32>(this: T, value: Int32Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Int64Type = Int64 | IntType
@@ -199,10 +199,6 @@ export class Int64 extends BNInt {
     static abiName = 'int64'
     static byteWidth = 8
     static isSigned = true
-
-    static from<T extends typeof Int64>(this: T, value: Int64Type | Uint8Array): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type Int128Type = Int128 | IntType
@@ -210,10 +206,6 @@ export class Int128 extends BNInt {
     static abiName = 'int128'
     static byteWidth = 16
     static isSigned = true
-
-    static from<T extends typeof Int128>(this: T, value: Int128Type | Uint8Array): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type UInt8Type = UInt8 | IntType
@@ -221,10 +213,6 @@ export class UInt8 extends Int {
     static abiName = 'uint8'
     static byteWidth = 1
     static isSigned = false
-
-    static from<T extends typeof UInt8>(this: T, value: UInt8Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type UInt16Type = UInt16 | IntType
@@ -232,10 +220,6 @@ export class UInt16 extends Int {
     static abiName = 'uint16'
     static byteWidth = 2
     static isSigned = false
-
-    static from<T extends typeof UInt16>(this: T, value: UInt16Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type UInt32Type = UInt32 | IntType
@@ -243,10 +227,6 @@ export class UInt32 extends Int {
     static abiName = 'uint32'
     static byteWidth = 4
     static isSigned = false
-
-    static from<T extends typeof UInt32>(this: T, value: UInt32Type): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type UInt64Type = UInt64 | IntType
@@ -254,10 +234,6 @@ export class UInt64 extends BNInt {
     static abiName = 'uint64'
     static byteWidth = 8
     static isSigned = false
-
-    static from<T extends typeof UInt64>(this: T, value: UInt64Type | Uint8Array): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type UInt128Type = UInt128 | IntType
@@ -265,13 +241,6 @@ export class UInt128 extends BNInt {
     static abiName = 'uint128'
     static byteWidth = 16
     static isSigned = false
-
-    static from<T extends typeof UInt128>(
-        this: T,
-        value: UInt128Type | Uint8Array
-    ): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
 }
 
 export type VarIntType = VarInt | IntType
@@ -280,12 +249,8 @@ export class VarInt extends Int {
     static byteWidth = 32
     static isSigned = true
 
-    static from<T extends typeof VarInt>(this: T, value: VarIntType): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
-
-    static fromABI<T extends typeof VarInt>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(decoder.readVarint32()) as InstanceType<T>
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readVarint32())
     }
 
     toABI(encoder: ABIEncoder) {
@@ -298,12 +263,8 @@ export class VarUInt extends Int {
     static byteWidth = 32
     static isSigned = false
 
-    static from<T extends typeof VarUInt>(this: T, value: VarUIntType): InstanceType<T> {
-        return super.from(value) as InstanceType<T>
-    }
-
-    static fromABI<T extends typeof VarUInt>(this: T, decoder: ABIDecoder): InstanceType<T> {
-        return new this(decoder.readVaruint32()) as InstanceType<T>
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readVaruint32())
     }
 
     toABI(encoder: ABIEncoder) {

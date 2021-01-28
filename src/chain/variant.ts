@@ -21,12 +21,14 @@ export class Variant implements ABISerializableObject {
     static abiName: string
     static abiVariant: ABITypeDescriptor[] = []
 
-    static from<T extends VariantConstructor>(this: T, object: AnyVariant): InstanceType<T> {
+    static from<T extends VariantConstructor>(this: T, object: AnyVariant): InstanceType<T>
+    static from(object: AnyVariant): unknown
+    static from(object: AnyVariant) {
         if (object[Resolved]) {
-            return new this(object) as InstanceType<T>
+            return new this(object as [string, ABISerializable])
         }
         if (isInstanceOf(object, this)) {
-            return object as InstanceType<T>
+            return object
         }
         return abiDecode({object, type: this})
     }

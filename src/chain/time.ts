@@ -19,34 +19,40 @@ interface TimePointConstructor {
 }
 
 class TimePointBase implements ABISerializableObject {
-    static from<T extends TimePointConstructor>(this: T, value: TimePointType): InstanceType<T> {
-        if (isInstanceOf(value, this as TimePointConstructor)) {
-            return value as InstanceType<T>
+    static from<T extends TimePointConstructor>(this: T, value: TimePointType): InstanceType<T>
+    static from(value: TimePointType): unknown
+    static from(this: TimePointConstructor, value: TimePointType) {
+        if (isInstanceOf(value, this)) {
+            return value
         }
         if (isInstanceOf(value, TimePointBase)) {
             // converting between types
-            return this.fromMilliseconds(value.toMilliseconds()) as InstanceType<T>
+            return this.fromMilliseconds(value.toMilliseconds())
         }
         if (isInstanceOf(value, Date)) {
-            return this.fromDate(value) as InstanceType<T>
+            return this.fromDate(value)
         }
         if (typeof value === 'string') {
-            return this.fromString(value) as InstanceType<T>
+            return this.fromString(value)
         }
 
-        return this.fromInteger(value) as InstanceType<T>
+        return this.fromInteger(value)
     }
 
-    static fromString<T extends TimePointConstructor>(this: T, string: string): InstanceType<T> {
+    static fromString<T extends TimePointConstructor>(this: T, string: string): InstanceType<T>
+    static fromString(string: string): unknown
+    static fromString(this: TimePointConstructor, string: string) {
         const value = Date.parse(string + 'Z')
         if (!Number.isFinite(value)) {
             throw new Error('Invalid date string')
         }
-        return this.fromMilliseconds(value) as InstanceType<T>
+        return this.fromMilliseconds(value)
     }
 
-    static fromDate<T extends TimePointConstructor>(this: T, date: Date): InstanceType<T> {
-        return this.fromMilliseconds(date.getTime()) as InstanceType<T>
+    static fromDate<T extends TimePointConstructor>(this: T, date: Date): InstanceType<T>
+    static fromDate(date: Date): unknown
+    static fromDate(this: TimePointConstructor, date: Date) {
+        return this.fromMilliseconds(date.getTime())
     }
 
     toABI(encoder: ABIEncoder) {

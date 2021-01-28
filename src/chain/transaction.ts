@@ -11,7 +11,7 @@ import {
     VarUInt,
     VarUIntType,
 } from './integer'
-import {Struct, StructConstructor} from './struct'
+import {Struct} from './struct'
 import {TimePointSec, TimePointType} from './time'
 
 import {abiEncode} from '../serializer/encoder'
@@ -58,11 +58,8 @@ export class TransactionHeader extends Struct {
     /** Number of seconds to delay this transaction for during which it may be canceled. */
     @Struct.field('varuint32', {default: 0}) delay_sec!: VarUInt
 
-    static from<T extends StructConstructor>(
-        this: T,
-        object: TransactionHeaderType
-    ): InstanceType<T> {
-        return super.from(object) as InstanceType<T>
+    static from(object: TransactionHeaderType) {
+        return super.from(object) as TransactionHeader
     }
 }
 
@@ -156,11 +153,8 @@ export class SignedTransaction extends Transaction {
     /** Context-free action data, for each context-free action, there is an entry here. */
     @Struct.field('bytes[]', {default: []}) context_free_data!: Bytes[]
 
-    static from<T extends StructConstructor>(
-        this: T,
-        object: SignedTransactionType
-    ): InstanceType<T> {
-        return super.from(object) as InstanceType<T>
+    static from(object: SignedTransactionType) {
+        return super.from(object) as SignedTransaction
     }
 }
 
@@ -180,14 +174,14 @@ export class PackedTransaction extends Struct {
                 type: 'bytes[]',
             }),
             packed_trx: abiEncode({object: tx}),
-        })
+        }) as PackedTransaction
     }
 
     getTransaction(): Transaction {
         if (this.compression.value !== 0) {
             throw new Error('Transaction compression not supported yet')
         }
-        return abiDecode({data: this.packed_trx, type: Transaction}) as Transaction
+        return abiDecode({data: this.packed_trx, type: Transaction})
     }
 
     getSignedTransaction(): SignedTransaction {
