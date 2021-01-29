@@ -97,6 +97,8 @@ export function synthesizeABI(type: ABISerializableConstructor) {
     const resolve = (t: ABISerializableConstructor) => {
         if (!t.abiName) {
             throw new Error('Encountered non-conforming type')
+        } else if (t.abiName === '__struct') {
+            throw new Error('Misconfigured Struct subclass, did you forget @Struct.type?')
         }
         if (seen.has(t)) {
             return t.abiName

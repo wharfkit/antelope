@@ -13,7 +13,7 @@ export interface StructConstructor extends ABISerializableConstructor {
 }
 
 export class Struct implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__struct'
     static abiFields: ABIField[]
     static abiBase: ABISerializableConstructor
 
