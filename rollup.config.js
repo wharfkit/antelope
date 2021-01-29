@@ -26,7 +26,7 @@ export default [
             format: 'cjs',
             sourcemap: true,
         },
-        plugins: [typescript({target: 'es5'})],
+        plugins: [typescript({target: 'es6'})],
         external,
         onwarn,
     },
