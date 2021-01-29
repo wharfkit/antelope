@@ -6,6 +6,7 @@ import {
     Action,
     AnyTransaction,
     Asset,
+    Authority,
     Bytes,
     Checksum160,
     Checksum256,
@@ -14,6 +15,7 @@ import {
     Int64,
     Name,
     PermissionLevel,
+    PrivateKey,
     PublicKey,
     Signature,
     Struct,
@@ -407,5 +409,31 @@ suite('chain', function () {
         )
         assert.equal(a1.equals(a2), true)
         assert.equal(a1.equals(a3), true)
+    })
+
+    test('authority', function () {
+        const auth = Authority.from({
+            threshold: 21,
+            keys: [
+                {
+                    key: 'EOS6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeABhJRin',
+                    weight: 20,
+                },
+                {
+                    key: 'PUB_R1_82ua5qburg82c9eWY1qZVNUAAD6VPHsTMoPMGDrk7s4BQgxEoc',
+                    weight: 2,
+                },
+            ],
+            waits: [{wait_sec: 10, weight: 1}],
+        })
+        assert.ok(auth.hasPermission('EOS6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeABhJRin'))
+        assert.ok(
+            auth.hasPermission('PUB_R1_82ua5qburg82c9eWY1qZVNUAAD6VPHsTMoPMGDrk7s4BQgxEoc', true)
+        )
+        assert.ok(!auth.hasPermission('PUB_R1_82ua5qburg82c9eWY1qZVNUAAD6VPHsTMoPMGDrk7s4BQgxEoc'))
+        assert.ok(!auth.hasPermission('PUB_K1_6E45rq9ZhnvnWNTNEEexpM8V8rqCjggUWHXJBurkVQSnEyCHQ9'))
+        assert.ok(
+            !auth.hasPermission('PUB_K1_6E45rq9ZhnvnWNTNEEexpM8V8rqCjggUWHXJBurkVQSnEyCHQ9', true)
+        )
     })
 })
