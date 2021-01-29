@@ -1,25 +1,46 @@
-import {PermissionLevel, PublicKey, PublicKeyType, Struct, TypeAlias, UInt16, UInt32} from '../'
+import {
+    PermissionLevel,
+    PermissionLevelType,
+    PublicKey,
+    PublicKeyType,
+    Struct,
+    TypeAlias,
+    UInt16,
+    UInt16Type,
+    UInt32,
+    UInt32Type,
+} from '../'
+import {isInstanceOf} from '../utils'
 
 @TypeAlias('weight_type')
-export class Weight extends UInt16 {}
+class Weight extends UInt16 {}
 
 @Struct.type('key_weight')
-export class KeyWeight extends Struct {
+class KeyWeight extends Struct {
     @Struct.field(PublicKey) key!: PublicKey
     @Struct.field(Weight) weight!: Weight
 }
 
 @Struct.type('permission_level_weight')
-export class PermissionLevelWeight extends Struct {
+class PermissionLevelWeight extends Struct {
     @Struct.field(PermissionLevel) permission!: PermissionLevel
     @Struct.field(Weight) weight!: Weight
 }
 
 @Struct.type('wait_weight')
-export class WaitWeight extends Struct {
+class WaitWeight extends Struct {
     @Struct.field(UInt32) wait_sec!: UInt32
     @Struct.field(Weight) weight!: Weight
 }
+
+export type AuthorityType =
+    | Authority
+    | {
+          threshold: UInt32Type
+          keys?: {key: PublicKeyType; weight: UInt16Type}[]
+          accounts?: {permission: PermissionLevelType; weight: UInt16Type}[]
+          waits?: {wait_sec: UInt32Type; weight: UInt16Type}[]
+      }
 
 @Struct.type('authority')
 export class Authority extends Struct {
@@ -27,6 +48,20 @@ export class Authority extends Struct {
     @Struct.field(KeyWeight, {array: true}) keys!: KeyWeight[]
     @Struct.field(PermissionLevelWeight, {array: true}) accounts!: PermissionLevelWeight[]
     @Struct.field(WaitWeight, {array: true}) waits!: WaitWeight[]
+
+    static from(value: AuthorityType): Authority {
+        if (isInstanceOf(value, Authority)) {
+            return value
+        }
+        const rv = super.from({
+            keys: [],
+            accounts: [],
+            waits: [],
+            ...value,
+        }) as Authority
+        rv.sort()
+        return rv
+    }
 
     /** Total weight of all waits. */
     get waitThreshold(): number {
