@@ -1,8 +1,9 @@
-import {UInt64} from './integer'
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {isInstanceOf} from '../utils'
+
+import {UInt64} from '../'
 
 /** Type representing a name. */
 export type NameType = Name | UInt64 | string

@@ -1,5 +1,6 @@
 import {isInstanceOf} from '../utils'
-import {Name, NameType} from './name'
+
+import {Name, NameType} from '../'
 
 export type ABIDef = string | Partial<ABI.Def> | ABI
 

@@ -4,8 +4,7 @@
 
 import BN from 'bn.js'
 
-import {ABI, ABIDef} from '../chain/abi'
-import {Bytes, BytesType} from '../chain/bytes'
+import {ABI, ABIDef, Bytes, BytesType, Variant} from '../chain'
 
 import {
     ABISerializable,
@@ -15,8 +14,9 @@ import {
     synthesizeABI,
     toTypeDescriptor,
 } from './serializable'
+
 import {buildTypeLookup, BuiltinTypes, getTypeName, TypeLookup} from './builtins'
-import {Variant} from '../chain/variant'
+
 import {isInstanceOf} from '../utils'
 
 interface DecodeArgsBase {

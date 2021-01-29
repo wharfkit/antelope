@@ -1,7 +1,21 @@
-import {Action, ActionType, AnyAction} from './action'
-import {Bytes, BytesType} from './bytes'
-import {Checksum256, Checksum256Type} from './checksum'
+import {abiEncode} from '../serializer/encoder'
+import {Signature, SignatureType} from './signature'
+import {abiDecode} from '../serializer/decoder'
+
 import {
+    ABIDef,
+    Action,
+    ActionType,
+    AnyAction,
+    Bytes,
+    BytesType,
+    Checksum256,
+    Checksum256Type,
+    Name,
+    NameType,
+    Struct,
+    TimePointSec,
+    TimePointType,
     UInt16,
     UInt16Type,
     UInt32,
@@ -10,15 +24,7 @@ import {
     UInt8Type,
     VarUInt,
     VarUIntType,
-} from './integer'
-import {Struct} from './struct'
-import {TimePointSec, TimePointType} from './time'
-
-import {abiEncode} from '../serializer/encoder'
-import {Signature, SignatureType} from './signature'
-import {abiDecode} from '../serializer/decoder'
-import {ABIDef} from './abi'
-import {Name, NameType} from './name'
+} from '../'
 
 @Struct.type('transaction_extension')
 export class TransactionExtension extends Struct {
@@ -126,14 +132,14 @@ export class Transaction extends TransactionHeader {
     }
 
     get id(): Checksum256 {
-        return abiEncode({object: this}).sha256Digest
+        return Checksum256.hash(abiEncode({object: this}))
     }
 
     signingDigest(chainId: Checksum256Type): Checksum256 {
         let data = Bytes.from(Checksum256.from(chainId).array)
         data = data.appending(abiEncode({object: this}))
         data = data.appending(new Uint8Array(32))
-        return data.sha256Digest
+        return Checksum256.hash(data)
     }
 }
 

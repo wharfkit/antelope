@@ -1,5 +1,4 @@
-import {Name, NameType} from './name'
-import {Struct} from './struct'
+import {Name, NameType, Struct} from '../'
 
 export type PermissionLevelType = PermissionLevel | {actor: NameType; permission: NameType}
 
@@ -27,5 +26,9 @@ export class PermissionLevel extends Struct {
     equals(other: PermissionLevelType | string) {
         const otherPerm = PermissionLevel.from(other)
         return this.actor.equals(otherPerm.actor) && this.permission.equals(otherPerm.permission)
+    }
+
+    toString() {
+        return `${this.actor}@${this.permission}`
     }
 }

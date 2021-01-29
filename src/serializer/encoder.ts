@@ -4,8 +4,8 @@
 
 import BN from 'bn.js'
 
-import {ABI, ABIDef} from '../chain/abi'
-import {Bytes} from '../chain/bytes'
+import {ABI, ABIDef, Bytes, Variant} from '../chain'
+import {isInstanceOf} from '../utils'
 
 import {
     ABISerializable,
@@ -17,8 +17,6 @@ import {
     synthesizeABI,
 } from './serializable'
 import {buildTypeLookup, getType, getTypeName} from './builtins'
-import {Variant} from '../chain/variant'
-import {isInstanceOf} from '../utils'
 
 class EncodingError extends Error {
     static __className = 'EncodingError'

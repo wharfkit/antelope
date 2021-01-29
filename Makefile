@@ -6,7 +6,7 @@ lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.js
 	@${BIN}/rollup -c && touch lib
 
 .PHONY: test
-test: node_modules
+test: lib node_modules
 	@TS_NODE_PROJECT='./test/tsconfig.json' ${BIN}/mocha -u tdd -r ts-node/register --extension ts test/*.ts --grep '$(grep)'
 
 .PHONY: coverage
@@ -18,7 +18,7 @@ lint: node_modules
 	@${BIN}/eslint src --ext .ts --fix
 
 .PHONY: ci-test
-ci-test: node_modules
+ci-test: lib node_modules
 	@TS_NODE_PROJECT='./test/tsconfig.json' ${BIN}/nyc --reporter=text ${BIN}/mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list
 
 .PHONY: ci-lint

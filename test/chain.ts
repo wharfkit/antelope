@@ -1,21 +1,30 @@
 import * as assert from 'assert'
 import 'mocha'
 
-import {Action} from '../src/chain/action'
-import {Asset} from '../src/chain/asset'
-import {Bytes} from '../src/chain/bytes'
-import {Int32, Int64, UInt128, UInt32, UInt64} from '../src/chain/integer'
-import {Name} from '../src/chain/name'
-import {Struct} from '../src/chain/struct'
-import {TimePoint, TimePointSec} from '../src/chain/time'
-import {AnyTransaction, Transaction} from '../src/chain/transaction'
-import {PrivateKey} from '../src/chain/private-key'
-import {PublicKey} from '../src/chain/public-key'
-import {Signature} from '../src/chain/signature'
-import {PermissionLevel} from '../src/chain/permission-level'
-import {Variant} from '../src/chain/variant'
-import {ABIDef} from '../src/chain/abi'
-import {Checksum256} from '../src/chain/checksum'
+import {
+    ABIDef,
+    Action,
+    AnyTransaction,
+    Asset,
+    Bytes,
+    Checksum160,
+    Checksum256,
+    Checksum512,
+    Int32,
+    Int64,
+    Name,
+    PermissionLevel,
+    PublicKey,
+    Signature,
+    Struct,
+    TimePoint,
+    TimePointSec,
+    Transaction,
+    UInt128,
+    UInt32,
+    UInt64,
+    Variant,
+} from '..'
 
 suite('chain', function () {
     test('asset', function () {
@@ -92,16 +101,16 @@ suite('chain', function () {
         assert.equal(Bytes.from('68656c6c6f').toString('utf8'), 'hello')
         assert.equal(Bytes.from([0xff, 0x00, 0xff, 0x00]).copy().hexString, 'ff00ff00')
         assert.equal(
-            Bytes.from('hello world', 'utf8').sha256Digest.hexString,
+            Checksum256.hash(Bytes.from('hello world', 'utf8')).hexString,
             'b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9'
         )
         assert.equal(
-            Bytes.from('hello world', 'utf8').sha512Digest.hexString,
+            Checksum512.hash(Bytes.from('hello world', 'utf8')).hexString,
             '309ecc489c12d6eb4cc40f50c902f2b4d0ed77ee511a7c7a9bcd3ca86d4cd86f' +
                 '989dd35bc5ff499670da34255b45b0cfd830e81f605dcf7dc5542e93ae9cd76f'
         )
         assert.equal(
-            Bytes.from('hello world', 'utf8').ripemd160Digest.hexString,
+            Checksum160.hash(Bytes.from('hello world', 'utf8')).hexString,
             '98c615784ccb5fe5936fbc0cbe9dfdb408d92f0f'
         )
         assert.throws(() => {
@@ -233,7 +242,7 @@ suite('chain', function () {
         assert.equal(num.equals(UInt128.from(123456789), false), false)
         assert.equal(num.equals(UInt128.from(123456789), true), true)
 
-        const checksum = Bytes.from('hello', 'utf8').ripemd160Digest
+        const checksum = Checksum160.hash(Bytes.from('hello', 'utf8'))
         assert.equal(checksum.equals('108f07b8382412612c048d07d13f814118445acd'), true)
         assert.equal(checksum.equals('108f07b8382412612c048d07d13f814118445abe'), false)
 
@@ -243,7 +252,6 @@ suite('chain', function () {
             true
         )
 
-        const key = PrivateKey.generate('R1')
         const sig = Signature.from(
             'SIG_K1_JyMXe1HU42qN2aM7GPUf5XrAcAjWPbRoojzfsKq9Rgto3dGsRcCZ4UaPsAcFPS2faGQMpRoSTRX8WQQUDEA5TfWHj8sr6q'
         )

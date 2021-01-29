@@ -3,9 +3,9 @@ import {ripemd160, sha256, sha512} from 'hash.js'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
-
-import {Bytes, BytesType} from './bytes'
 import {arrayEquals, arrayToHex, isInstanceOf} from '../utils'
+
+import {Bytes, BytesType} from '../'
 
 type ChecksumType = Checksum | BytesType
 

@@ -1,15 +1,29 @@
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
 import {ABIField, ABISerializableConstructor} from './serializable'
-import {Bytes} from '../chain/bytes'
-import {Name} from '../chain/name'
-import {Float128, Float32, Float64} from '../chain/float'
+
 import {
+    Asset,
+    BlockTimestamp,
+    Bytes,
+    Checksum160,
+    Checksum256,
+    Checksum512,
+    ExtendedAsset,
+    Float128,
+    Float32,
+    Float64,
     Int128,
     Int16,
     Int32,
     Int64,
     Int8,
+    Name,
+    PublicKey,
+    Signature,
+    Struct,
+    TimePoint,
+    TimePointSec,
     UInt128,
     UInt16,
     UInt32,
@@ -17,13 +31,7 @@ import {
     UInt8,
     VarInt,
     VarUInt,
-} from '../chain/integer'
-import {Asset, ExtendedAsset} from '../chain/asset'
-import {Checksum160, Checksum256, Checksum512} from '../chain/checksum'
-import {Signature} from '../chain/signature'
-import {PublicKey} from '../chain/public-key'
-import {Struct} from '../chain/struct'
-import {BlockTimestamp, TimePoint, TimePointSec} from '../chain/time'
+} from '../chain'
 
 const StringType = {
     abiName: 'string',
@@ -48,6 +56,14 @@ const BoolType = {
 }
 
 export interface BuiltinTypes {
+    string: string
+    'string?'?: string
+    'string[]': string[]
+    'string[]?'?: string[]
+    bool: boolean
+    'bool?'?: boolean
+    'bool[]': boolean[]
+    'bool[]?'?: boolean[]
     asset: Asset
     'asset?'?: Asset
     'asset[]': Asset[]
@@ -56,10 +72,6 @@ export interface BuiltinTypes {
     'extended_asset?'?: ExtendedAsset
     'extended_asset[]': ExtendedAsset[]
     'extended_asset[]?'?: ExtendedAsset[]
-    bool: boolean
-    'bool?'?: boolean
-    'bool[]': boolean[]
-    'bool[]?'?: boolean[]
     bytes: Bytes
     'bytes?'?: Bytes
     'bytes[]': Bytes[]
@@ -88,10 +100,6 @@ export interface BuiltinTypes {
     'signature?'?: Signature
     'signature[]': Signature[]
     'signature[]?'?: Signature[]
-    string: string
-    'string?'?: string
-    'string[]': string[]
-    'string[]?'?: string[]
     symbol: Asset.Symbol
     'symbol?'?: Asset.Symbol
     'symbol[]': Asset.Symbol[]
@@ -174,51 +182,56 @@ export interface BuiltinTypes {
     'float128[]?'?: Float128[]
 }
 
-const builtins = [
-    // types represented by JavaScript builtins
-    BoolType as ABISerializableConstructor,
-    StringType as ABISerializableConstructor,
-    // types represented by Classes
-    Asset,
-    Asset.Symbol,
-    Asset.SymbolCode,
-    ExtendedAsset,
-    Bytes,
-    Checksum160,
-    Checksum256,
-    Checksum512,
-    Int8,
-    Int16,
-    Int32,
-    Int64,
-    Int128,
-    Float32,
-    Float64,
-    Float128,
-    Name,
-    PublicKey,
-    Signature,
-    TimePoint,
-    TimePointSec,
-    BlockTimestamp,
-    UInt8,
-    UInt16,
-    UInt32,
-    UInt64,
-    UInt128,
-    VarInt,
-    VarUInt,
-]
+function getBuiltins(): ABISerializableConstructor[] {
+    return [
+        // types represented by JavaScript builtins
+        BoolType as ABISerializableConstructor,
+        StringType as ABISerializableConstructor,
+        // types represented by Classes
+        Asset,
+        Asset.Symbol,
+        Asset.SymbolCode,
+        BlockTimestamp,
+        Bytes,
+        Checksum160,
+        Checksum256,
+        Checksum512,
+        ExtendedAsset,
+        Float128,
+        Float32,
+        Float64,
+        Int128,
+        Int16,
+        Int32,
+        Int64,
+        Int8,
+        Name,
+        PublicKey,
+        Signature,
+        TimePoint,
+        TimePointSec,
+        UInt128,
+        UInt16,
+        UInt32,
+        UInt64,
+        UInt8,
+        VarInt,
+        VarUInt,
+    ]
+}
 
 export type TypeLookup = {[name: string]: ABISerializableConstructor}
 
 export function buildTypeLookup(additional: ABISerializableConstructor[] = []): TypeLookup {
     const rv: TypeLookup = {}
+    const builtins = getBuiltins()
     for (const type of builtins) {
         rv[type.abiName] = type
     }
     for (const type of additional) {
-        // TODO: check conformance?
+        if (!type.abiName) {
+            throw new Error('Invalid type')
+        }
         rv[type.abiName] = type
     }
     return rv

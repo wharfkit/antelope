@@ -3,10 +3,9 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
-
-import {Bytes} from './bytes'
-import {CurveType} from './curve-type'
 import {isInstanceOf} from '../utils'
+
+import {Bytes, CurveType} from '../'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 

@@ -1,8 +1,7 @@
 import * as assert from 'assert'
 import 'mocha'
 
-import {Base58} from '../src/base58'
-import {Bytes, BytesType} from '../src/chain/bytes'
+import {Base58, Bytes, BytesType} from '..'
 
 function assertBytes(a: BytesType, b: BytesType) {
     assert.equal(Bytes.from(a).hexString, Bytes.from(b).hexString)

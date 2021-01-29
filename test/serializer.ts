@@ -1,21 +1,32 @@
+import BN from 'bn.js'
+
 import * as assert from 'assert'
 import 'mocha'
 
-import {ABIDecoder, ABIEncoder, Serializer} from '../src/serializer'
+import {ABIDecoder, ABIEncoder, Serializer} from '..'
 
-import {Name} from '../src/chain/name'
-import {ABI} from '../src/chain/abi'
-import {Int128, Int32, Int32Type, Int64, UInt128, UInt16, UInt64, UInt8} from '../src/chain/integer'
-import {Asset} from '../src/chain/asset'
-import {PublicKey} from '../src/chain/public-key'
-import {Signature} from '../src/chain/signature'
-import {Struct} from '../src/chain/struct'
-import {TimePoint, TimePointSec} from '../src/chain/time'
-import {Variant} from '../src/chain/variant'
-import {TypeAlias} from '../src/chain/type-alias'
-import {Transaction} from '../src/chain/transaction'
-import BN from 'bn.js'
-import {PermissionLevel} from '../src/chain/permission-level'
+import {
+    ABI,
+    Asset,
+    Int128,
+    Int32,
+    Int32Type,
+    Int64,
+    Name,
+    PermissionLevel,
+    PublicKey,
+    Signature,
+    Struct,
+    TimePoint,
+    TimePointSec,
+    Transaction,
+    TypeAlias,
+    UInt128,
+    UInt16,
+    UInt64,
+    UInt8,
+    Variant,
+} from '..'
 
 suite('serializer', function () {
     test('array', function () {

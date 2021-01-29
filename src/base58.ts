@@ -1,6 +1,6 @@
 import {ripemd160, sha256} from 'hash.js'
 import {arrayEquals} from './utils'
-import {Bytes, BytesType} from './chain/bytes'
+import {Bytes, BytesType} from './chain'
 
 export namespace Base58 {
     const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'

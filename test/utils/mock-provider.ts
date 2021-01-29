@@ -6,9 +6,7 @@ import {readFile as _readFile, writeFile as _writeFile} from 'fs'
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
 
-import {APIProvider} from '../../src/api/provider'
-import {Bytes} from '../../src/chain/bytes'
-import {FetchProvider} from '../../src/api/provider'
+import {APIProvider, Bytes, Checksum160, FetchProvider} from '../..'
 
 export class MockProvider implements APIProvider {
     recordProvider = new FetchProvider(this.api, {fetch})
@@ -16,8 +14,9 @@ export class MockProvider implements APIProvider {
     constructor(private dir: string, private api: string = 'https://jungle3.greymass.com') {}
 
     getFilename(path: string, params?: unknown) {
-        const digest = Bytes.from(this.api + path + (params ? JSON.stringify(params) : ''), 'utf8')
-            .ripemd160Digest.hexString
+        const digest = Checksum160.hash(
+            Bytes.from(this.api + path + (params ? JSON.stringify(params) : ''), 'utf8')
+        ).hexString
         return joinPath(this.dir, digest + '.json')
     }
 

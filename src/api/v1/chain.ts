@@ -1,7 +1,21 @@
 import {APIClient} from '../client'
-import {Int128, Int64, UInt32, UInt64} from '../../chain/integer'
-import {Name, NameType} from '../../chain/name'
-import {PackedTransaction, SignedTransaction, SignedTransactionType} from '../../chain/transaction'
+
+import {
+    Bytes,
+    Checksum160,
+    Checksum256,
+    Float128,
+    Float64,
+    Int128,
+    Int64,
+    Name,
+    NameType,
+    PackedTransaction,
+    SignedTransaction,
+    SignedTransactionType,
+    UInt32,
+    UInt64,
+} from '../../chain'
 
 import {
     AccountObject,
@@ -17,10 +31,8 @@ import {
     TableIndexType,
     TableIndexTypes,
 } from './types'
+
 import {ABISerializableConstructor, ABISerializableType, Serializer} from '../../serializer'
-import {Checksum160, Checksum256} from '../../chain/checksum'
-import {Float128, Float64} from '../../chain/float'
-import {Bytes} from '../../chain/bytes'
 import {isInstanceOf} from '../../utils'
 
 export class ChainAPI {

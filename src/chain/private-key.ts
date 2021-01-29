@@ -1,16 +1,21 @@
 import {Base58} from '../base58'
-
-import {Bytes, BytesType} from './bytes'
-import {Checksum256, Checksum256Type} from './checksum'
-import {PublicKey} from './public-key'
-import {Signature} from './signature'
+import {isInstanceOf} from '../utils'
 
 import {getPublic} from '../crypto/get-public'
 import {sharedSecret} from '../crypto/shared-secret'
 import {sign} from '../crypto/sign'
 import {generate} from '../crypto/generate'
-import {CurveType} from './curve-type'
-import {isInstanceOf} from '../utils'
+
+import {
+    Bytes,
+    BytesType,
+    Checksum256,
+    Checksum256Type,
+    Checksum512,
+    CurveType,
+    PublicKey,
+    Signature,
+} from '../'
 
 export type PrivateKeyType = PrivateKey | string
 
@@ -47,7 +52,7 @@ export class PrivateKey {
             const type = CurveType.K1
             const data = Base58.decodeCheck(value)
             if (data.array[0] !== 0x80) {
-                throw new Error('Invalid private key wif')
+                throw new Error('Invalid private key WIF')
             }
             return new PrivateKey(type, data.droppingFirst())
         }
@@ -81,7 +86,7 @@ export class PrivateKey {
      * @throws If the key type isn't R1 or K1.
      */
     signMessage(message: BytesType) {
-        return this.signDigest(Bytes.from(message).sha256Digest)
+        return this.signDigest(Checksum256.hash(message))
     }
 
     /**
@@ -90,7 +95,7 @@ export class PrivateKey {
      */
     sharedSecret(publicKey: PublicKey) {
         const shared = sharedSecret(this.data.array, publicKey.data.array, this.type)
-        return new Bytes(shared).sha512Digest
+        return Checksum512.hash(shared)
     }
 
     /**

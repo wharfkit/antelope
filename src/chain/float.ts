@@ -2,7 +2,8 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 import {isInstanceOf, secureRandom} from '../utils'
-import {Bytes, BytesType} from './bytes'
+
+import {Bytes, BytesType} from '../'
 
 type FloatType = Float | number | string
 

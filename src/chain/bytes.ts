@@ -2,7 +2,6 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {arrayEquals, arrayToHex, hexToArray, isInstanceOf, secureRandom} from '../utils'
-import {Checksum160, Checksum256, Checksum512} from './checksum'
 
 export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
 
@@ -67,18 +66,6 @@ export class Bytes implements ABISerializableObject {
 
     constructor(array: Uint8Array = new Uint8Array()) {
         this.array = array
-    }
-
-    get ripemd160Digest(): Checksum160 {
-        return Checksum160.hash(this)
-    }
-
-    get sha256Digest(): Checksum256 {
-        return Checksum256.hash(this)
-    }
-
-    get sha512Digest(): Checksum512 {
-        return Checksum512.hash(this)
     }
 
     get hexString(): string {

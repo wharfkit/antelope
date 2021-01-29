@@ -1,42 +1,37 @@
-import {ABI} from '../../chain/abi'
-import {Asset} from '../../chain/asset'
-import {Bytes} from '../../chain/bytes'
-import {Checksum160, Checksum256} from '../../chain/checksum'
-import {Int128, Int32, Int64, UInt16, UInt32, UInt32Type, UInt64} from '../../chain/integer'
-import {Name, NameType} from '../../chain/name'
-import {PermissionLevel} from '../../chain/permission-level'
-import {PublicKey} from '../../chain/public-key'
-import {Struct} from '../../chain/struct'
-import {TimePoint, TimePointSec} from '../../chain/time'
-import {Signature} from '../../chain/signature'
-import {TransactionHeader, TransactionReceipt} from '../../chain/transaction'
+import {
+    ABI,
+    Asset,
+    Authority,
+    Bytes,
+    Checksum160,
+    Checksum256,
+    Float128,
+    Float64,
+    Int128,
+    Int32,
+    Int64,
+    Name,
+    NameType,
+    PublicKey,
+    Signature,
+    Struct,
+    TimePoint,
+    TimePointSec,
+    TransactionHeader,
+    TransactionReceipt,
+    UInt16,
+    UInt32,
+    UInt32Type,
+    UInt64,
+} from '../../chain'
+
 import {ABISerializableType} from '../../serializer'
-import {Float128, Float64} from '../../chain/float'
-
-@Struct.type('account_auth')
-export class AccountAuth extends Struct {
-    @Struct.field('uint32') weight!: UInt32
-    @Struct.field(PermissionLevel) permission!: PermissionLevel
-}
-
-@Struct.type('key_auth')
-export class KeyAuth extends Struct {
-    @Struct.field('uint32') weight!: UInt32
-    @Struct.field('public_key') key!: PublicKey
-}
-
-@Struct.type('required_auth')
-export class RequiredAuth extends Struct {
-    @Struct.field('uint32') threshold!: UInt32
-    @Struct.field(KeyAuth, {array: true, default: []}) keys!: KeyAuth[]
-    @Struct.field(AccountAuth, {array: true, default: []}) accounts!: AccountAuth[]
-}
 
 @Struct.type('account_permission')
 export class AccountPermission extends Struct {
     @Struct.field('name') perm_name!: Name
     @Struct.field('name') parent!: Name
-    @Struct.field(RequiredAuth) required_auth!: RequiredAuth
+    @Struct.field(Authority) required_auth!: Authority
 }
 
 @Struct.type('account_resource_limit')

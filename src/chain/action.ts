@@ -1,17 +1,25 @@
-import {Struct} from './struct'
-import {Name, NameType} from './name'
-import {Bytes, BytesType} from './bytes'
 import {abiEncode} from '../serializer/encoder'
-import {ABI, ABIDef} from './abi'
 import {abiDecode} from '../serializer/decoder'
 import {
     ABISerializable,
     ABISerializableConstructor,
     ABISerializableType,
 } from '../serializer/serializable'
-import {PermissionLevel, PermissionLevelType} from './permission-level'
+
 import {arrayEquatableEquals} from '../utils'
 import {BuiltinTypes} from '../serializer/builtins'
+
+import {
+    ABI,
+    ABIDef,
+    Bytes,
+    BytesType,
+    Name,
+    NameType,
+    PermissionLevel,
+    PermissionLevelType,
+    Struct,
+} from '../'
 
 export interface ActionFields {
     /** The account (a.k.a. contract) to run action on. */

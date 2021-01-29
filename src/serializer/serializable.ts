@@ -1,4 +1,4 @@
-import {ABI} from '../chain/abi'
+import {ABI} from '../chain'
 import {ABIDecoder} from './decoder'
 import {ABIEncoder} from './encoder'
 

@@ -1,11 +1,11 @@
 import BN from 'bn.js'
 
 import {ABISerializableObject} from '../serializer/serializable'
-import {Int64, Int64Type, UInt64} from './integer'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
-import {Name, NameType} from './name'
 import {isInstanceOf} from '../utils'
+
+import {Int64, Int64Type, Name, NameType, UInt64} from '../'
 
 export type AssetType = Asset | string
 

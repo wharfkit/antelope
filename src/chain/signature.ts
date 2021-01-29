@@ -3,14 +3,12 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 
 import {Base58} from '../base58'
-import {Bytes, BytesType} from './bytes'
-import {Checksum256, Checksum256Type} from './checksum'
-import {PublicKey} from './public-key'
+import {isInstanceOf} from '../utils'
 
 import {recover} from '../crypto/recover'
 import {verify} from '../crypto/verify'
-import {CurveType} from './curve-type'
-import {isInstanceOf} from '../utils'
+
+import {Bytes, BytesType, Checksum256, Checksum256Type, CurveType, PublicKey} from '../'
 
 export type SignatureType =
     | Signature
@@ -92,7 +90,7 @@ export class Signature implements ABISerializableObject {
 
     /** Recover public key from given message. */
     recoverMessage(message: BytesType) {
-        return this.recoverDigest(Bytes.from(message).sha256Digest)
+        return this.recoverDigest(Checksum256.hash(message))
     }
 
     /** Verify this signature with given message digest and public key. */
@@ -103,7 +101,7 @@ export class Signature implements ABISerializableObject {
 
     /** Verify this signature with given message and public key. */
     verifyMessage(message: BytesType, publicKey: PublicKey) {
-        return this.verifyDigest(Bytes.from(message).sha256Digest, publicKey)
+        return this.verifyDigest(Checksum256.hash(message), publicKey)
     }
 
     /** Base58check encoded string representation of this signature (`SIG_<type>_<data>`). */

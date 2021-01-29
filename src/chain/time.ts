@@ -5,7 +5,7 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 import {isInstanceOf} from '../utils'
 
-import {AnyInt, Int64, Int64Type, UInt32, UInt32Type} from './integer'
+import {AnyInt, Int64, Int64Type, UInt32, UInt32Type} from '../'
 
 export type TimePointType = TimePoint | TimePointSec | string | Date | AnyInt
 
