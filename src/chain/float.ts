@@ -8,19 +8,19 @@ import {Bytes, BytesType} from '../'
 type FloatType = Float | number | string
 
 class Float implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__float'
     static byteWidth: number
 
     static from<T extends typeof Float>(this: T, value: FloatType): InstanceType<T>
     static from(value: FloatType): unknown
     static from(value: FloatType) {
-        if (isInstanceOf(value, this as any)) {
+        if (isInstanceOf(value, this)) {
             return value
         }
         if (typeof value === 'string') {
             value = Number.parseFloat(value)
         } else if (isInstanceOf(value, Float)) {
-            value = (value as any).value as number
+            value = value.value
         }
         return new this(value)
     }

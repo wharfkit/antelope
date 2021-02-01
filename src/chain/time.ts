@@ -19,6 +19,8 @@ interface TimePointConstructor {
 }
 
 class TimePointBase implements ABISerializableObject {
+    static abiName = '__time_point_base'
+
     static from<T extends TimePointConstructor>(this: T, value: TimePointType): InstanceType<T>
     static from(value: TimePointType): unknown
     static from(this: TimePointConstructor, value: TimePointType) {

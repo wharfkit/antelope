@@ -10,12 +10,15 @@ import {Bytes, BytesType} from '../'
 type ChecksumType = Checksum | BytesType
 
 class Checksum implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__checksum'
     static byteSize: number
 
     static from<T extends typeof Checksum>(this: T, value: ChecksumType): InstanceType<T>
     static from(value: ChecksumType): unknown
     static from(value: ChecksumType) {
+        if (isInstanceOf(value, this)) {
+            return value
+        }
         if (isInstanceOf(value, Checksum)) {
             return new this(value.array)
         }
@@ -42,7 +45,11 @@ class Checksum implements ABISerializableObject {
 
     equals(other: Checksum160Type | Checksum256Type | Checksum512Type): boolean {
         const self = this.constructor as typeof Checksum
-        return arrayEquals(this.array, self.from(other).array)
+        try {
+            return arrayEquals(this.array, self.from(other).array)
+        } catch {
+            return false
+        }
     }
 
     get hexString(): string {

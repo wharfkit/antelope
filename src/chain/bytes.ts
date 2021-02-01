@@ -11,25 +11,25 @@ export class Bytes implements ABISerializableObject {
     static abiName = 'bytes'
 
     static from(value: BytesType, encoding?: BytesEncoding): Bytes {
-        if (isInstanceOf(value, Bytes)) {
+        if (isInstanceOf(value, this)) {
             return value
         }
         if (typeof value === 'string') {
-            return Bytes.fromString(value, encoding)
+            return this.fromString(value, encoding)
         }
         if (isInstanceOf(value, Uint8Array)) {
-            return new Bytes(value)
+            return new this(value)
         }
-        return new Bytes(new Uint8Array(value))
+        return new this(new Uint8Array(value))
     }
 
     static fromString(value: string, encoding: BytesEncoding = 'hex') {
         if (encoding === 'hex') {
             const array = hexToArray(value)
-            return new Bytes(array)
+            return new this(array)
         } else if (encoding == 'utf8') {
             const encoder = new TextEncoder()
-            return new Bytes(encoder.encode(value))
+            return new this(encoder.encode(value))
         } else {
             throw new Error(`Unknown encoding: ${encoding}`)
         }
@@ -37,15 +37,15 @@ export class Bytes implements ABISerializableObject {
 
     static fromABI(decoder: ABIDecoder): Bytes {
         const len = decoder.readVaruint32()
-        return new Bytes(decoder.readArray(len))
+        return new this(decoder.readArray(len))
     }
 
     static equal(a: BytesType, b: BytesType): boolean {
-        return Bytes.from(a).equals(Bytes.from(b))
+        return this.from(a).equals(this.from(b))
     }
 
     static random(length: number) {
-        return new Bytes(secureRandom(length))
+        return new this(secureRandom(length))
     }
 
     /** Return true if given value is a valid `BytesType`. */

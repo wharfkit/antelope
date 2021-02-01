@@ -8,7 +8,7 @@ import {isInstanceOf, secureRandom} from '../utils'
 type IntType = Int | BNInt | number | string | BN
 
 class Int implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__int'
     static isSigned: boolean
     static byteWidth: number
 
@@ -23,7 +23,7 @@ class Int implements ABISerializableObject {
     static from<T extends typeof Int>(this: T, value: IntType): InstanceType<T>
     static from(value: any): unknown
     static from(value: any): any {
-        if (isInstanceOf(value, this as typeof Int)) {
+        if (isInstanceOf(value, this)) {
             return value
         }
         if (typeof value === 'string') {
@@ -88,14 +88,14 @@ class Int implements ABISerializableObject {
 }
 
 class BNInt implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__bn_int'
     static isSigned: boolean
     static byteWidth: number
 
     static from<T extends typeof BNInt>(this: T, value: IntType | Uint8Array): InstanceType<T>
     static from(value: any): unknown
     static from(value: any): any {
-        if (isInstanceOf(value, this as typeof BNInt)) {
+        if (isInstanceOf(value, this)) {
             return value
         }
         if (isInstanceOf(value, BNInt)) {

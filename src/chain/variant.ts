@@ -18,7 +18,7 @@ export interface VariantConstructor extends ABISerializableConstructor {
 export type AnyVariant = Variant | ABISerializable | [string, any]
 
 export class Variant implements ABISerializableObject {
-    static abiName: string
+    static abiName = '__variant'
     static abiVariant: ABITypeDescriptor[] = []
 
     static from<T extends VariantConstructor>(this: T, object: AnyVariant): InstanceType<T>

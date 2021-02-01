@@ -89,14 +89,25 @@ export function isInstanceOf<T extends {new (...args: any[]): InstanceType<T>}>(
     if (object instanceof someClass) {
         return true
     }
+    if (object == null || typeof object !== 'object') {
+        return false
+    }
     // not an actual instance but since bundlers can fail to dedupe stuff or
     // multiple versions can be included we check for compatibility if possible
     const className = someClass['__className'] || someClass['abiName']
-    if (!className || !object.constructor) {
+    if (!className) {
         return false
     }
-    const isAlienInstance =
-        (object.constructor['__className'] || object.constructor['abiName']) === className
+    let instanceClass = object.constructor
+    let isAlienInstance = false
+    while (instanceClass && !isAlienInstance) {
+        const instanceClassName = instanceClass['__className'] || instanceClass['abiName']
+        if (!instanceClassName) {
+            break
+        }
+        isAlienInstance = className == instanceClassName
+        instanceClass = Object.getPrototypeOf(instanceClass)
+    }
     if (isAlienInstance && !didWarn) {
         // eslint-disable-next-line no-console
         console.warn(
