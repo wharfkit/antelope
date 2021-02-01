@@ -21,22 +21,22 @@ import {
     Struct,
 } from '../'
 
-export interface ActionFields {
+interface ActionBase {
     /** The account (a.k.a. contract) to run action on. */
     account: NameType
     /** The name of the action. */
     name: NameType
     /** The permissions authorizing the action. */
     authorization: PermissionLevelType[]
+}
+
+export interface ActionFields extends ActionBase {
     /** The ABI-encoded action data. */
     data: BytesType
 }
 
 /** Action type that may or may not have its data encoded */
-export interface AnyAction {
-    account: NameType
-    name: NameType
-    authorization: PermissionLevelType[]
+export interface AnyAction extends ActionBase {
     data: BytesType | ABISerializable
 }
 
@@ -83,7 +83,7 @@ export class Action extends Struct {
         )
     }
 
-    /** Return action data decoded as given type or using abi. */
+    /** Return action data decoded as given type or using ABI. */
     decodeData<T extends ABISerializableConstructor>(type: T): InstanceType<T>
     decodeData<T extends keyof BuiltinTypes>(type: T): BuiltinTypes[T]
     decodeData(abi: ABIDef): ABISerializable
