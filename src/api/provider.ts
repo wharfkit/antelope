@@ -1,4 +1,4 @@
-type Fetch = typeof window.fetch
+type Fetch = (input: any, init?: any) => Promise<any>
 
 export interface APIProvider {
     /**
