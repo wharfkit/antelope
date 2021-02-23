@@ -247,6 +247,15 @@ suite('api v1', function () {
         assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.00005).toFixed(6))
     })
 
+    test('chain get_table_rows (empty scope)', async function () {
+        const res = await jungle.v1.chain.get_table_rows({
+            code: 'eosio',
+            table: 'powup.state',
+            scope: '',
+        })
+        assert.equal(res.rows.length, 1)
+    })
+
     test('api errors', async function () {
         try {
             await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})

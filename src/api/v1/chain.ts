@@ -152,7 +152,7 @@ export class ChainAPI {
             lower_bound = String(lower_bound)
         }
         let scope = params.scope
-        if (!scope) {
+        if (typeof scope === 'undefined') {
             scope = String(Name.from(params.code))
         }
         // eslint-disable-next-line prefer-const
