@@ -178,8 +178,12 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
                 ctx.codingPath.pop()
                 return rv
             } else if (type.fields) {
+                const fields = type.allFields
+                if (!fields) {
+                    throw new Error('Invalid struct fields')
+                }
                 const rv: any = {}
-                for (const field of type.fields) {
+                for (const field of fields) {
                     ctx.codingPath.push({field: field.name, type: field.type})
                     rv[field.name] = decodeBinary(field.type, decoder, ctx)
                     ctx.codingPath.pop()
@@ -208,7 +212,7 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
                 throw new Error('Invalid type')
             } else {
                 throw new Error(
-                    type.name === 'any' ? 'Unable to decode any type from binary' : 'Unknown type'
+                    type.name === 'any' ? "Unable to decode 'any' type from binary" : 'Unknown type'
                 )
             }
         }
@@ -249,8 +253,12 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             if (typeof abiType === 'function' && isInstanceOf(value, abiType)) {
                 return value
             }
+            const fields = type.allFields
+            if (!fields) {
+                throw new Error('Invalid struct fields')
+            }
             const struct: any = {}
-            for (const field of type.fields) {
+            for (const field of fields) {
                 ctx.codingPath.push({field: field.name, type: field.type})
                 struct[field.name] = decodeObject(value[field.name], field.type, ctx)
                 ctx.codingPath.pop()

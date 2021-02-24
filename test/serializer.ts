@@ -951,4 +951,26 @@ suite('serializer', function () {
         Serializer.decode({object, type: 'test_obj', customTypes: [TestObj]})
         assert.deepStrictEqual(object, original)
     })
+
+    test('abi resolve all', function () {
+        const abi = ABI.from({
+            types: [
+                {new_type_name: 'a', type: 'a'},
+                {new_type_name: 'b1', type: 'b2'},
+                {new_type_name: 'b2', type: 'b1'},
+                {new_type_name: 'c1', type: 'c2'},
+                {new_type_name: 'c2', type: 'c3'},
+            ],
+            structs: [
+                {base: '', name: 'c3', fields: [{name: 'f', type: 'c4'}]},
+                {base: '', name: 'c4', fields: [{name: 'f', type: 'c1'}]},
+                {base: 'c4', name: 'c5', fields: [{name: 'f2', type: 'c5[]?'}]},
+            ],
+            variants: [{name: 'c6', types: ['a', 'b1', 'c1', 'c5']}],
+        })
+        const types = abi.resolveAll()
+        const allTypes = types.types.concat(types.structs).concat(types.variants)
+        const maxId = allTypes.reduce((p, v) => (v.id > p ? v.id : p), 0)
+        assert.equal(maxId, 9)
+    })
 })

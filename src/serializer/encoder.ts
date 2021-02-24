@@ -196,7 +196,11 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
                 if (typeof value !== 'object') {
                     throw new Error(`Expected object for: ${type.name}`)
                 }
-                for (const field of type.fields) {
+                const fields = type.allFields
+                if (!fields) {
+                    throw new Error('Invalid struct fields')
+                }
+                for (const field of fields) {
                     ctx.codingPath.push({field: field.name, type: field.type})
                     encodeAny(value[field.name], field.type, ctx)
                     ctx.codingPath.pop()

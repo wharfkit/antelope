@@ -47,6 +47,16 @@ export class ABI {
         return this.resolve({name, types}, {id: 0})
     }
 
+    resolveAll() {
+        const types: {[name: string]: ABI.ResolvedType} = {}
+        const ctx: {id: number} = {id: 0}
+        return {
+            types: this.types.map((t) => this.resolve({name: t.new_type_name, types}, ctx)),
+            variants: this.variants.map((t) => this.resolve({name: t.name, types}, ctx)),
+            structs: this.structs.map((t) => this.resolve({name: t.name, types}, ctx)),
+        }
+    }
+
     private resolve(
         {name, types}: {name: string; types: {[name: string]: ABI.ResolvedType}},
         ctx: {id: number}
@@ -62,9 +72,12 @@ export class ABI {
             type.ref = this.resolve({name: alias.type, types}, ctx)
             return type
         }
-        const fields = this.resolveStruct(type.name)
-        if (fields) {
-            type.fields = fields.map((field) => {
+        const struct = this.getStruct(type.name)
+        if (struct) {
+            if (struct.base) {
+                type.base = this.resolve({name: struct.base, types}, ctx)
+            }
+            type.fields = struct.fields.map((field) => {
                 return {
                     name: field.name,
                     type: this.resolve({name: field.type, types}, ctx),
@@ -79,26 +92,6 @@ export class ABI {
         }
         // builtin or unknown type
         return type
-    }
-
-    resolveStruct(name: string): ABI.Field[] | undefined {
-        let top = this.getStruct(name)
-        if (!top) {
-            return
-        }
-        const rv: ABI.Field[] = []
-        const seen = new Set<string>()
-        do {
-            for (let i = top!.fields.length - 1; i >= 0; i--) {
-                rv.unshift(top!.fields[i])
-            }
-            seen.add(top!.name)
-            if (seen.has(top!.base)) {
-                return // circular ref
-            }
-            top = this.getStruct(top!.base)
-        } while (top !== undefined)
-        return rv
     }
 
     getStruct(name: string): ABI.Struct | undefined {
@@ -169,7 +162,7 @@ export namespace ABI {
         isOptional: boolean
         isExtension: boolean
 
-        parent?: ResolvedType
+        base?: ResolvedType
         fields?: {name: string; type: ResolvedType}[]
         variant?: ResolvedType[]
         ref?: ResolvedType
@@ -212,6 +205,28 @@ export namespace ABI {
             if (this.isExtension) {
                 rv += '$'
             }
+            return rv
+        }
+
+        /** All fields including base struct(s), undefined if not a struct type. */
+        get allFields() {
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            let current: ResolvedType | undefined = this
+            const rv: {name: string; type: ResolvedType}[] = []
+            const seen = new Set<string>()
+            do {
+                if (!current.fields) {
+                    return // invalid struct
+                }
+                if (seen.has(current.name)) {
+                    return // circular ref
+                }
+                for (let i = current.fields.length - 1; i >= 0; i--) {
+                    rv.unshift(current.fields[i])
+                }
+                seen.add(current.name)
+                current = current.base
+            } while (current !== undefined)
             return rv
         }
     }
