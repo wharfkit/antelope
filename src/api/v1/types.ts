@@ -8,7 +8,6 @@ import {
     Float128,
     Float64,
     Int128,
-    Int32,
     Int64,
     Name,
     NameType,
@@ -36,9 +35,9 @@ export class AccountPermission extends Struct {
 
 @Struct.type('account_resource_limit')
 export class AccountResourceLimit extends Struct {
-    @Struct.field('int32') used!: Int32
-    @Struct.field('int32') available!: Int32
-    @Struct.field('int32') max!: Int32
+    @Struct.field('uint64') used!: UInt64
+    @Struct.field('uint64') available!: UInt64
+    @Struct.field('uint64') max!: UInt64
 }
 
 @Struct.type('account_total_resources')
