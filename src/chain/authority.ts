@@ -69,7 +69,7 @@ export class Authority extends Struct {
     }
 
     /** Weight a key needs to sign for this authority. */
-    get keyTreshhold(): number {
+    get keyThreshhold(): number {
         return this.threshold.toNumber() - this.waitThreshold
     }
 
@@ -86,7 +86,7 @@ export class Authority extends Struct {
      * @param includePartial Whether to consider auths where the key is included but can't be reached alone (e.g. multisig).
      */
     hasPermission(publicKey: PublicKeyType, includePartial = false): boolean {
-        const threshold = includePartial ? 1 : this.keyTreshhold
+        const threshold = includePartial ? 1 : this.keyThreshhold
         const weight = this.keyWeight(publicKey)
         return weight >= threshold
     }
