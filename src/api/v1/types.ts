@@ -7,7 +7,6 @@ import {
     Checksum256,
     Float128,
     Float64,
-    Int128,
     Int64,
     Name,
     NameType,
@@ -18,6 +17,7 @@ import {
     TimePointSec,
     TransactionHeader,
     TransactionReceipt,
+    UInt128,
     UInt16,
     UInt32,
     UInt32Type,
@@ -305,14 +305,14 @@ export interface PushTransactionResponse {
 export interface TableIndexTypes {
     float128: Float128
     float64: Float64
-    i128: Int128
-    i64: Int64
+    i128: UInt128
+    i64: UInt64
     name: Name
     ripemd160: Checksum160
     sha256: Checksum256
 }
 
-export type TableIndexType = Name | Int64 | Int128 | Float64 | Checksum256 | Checksum160
+export type TableIndexType = Name | UInt64 | UInt128 | Float64 | Checksum256 | Checksum160
 
 export interface GetTableRowsParams<Index = TableIndexType | string> {
     /** The name of the smart contract that controls the provided table. */
@@ -320,7 +320,7 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
     /** Name of the table to query. */
     table: NameType
     /** The account to which this data belongs, if omitted will be set to be same as `code`. */
-    scope?: string
+    scope?: string | TableIndexType
     /** Lower lookup bound. */
     lower_bound?: Index
     /** Upper lookup bound. */
@@ -346,6 +346,10 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
      * Determined automatically based the `type` param if omitted.
      */
     json?: boolean
+    /**
+     * Set to true to populate the ram_payers array in the response.
+     */
+    show_payer?: boolean
 }
 
 export interface GetTableRowsParamsKeyed<Index = TableIndexType, Key = keyof TableIndexTypes>
@@ -363,5 +367,6 @@ export interface GetTableRowsParamsTyped<Index = TableIndexType | string, Row = 
 export interface GetTableRowsResponse<Index = TableIndexType, Row = any> {
     rows: Row[]
     more: boolean
+    ram_payers?: Name[]
     next_key?: Index
 }

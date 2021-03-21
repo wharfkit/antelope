@@ -6,13 +6,12 @@ import {
     Checksum256,
     Float128,
     Float64,
-    Int128,
-    Int64,
     Name,
     NameType,
     PackedTransaction,
     SignedTransaction,
     SignedTransactionType,
+    UInt128,
     UInt32,
     UInt64,
 } from '../../chain'
@@ -125,9 +124,9 @@ export class ChainAPI {
         const someBound = params.lower_bound || params.upper_bound
         if (!key_type && someBound) {
             // determine key type from bounds type
-            if (isInstanceOf(someBound, Int64)) {
+            if (isInstanceOf(someBound, UInt64)) {
                 key_type = 'i64'
-            } else if (isInstanceOf(someBound, Int128)) {
+            } else if (isInstanceOf(someBound, UInt128)) {
                 key_type = 'i128'
             } else if (isInstanceOf(someBound, Checksum256)) {
                 key_type = 'sha256'
@@ -154,11 +153,14 @@ export class ChainAPI {
         let scope = params.scope
         if (typeof scope === 'undefined') {
             scope = String(Name.from(params.code))
+        } else if (typeof scope !== 'string') {
+            scope = String(scope)
         }
         // eslint-disable-next-line prefer-const
         let {rows, more, next_key} = await this.client.call<any>({
             path: '/v1/chain/get_table_rows',
             params: {
+                ...params,
                 code: Name.from(params.code),
                 table: Name.from(params.table),
                 limit: params.limit !== undefined ? UInt32.from(params.limit) : undefined,
@@ -169,6 +171,14 @@ export class ChainAPI {
                 lower_bound,
             },
         })
+        let ram_payers: Name[] | undefined
+        if (params.show_payer) {
+            ram_payers = []
+            rows = rows.map(({data, payer}) => {
+                ram_payers!.push(Name.from(payer))
+                return data
+            })
+        }
         if (type) {
             if (json) {
                 rows = rows.map((value) => {
@@ -190,10 +200,10 @@ export class ChainAPI {
             // set index type so we can decode next_key in the response if present
             switch (key_type) {
                 case 'i64':
-                    indexType = Int64
+                    indexType = UInt64
                     break
                 case 'i128':
-                    indexType = Int128
+                    indexType = UInt128
                     break
                 case 'name':
                     indexType = Name
@@ -222,6 +232,6 @@ export class ChainAPI {
         } else {
             next_key = undefined
         }
-        return {rows, more, next_key}
+        return {rows, more, next_key, ram_payers}
     }
 }

@@ -256,6 +256,17 @@ suite('api v1', function () {
         assert.equal(res.rows.length, 1)
     })
 
+    test('chain get_table_rows (ram payer)', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.SymbolCode.from('EOS').value,
+            show_payer: true,
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+    })
+
     test('api errors', async function () {
         try {
             await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
