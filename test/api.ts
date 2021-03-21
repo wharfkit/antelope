@@ -1,5 +1,5 @@
 import 'mocha'
-import * as assert from 'assert'
+import {strict as assert} from 'assert'
 import {join as joinPath} from 'path'
 
 import {MockProvider} from './utils/mock-provider'
@@ -40,31 +40,31 @@ suite('api v1', function () {
 
     test('chain get_account', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
-        assert.equal(account.account_name, 'teamgreymass')
+        assert.equal(String(account.account_name), 'teamgreymass')
     })
 
     test('chain get_account (system account)', async function () {
         const account = await jungle.v1.chain.get_account('eosio')
-        assert.equal(account.account_name, 'eosio')
+        assert.equal(String(account.account_name), 'eosio')
     })
 
     test('chain get_account (fio)', async function () {
         const account = await fio.v1.chain.get_account('lhp1ytjibtea')
-        assert.equal(account.account_name, 'lhp1ytjibtea')
+        assert.equal(String(account.account_name), 'lhp1ytjibtea')
     })
 
     test('chain get_account / getPermission with string', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
         const permission = account.getPermission('active')
         assert.equal(permission instanceof API.v1.AccountPermission, true)
-        assert.equal(permission.perm_name, 'active')
+        assert.equal(String(permission.perm_name), 'active')
     })
 
     test('chain get_account / getPermission with name', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
         const permission = account.getPermission(Name.from('active'))
         assert.equal(permission instanceof API.v1.AccountPermission, true)
-        assert.equal(permission.perm_name, 'active')
+        assert.equal(String(permission.perm_name), 'active')
     })
 
     test('chain get_account / getPermission throws error', async function () {
@@ -78,7 +78,7 @@ suite('api v1', function () {
         const block = await eos.v1.chain.get_block(
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
         )
-        assert.equal(block.block_num, 8482113)
+        assert.equal(Number(block.block_num), 8482113)
         assert.equal(
             block.id.hexString,
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
@@ -87,7 +87,7 @@ suite('api v1', function () {
 
     test('chain get_block (by num)', async function () {
         const block = await eos.v1.chain.get_block(8482113)
-        assert.equal(block.block_num, 8482113)
+        assert.equal(Number(block.block_num), 8482113)
         assert.equal(
             block.id.hexString,
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
@@ -96,12 +96,12 @@ suite('api v1', function () {
 
     test('chain get_block w/ new_producers', async function () {
         const block = await eos.v1.chain.get_block(92565371)
-        assert.equal(block.block_num, 92565371)
+        assert.equal(Number(block.block_num), 92565371)
     })
 
     test('chain get_block w/ transactions', async function () {
         const block = await eos.v1.chain.get_block(124472078)
-        assert.equal(block.block_num, 124472078)
+        assert.equal(Number(block.block_num), 124472078)
         block.transactions.forEach((tx) => {
             assert.equal(tx instanceof TransactionReceipt, true)
         })
@@ -109,12 +109,12 @@ suite('api v1', function () {
 
     test('chain get_block_header_state', async function () {
         const header = await eos.v1.chain.get_block_header_state(143671483)
-        assert.equal(header.block_num, 143671483)
+        assert.equal(Number(header.block_num), 143671483)
     })
 
     test('chain get_block', async function () {
         const block = await eos.v1.chain.get_block(8482113)
-        assert.equal(block.block_num, 8482113)
+        assert.equal(Number(block.block_num), 8482113)
         assert.equal(
             block.id.hexString,
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
@@ -123,12 +123,12 @@ suite('api v1', function () {
 
     test('chain get_block w/ new_producers', async function () {
         const block = await eos.v1.chain.get_block(92565371)
-        assert.equal(block.block_num, 92565371)
+        assert.equal(Number(block.block_num), 92565371)
     })
 
     test('chain get_block w/ transactions', async function () {
         const block = await eos.v1.chain.get_block(124472078)
-        assert.equal(block.block_num, 124472078)
+        assert.equal(Number(block.block_num), 124472078)
         block.transactions.forEach((tx) => {
             assert.equal(tx instanceof TransactionReceipt, true)
         })
@@ -243,7 +243,7 @@ suite('api v1', function () {
             lower_bound: res1.next_key,
         })
         assert.equal(String(res2.rows[0].account), 'funds.gm')
-        assert.equal(String(res2.next_key), 'xxx')
+        assert.equal(String(res2.next_key), 'teamgreymass')
         assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.00005).toFixed(6))
     })
 
