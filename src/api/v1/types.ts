@@ -35,9 +35,9 @@ export class AccountPermission extends Struct {
 
 @Struct.type('account_resource_limit')
 export class AccountResourceLimit extends Struct {
-    @Struct.field('uint64') used!: UInt64
-    @Struct.field('uint64') available!: UInt64
-    @Struct.field('uint64') max!: UInt64
+    @Struct.field('int64') used!: Int64
+    @Struct.field('int64') available!: Int64
+    @Struct.field('int64') max!: Int64
 }
 
 @Struct.type('account_total_resources')
