@@ -2,8 +2,6 @@
  * EOSIO ABI Decoder
  */
 
-import BN from 'bn.js'
-
 import {ABI, ABIDef, Bytes, BytesType, Variant} from '../chain'
 
 import {
@@ -335,50 +333,6 @@ export class ABIDecoder {
     readByte(): number {
         this.ensure(1)
         return this.array[this.pos++]
-    }
-
-    /** Read integer as JavaScript number, up to 32 bits. */
-    readNum(byteWidth: number, isSigned: boolean) {
-        this.ensure(byteWidth)
-        const d = this.data,
-            p = this.pos
-        let rv: number
-        switch (byteWidth * (isSigned ? -1 : 1)) {
-            case 1:
-                rv = d.getUint8(p)
-                break
-            case 2:
-                rv = d.getUint16(p, true)
-                break
-            case 4:
-                rv = d.getUint32(p, true)
-                break
-            case -1:
-                rv = d.getInt8(p)
-                break
-            case -2:
-                rv = d.getInt16(p, true)
-                break
-            case -4:
-                rv = d.getInt32(p, true)
-                break
-            default:
-                throw new Error('Invalid integer width')
-        }
-        this.pos += byteWidth
-        return rv
-    }
-
-    /** Read integer as a bn.js number. */
-    readBn(bytes: number, signed: boolean) {
-        this.ensure(bytes)
-        const bn = new BN(this.array.subarray(this.pos, this.pos + bytes), 'le')
-        this.pos += bytes
-        if (signed) {
-            return bn.fromTwos(bytes * 8)
-        } else {
-            return bn
-        }
     }
 
     /** Read floating point as JavaScript number, 32 or 64 bits. */

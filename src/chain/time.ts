@@ -1,11 +1,9 @@
-import BN from 'bn.js'
-
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 import {isInstanceOf} from '../utils'
 
-import {AnyInt, Int64, Int64Type, UInt32, UInt32Type} from '../'
+import {AnyInt, Int64, Int64Type, UInt32, UInt32Type, UInt64} from '../'
 
 export type TimePointType = TimePoint | TimePointSec | string | Date | AnyInt
 
@@ -108,7 +106,7 @@ export class TimePoint extends TimePointBase {
     }
 
     toMilliseconds() {
-        return this.value.value.divRound(new BN(1000)).toNumber()
+        return Number(this.value.dividing(1000, 'round'))
     }
 }
 
@@ -135,7 +133,7 @@ export class TimePointSec extends TimePointBase {
     }
 
     toMilliseconds() {
-        return this.value.value * 1000
+        return Number(this.value.cast(UInt64).multiplying(1000))
     }
 }
 
@@ -161,6 +159,6 @@ export class BlockTimestamp extends TimePointBase {
     }
 
     toMilliseconds() {
-        return this.value.value * 500 + 946684800000
+        return Number(this.value.cast(UInt64).multiplying(500).adding(946684800000))
     }
 }

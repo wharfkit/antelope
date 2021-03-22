@@ -1,9 +1,6 @@
 /**
  * EOSIO ABI Encoder
  */
-
-import BN from 'bn.js'
-
 import {ABI, ABIDef, Bytes, Variant} from '../chain'
 import {isInstanceOf} from '../utils'
 
@@ -291,44 +288,6 @@ export class ABIEncoder {
         this.ensure(size)
         this.array.set(bytes, this.pos)
         this.pos += size
-    }
-
-    /** Write a JavaScript number as integer, up to 32 bits. */
-    writeNum(value: number, byteWidth: number, isSigned: boolean) {
-        this.ensure(byteWidth)
-        const d = this.data,
-            p = this.pos
-        switch (byteWidth * (isSigned ? -1 : 1)) {
-            case 1:
-                d.setUint8(p, value)
-                break
-            case 2:
-                d.setUint16(p, value, true)
-                break
-            case 4:
-                d.setUint32(p, value, true)
-                break
-            case -1:
-                d.setInt8(p, value)
-                break
-            case -2:
-                d.setInt16(p, value, true)
-                break
-            case -4:
-                d.setInt32(p, value, true)
-                break
-            default:
-                throw new Error('Invalid integer width')
-        }
-        this.pos += byteWidth
-    }
-
-    /** Write a bn.js number. */
-    writeBn(value: BN, byteWidth: number, isSigned: boolean) {
-        if (isSigned) {
-            value = value.toTwos(byteWidth * 8)
-        }
-        this.writeArray(value.toArrayLike(Uint8Array as any, 'le', byteWidth))
     }
 
     writeFloat(value: number, byteWidth: number) {

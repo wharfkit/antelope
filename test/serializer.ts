@@ -374,14 +374,14 @@ suite('serializer', function () {
             structs: [{base: '', name: 'struct', fields: [{name: 'field1', type: 'bool'}]}],
             variants: [{name: 'foo', types: ['uint8', 'string[]', 'struct', 'struct?']}],
         })
-        assert.deepEqual(Serializer.decode({data: '00ff', abi, type: 'foo'}), [
-            'uint8',
-            {value: 255},
-        ])
-        assert.deepEqual(Serializer.decode({object: UInt8.from(255), abi, type: 'foo'}), [
-            'uint8',
-            {value: 255},
-        ])
+        assert.deepEqual(
+            Serializer.objectify(Serializer.decode({data: '00ff', abi, type: 'foo'})),
+            ['uint8', 255]
+        )
+        assert.deepEqual(
+            Serializer.objectify(Serializer.decode({object: UInt8.from(255), abi, type: 'foo'})),
+            ['uint8', 255]
+        )
         assert.equal(
             Serializer.encode({object: UInt8.from(255), abi, type: 'foo'}).hexString,
             '00ff'

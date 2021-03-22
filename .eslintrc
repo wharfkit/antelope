@@ -24,6 +24,7 @@
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-this-alias": "off",
         "no-inner-declarations": "off",
     }
 }

@@ -281,7 +281,7 @@ export class GetInfoResponse extends Struct {
         const prefix = new Uint32Array(prefixArray.buffer, prefixArray.byteOffset, 1)[0]
         return TransactionHeader.from({
             expiration,
-            ref_block_num: this.last_irreversible_block_num.value & 0xffff,
+            ref_block_num: Number(this.last_irreversible_block_num) & 0xffff,
             ref_block_prefix: prefix,
         })
     }

@@ -184,7 +184,7 @@ export class PackedTransaction extends Struct {
     }
 
     getTransaction(): Transaction {
-        if (this.compression.value !== 0) {
+        if (Number(this.compression) !== 0) {
             throw new Error('Transaction compression not supported yet')
         }
         return abiDecode({data: this.packed_trx, type: Transaction})

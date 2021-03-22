@@ -1,5 +1,3 @@
-import BN from 'bn.js'
-
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
@@ -207,7 +205,7 @@ export namespace Asset {
                 return value
             }
             if (typeof value === 'string') {
-                value = UInt64.from(new BN(toRawSymbolCode(value), 'le'))
+                value = UInt64.from(toRawSymbolCode(value))
             }
             return new this(UInt64.from(value))
         }
@@ -297,16 +295,18 @@ function charsToSymbolName(chars: number[]) {
 }
 
 function toRawSymbol(name: string, precision: number) {
-    const array = toRawSymbolCode(name)
-    array.unshift(precision)
-    return UInt64.from(new BN(array, 'le'))
+    const code = toRawSymbolCode(name)
+    const bytes = new Uint8Array(code.length + 1)
+    bytes[0] = precision
+    bytes.set(code, 1)
+    return UInt64.from(bytes)
 }
 
 function toRawSymbolCode(name: string) {
-    const array: number[] = []
     const length = Math.min(name.length, 7)
+    const bytes = new Uint8Array(length)
     for (let i = 0; i < length; i++) {
-        array.push(name.charCodeAt(i))
+        bytes[i] = name.charCodeAt(i)
     }
-    return array
+    return bytes
 }

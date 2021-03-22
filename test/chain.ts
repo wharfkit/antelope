@@ -74,9 +74,6 @@ suite('chain', function () {
             symbol.convertUnits(Int64.from('9223372036854775807'))
         })
         assert.throws(() => {
-            symbol.convertFloat(9.223372037e17)
-        })
-        assert.throws(() => {
             Asset.from('')
         })
         assert.throws(() => {
@@ -239,10 +236,12 @@ suite('chain', function () {
         assert.equal(num.equals('123456789'), true)
         assert.equal(num.equals('123456700'), false)
         assert.equal(num.equals(1), false)
-        assert.equal(num.equals(UInt32.from(123456789)), false)
-        assert.equal(num.equals(UInt32.from(123456789), true), true)
-        assert.equal(num.equals(UInt128.from(123456789), false), false)
-        assert.equal(num.equals(UInt128.from(123456789), true), true)
+        assert.equal(num.equals(UInt32.from(123456789)), true)
+        assert.equal(num.equals(UInt32.from(123456789), true), false)
+        assert.equal(num.equals(UInt128.from(123456789), true), false)
+        assert.equal(num.equals(UInt128.from(123456789), false), true)
+        assert.equal(num.equals(Int64.from(123456789), true), false)
+        assert.equal(num.equals(-1), false)
 
         const checksum = Checksum160.hash(Bytes.from('hello', 'utf8'))
         assert.equal(checksum.equals('108f07b8382412612c048d07d13f814118445acd'), true)
