@@ -15,8 +15,16 @@ export class Name implements ABISerializableObject {
     /** Regex pattern matching a EOSIO name, case-sensitive. */
     static pattern = /^[a-z1-5.]{0,13}$/
 
-    /** The raw representation of the name. */
-    rawValue: UInt64
+    /** The numeric representation of the name. */
+    value: UInt64
+
+    /**
+     * The raw representation of the name.
+     * @deprecated Use value instead.
+     */
+    get rawValue(): UInt64 {
+        return this.value
+    }
 
     /** Create a new Name instance from any of its representing types. */
     static from(value: NameType): Name {
@@ -35,22 +43,22 @@ export class Name implements ABISerializableObject {
         return new Name(UInt64.fromABI(decoder))
     }
 
-    constructor(rawValue: UInt64) {
-        this.rawValue = rawValue
+    constructor(value: UInt64) {
+        this.value = value
     }
 
     /** Return true if this name is equal to passed name. */
     equals(other: NameType) {
-        return this.rawValue.equals(Name.from(other).rawValue)
+        return this.value.equals(Name.from(other).value)
     }
 
     /** Return string representation of this name. */
     toString() {
-        return nameToString(this.rawValue)
+        return nameToString(this.value)
     }
 
     toABI(encoder: ABIEncoder) {
-        this.rawValue.toABI(encoder)
+        this.value.toABI(encoder)
     }
 
     /** @internal */
