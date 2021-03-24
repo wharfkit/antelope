@@ -3,6 +3,7 @@ import {abiDecode} from '../serializer/decoder'
 import {
     ABISerializable,
     ABISerializableConstructor,
+    ABISerializableObject,
     ABISerializableType,
 } from '../serializer/serializable'
 
@@ -37,7 +38,7 @@ export interface ActionFields extends ActionBase {
 
 /** Action type that may or may not have its data encoded */
 export interface AnyAction extends ActionBase {
-    data: BytesType | ABISerializable
+    data: BytesType | ABISerializableObject | Record<string, any>
 }
 
 export type ActionType = Action | ActionFields
