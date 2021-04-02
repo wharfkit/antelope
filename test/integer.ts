@@ -135,6 +135,19 @@ suite('integer', function () {
             Int64.from(100).divide(0, 'ceil')
         }, /Division by zero/)
     })
+
+    test('to primitive', function () {
+        const smallValue = UInt64.from('1459536')
+        assert.equal(String(smallValue), '1459536')
+        assert.equal(Number(smallValue), 1459536)
+        assert.equal(JSON.stringify(smallValue), '1459536')
+        const bigValue = UInt64.from('14595364149838066048')
+        assert.equal(String(bigValue), '14595364149838066048')
+        assert.equal(JSON.stringify(bigValue), '"14595364149838066048"')
+        assert.throws(() => {
+            Number(bigValue)
+        }, /Number can only safely store up to 53 bits/)
+    })
 })
 
 function assertInt(actual: Int, expected: number | string) {

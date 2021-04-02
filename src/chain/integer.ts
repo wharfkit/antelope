@@ -328,6 +328,14 @@ export class Int implements ABISerializableObject {
         return this.value.toString()
     }
 
+    [Symbol.toPrimitive](type: string) {
+        if (type === 'number') {
+            return this.toNumber()
+        } else {
+            return this.toString()
+        }
+    }
+
     toABI(encoder: ABIEncoder) {
         encoder.writeArray(this.byteArray)
     }
