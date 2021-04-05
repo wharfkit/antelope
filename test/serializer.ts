@@ -974,4 +974,40 @@ suite('serializer', function () {
         const maxId = allTypes.reduce((p, v) => (v.id > p ? v.id : p), 0)
         assert.equal(maxId, 9)
     })
+
+    test('objectify', function () {
+        const tx = Transaction.from({
+            ref_block_num: 123,
+            ref_block_prefix: 456,
+            expiration: 992,
+            actions: [
+                {
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{actor: 'foo', permission: 'active'}],
+                    data:
+                        '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
+                },
+            ],
+        })
+        assert.deepStrictEqual(Serializer.objectify(tx), {
+            expiration: '1970-01-01T00:16:32',
+            ref_block_num: 123,
+            ref_block_prefix: 456,
+            max_net_usage_words: 0,
+            max_cpu_usage_ms: 0,
+            delay_sec: 0,
+            context_free_actions: [],
+            actions: [
+                {
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{actor: 'foo', permission: 'active'}],
+                    data:
+                        '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
+                },
+            ],
+            transaction_extensions: [],
+        })
+    })
 })
