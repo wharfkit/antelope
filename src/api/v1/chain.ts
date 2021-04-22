@@ -244,5 +244,4 @@ export class ChainAPI {
             responseType: GetTableByScopeResponse,
         })
     }
-
 }
