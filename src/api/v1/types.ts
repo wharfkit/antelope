@@ -370,3 +370,28 @@ export interface GetTableRowsResponse<Index = TableIndexType, Row = any> {
     ram_payers?: Name[]
     next_key?: Index
 }
+
+export interface GetTableByScopeParams<Index = TableIndexType | string> {
+    code: NameType
+    table?: NameType
+    lower_bound?: Index
+    upper_bound?: Index
+    limit?: UInt32Type
+    reverse?: boolean
+    show_payer?: boolean
+}
+
+@Struct.type('get_table_by_scope_response_row')
+export class GetTableByScopeResponseRow extends Struct {
+    @Struct.field('name') code!: Name
+    @Struct.field('name') scope!: Name
+    @Struct.field('name') table!: Name
+    @Struct.field('name') payer!: Name
+    @Struct.field('uint32') count!: UInt32
+}
+
+@Struct.type('get_table_by_scope_response')
+export class GetTableByScopeResponse extends Struct {
+    @Struct.field(GetTableByScopeResponseRow, {array: true}) rows!: GetTableByScopeResponseRow[]
+    @Struct.field('name') more!: Name
+}

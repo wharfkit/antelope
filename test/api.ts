@@ -267,6 +267,19 @@ suite('api v1', function () {
         assert.equal(String(res.ram_payers![0]), 'eosio.token')
     })
 
+    test('chain get_table_by_scope', async function () {
+        const res = await eos.v1.chain.get_table_by_scope({
+            code: 'eosio.token',
+            table: 'accounts',
+            limit: 1,
+        })
+        assert.equal(res.rows.length, 1)
+        res.rows.forEach((row) => {
+            assert.equal(row instanceof API.v1.GetTableByScopeResponseRow, true)
+        })
+        assert.equal(res.more instanceof Name, true)
+    })
+
     test('api errors', async function () {
         try {
             await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
