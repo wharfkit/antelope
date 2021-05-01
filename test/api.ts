@@ -277,7 +277,16 @@ suite('api v1', function () {
         res.rows.forEach((row) => {
             assert.equal(row instanceof API.v1.GetTableByScopeResponseRow, true)
         })
-        assert.equal(res.more instanceof Name, true)
+        const res2 = await eos.v1.chain.get_table_by_scope({
+            code: 'eosio.token',
+            table: 'accounts',
+            lower_bound: res.more,
+            upper_bound: res.more,
+            limit: 1,
+        })
+        res2.rows.forEach((row) => {
+            assert.equal(row instanceof API.v1.GetTableByScopeResponseRow, true)
+        })
     })
 
     test('api errors', async function () {

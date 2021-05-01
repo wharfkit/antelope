@@ -1,0 +1,12 @@
+{
+    "rows": [
+        {
+            "code": "eosio.token",
+            "scope": "...........n",
+            "table": "accounts",
+            "payer": "ens.n",
+            "count": 1
+        }
+    ],
+    "more": ""
+}
