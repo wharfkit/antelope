@@ -22,6 +22,8 @@ import {
     GetBlockHeaderStateResponse,
     GetBlockResponse,
     GetInfoResponse,
+    GetTableByScopeParams,
+    GetTableByScopeResponse,
     GetTableRowsParams,
     GetTableRowsParamsKeyed,
     GetTableRowsParamsTyped,
@@ -233,5 +235,13 @@ export class ChainAPI {
             next_key = undefined
         }
         return {rows, more, next_key, ram_payers}
+    }
+
+    async get_table_by_scope(params: GetTableByScopeParams) {
+        return this.client.call({
+            path: '/v1/chain/get_table_by_scope',
+            params,
+            responseType: GetTableByScopeResponse,
+        })
     }
 }
