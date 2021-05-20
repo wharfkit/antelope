@@ -27,34 +27,34 @@ export class PrivateKey {
     static from(value: PrivateKeyType) {
         if (isInstanceOf(value, PrivateKey)) {
             return value
-        }
-        if (typeof value !== 'string') {
-            throw new Error('Invalid private key')
-        }
-        if (value.startsWith('PVT_')) {
-            // EOSIO format
-            const parts = value.split('_')
-            if (parts.length !== 3) {
-                throw new Error('Invalid private key string')
-            }
-            const type = CurveType.from(parts[1])
-            let size: number | undefined
-            switch (type) {
-                case CurveType.K1:
-                case CurveType.R1:
-                    size = 32
-                    break
-            }
-            const data = Base58.decodeRipemd160Check(parts[2], size, type)
-            return new PrivateKey(type, data)
         } else {
-            // WIF format
-            const type = CurveType.K1
-            const data = Base58.decodeCheck(value)
-            if (data.array[0] !== 0x80) {
-                throw new Error('Invalid private key WIF')
+            return this.fromString(value)
+        }
+    }
+
+    /**
+     * Create PrivateKey object from a string representation.
+     * Accepts WIF (5...) and EOSIO (PVT_...) style private keys.
+     */
+    static fromString(string: string, ignoreChecksumError = false) {
+        try {
+            const {type, data} = decodeKey(string)
+            return new this(type, data)
+        } catch (error) {
+            error.message = `Invalid private key (${error.message})`
+            if (
+                ignoreChecksumError &&
+                isInstanceOf(error, Base58.DecodingError) &&
+                error.code === Base58.ErrorCode.E_CHECKSUM
+            ) {
+                const type = string.startsWith('PVT_R1') ? CurveType.R1 : CurveType.K1
+                let data = new Bytes(error.info.data)
+                if (data.array.length == 33) {
+                    data = data.droppingFirst()
+                }
+                return new this(type, data)
             }
-            return new PrivateKey(type, data.droppingFirst())
+            throw error
         }
     }
 
@@ -127,5 +127,38 @@ export class PrivateKey {
 
     toJSON() {
         return this.toString()
+    }
+}
+
+/** @internal */
+function decodeKey(value: string) {
+    const type = typeof value
+    if (type !== 'string') {
+        throw new Error(`Expected string, got ${type}`)
+    }
+    if (value.startsWith('PVT_')) {
+        // EOSIO format
+        const parts = value.split('_')
+        if (parts.length !== 3) {
+            throw new Error('Invalid PVT format')
+        }
+        const type = CurveType.from(parts[1])
+        let size: number | undefined
+        switch (type) {
+            case CurveType.K1:
+            case CurveType.R1:
+                size = 32
+                break
+        }
+        const data = Base58.decodeRipemd160Check(parts[2], size, type)
+        return {type, data}
+    } else {
+        // WIF format
+        const type = CurveType.K1
+        const data = Base58.decodeCheck(value)
+        if (data.array[0] !== 0x80) {
+            throw new Error('Invalid WIF')
+        }
+        return {type, data: data.droppingFirst()}
     }
 }

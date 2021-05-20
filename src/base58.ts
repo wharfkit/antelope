@@ -3,6 +3,22 @@ import {arrayEquals} from './utils'
 import {Bytes, BytesType} from './chain'
 
 export namespace Base58 {
+    export enum ErrorCode {
+        E_CHECKSUM = 'E_CHECKSUM',
+        E_INVALID = 'E_INVALID',
+    }
+
+    export class DecodingError extends Error {
+        static __className = 'DecodingError'
+        constructor(
+            message: string,
+            public readonly code: ErrorCode,
+            public readonly info: Record<string, any> = {}
+        ) {
+            super(message)
+        }
+    }
+
     const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
     const charMap = new Int16Array(0xff).fill(-1)
     for (let i = 0; i < 58; ++i) {
@@ -18,7 +34,11 @@ export namespace Base58 {
         for (let i = 0; i < s.length; ++i) {
             let carry = charMap[s.charCodeAt(i)]
             if (carry < 0) {
-                throw new Error('Invalid Base58 value')
+                throw new DecodingError(
+                    'Invalid Base58 character encountered',
+                    ErrorCode.E_INVALID,
+                    {char: s[i]}
+                )
             }
             for (let j = 0; j < size; ++j) {
                 const x = result[j] * 58 + carry
@@ -26,7 +46,7 @@ export namespace Base58 {
                 carry = x >> 8
             }
             if (carry) {
-                throw new Error('Base58 value is out of range')
+                throw new DecodingError('Base58 value is out of range', ErrorCode.E_INVALID)
             }
         }
         result.reverse()
@@ -37,9 +57,15 @@ export namespace Base58 {
     export function decodeCheck(encoded: string, size?: number) {
         const decoded = decode(encoded, size != null ? size + 4 : size)
         const data = decoded.array.subarray(0, -4)
-        const checksum = decoded.array.subarray(-4)
-        if (!arrayEquals(checksum, dsha256Checksum(data))) {
-            throw new Error('Checksum mismatch')
+        const expected = decoded.array.subarray(-4)
+        const actual = dsha256Checksum(data)
+        if (!arrayEquals(expected, actual)) {
+            throw new DecodingError('Checksum mismatch', ErrorCode.E_CHECKSUM, {
+                actual,
+                expected,
+                data,
+                hash: 'double_sha256',
+            })
         }
         return new Bytes(data)
     }
@@ -48,9 +74,15 @@ export namespace Base58 {
     export function decodeRipemd160Check(encoded: string, size?: number, suffix?: string) {
         const decoded = decode(encoded, size != null ? size + 4 : size)
         const data = decoded.array.subarray(0, -4)
-        const checksum = decoded.array.subarray(-4)
-        if (!arrayEquals(checksum, ripemd160Checksum(data, suffix))) {
-            throw new Error('Checksum mismatch')
+        const expected = decoded.array.subarray(-4)
+        const actual = ripemd160Checksum(data, suffix)
+        if (!arrayEquals(expected, actual)) {
+            throw new DecodingError('Checksum mismatch', ErrorCode.E_CHECKSUM, {
+                actual,
+                expected,
+                data,
+                hash: 'ripemd160',
+            })
         }
         return new Bytes(data)
     }
@@ -100,7 +132,11 @@ export namespace Base58 {
         for (let i = 0; i < s.length; ++i) {
             let carry = charMap[s.charCodeAt(i)]
             if (carry < 0) {
-                throw new Error('Invalid Base58 value')
+                throw new DecodingError(
+                    'Invalid Base58 character encountered',
+                    ErrorCode.E_INVALID,
+                    {char: s[i]}
+                )
             }
             for (let j = 0; j < result.length; ++j) {
                 const x = result[j] * 58 + carry
@@ -128,13 +164,13 @@ export namespace Base58 {
         if (suffix) {
             hash.update(suffix)
         }
-        return hash.digest().slice(0, 4)
+        return new Uint8Array(hash.digest().slice(0, 4))
     }
 
     /** @internal */
     function dsha256Checksum(data: Uint8Array) {
         const round1 = sha256().update(data).digest()
         const round2 = sha256().update(round1).digest()
-        return round2.slice(0, 4)
+        return new Uint8Array(round2.slice(0, 4))
     }
 }

@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import 'mocha'
 
-import {Bytes, PrivateKey, PublicKey} from '..'
+import {Base58, Bytes, PrivateKey, PublicKey} from '..'
 
 suite('crypto', function () {
     this.slow(200)
@@ -144,5 +144,36 @@ suite('crypto', function () {
         assert.throws(() => {
             PrivateKey.generate('XX')
         })
+    })
+
+    test('key errors', function () {
+        try {
+            PrivateKey.from('PVT_K1_2be6BwD56MHeVD4P95bRLdnP3oB3P4QRAXAsSKh4N8Xu6d4Auz')
+            assert.fail()
+        } catch (error) {
+            assert.ok(error instanceof Base58.DecodingError)
+            assert.equal(error.code, Base58.ErrorCode.E_CHECKSUM)
+            assert.equal(error.info.hash, 'ripemd160')
+            assert.deepEqual(Array.from(error.info.actual), [236, 129, 232, 27])
+            assert.deepEqual(Array.from(error.info.expected), [236, 129, 232, 29])
+        }
+        const key1 = PrivateKey.fromString(
+            'PVT_K1_2be6BwD56MHeVD4P95bRLdnP3oB3P4QRAXAsSKh4N8Xu6d4Auz',
+            true
+        )
+        assert.equal(key1.toString(), 'PVT_K1_2be6BwD56MHeVD4P95bRLdnP3oB3P4QRAXAsSKh4N8Xu6d4Aux')
+        try {
+            PrivateKey.from('5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zxx')
+            assert.fail()
+        } catch (error) {
+            assert.ok(error instanceof Base58.DecodingError)
+            assert.equal(error.code, Base58.ErrorCode.E_CHECKSUM)
+            assert.equal(error.info.hash, 'double_sha256')
+        }
+        const key2 = PrivateKey.fromString(
+            '5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zxx',
+            true
+        )
+        assert.equal(key2.toWif(), '5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zFu')
     })
 })
