@@ -106,7 +106,7 @@ export function abiEncode(args: EncodeArgs): Bytes {
         }
     }
 
-    const customTypes = args.customTypes || []
+    const customTypes = args.customTypes ? args.customTypes.slice() : []
     if (type) {
         customTypes.unshift(type)
     } else if (typeName) {
