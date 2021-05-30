@@ -76,11 +76,6 @@ class TimePointBase implements ABISerializableObject {
     toJSON() {
         return this.toString()
     }
-
-    value: any
-    constructor(value: any) {
-        this.value = value
-    }
 }
 
 /** Timestamp with microsecond accuracy. */
@@ -99,7 +94,11 @@ export class TimePoint extends TimePointBase {
         return new this(Int64.fromABI(decoder))
     }
 
-    value!: Int64
+    value: Int64
+    constructor(value: Int64) {
+        super()
+        this.value = value
+    }
 
     toString() {
         return this.toDate().toISOString().slice(0, -1)
@@ -126,7 +125,11 @@ export class TimePointSec extends TimePointBase {
         return new this(UInt32.fromABI(decoder))
     }
 
-    value!: UInt32
+    value: UInt32
+    constructor(value: UInt32) {
+        super()
+        this.value = value
+    }
 
     toString() {
         return this.toDate().toISOString().slice(0, -5)
@@ -152,7 +155,11 @@ export class BlockTimestamp extends TimePointBase {
         return new this(UInt32.fromABI(decoder))
     }
 
-    value!: UInt32
+    value: UInt32
+    constructor(value: UInt32) {
+        super()
+        this.value = value
+    }
 
     toString() {
         return this.toDate().toISOString().slice(0, -1)
