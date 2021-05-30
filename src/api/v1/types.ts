@@ -15,6 +15,7 @@ import {
     Struct,
     TimePoint,
     TimePointSec,
+    Transaction,
     TransactionHeader,
     TransactionReceipt,
     UInt128,
@@ -24,7 +25,7 @@ import {
     UInt64,
 } from '../../chain'
 
-import {ABISerializableType} from '../../serializer'
+import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
 
 @Struct.type('account_permission')
 export class AccountPermission extends Struct {
@@ -168,6 +169,55 @@ export class HeaderExtension extends Struct {
     @Struct.field('bytes') data!: Bytes
 }
 
+// fc "mutable variant" returned by get_block api
+export class TrxVariant implements ABISerializableObject {
+    static abiName = 'trx_variant'
+
+    static from(data: any) {
+        let id: Checksum256
+        let extra: Record<string, any>
+        if (typeof data === 'string') {
+            id = Checksum256.from(data)
+            extra = {}
+        } else {
+            id = Checksum256.from(data.id)
+            extra = data
+        }
+        return new this(id, extra)
+    }
+
+    constructor(readonly id: Checksum256, readonly extra: Record<string, any>) {}
+
+    get transaction(): Transaction | undefined {
+        if (this.extra.packed_trx) {
+            return Serializer.decode({data: this.extra.packed_trx, type: Transaction})
+        }
+    }
+
+    get signatures(): Signature[] | undefined {
+        if (this.extra.signatures) {
+            return this.extra.signatures.map(Signature.from)
+        }
+    }
+
+    equals(other: any) {
+        return this.id.equals(other.id)
+    }
+
+    toJSON() {
+        return this.id
+    }
+}
+
+@Struct.type('get_block_response_receipt')
+export class GetBlockResponseTransactionReceipt extends TransactionReceipt {
+    @Struct.field(TrxVariant) trx!: TrxVariant
+
+    get id(): Checksum256 {
+        return this.trx.id
+    }
+}
+
 @Struct.type('get_block_response')
 export class GetBlockResponse extends Struct {
     @Struct.field('time_point') timestamp!: TimePoint
@@ -181,7 +231,8 @@ export class GetBlockResponse extends Struct {
     @Struct.field('header_extension', {optional: true}) header_extensions?: HeaderExtension[]
     @Struct.field('any', {optional: true}) new_protocol_features?: any
     @Struct.field('signature') producer_signature!: Signature
-    @Struct.field(TransactionReceipt, {array: true}) transactions!: TransactionReceipt[]
+    @Struct.field(GetBlockResponseTransactionReceipt, {array: true})
+    transactions!: GetBlockResponseTransactionReceipt[]
     @Struct.field('block_extension', {optional: true}) block_extensions!: BlockExtension[]
     @Struct.field('checksum256') id!: Checksum256
     @Struct.field('uint32') block_num!: UInt32

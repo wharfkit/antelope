@@ -4,6 +4,7 @@ import {
     Bytes,
     Checksum160,
     Checksum256,
+    Checksum256Type,
     Float128,
     Float64,
     Name,
@@ -13,6 +14,7 @@ import {
     SignedTransactionType,
     UInt128,
     UInt32,
+    UInt32Type,
     UInt64,
 } from '../../chain'
 
@@ -54,7 +56,7 @@ export class ChainAPI {
         })
     }
 
-    async get_block(block_num_or_id: string | number | UInt32) {
+    async get_block(block_num_or_id: Checksum256Type | UInt32Type) {
         return this.client.call({
             path: '/v1/chain/get_block',
             params: {block_num_or_id},
@@ -62,7 +64,7 @@ export class ChainAPI {
         })
     }
 
-    async get_block_header_state(block_num_or_id: string | number | UInt32) {
+    async get_block_header_state(block_num_or_id: Checksum256Type | UInt32Type) {
         return this.client.call({
             path: '/v1/chain/get_block_header_state',
             params: {block_num_or_id},

@@ -10,6 +10,7 @@ import {
     APIClient,
     APIError,
     Asset,
+    Checksum256,
     Float64,
     Name,
     PrivateKey,
@@ -102,9 +103,18 @@ suite('api v1', function () {
     test('chain get_block w/ transactions', async function () {
         const block = await eos.v1.chain.get_block(124472078)
         assert.equal(Number(block.block_num), 124472078)
+        assert.equal(block.transactions.length, 8)
         block.transactions.forEach((tx) => {
-            assert.equal(tx instanceof TransactionReceipt, true)
+            assert.ok(tx instanceof TransactionReceipt)
+            assert.ok(tx.trx.id instanceof Checksum256)
         })
+        const tx = block.transactions[5].trx.transaction
+        assert.equal(String(tx?.id), String(block.transactions[5].id))
+        const sigs = block.transactions[5].trx.signatures || []
+        assert.equal(
+            String(sigs[0]),
+            'SIG_K1_KeQEThQJEk7fuQC1zLuFyXZBnVmeRJXq9SrmDJGcerq1RZbgCoH5tvt28xpM7xA1bp7tStVPw17gNMG6hFyYXuNHCU4Wpd'
+        )
     })
 
     test('chain get_block_header_state', async function () {
