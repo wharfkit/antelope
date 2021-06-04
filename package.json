@@ -1,7 +1,7 @@
 {
     "name": "@greymass/eosio",
     "description": "Library for working with EOSIO blockchains",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "homepage": "https://github.com/greymass/eosio-core",
     "license": "BSD-3-Clause",
     "main": "lib/eosio-core.js",
