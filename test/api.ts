@@ -6,6 +6,7 @@ import {MockProvider} from './utils/mock-provider'
 
 import {
     Action,
+    AnyAction,
     API,
     APIClient,
     APIError,
@@ -205,6 +206,44 @@ suite('api v1', function () {
                 memo: 'eosio-core is the best <3',
             }),
         })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const result = await jungle.v1.chain.push_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain push_transaction (untyped)', async function () {
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const untypedAction: AnyAction = {
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: {
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            },
+        }
+        const {abi} = await jungle.v1.chain.get_abi(untypedAction.account)
+        if (!abi) {
+            throw new Error(`No ABI for ${untypedAction.account}`)
+        }
+        const action = Action.from(untypedAction, abi)
         const transaction = Transaction.from({
             ...header,
             actions: [action],
