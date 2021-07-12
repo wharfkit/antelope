@@ -1010,4 +1010,20 @@ suite('serializer', function () {
             transaction_extensions: [],
         })
     })
+
+    test('struct optional field', function () {
+        @Struct.type('test')
+        class Test extends Struct {
+            @Struct.field('string') a!: string
+            @Struct.field('string?') b?: string
+            @Struct.field('string', {optional: true}) c?: string
+            @Struct.field('string[]?') d?: string
+        }
+        assert.doesNotThrow(() => {
+            Test.from({a: 'foo'})
+        })
+        assert.throws(() => {
+            Test.from({b: 'foo'})
+        }, /encountered undefined for non-optional/)
+    })
 })

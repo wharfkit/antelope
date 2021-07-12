@@ -30,9 +30,6 @@ export class Struct implements ABISerializableObject {
         const object: any = {}
         for (const field of this.structFields) {
             const v = value[field.name] === undefined ? field.default : value[field.name]
-            if (v === undefined && !(field.optional === true || field.name.includes('?'))) {
-                throw new Error(`Missing value for non optional field: ${field.name}`)
-            }
             object[field.name] = v
         }
         return abiDecode({object, type: this})
