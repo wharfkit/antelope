@@ -669,8 +669,7 @@ suite('serializer', function () {
                                 account: 'eosio.token',
                                 name: 'transfer',
                                 authorization: [{actor: 'foo', permission: 'active'}],
-                                data:
-                                    '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                                data: '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                             },
                         ],
                         context_free_actions: [],
@@ -709,8 +708,7 @@ suite('serializer', function () {
                                 account: 'eosio.token',
                                 name: 'transfer',
                                 authorization: [{actor: 'foo', permission: 'active'}],
-                                data:
-                                    '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
+                                data: '000000000000285d000000000000ae39e80300000000000003454f53000000000b68656c6c6f207468657265',
                             },
                         ],
                         transaction_extensions: [],
@@ -985,8 +983,7 @@ suite('serializer', function () {
                     account: 'eosio.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data:
-                        '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
+                    data: '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
                 },
             ],
         })
@@ -1003,8 +1000,7 @@ suite('serializer', function () {
                     account: 'eosio.token',
                     name: 'transfer',
                     authorization: [{actor: 'foo', permission: 'active'}],
-                    data:
-                        '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
+                    data: '0000000000855c340000000000000e3da40100000000000001474d5a0000000007666f7220796f75',
                 },
             ],
             transaction_extensions: [],
