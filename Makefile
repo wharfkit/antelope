@@ -32,7 +32,7 @@ check: node_modules
 format: node_modules
 	@${BIN}/eslint src --ext .ts --fix
 
-test/browser.html: $(SRC_FILES) $(TEST_FILES) test/rollup.config.js node_modules
+test/browser.html: lib $(TEST_FILES) test/rollup.config.js node_modules
 	@${BIN}/rollup -c test/rollup.config.js
 
 .PHONY: browser-test
@@ -49,9 +49,22 @@ publish: | distclean node_modules
 	@yarn config set version-tag-prefix "" && yarn config set version-git-message "Version %s"
 	@yarn publish && git push && git push --tags
 
+docs: $(SRC_FILES) node_modules
+	@${BIN}/typedoc --out docs \
+		--excludeInternal --excludePrivate --excludeProtected \
+		--includeVersion --readme none \
+		src/index.ts
+
+.PHONY: deploy-site
+deploy-site: | clean docs test/browser.html
+	@mkdir -p site
+	@cp -r docs/* site/
+	@cp -r test/browser.html site/tests.html
+	@${BIN}/gh-pages -d site
+
 .PHONY: clean
 clean:
-	rm -rf lib/ coverage/
+	rm -rf lib/ coverage/ docs/ site/ test/browser.html
 
 .PHONY: distclean
 distclean: clean

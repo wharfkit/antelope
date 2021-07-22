@@ -3,3 +3,5 @@ lib/
 coverage/
 .nyc_output/
 test/browser.html
+site/
+docs/
