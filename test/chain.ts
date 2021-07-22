@@ -1,5 +1,4 @@
-import * as assert from 'assert'
-import 'mocha'
+import {assert} from 'chai'
 
 import {
     ABIDef,
@@ -15,7 +14,6 @@ import {
     Int64,
     Name,
     PermissionLevel,
-    PrivateKey,
     PublicKey,
     Signature,
     Struct,
@@ -26,7 +24,7 @@ import {
     UInt32,
     UInt64,
     Variant,
-} from '..'
+} from '$lib'
 
 suite('chain', function () {
     test('asset', function () {

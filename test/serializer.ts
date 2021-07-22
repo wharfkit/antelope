@@ -1,13 +1,15 @@
 import BN from 'bn.js'
 
-import * as assert from 'assert'
-import 'mocha'
+import {assert} from 'chai'
 
-import {ABIDecoder, ABIEncoder, Serializer} from '..'
+import typestresserAbi from './typestresser.abi.json'
 
 import {
     ABI,
+    ABIDecoder,
+    ABIEncoder,
     Asset,
+    Bytes,
     Int128,
     Int32,
     Int32Type,
@@ -15,6 +17,7 @@ import {
     Name,
     PermissionLevel,
     PublicKey,
+    Serializer,
     Signature,
     Struct,
     TimePoint,
@@ -26,7 +29,7 @@ import {
     UInt64,
     UInt8,
     Variant,
-} from '..'
+} from '$lib'
 
 suite('serializer', function () {
     test('array', function () {
@@ -358,7 +361,7 @@ suite('serializer', function () {
             )
         }
         try {
-            const data = Buffer.from('beefbeef')
+            const data = Bytes.from('beefbeef', 'utf8')
             Serializer.decode({data, type: 'type1', abi})
             assert.fail()
         } catch (error) {
@@ -727,9 +730,10 @@ suite('serializer', function () {
 
     test('typestresser abi', function () {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const abi = require('fs')
-            .readFileSync(__dirname + '/typestresser.abi.json')
-            .toString()
+
+        const abi = typestresserAbi
+        // .readFileSync(__dirname + '/')
+        // .toString()
         const object = {
             bool: true,
             int8: 127,

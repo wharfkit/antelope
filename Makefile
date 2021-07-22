@@ -1,29 +1,43 @@
 SRC_FILES := $(shell find src -name '*.ts')
+TEST_FILES := $(wildcard test/*.ts)
 BIN := ./node_modules/.bin
-
+MOCHA_OPTS := -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts
 
 lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.js
 	@${BIN}/rollup -c && touch lib
 
 .PHONY: test
-test: lib node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' ${BIN}/mocha -u tdd -r ts-node/register --extension ts test/*.ts --grep '$(grep)'
+test: node_modules
+	@TS_NODE_PROJECT='./test/tsconfig.json' \
+		${BIN}/mocha ${MOCHA_OPTS} test/*.ts --grep '$(grep)'
 
 .PHONY: coverage
 coverage: node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' ${BIN}/nyc --reporter=html ${BIN}/mocha -u tdd -r ts-node/register --extension ts test/*.ts -R nyan && open coverage/index.html
-
-.PHONY: lint
-lint: node_modules
-	@${BIN}/eslint src --ext .ts --fix
+	@TS_NODE_PROJECT='./test/tsconfig.json' \
+		${BIN}/nyc --reporter=html \
+		${BIN}/mocha ${MOCHA_OPTS} -R nyan test/*.ts \
+			&& open coverage/index.html
 
 .PHONY: ci-test
-ci-test: lib node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' ${BIN}/nyc --reporter=text ${BIN}/mocha -u tdd -r ts-node/register --extension ts test/*.ts -R list
+ci-test: node_modules
+	@TS_NODE_PROJECT='./test/tsconfig.json' \
+		${BIN}/nyc --reporter=text \
+		${BIN}/mocha ${MOCHA_OPTS} -R list test/*.ts
 
-.PHONY: ci-lint
-ci-lint: node_modules
+.PHONY: check
+check: node_modules
 	@${BIN}/eslint src --ext .ts --max-warnings 0 --format unix && echo "Ok"
+
+.PHONY: format
+format: node_modules
+	@${BIN}/eslint src --ext .ts --fix
+
+test/browser.html: $(SRC_FILES) $(TEST_FILES) test/rollup.config.js node_modules
+	@${BIN}/rollup -c test/rollup.config.js
+
+.PHONY: browser-test
+browser-test: test/browser.html
+	@open test/browser.html
 
 node_modules:
 	yarn install --non-interactive --frozen-lockfile --ignore-scripts

@@ -1,7 +1,6 @@
-import {strict as assert} from 'assert'
-import 'mocha'
+import {assert} from 'chai'
 
-import {Int, Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} from '..'
+import {Int, Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} from '$lib'
 
 suite('integer', function () {
     test('from', function () {
@@ -145,7 +144,7 @@ suite('integer', function () {
         assert.equal(String(bigValue), '14595364149838066048')
         assert.equal(JSON.stringify(bigValue), '"14595364149838066048"')
         assert.throws(() => {
-            Number(bigValue)
+            assert.ok(Number(bigValue))
         }, /Number can only safely store up to 53 bits/)
     })
 })

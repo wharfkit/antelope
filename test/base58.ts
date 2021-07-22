@@ -1,7 +1,6 @@
-import * as assert from 'assert'
-import 'mocha'
+import {assert} from 'chai'
 
-import {Base58, Bytes, BytesType} from '..'
+import {Base58, Bytes, BytesType} from '$lib'
 
 function assertBytes(a: BytesType, b: BytesType) {
     assert.equal(Bytes.from(a).hexString, Bytes.from(b).hexString)

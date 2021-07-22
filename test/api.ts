@@ -1,5 +1,4 @@
-import 'mocha'
-import {strict as assert} from 'assert'
+import {assert} from 'chai'
 import {join as joinPath} from 'path'
 
 import {MockProvider} from './utils/mock-provider'
@@ -9,7 +8,6 @@ import {
     AnyAction,
     API,
     APIClient,
-    APIError,
     Asset,
     Checksum256,
     Float64,
@@ -19,7 +17,7 @@ import {
     Struct,
     Transaction,
     TransactionReceipt,
-} from '..'
+} from '$lib'
 
 const jungle = new APIClient({
     provider: new MockProvider(joinPath(__dirname, 'data')),

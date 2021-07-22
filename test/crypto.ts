@@ -1,7 +1,6 @@
-import * as assert from 'assert'
-import 'mocha'
+import {assert} from 'chai'
 
-import {Base58, Bytes, PrivateKey, PublicKey} from '..'
+import {Base58, Bytes, PrivateKey, PublicKey} from '$lib'
 
 suite('crypto', function () {
     this.slow(200)
