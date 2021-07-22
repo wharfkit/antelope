@@ -1,5 +1,4 @@
 import {assert} from 'chai'
-import {join as joinPath} from 'path'
 
 import {MockProvider} from './utils/mock-provider'
 
@@ -20,19 +19,19 @@ import {
 } from '$lib'
 
 const jungle = new APIClient({
-    provider: new MockProvider(joinPath(__dirname, 'data')),
+    provider: new MockProvider(),
 })
 
 const eos = new APIClient({
-    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://eos.greymass.com'),
+    provider: new MockProvider('https://eos.greymass.com'),
 })
 
 const fio = new APIClient({
-    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://fio.greymass.com'),
+    provider: new MockProvider('https://fio.greymass.com'),
 })
 
 const beos = new APIClient({
-    provider: new MockProvider(joinPath(__dirname, 'data'), 'https://api.beos.world'),
+    provider: new MockProvider('https://api.beos.world'),
 })
 
 suite('api v1', function () {

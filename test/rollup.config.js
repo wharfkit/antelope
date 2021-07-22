@@ -3,18 +3,25 @@
 import fs from 'fs'
 import path from 'path'
 
+import {terser} from 'rollup-plugin-terser'
 import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import virtual from '@rollup/plugin-virtual'
-import {terser} from 'rollup-plugin-terser'
+
+const mockData = Object.fromEntries(
+    fs
+        .readdirSync(path.join(__dirname, 'data'))
+        .map((f) => path.join(__dirname, 'data', f))
+        .map((f) => [path.basename(f), JSON.parse(fs.readFileSync(f))])
+)
 
 const testFiles = fs
     .readdirSync(__dirname)
     .filter((f) => f.match(/\.ts$/))
-    .filter((f) => f !== 'api.ts') // api tests depend on node.js
     .map((f) => path.join(__dirname, f))
     .sort()
 
@@ -80,10 +87,14 @@ export default [
             virtual({
                 'tests.ts': testFiles.map((f) => `import '${f.slice(0, -3)}'`).join('\n'),
             }),
-            typescript({target: 'es6', module: 'esnext', tsconfig: './test/tsconfig.json'}),
             alias({
-                entries: [{find: '$lib', replacement: '../lib/eosio-core.m.js'}],
+                entries: [
+                    {find: '$lib', replacement: path.join(__dirname, '..', 'lib/eosio-core.m.js')},
+                    {find: './utils/mock-provider', replacement: './utils/browser-provider.ts'},
+                ],
             }),
+            typescript({target: 'es6', module: 'esnext', tsconfig: './test/tsconfig.json'}),
+            replace({'global.MOCK_DATA': JSON.stringify(mockData)}),
             resolve({browser: true}),
             commonjs(),
             json(),
