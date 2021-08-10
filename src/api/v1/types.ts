@@ -8,7 +8,7 @@ import {
     Checksum160,
     Checksum256,
     Float128,
-    Float64,
+    Float64, Int32,
     Int64,
     Name,
     NameType,
@@ -25,6 +25,7 @@ import {
     UInt32,
     UInt32Type,
     UInt64,
+    Variant,
 } from '../../chain'
 
 import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
@@ -448,6 +449,21 @@ export class GetTableByScopeResponse extends Struct {
     @Struct.field('string') more!: string
 }
 
+export interface OrderedActionsResult {
+    global_action_sequence: UInt64
+    account_action_sequence: Int32,
+    block_num: UInt32,
+    block_time: BlockTimestamp,
+    action_trace: Variant
+}
+
+@Struct.type('get_actions_response')
+export class GetActionsResponse extends Struct {
+    @Struct.field('ordered_action_results') actions!: OrderedActionsResult[]
+    @Struct.field(Int32) last_irreversible_block!: Int32
+    @Struct.field('boolean') time_limit_exceeded_error?: boolean
+}
+
 export interface TransactionTrace {}
 export interface TransactionReceipt {
     cpu_usage_us: number
@@ -469,6 +485,7 @@ export interface TransactionInfo {
         signatures: string[]
     }
 }
+
 @Struct.type('get_transaction_response')
 export class GetTransactionResponse extends Struct {
     @Struct.field(Checksum256) id!: Checksum256
@@ -477,4 +494,14 @@ export class GetTransactionResponse extends Struct {
     @Struct.field(UInt32) last_irreversible_block!: UInt32
     @Struct.field('any?') traces?: TransactionTrace[]
     @Struct.field('any') trx!: TransactionInfo
+}
+
+@Struct.type('get_key_accounts_response')
+export class GetKeyAccountsResponse extends Struct {
+    @Struct.field('name') account_names!: Name[]
+}
+
+@Struct.type('get_key_accounts_response')
+export class GetControlledAccountsResponse extends Struct {
+    @Struct.field('name') controlled_accounts!: Name[]
 }

@@ -30,9 +30,10 @@ export class HistoryAPI {
     constructor(private client: APIClient) {}
 
     async get_actions(accountName: NameType) {
-        return this.client.call<GetAbiResponse>({
+        return this.client.call({
             path: '/v1/history/get_actions',
             params: {account_name: Name.from(accountName)},
+            responseType: GetTransactionResponse,
         })
     }
 
