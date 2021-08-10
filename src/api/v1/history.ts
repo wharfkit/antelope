@@ -19,20 +19,8 @@ import {
 } from '../../chain'
 
 import {
-    AccountObject,
     GetAbiResponse,
-    GetBlockHeaderStateResponse,
-    GetBlockResponse,
-    GetInfoResponse,
-    GetTableByScopeParams,
-    GetTableByScopeResponse,
-    GetTableRowsParams,
-    GetTableRowsParamsKeyed,
-    GetTableRowsParamsTyped,
-    GetTableRowsResponse,
-    PushTransactionResponse,
-    TableIndexType,
-    TableIndexTypes,
+    GetTransactionResponse
 } from './types'
 
 import {ABISerializableConstructor, ABISerializableType, Serializer} from '../../serializer'
@@ -43,28 +31,29 @@ export class HistoryAPI {
 
     async get_actions(accountName: NameType) {
         return this.client.call<GetAbiResponse>({
-            path: '/v1/chain/get_abi',
+            path: '/v1/history/get_actions',
             params: {account_name: Name.from(accountName)},
         })
     }
 
-    async get_transaction(accountName: NameType) {
-        return this.client.call<GetAbiResponse>({
-            path: '/v1/chain/get_abi',
-            params: {account_name: Name.from(accountName)},
+    async get_ransaction(id: Checksum256, client: APIClient) {
+        return client.call({
+            path: '/v1/history/get_transaction',
+            params: {traces: false, id},
+            responseType: GetTransactionResponse,
         })
     }
 
     async get_key_accounts(accountName: NameType) {
         return this.client.call<GetAbiResponse>({
-            path: '/v1/chain/get_abi',
+            path: '/v1/history/get_key_accounts',
             params: {account_name: Name.from(accountName)},
         })
     }
 
     async get_controlled_accounts(accountName: NameType) {
         return this.client.call<GetAbiResponse>({
-            path: '/v1/chain/get_abi',
+            path: '/v1/history/get_controlled_accounts',
             params: {account_name: Name.from(accountName)},
         })
     }

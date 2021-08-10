@@ -1,7 +1,9 @@
 import {
     ABI,
+    AnyAction,
     Asset,
     Authority,
+    BlockTimestamp,
     Bytes,
     Checksum160,
     Checksum256,
@@ -444,4 +446,35 @@ export class GetTableByScopeResponseRow extends Struct {
 export class GetTableByScopeResponse extends Struct {
     @Struct.field(GetTableByScopeResponseRow, {array: true}) rows!: GetTableByScopeResponseRow[]
     @Struct.field('string') more!: string
+}
+
+export interface TransactionTrace {}
+export interface TransactionReceipt {
+    cpu_usage_us: number
+    net_usage_words: number
+    status: string
+}
+export interface TransactionInfo {
+    receipt: TransactionReceipt
+    trx: {
+        actions: AnyAction[]
+        context_free_actions: AnyAction[]
+        context_free_data: []
+        delay_sec: number
+        expiration: string
+        max_cpu_usage_ms: number
+        max_net_usage_words: number
+        ref_block_num: number
+        ref_block_prefix: number
+        signatures: string[]
+    }
+}
+@Struct.type('get_transaction_response')
+export class GetTransactionResponse extends Struct {
+    @Struct.field(Checksum256) id!: Checksum256
+    @Struct.field(UInt32) block_num!: UInt32
+    @Struct.field(BlockTimestamp) block_time!: BlockTimestamp
+    @Struct.field(UInt32) last_irreversible_block!: UInt32
+    @Struct.field('any?') traces?: TransactionTrace[]
+    @Struct.field('any') trx!: TransactionInfo
 }
