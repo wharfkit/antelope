@@ -355,4 +355,48 @@ suite('api v1', function () {
             // ])
         }
     })
+
+    test('history get_actions', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.SymbolCode.from('EOS').value,
+            show_payer: true,
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+    })
+
+    test('history get_transaction', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.SymbolCode.from('EOS').value,
+            show_payer: true,
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+    })
+
+    test('history get_key_accounts', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.SymbolCode.from('EOS').value,
+            show_payer: true,
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+    })
+
+    test('history get_controlled_accounts', async function () {
+        const res = await eos.v1.chain.get_table_rows({
+            code: 'eosio.token',
+            table: 'stat',
+            scope: Asset.SymbolCode.from('EOS').value,
+            show_payer: true,
+        })
+        assert.equal(res.rows.length, 1)
+        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+    })
 })
