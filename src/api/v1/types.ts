@@ -8,7 +8,8 @@ import {
     Checksum160,
     Checksum256,
     Float128,
-    Float64, Int32,
+    Float64,
+    Int32,
     Int64,
     Name,
     NameType,
@@ -465,11 +466,6 @@ export class GetActionsResponse extends Struct {
 }
 
 export interface TransactionTrace {}
-export interface TransactionReceipt {
-    cpu_usage_us: number
-    net_usage_words: number
-    status: string
-}
 export interface TransactionInfo {
     receipt: TransactionReceipt
     trx: {
