@@ -29,7 +29,7 @@ export class HistoryAPI {
         })
     }
 
-    async get_ransaction(id: Checksum256, blockNumHint?: UInt32Type) {
+    async get_transaction(id: Checksum256, blockNumHint?: UInt32Type) {
         return this.client.call({
             path: '/v1/history/get_transaction',
             params: { id, block_num_hint: blockNumHint && UInt32.from(blockNumHint) },

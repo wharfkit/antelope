@@ -1,0 +1,10 @@
+{
+    "actions": [{
+        "global_action_sequence": 1212,
+        "account_action_sequence": 3223,
+        "block_num": 121212122,
+        "block_time": 1212121244444,
+        "action_trace": "trace"
+    }],
+    "last_irreversible_block": 111
+}

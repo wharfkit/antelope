@@ -359,39 +359,22 @@ suite('api v1', function () {
     test('history get_actions', async function () {
         const res = await eos.v1.history.get_actions('teamgreymass', 1, 1);
         assert.equal(res.actions.length, 1)
-        assert.equal(res.last_irreversible_block), 111)
+        assert.equal(res.last_irreversible_block, 111);
     })
 
     test('history get_transaction', async function () {
-        const res = await eos.v1.chain.get_table_rows({
-            code: 'eosio.token',
-            table: 'stat',
-            scope: Asset.SymbolCode.from('EOS').value,
-            show_payer: true,
-        })
-        assert.equal(res.rows.length, 1)
-        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+        const res = await eos.v1.history.get_transaction(Checksum256.from('03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'))
+        assert.equal(res, {})
     })
 
     test('history get_key_accounts', async function () {
-        const res = await eos.v1.chain.get_table_rows({
-            code: 'eosio.token',
-            table: 'stat',
-            scope: Asset.SymbolCode.from('EOS').value,
-            show_payer: true,
-        })
-        assert.equal(res.rows.length, 1)
-        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+        const res = await eos.v1.history.get_key_accounts('PUB_K1_6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs')
+        assert.equal(res.account_names.length, 1)
     })
 
     test('history get_controlled_accounts', async function () {
-        const res = await eos.v1.history.get_controlled_accounts({
-            code: 'eosio.token',
-            table: 'stat',
-            scope: Asset.SymbolCode.from('EOS').value,
-            show_payer: true,
-        })
-        assert.equal(res.rows.length, 1)
-        assert.equal(String(res.ram_payers![0]), 'eosio.token')
+        const res = await eos.v1.history.get_controlled_accounts('teamgreymass');
+
+        assert.equal(res.controlled_accounts.length, 1)
     })
 })
