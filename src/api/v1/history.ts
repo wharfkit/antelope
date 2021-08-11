@@ -1,30 +1,17 @@
 import {APIClient} from '../client'
 
 import {
-    Bytes,
-    Checksum160,
     Checksum256,
-    Checksum256Type,
-    Float128,
-    Float64,
     Name,
     NameType,
-    PackedTransaction,
-    SignedTransaction,
-    SignedTransactionType,
-    UInt128,
-    UInt32,
-    UInt32Type,
-    UInt64,
 } from '../../chain'
 
 import {
-    GetAbiResponse,
-    GetTransactionResponse
+    GetActionsResponse,
+    GetTransactionResponse,
+    GetKeyAccountsResponse,
+    GetControlledAccountsResponse,
 } from './types'
-
-import {ABISerializableConstructor, ABISerializableType, Serializer} from '../../serializer'
-import {isInstanceOf} from '../../utils'
 
 export class HistoryAPI {
     constructor(private client: APIClient) {}
@@ -33,7 +20,7 @@ export class HistoryAPI {
         return this.client.call({
             path: '/v1/history/get_actions',
             params: {account_name: Name.from(accountName)},
-            responseType: GetTransactionResponse,
+            responseType: GetActionsResponse,
         })
     }
 
@@ -46,16 +33,18 @@ export class HistoryAPI {
     }
 
     async get_key_accounts(accountName: NameType) {
-        return this.client.call<GetAbiResponse>({
+        return this.client.call({
             path: '/v1/history/get_key_accounts',
             params: {account_name: Name.from(accountName)},
+            responseType: GetKeyAccountsResponse,
         })
     }
 
     async get_controlled_accounts(accountName: NameType) {
-        return this.client.call<GetAbiResponse>({
+        return this.client.call({
             path: '/v1/history/get_controlled_accounts',
             params: {account_name: Name.from(accountName)},
+            responseType: GetControlledAccountsResponse,
         })
     }
 }
