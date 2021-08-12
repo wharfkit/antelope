@@ -26,7 +26,6 @@ import {
     UInt32,
     UInt32Type,
     UInt64,
-    Variant,
 } from '../../chain'
 
 import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
@@ -450,36 +449,43 @@ export class GetTableByScopeResponse extends Struct {
     @Struct.field('string') more!: string
 }
 
-export interface OrderedActionsResult {
-    global_action_sequence: UInt64
-    account_action_sequence: Int32,
-    block_num: UInt32,
-    block_time: BlockTimestamp,
-    action_trace: Variant
+@Struct.type('ordered_action_result')
+export class OrderedActionsResult extends Struct {
+    @Struct.field(UInt64) global_action_sequence!: UInt64
+    @Struct.field(Int32) account_action_sequence!: Int32
+    @Struct.field(UInt32) block_num!: UInt32
+    @Struct.field(BlockTimestamp) block_time!: BlockTimestamp
+    @Struct.field('any') action_trace?: any
 }
 
 @Struct.type('get_actions_response')
 export class GetActionsResponse extends Struct {
-    @Struct.field('ordered_action_results') actions!: OrderedActionsResult[]
+    @Struct.field('ordered_action_result', { array: true }) actions!: OrderedActionsResult[]
     @Struct.field(Int32) last_irreversible_block!: Int32
     @Struct.field('boolean') time_limit_exceeded_error?: boolean
 }
 
-export interface TransactionTrace {}
-export interface TransactionInfo {
-    receipt: TransactionReceipt
-    trx: {
-        actions: AnyAction[]
-        context_free_actions: AnyAction[]
-        context_free_data: []
-        delay_sec: number
-        expiration: string
-        max_cpu_usage_ms: number
-        max_net_usage_words: number
-        ref_block_num: number
-        ref_block_prefix: number
-        signatures: string[]
-    }
+@Struct.type('transaction_trace')
+export class TransactionTrace extends Struct {}
+
+@Struct.type('trx')
+export class Trx extends Struct {
+    @Struct.field('any') actions!: AnyAction[]
+    @Struct.field('any') context_free_actions!: AnyAction[]
+    @Struct.field('any') context_free_data!: any[]
+    @Struct.field('number') delay_sec!: number
+    @Struct.field('string') expiration!: string
+    @Struct.field('number') max_cpu_usage_ms!: number
+    @Struct.field('number') max_net_usage_words!: number
+    @Struct.field('number') ref_block_num!: number
+    @Struct.field('number') ref_block_prefix!: number
+    @Struct.field('string', { array: true }) signatures!: string[]
+}
+
+@Struct.type('transaction_info')
+export class TransactionInfo extends Struct {
+    @Struct.field(TransactionReceipt) receipt!: TransactionReceipt
+    @Struct.field('trx') trx!: Trx
 }
 
 @Struct.type('get_transaction_response')
