@@ -364,17 +364,18 @@ suite('api v1', function () {
 
     test('history get_transaction', async function () {
         const res = await eos.v1.history.get_transaction(Checksum256.from('03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'))
-        assert.equal(res, {})
+        assert.equal(res.id, "03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7")
+        assert.equal(res.block_num, 111)
     })
 
     test('history get_key_accounts', async function () {
         const res = await eos.v1.history.get_key_accounts('PUB_K1_6RrvujLQN1x5Tacbep1KAk8zzKpSThAQXBCKYFfGUYeACcSRFs')
-        assert.equal(res.account_names.length, 1)
+        assert.equal(res.account_names.length, 2)
     })
 
     test('history get_controlled_accounts', async function () {
         const res = await eos.v1.history.get_controlled_accounts('teamgreymass');
 
-        assert.equal(res.controlled_accounts.length, 1)
+        assert.equal(res.controlled_accounts.length, 2)
     })
 })
