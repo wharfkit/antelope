@@ -2,20 +2,21 @@ import {APIClient} from '../client'
 
 import {
     Checksum256,
+    Int32,
+    Int32Type,
     Name,
     NameType,
-    Int32,
+    PublicKey,
+    PublicKeyType,
     UInt32,
     UInt32Type,
-    PublicKeyType,
-    PublicKey, Int32Type,
 } from '../../chain'
 
 import {
     GetActionsResponse,
-    GetTransactionResponse,
-    GetKeyAccountsResponse,
     GetControlledAccountsResponse,
+    GetKeyAccountsResponse,
+    GetTransactionResponse,
 } from './types'
 
 export class HistoryAPI {
@@ -24,7 +25,11 @@ export class HistoryAPI {
     async get_actions(accountName: NameType, pos: Int32Type, offset: Int32Type) {
         return this.client.call({
             path: '/v1/history/get_actions',
-            params: { account_name: Name.from(accountName), pos: Int32.from(pos), offset: Int32.from(offset) },
+            params: {
+                account_name: Name.from(accountName),
+                pos: Int32.from(pos),
+                offset: Int32.from(offset),
+            },
             responseType: GetActionsResponse,
         })
     }
@@ -32,7 +37,7 @@ export class HistoryAPI {
     async get_transaction(id: Checksum256, blockNumHint?: UInt32Type) {
         return this.client.call({
             path: '/v1/history/get_transaction',
-            params: { id, block_num_hint: blockNumHint && UInt32.from(blockNumHint) },
+            params: {id, block_num_hint: blockNumHint && UInt32.from(blockNumHint)},
             responseType: GetTransactionResponse,
         })
     }

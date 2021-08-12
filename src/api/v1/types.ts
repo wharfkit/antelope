@@ -460,7 +460,7 @@ export class OrderedActionsResult extends Struct {
 
 @Struct.type('get_actions_response')
 export class GetActionsResponse extends Struct {
-    @Struct.field(OrderedActionsResult, { array: true }) actions!: OrderedActionsResult[]
+    @Struct.field(OrderedActionsResult, {array: true}) actions!: OrderedActionsResult[]
     @Struct.field(Int32) last_irreversible_block!: Int32
     @Struct.field('boolean?') time_limit_exceeded_error?: boolean
 }
@@ -479,7 +479,7 @@ export class Trx extends Struct {
     @Struct.field('number') max_net_usage_words!: number
     @Struct.field('number') ref_block_num!: number
     @Struct.field('number') ref_block_prefix!: number
-    @Struct.field('string', { array: true }) signatures!: string[]
+    @Struct.field('string', {array: true}) signatures!: string[]
 }
 
 @Struct.type('transaction_info')
@@ -500,10 +500,10 @@ export class GetTransactionResponse extends Struct {
 
 @Struct.type('get_key_accounts_response')
 export class GetKeyAccountsResponse extends Struct {
-    @Struct.field('name', { array: true }) account_names!: Name[]
+    @Struct.field('name', {array: true}) account_names!: Name[]
 }
 
 @Struct.type('get_controlled_accounts_response')
 export class GetControlledAccountsResponse extends Struct {
-    @Struct.field('name', { array: true }) controlled_accounts!: Name[]
+    @Struct.field('name', {array: true}) controlled_accounts!: Name[]
 }
