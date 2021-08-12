@@ -17,7 +17,6 @@ export class MockProvider implements APIProvider {
         const digest = Checksum160.hash(
             Bytes.from(this.api + path + (params ? JSON.stringify(params) : ''), 'utf8')
         ).hexString
-        console.log({digest})
         return joinPath(__dirname, '../data', digest + '.json')
     }
 
