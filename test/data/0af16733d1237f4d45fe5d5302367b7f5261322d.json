@@ -1,0 +1,28 @@
+{
+    "account_names": [
+        "teamgraymass",
+        "teamgreymass"
+    ],
+    "permissions": [
+        [
+            "active"
+        ],
+        [
+            "active"
+        ]
+    ],
+    "prev_account_names": [
+        "vwashington1"
+    ],
+    "prev_permissions": [
+        [
+            "active",
+            "active",
+            "active",
+            "active",
+            "active",
+            "active",
+            "active"
+        ]
+    ]
+}

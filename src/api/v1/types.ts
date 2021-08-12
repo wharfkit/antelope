@@ -451,17 +451,19 @@ export class GetTableByScopeResponse extends Struct {
 
 @Struct.type('ordered_action_result')
 export class OrderedActionsResult extends Struct {
-    @Struct.field(UInt64) global_action_sequence!: UInt64
-    @Struct.field(Int64) account_action_sequence!: Int64
+    @Struct.field(UInt64) global_action_seq!: UInt64
+    @Struct.field(Int64) account_action_seq!: Int64
     @Struct.field(UInt32) block_num!: UInt32
     @Struct.field(BlockTimestamp) block_time!: BlockTimestamp
     @Struct.field('any') action_trace?: any
+    @Struct.field('boolean?') irrevirsible?: boolean
 }
 
 @Struct.type('get_actions_response')
 export class GetActionsResponse extends Struct {
     @Struct.field(OrderedActionsResult, {array: true}) actions!: OrderedActionsResult[]
     @Struct.field(Int32) last_irreversible_block!: Int32
+    @Struct.field(Int32) head_block_num!: Int32
     @Struct.field('boolean?') time_limit_exceeded_error?: boolean
 }
 
