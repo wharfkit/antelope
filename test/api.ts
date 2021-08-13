@@ -357,25 +357,28 @@ suite('api v1', function () {
     })
 
     test('history get_actions', async function () {
-        const res = await eos.v1.history.get_actions('teamgreymass', 1, 1);
+        const res = await eos.v1.history.get_actions('teamgreymass', 1, 1)
         assert.equal(res.actions.length, 1)
-        assert.equal(res.last_irreversible_block, 199255930);
+        assert.equal(res.last_irreversible_block, 199255930)
     })
 
     test('history get_transaction', async function () {
-        const res = await eos.v1.history.get_transaction(Checksum256.from('03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'))
-        assert.equal(res.id, "03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7")
+        const res = await eos.v1.history.get_transaction(
+            Checksum256.from('03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
+        )
+        assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
         assert.equal(res.block_num, 199068081)
     })
 
     test('history get_key_accounts', async function () {
-        const res = await eos.v1.history.get_key_accounts('PUB_K1_6gqJ7sdPgjHLFLtks9cRPs5qYHa9U3CwK4P2JasTLWKQBdT2GF')
+        const res = await eos.v1.history.get_key_accounts(
+            'PUB_K1_6gqJ7sdPgjHLFLtks9cRPs5qYHa9U3CwK4P2JasTLWKQBdT2GF'
+        )
         assert.equal(res.account_names.length, 2)
     })
 
     test('history get_controlled_accounts', async function () {
-        const res = await eos.v1.history.get_controlled_accounts('teamgreymass');
-
+        const res = await eos.v1.history.get_controlled_accounts('teamgreymass')
         assert.equal(res.controlled_accounts.length, 2)
     })
 })
