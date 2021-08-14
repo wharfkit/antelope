@@ -2,6 +2,7 @@ import {APIClient} from '../client'
 
 import {
     Checksum256,
+    Checksum256Type,
     Int32,
     Int32Type,
     Name,
@@ -34,10 +35,14 @@ export class HistoryAPI {
         })
     }
 
-    async get_transaction(id: Checksum256, blockNumHint?: UInt32Type) {
+    async get_transaction(id: Checksum256Type, blockNumHint?: UInt32Type, excludeTraces?: boolean) {
         return this.client.call({
             path: '/v1/history/get_transaction',
-            params: {id, block_num_hint: blockNumHint && UInt32.from(blockNumHint)},
+            params: {
+                id: Checksum256.from(id),
+                block_num_hint: blockNumHint && UInt32.from(blockNumHint),
+                traces: !excludeTraces,
+            },
             responseType: GetTransactionResponse,
         })
     }
