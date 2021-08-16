@@ -364,8 +364,20 @@ suite('api v1', function () {
 
     test('history get_transaction', async function () {
         const res = await eos.v1.history.get_transaction(
-            Checksum256.from('03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
+            '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'
         )
+        assert(Array.isArray(res.traces), 'response should have traces')
+        assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
+        assert.equal(res.block_num, 199068081)
+    })
+
+    test('history get_transaction (no traces)', async function () {
+        const res = await eos.v1.history.get_transaction(
+            '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7',
+            undefined,
+            true
+        )
+        assert.equal(res.traces, null, 'response should not have traces')
         assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
         assert.equal(res.block_num, 199068081)
     })
