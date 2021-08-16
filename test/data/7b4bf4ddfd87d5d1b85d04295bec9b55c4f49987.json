@@ -1,0 +1,32 @@
+{
+    "controlled_accounts": [
+        "eosforumrcpp",
+        "eosforumrcpp"
+    ],
+    "controlled_auths": [
+        "active",
+        "active"
+    ],
+    "permissions": [
+        "active",
+        "owner"
+    ],
+    "prev_controlled_accounts": [
+        "cc32dninewp1",
+        "cc32dninewp1",
+        "eosforumrcpp",
+        "eosforumrcpp"
+    ],
+    "prev_controlled_auths": [
+        "active",
+        "active",
+        "active",
+        "active"
+    ],
+    "prev_permissions": [
+        "active",
+        "owner",
+        "active",
+        "active"
+    ]
+}

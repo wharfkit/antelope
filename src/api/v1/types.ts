@@ -1,12 +1,15 @@
 import {
     ABI,
+    AnyAction,
     Asset,
     Authority,
+    BlockTimestamp,
     Bytes,
     Checksum160,
     Checksum256,
     Float128,
     Float64,
+    Int32,
     Int64,
     Name,
     NameType,
@@ -444,4 +447,65 @@ export class GetTableByScopeResponseRow extends Struct {
 export class GetTableByScopeResponse extends Struct {
     @Struct.field(GetTableByScopeResponseRow, {array: true}) rows!: GetTableByScopeResponseRow[]
     @Struct.field('string') more!: string
+}
+
+@Struct.type('ordered_action_result')
+export class OrderedActionsResult extends Struct {
+    @Struct.field(UInt64) global_action_seq!: UInt64
+    @Struct.field(Int64) account_action_seq!: Int64
+    @Struct.field(UInt32) block_num!: UInt32
+    @Struct.field(BlockTimestamp) block_time!: BlockTimestamp
+    @Struct.field('any') action_trace?: any
+    @Struct.field('boolean?') irrevirsible?: boolean
+}
+
+@Struct.type('get_actions_response')
+export class GetActionsResponse extends Struct {
+    @Struct.field(OrderedActionsResult, {array: true}) actions!: OrderedActionsResult[]
+    @Struct.field(Int32) last_irreversible_block!: Int32
+    @Struct.field(Int32) head_block_num!: Int32
+    @Struct.field('boolean?') time_limit_exceeded_error?: boolean
+}
+
+@Struct.type('transaction_trace')
+export class TransactionTrace extends Struct {}
+
+@Struct.type('trx')
+export class Trx extends Struct {
+    @Struct.field('any') actions!: AnyAction[]
+    @Struct.field('any') context_free_actions!: AnyAction[]
+    @Struct.field('any') context_free_data!: any[]
+    @Struct.field('number') delay_sec!: number
+    @Struct.field('string') expiration!: string
+    @Struct.field('number') max_cpu_usage_ms!: number
+    @Struct.field('number') max_net_usage_words!: number
+    @Struct.field('number') ref_block_num!: number
+    @Struct.field('number') ref_block_prefix!: number
+    @Struct.field('string', {array: true}) signatures!: string[]
+}
+
+@Struct.type('transaction_info')
+export class TransactionInfo extends Struct {
+    @Struct.field(TransactionReceipt) receipt!: TransactionReceipt
+    @Struct.field('trx') trx!: Trx
+}
+
+@Struct.type('get_transaction_response')
+export class GetTransactionResponse extends Struct {
+    @Struct.field(Checksum256) id!: Checksum256
+    @Struct.field(UInt32) block_num!: UInt32
+    @Struct.field(BlockTimestamp) block_time!: BlockTimestamp
+    @Struct.field(UInt32) last_irreversible_block!: UInt32
+    @Struct.field('any?') traces?: TransactionTrace[]
+    @Struct.field('any') trx!: TransactionInfo
+}
+
+@Struct.type('get_key_accounts_response')
+export class GetKeyAccountsResponse extends Struct {
+    @Struct.field('name', {array: true}) account_names!: Name[]
+}
+
+@Struct.type('get_controlled_accounts_response')
+export class GetControlledAccountsResponse extends Struct {
+    @Struct.field('name', {array: true}) controlled_accounts!: Name[]
 }

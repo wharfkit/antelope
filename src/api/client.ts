@@ -2,6 +2,7 @@ import {APIProvider, FetchProvider, FetchProviderOptions} from './provider'
 import {ABISerializableConstructor, ABISerializableType} from '../serializer/serializable'
 import {abiDecode} from '../serializer/decoder'
 import {ChainAPI} from './v1/chain'
+import {HistoryAPI} from './v1/history'
 import {BuiltinTypes} from '../serializer/builtins'
 
 export interface APIClientOptions extends FetchProviderOptions {
@@ -75,6 +76,7 @@ export class APIClient {
 
     v1 = {
         chain: new ChainAPI(this),
+        history: new HistoryAPI(this),
     }
 
     async call<T extends ABISerializableConstructor>(args: {
