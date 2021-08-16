@@ -7,6 +7,7 @@ import {
     AnyAction,
     API,
     APIClient,
+    APIError,
     Asset,
     Checksum256,
     Float64,
@@ -340,19 +341,18 @@ suite('api v1', function () {
             await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
             assert.fail()
         } catch (error) {
-            // FIXME: mocha somehow mangles the error here when using the bundle
-            // assert.equal(error instanceof APIError, true)
-            // assert.equal(error.message, 'Invalid name at /v1/chain/get_account')
-            // assert.equal(error.name, 'name_type_exception')
-            // assert.equal(error.code, 3010001)
-            // assert.deepEqual(error.details, [
-            //     {
-            //         file: 'name.cpp',
-            //         line_number: 15,
-            //         message: 'Name not properly normalized (name: ., normalized: ) ',
-            //         method: 'set',
-            //     },
-            // ])
+            assert.equal(error instanceof APIError, true)
+            assert.equal(error.message, 'Invalid name at /v1/chain/get_account')
+            assert.equal(error.name, 'name_type_exception')
+            assert.equal(error.code, 3010001)
+            assert.deepEqual(error.details, [
+                {
+                    file: 'name.cpp',
+                    line_number: 15,
+                    message: 'Name not properly normalized (name: ., normalized: ) ',
+                    method: 'set',
+                },
+            ])
         }
     })
 
