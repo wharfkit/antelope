@@ -35,13 +35,16 @@ export class HistoryAPI {
         })
     }
 
-    async get_transaction(id: Checksum256Type, blockNumHint?: UInt32Type, excludeTraces?: boolean) {
+    async get_transaction(
+        id: Checksum256Type,
+        options: {blockNumHint?: UInt32Type; excludeTraces?: boolean} = {}
+    ) {
         return this.client.call({
             path: '/v1/history/get_transaction',
             params: {
                 id: Checksum256.from(id),
-                block_num_hint: blockNumHint && UInt32.from(blockNumHint),
-                traces: !excludeTraces,
+                block_num_hint: options.blockNumHint && UInt32.from(options.blockNumHint),
+                traces: options.excludeTraces === true ? false : undefined,
             },
             responseType: GetTransactionResponse,
         })

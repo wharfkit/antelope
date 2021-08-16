@@ -359,7 +359,6 @@ suite('api v1', function () {
     test('history get_actions', async function () {
         const res = await eos.v1.history.get_actions('teamgreymass', 1, 1)
         assert.equal(res.actions.length, 1)
-        assert.equal(res.last_irreversible_block, 199255930)
     })
 
     test('history get_transaction', async function () {
@@ -374,8 +373,7 @@ suite('api v1', function () {
     test('history get_transaction (no traces)', async function () {
         const res = await eos.v1.history.get_transaction(
             '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7',
-            undefined,
-            true
+            {excludeTraces: true}
         )
         assert.equal(res.traces, null, 'response should not have traces')
         assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
