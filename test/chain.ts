@@ -6,6 +6,7 @@ import {
     AnyTransaction,
     Asset,
     Authority,
+    BlockTimestamp,
     Bytes,
     Checksum160,
     Checksum256,
@@ -128,6 +129,11 @@ suite('chain', function () {
         assert.throws(() => {
             TimePoint.from('blah')
         })
+        assert.equal(BlockTimestamp.from('2021-08-25T02:37:24.500'), '2021-08-25T02:37:24.500')
+        assert.equal(
+            Math.round(BlockTimestamp.from(now).toMilliseconds() / 500),
+            Math.round(now.getTime() / 500)
+        )
     })
 
     test('transaction', function () {

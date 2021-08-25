@@ -83,11 +83,11 @@ export class TimePoint extends TimePointBase {
     static abiName = 'time_point'
 
     static fromMilliseconds(ms: number) {
-        return new TimePoint(Int64.from(Math.round(ms * 1000)))
+        return new this(Int64.from(Math.round(ms * 1000)))
     }
 
     static fromInteger(value: Int64Type) {
-        return new TimePoint(Int64.from(value))
+        return new this(Int64.from(value))
     }
 
     static fromABI(decoder: ABIDecoder) {
@@ -114,11 +114,11 @@ export class TimePointSec extends TimePointBase {
     static abiName = 'time_point_sec'
 
     static fromMilliseconds(ms: number) {
-        return new TimePointSec(UInt32.from(Math.round(ms / 1000)))
+        return new this(UInt32.from(Math.round(ms / 1000)))
     }
 
     static fromInteger(value: UInt32Type) {
-        return new TimePointSec(UInt32.from(value))
+        return new this(UInt32.from(value))
     }
 
     static fromABI(decoder: ABIDecoder) {
@@ -144,11 +144,11 @@ export class BlockTimestamp extends TimePointBase {
     static abiName = 'block_timestamp_type'
 
     static fromMilliseconds(ms: number) {
-        return new TimePointSec(UInt32.from(Math.round((ms - 946684800000) / 500)))
+        return new this(UInt32.from(Math.round((ms - 946684800000) / 500)))
     }
 
     static fromInteger(value: UInt32Type) {
-        return new TimePointSec(UInt32.from(value))
+        return new this(UInt32.from(value))
     }
 
     static fromABI(decoder: ABIDecoder) {
