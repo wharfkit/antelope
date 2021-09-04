@@ -1,32 +1,36 @@
 {
-    "controlled_accounts": [
-        "eosforumrcpp",
-        "eosforumrcpp"
-    ],
-    "controlled_auths": [
-        "active",
-        "active"
-    ],
-    "permissions": [
-        "active",
-        "owner"
-    ],
-    "prev_controlled_accounts": [
-        "cc32dninewp1",
-        "cc32dninewp1",
-        "eosforumrcpp",
-        "eosforumrcpp"
-    ],
-    "prev_controlled_auths": [
-        "active",
-        "active",
-        "active",
-        "active"
-    ],
-    "prev_permissions": [
-        "active",
-        "owner",
-        "active",
-        "active"
-    ]
+    "status": 200,
+    "json": {
+        "controlled_accounts": [
+            "eosforumrcpp",
+            "eosforumrcpp"
+        ],
+        "controlled_auths": [
+            "active",
+            "active"
+        ],
+        "permissions": [
+            "active",
+            "owner"
+        ],
+        "prev_controlled_accounts": [
+            "cc32dninewp1",
+            "cc32dninewp1",
+            "eosforumrcpp",
+            "eosforumrcpp"
+        ],
+        "prev_controlled_auths": [
+            "active",
+            "active",
+            "active",
+            "active"
+        ],
+        "prev_permissions": [
+            "active",
+            "owner",
+            "active",
+            "active"
+        ]
+    },
+    "text": "{\n  \"controlled_accounts\": [\n    \"eosforumrcpp\",\n    \"eosforumrcpp\"\n  ],\n  \"controlled_auths\": [\n    \"active\",\n    \"active\"\n  ],\n  \"permissions\": [\n    \"active\",\n    \"owner\"\n  ],\n  \"prev_controlled_accounts\": [\n    \"cc32dninewp1\",\n    \"cc32dninewp1\",\n    \"eosforumrcpp\",\n    \"eosforumrcpp\"\n  ],\n  \"prev_controlled_auths\": [\n    \"active\",\n    \"active\",\n    \"active\",\n    \"active\"\n  ],\n  \"prev_permissions\": [\n    \"active\",\n    \"owner\",\n    \"active\",\n    \"active\"\n  ]\n}"
 }

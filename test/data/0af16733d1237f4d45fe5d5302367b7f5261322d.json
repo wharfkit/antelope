@@ -1,28 +1,32 @@
 {
-    "account_names": [
-        "teamgraymass",
-        "teamgreymass"
-    ],
-    "permissions": [
-        [
-            "active"
+    "status": 200,
+    "json": {
+        "account_names": [
+            "teamgreymass",
+            "teamgraymass"
         ],
-        [
-            "active"
+        "permissions": [
+            [
+                "active"
+            ],
+            [
+                "active"
+            ]
+        ],
+        "prev_account_names": [
+            "vwashington1"
+        ],
+        "prev_permissions": [
+            [
+                "active",
+                "active",
+                "active",
+                "active",
+                "active",
+                "active",
+                "active"
+            ]
         ]
-    ],
-    "prev_account_names": [
-        "vwashington1"
-    ],
-    "prev_permissions": [
-        [
-            "active",
-            "active",
-            "active",
-            "active",
-            "active",
-            "active",
-            "active"
-        ]
-    ]
+    },
+    "text": "{\n  \"account_names\": [\n    \"teamgreymass\",\n    \"teamgraymass\"\n  ],\n  \"permissions\": [\n    [\n      \"active\"\n    ],\n    [\n      \"active\"\n    ]\n  ],\n  \"prev_account_names\": [\n    \"vwashington1\"\n  ],\n  \"prev_permissions\": [\n    [\n      \"active\",\n      \"active\",\n      \"active\",\n      \"active\",\n      \"active\",\n      \"active\",\n      \"active\"\n    ]\n  ]\n}"
 }

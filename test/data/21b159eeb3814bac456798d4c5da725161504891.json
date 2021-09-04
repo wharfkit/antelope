@@ -1,12 +1,16 @@
 {
-    "rows": [
-        {
-            "code": "eosio.token",
-            "scope": "...........j",
-            "table": "accounts",
-            "payer": "ens.n",
-            "count": 1
-        }
-    ],
-    "more": "...........n"
+    "status": 200,
+    "json": {
+        "rows": [
+            {
+                "code": "eosio.token",
+                "scope": "...........j",
+                "table": "accounts",
+                "payer": "ens.n",
+                "count": 1
+            }
+        ],
+        "more": "...........n"
+    },
+    "text": "{\"rows\":[{\"code\":\"eosio.token\",\"scope\":\"...........j\",\"table\":\"accounts\",\"payer\":\"ens.n\",\"count\":1}],\"more\":\"...........n\"}"
 }

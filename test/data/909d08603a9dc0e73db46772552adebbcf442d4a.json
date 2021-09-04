@@ -1,96 +1,104 @@
 {
-    "account_name": "teamgreymass",
-    "head_block_num": 37648408,
-    "head_block_time": "2020-09-24T20:52:06.500",
-    "privileged": false,
-    "last_code_update": "1970-01-01T00:00:00.000",
-    "created": "2020-02-26T22:28:14.000",
-    "core_liquid_balance": "511617.3405 EOS",
-    "ram_quota": 5489,
-    "net_weight": 10000,
-    "cpu_weight": 9999,
-    "net_limit": {
-        "used": 105,
-        "available": 38792,
-        "max": 38897
-    },
-    "cpu_limit": {
-        "used": 366,
-        "available": 28902,
-        "max": 29268
-    },
-    "ram_usage": 4560,
-    "permissions": [
-        {
-            "perm_name": "active",
-            "parent": "owner",
-            "required_auth": {
-                "threshold": 1,
-                "keys": [
-                    {
-                        "key": "EOS6L7gzEV7JXcCrgDeAe6v63Z7bMWttd4UQeWdKKCr6twDYxDQXZ",
-                        "weight": 1
-                    }
-                ],
-                "accounts": [],
-                "waits": []
-            }
+    "status": 200,
+    "json": {
+        "account_name": "teamgreymass",
+        "head_block_num": 97034471,
+        "head_block_time": "2021-09-04T00:54:02.500",
+        "privileged": false,
+        "last_code_update": "1970-01-01T00:00:00.000",
+        "created": "2020-02-26T22:28:14.000",
+        "core_liquid_balance": "1960085.2749 EOS",
+        "ram_quota": 5489,
+        "net_weight": 20000,
+        "cpu_weight": 100019999,
+        "net_limit": {
+            "used": 105,
+            "available": 3736,
+            "max": 3841,
+            "last_usage_update_time": "2021-06-24T05:25:42.000",
+            "current_used": 0
         },
-        {
-            "perm_name": "claim",
-            "parent": "active",
-            "required_auth": {
-                "threshold": 1,
-                "keys": [
-                    {
-                        "key": "EOS6DLD9HxMcwn73U41jjdGsNe9vDFRKB26um6qTAqrtYcJFtED4C",
-                        "weight": 1
-                    }
-                ],
-                "accounts": [],
-                "waits": []
-            }
+        "cpu_limit": {
+            "used": 144,
+            "available": 933205,
+            "max": 933349,
+            "last_usage_update_time": "2021-06-24T05:25:42.000",
+            "current_used": 0
         },
-        {
-            "perm_name": "owner",
-            "parent": "",
-            "required_auth": {
-                "threshold": 1,
-                "keys": [
-                    {
-                        "key": "EOS8a3i6vXFJwSZTdaUYrf7kScnZWCgEy7wdWXcAj4W9qgfgpHMu9",
-                        "weight": 1
-                    }
-                ],
-                "accounts": [],
-                "waits": []
+        "ram_usage": 4838,
+        "permissions": [
+            {
+                "perm_name": "active",
+                "parent": "owner",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS6L7gzEV7JXcCrgDeAe6v63Z7bMWttd4UQeWdKKCr6twDYxDQXZ",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                }
+            },
+            {
+                "perm_name": "claim",
+                "parent": "active",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS6DLD9HxMcwn73U41jjdGsNe9vDFRKB26um6qTAqrtYcJFtED4C",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                }
+            },
+            {
+                "perm_name": "owner",
+                "parent": "",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS8a3i6vXFJwSZTdaUYrf7kScnZWCgEy7wdWXcAj4W9qgfgpHMu9",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                }
             }
-        }
-    ],
-    "total_resources": {
-        "owner": "teamgreymass",
-        "net_weight": "1.0000 EOS",
-        "cpu_weight": "0.9999 EOS",
-        "ram_bytes": 4089
+        ],
+        "total_resources": {
+            "owner": "teamgreymass",
+            "net_weight": "2.0000 EOS",
+            "cpu_weight": "10001.9999 EOS",
+            "ram_bytes": 4089
+        },
+        "self_delegated_bandwidth": {
+            "from": "teamgreymass",
+            "to": "teamgreymass",
+            "net_weight": "1.0000 EOS",
+            "cpu_weight": "10000.9999 EOS"
+        },
+        "refund_request": null,
+        "voter_info": {
+            "owner": "teamgreymass",
+            "proxy": "",
+            "producers": [],
+            "staked": "16120019999",
+            "last_vote_weight": "0.00000000000000000",
+            "proxied_vote_weight": "0.00000000000000000",
+            "is_proxy": 0,
+            "flags1": 0,
+            "reserved2": 0,
+            "reserved3": "0 "
+        },
+        "rex_info": null
     },
-    "self_delegated_bandwidth": {
-        "from": "teamgreymass",
-        "to": "teamgreymass",
-        "net_weight": "1.0000 EOS",
-        "cpu_weight": "0.9999 EOS"
-    },
-    "refund_request": null,
-    "voter_info": {
-        "owner": "teamgreymass",
-        "proxy": "",
-        "producers": [],
-        "staked": 19999,
-        "last_vote_weight": "0.00000000000000000",
-        "proxied_vote_weight": "0.00000000000000000",
-        "is_proxy": 0,
-        "flags1": 0,
-        "reserved2": 0,
-        "reserved3": "0 "
-    },
-    "rex_info": null
+    "text": "{\"account_name\":\"teamgreymass\",\"head_block_num\":97034471,\"head_block_time\":\"2021-09-04T00:54:02.500\",\"privileged\":false,\"last_code_update\":\"1970-01-01T00:00:00.000\",\"created\":\"2020-02-26T22:28:14.000\",\"core_liquid_balance\":\"1960085.2749 EOS\",\"ram_quota\":5489,\"net_weight\":20000,\"cpu_weight\":100019999,\"net_limit\":{\"used\":105,\"available\":3736,\"max\":3841,\"last_usage_update_time\":\"2021-06-24T05:25:42.000\",\"current_used\":0},\"cpu_limit\":{\"used\":144,\"available\":933205,\"max\":933349,\"last_usage_update_time\":\"2021-06-24T05:25:42.000\",\"current_used\":0},\"ram_usage\":4838,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS6L7gzEV7JXcCrgDeAe6v63Z7bMWttd4UQeWdKKCr6twDYxDQXZ\",\"weight\":1}],\"accounts\":[],\"waits\":[]}},{\"perm_name\":\"claim\",\"parent\":\"active\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS6DLD9HxMcwn73U41jjdGsNe9vDFRKB26um6qTAqrtYcJFtED4C\",\"weight\":1}],\"accounts\":[],\"waits\":[]}},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS8a3i6vXFJwSZTdaUYrf7kScnZWCgEy7wdWXcAj4W9qgfgpHMu9\",\"weight\":1}],\"accounts\":[],\"waits\":[]}}],\"total_resources\":{\"owner\":\"teamgreymass\",\"net_weight\":\"2.0000 EOS\",\"cpu_weight\":\"10001.9999 EOS\",\"ram_bytes\":4089},\"self_delegated_bandwidth\":{\"from\":\"teamgreymass\",\"to\":\"teamgreymass\",\"net_weight\":\"1.0000 EOS\",\"cpu_weight\":\"10000.9999 EOS\"},\"refund_request\":null,\"voter_info\":{\"owner\":\"teamgreymass\",\"proxy\":\"\",\"producers\":[],\"staked\":\"16120019999\",\"last_vote_weight\":\"0.00000000000000000\",\"proxied_vote_weight\":\"0.00000000000000000\",\"is_proxy\":0,\"flags1\":0,\"reserved2\":0,\"reserved3\":\"0 \"},\"rex_info\":null}"
 }
