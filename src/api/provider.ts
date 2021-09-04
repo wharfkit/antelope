@@ -1,5 +1,12 @@
 type Fetch = (input: any, init?: any) => Promise<any>
 
+/** Response to an API call.  */
+export interface APIResponse {
+    json?: any
+    text: string
+    status: number
+}
+
 export interface APIProvider {
     /**
      * Call an API endpoint and return the response.
@@ -7,7 +14,7 @@ export interface APIProvider {
      * @argument path The endpoint path, e.g. `/v1/chain/get_info`
      * @argument params The request body if any.
      */
-    call(path: string, params?: unknown): Promise<unknown>
+    call(path: string, params?: unknown): Promise<APIResponse>
 }
 
 export interface FetchProviderOptions {
@@ -46,14 +53,13 @@ export class FetchProvider implements APIProvider {
             method: 'POST',
             body: params !== undefined ? JSON.stringify(params) : undefined,
         })
+        const text = await response.text()
+        let json: any
         try {
-            return response.json()
-        } catch (error) {
-            if (!response.ok) {
-                throw Error(`HTTP ${response.status}: ${response.statusText}`)
-            }
-            error.message = `Unable to parse JSON response from server: ${error.message}`
-            throw error
+            json = JSON.parse(text)
+        } catch {
+            // ignore json parse errors
         }
+        return {status: response.status, json, text}
     }
 }

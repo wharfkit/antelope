@@ -1,4 +1,4 @@
-import {APIProvider, FetchProvider, FetchProviderOptions} from './provider'
+import {APIProvider, APIResponse, FetchProvider, FetchProviderOptions} from './provider'
 import {ABISerializableConstructor, ABISerializableType} from '../serializer/serializable'
 import {abiDecode} from '../serializer/decoder'
 import {ChainAPI} from './v1/chain'
@@ -30,7 +30,14 @@ export class APIError extends Error {
     static __className = 'APIError'
 
     static formatError(error: APIErrorData) {
-        if (error.what === 'unspecified' && error.details && error.details.length > 0) {
+        if (
+            error.what === 'unspecified' &&
+            error.details[0]?.file === 'http_plugin.cpp' &&
+            error.details[0].message.slice(0, 11) === 'unknown key'
+        ) {
+            // fix cryptic error messages from nodeos for missing accounts
+            return 'Account not found'
+        } else if (error.what === 'unspecified' && error.details && error.details.length > 0) {
             return error.details[0].message
         } else if (error.what && error.what.length > 0) {
             return error.what
@@ -39,23 +46,42 @@ export class APIError extends Error {
         }
     }
 
-    constructor(public readonly path: string, public readonly error: APIErrorData) {
-        super(`${APIError.formatError(error)} at ${path}`)
+    /** The path to the API that failed, e.g. `/v1/chain/get_info`. */
+    readonly path: string
+
+    /** The full response from the API that failed. */
+    readonly response: APIResponse
+
+    constructor(path: string, response: APIResponse) {
+        let message: string
+        if (response.json && response.json.error) {
+            message = `${APIError.formatError(response.json.error)} at ${path}`
+        } else {
+            message = `HTTP ${response.status} at ${path}`
+        }
+        super(message)
+        this.path = path
+        this.response = response
+    }
+
+    /** The nodeos error object. */
+    get error() {
+        return this.response.json?.error as APIErrorData | undefined
     }
 
     /** The nodeos error name, e.g. `tx_net_usage_exceeded` */
     get name() {
-        return this.error.name || 'unspecified'
+        return this.error?.name || 'unspecified'
     }
 
     /** The nodeos error code, e.g. `3080002`. */
     get code() {
-        return this.error.code || 0
+        return this.error?.code || 0
     }
 
     /** List of exceptions, if any. */
     get details() {
-        return this.error.details
+        return this.error?.details || []
     }
 }
 
@@ -91,13 +117,13 @@ export class APIClient {
     }): Promise<BuiltinTypes[T]>
     async call<T = unknown>(args: {path: string; params?: unknown}): Promise<T>
     async call(args: {path: string; params?: unknown; responseType?: ABISerializableType}) {
-        const response = (await this.provider.call(args.path, args.params)) as any
-        if (response.error) {
-            throw new APIError(args.path, response.error)
+        const response = await this.provider.call(args.path, args.params)
+        if (Math.floor(response.status / 100) !== 2 || typeof response.json?.error === 'object') {
+            throw new APIError(args.path, response)
         }
         if (args.responseType) {
-            return abiDecode({type: args.responseType, object: response})
+            return abiDecode({type: args.responseType, object: response.json})
         }
-        return response
+        return response.json || response.text
     }
 }
