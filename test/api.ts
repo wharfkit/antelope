@@ -37,6 +37,7 @@ const beos = new APIClient({
 
 suite('api v1', function () {
     this.slow(200)
+    this.timeout(10 * 10000)
 
     test('chain get_account', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
@@ -117,8 +118,8 @@ suite('api v1', function () {
     })
 
     test('chain get_block_header_state', async function () {
-        const header = await eos.v1.chain.get_block_header_state(143671483)
-        assert.equal(Number(header.block_num), 143671483)
+        const header = await eos.v1.chain.get_block_header_state(203110579)
+        assert.equal(Number(header.block_num), 203110579)
     })
 
     test('chain get_block', async function () {
@@ -149,7 +150,7 @@ suite('api v1', function () {
         balances.forEach((asset) => {
             assert.equal(asset instanceof Asset, true)
         })
-        assert.deepEqual(balances.map(String), ['881307350.1453 EOS', '100400.0000 JUNGLE'])
+        assert.deepEqual(balances.map(String), ['884803231.0276 EOS', '100810.0000 JUNGLE'])
     })
 
     test('chain get_currency_balance w/ symbol', async function () {
@@ -159,7 +160,7 @@ suite('api v1', function () {
             'JUNGLE'
         )
         assert.equal(balances.length, 1)
-        assert.equal(balances[0].value, 100400)
+        assert.equal(balances[0].value, 100810)
     })
 
     test('chain get_info', async function () {
@@ -289,9 +290,9 @@ suite('api v1', function () {
             limit: 2,
             lower_bound: res1.next_key,
         })
-        assert.equal(String(res2.rows[0].account), 'funds.gm')
-        assert.equal(String(res2.next_key), 'teamgreymass')
-        assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.00005).toFixed(6))
+        assert.equal(String(res2.rows[0].account), 'boidservices')
+        assert.equal(String(res2.next_key), 'jesta.x')
+        assert.equal(Number(res2.rows[1].balance).toFixed(6), (104.14631).toFixed(6))
     })
 
     test('chain get_table_rows (empty scope)', async function () {
@@ -338,19 +339,21 @@ suite('api v1', function () {
 
     test('api errors', async function () {
         try {
-            await jungle.call({path: '/v1/chain/get_account', params: {account_name: '.'}})
+            await jungle.call({path: '/v1/chain/get_account', params: {account_name: 'nani1'}})
             assert.fail()
         } catch (error) {
             assert.equal(error instanceof APIError, true)
-            assert.equal(error.message, 'Invalid name at /v1/chain/get_account')
-            assert.equal(error.name, 'name_type_exception')
-            assert.equal(error.code, 3010001)
-            assert.deepEqual(error.details, [
+            const apiError = error as APIError
+            assert.equal(apiError.message, 'Account not found at /v1/chain/get_account')
+            assert.equal(apiError.name, 'exception')
+            assert.equal(apiError.code, 0)
+            assert.deepEqual(apiError.details, [
                 {
-                    file: 'name.cpp',
-                    line_number: 15,
-                    message: 'Name not properly normalized (name: ., normalized: ) ',
-                    method: 'set',
+                    file: 'http_plugin.cpp',
+                    line_number: 1019,
+                    message:
+                        'unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)',
+                    method: 'handle_exception',
                 },
             ])
         }

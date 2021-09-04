@@ -1,82 +1,97 @@
 {
-    "account_name": "eosio",
-    "head_block_num": 37648409,
-    "head_block_time": "2020-09-24T20:52:07.000",
-    "privileged": true,
-    "last_code_update": "2020-08-15T19:12:13.000",
-    "created": "2020-02-19T16:20:00.000",
-    "core_liquid_balance": "1297726468.4963 EOS",
-    "ram_quota": 134217728,
-    "net_weight": -1,
-    "cpu_weight": -1,
-    "net_limit": {
-        "used": -1,
-        "available": -1,
-        "max": -1
-    },
-    "cpu_limit": {
-        "used": -1,
-        "available": -1,
-        "max": -1
-    },
-    "ram_usage": 63261046,
-    "permissions": [
-        {
-            "perm_name": "active",
-            "parent": "owner",
-            "required_auth": {
-                "threshold": 1,
-                "keys": [],
-                "accounts": [
-                    {
-                        "permission": {
-                            "actor": "eosio.prods",
-                            "permission": "active"
-                        },
-                        "weight": 1
-                    }
-                ],
-                "waits": []
-            }
+    "status": 200,
+    "json": {
+        "account_name": "eosio",
+        "head_block_num": 97034472,
+        "head_block_time": "2021-09-04T00:54:03.000",
+        "privileged": true,
+        "last_code_update": "2020-12-16T21:49:26.500",
+        "created": "2020-02-19T16:20:00.000",
+        "core_liquid_balance": "1297726576.5736 EOS",
+        "ram_quota": 134217728,
+        "net_weight": -1,
+        "cpu_weight": -1,
+        "net_limit": {
+            "used": -1,
+            "available": -1,
+            "max": -1,
+            "last_usage_update_time": "2021-09-04T00:54:03.000",
+            "current_used": -1
         },
-        {
-            "perm_name": "owner",
-            "parent": "",
-            "required_auth": {
-                "threshold": 1,
-                "keys": [],
-                "accounts": [
-                    {
-                        "permission": {
-                            "actor": "eosio.prods",
-                            "permission": "active"
+        "cpu_limit": {
+            "used": -1,
+            "available": -1,
+            "max": -1,
+            "last_usage_update_time": "2021-09-04T00:54:03.000",
+            "current_used": -1
+        },
+        "ram_usage": 63269409,
+        "permissions": [
+            {
+                "perm_name": "active",
+                "parent": "owner",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [],
+                    "accounts": [
+                        {
+                            "permission": {
+                                "actor": "eosio.prods",
+                                "permission": "active"
+                            },
+                            "weight": 1
                         },
-                        "weight": 1
-                    }
-                ],
-                "waits": []
+                        {
+                            "permission": {
+                                "actor": "lioninjungle",
+                                "permission": "active"
+                            },
+                            "weight": 1
+                        }
+                    ],
+                    "waits": []
+                }
+            },
+            {
+                "perm_name": "owner",
+                "parent": "",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [],
+                    "accounts": [
+                        {
+                            "permission": {
+                                "actor": "eosio.prods",
+                                "permission": "active"
+                            },
+                            "weight": 1
+                        }
+                    ],
+                    "waits": []
+                }
             }
-        }
-    ],
-    "total_resources": {
-        "owner": "eosio",
-        "net_weight": "0.0000 EOS",
-        "cpu_weight": "0.0000 EOS",
-        "ram_bytes": 1153295
+        ],
+        "total_resources": {
+            "owner": "eosio",
+            "net_weight": "0.0000 EOS",
+            "cpu_weight": "0.0000 EOS",
+            "ram_bytes": 1153295
+        },
+        "self_delegated_bandwidth": null,
+        "refund_request": null,
+        "voter_info": {
+            "owner": "eosio",
+            "proxy": "",
+            "producers": [],
+            "staked": 10000,
+            "last_vote_weight": "0.00000000000000000",
+            "proxied_vote_weight": "0.00000000000000000",
+            "is_proxy": 0,
+            "flags1": 1,
+            "reserved2": 0,
+            "reserved3": "0 "
+        },
+        "rex_info": null
     },
-    "self_delegated_bandwidth": null,
-    "refund_request": null,
-    "voter_info": {
-        "owner": "eosio",
-        "proxy": "",
-        "producers": [],
-        "staked": 0,
-        "last_vote_weight": "0.00000000000000000",
-        "proxied_vote_weight": "0.00000000000000000",
-        "is_proxy": 0,
-        "flags1": 1,
-        "reserved2": 0,
-        "reserved3": "0 "
-    },
-    "rex_info": null
+    "text": "{\"account_name\":\"eosio\",\"head_block_num\":97034472,\"head_block_time\":\"2021-09-04T00:54:03.000\",\"privileged\":true,\"last_code_update\":\"2020-12-16T21:49:26.500\",\"created\":\"2020-02-19T16:20:00.000\",\"core_liquid_balance\":\"1297726576.5736 EOS\",\"ram_quota\":134217728,\"net_weight\":-1,\"cpu_weight\":-1,\"net_limit\":{\"used\":-1,\"available\":-1,\"max\":-1,\"last_usage_update_time\":\"2021-09-04T00:54:03.000\",\"current_used\":-1},\"cpu_limit\":{\"used\":-1,\"available\":-1,\"max\":-1,\"last_usage_update_time\":\"2021-09-04T00:54:03.000\",\"current_used\":-1},\"ram_usage\":63269409,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[],\"accounts\":[{\"permission\":{\"actor\":\"eosio.prods\",\"permission\":\"active\"},\"weight\":1},{\"permission\":{\"actor\":\"lioninjungle\",\"permission\":\"active\"},\"weight\":1}],\"waits\":[]}},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[],\"accounts\":[{\"permission\":{\"actor\":\"eosio.prods\",\"permission\":\"active\"},\"weight\":1}],\"waits\":[]}}],\"total_resources\":{\"owner\":\"eosio\",\"net_weight\":\"0.0000 EOS\",\"cpu_weight\":\"0.0000 EOS\",\"ram_bytes\":1153295},\"self_delegated_bandwidth\":null,\"refund_request\":null,\"voter_info\":{\"owner\":\"eosio\",\"proxy\":\"\",\"producers\":[],\"staked\":10000,\"last_vote_weight\":\"0.00000000000000000\",\"proxied_vote_weight\":\"0.00000000000000000\",\"is_proxy\":0,\"flags1\":1,\"reserved2\":0,\"reserved3\":\"0 \"},\"rex_info\":null}"
 }

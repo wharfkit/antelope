@@ -25,7 +25,7 @@ export class MockProvider implements APIProvider {
             const data = await readFile(filename)
             return JSON.parse(data.toString('utf8'))
         } catch (error) {
-            if (error.code !== 'ENOENT') {
+            if ((<any>error).code !== 'ENOENT') {
                 throw error
             }
         }
