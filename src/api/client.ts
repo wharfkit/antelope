@@ -52,6 +52,9 @@ export class APIError extends Error {
     /** The full response from the API that failed. */
     readonly response: APIResponse
 
+    /** The headers returned from the API for the response that failed */
+    readonly headers: any
+
     constructor(path: string, response: APIResponse) {
         let message: string
         if (response.json && response.json.error) {
@@ -62,6 +65,7 @@ export class APIError extends Error {
         super(message)
         this.path = path
         this.response = response
+        this.headers = response.headers
     }
 
     /** The nodeos error object. */

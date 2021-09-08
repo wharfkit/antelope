@@ -5,6 +5,7 @@ export interface APIResponse {
     json?: any
     text: string
     status: number
+    headers: any
 }
 
 export interface APIProvider {
@@ -60,6 +61,6 @@ export class FetchProvider implements APIProvider {
         } catch {
             // ignore json parse errors
         }
-        return {status: response.status, json, text}
+        return {headers: response.headers, status: response.status, json, text}
     }
 }

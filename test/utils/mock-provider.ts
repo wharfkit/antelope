@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch, {Headers} from 'node-fetch'
 import {join as joinPath} from 'path'
 import {promisify} from 'util'
 import {readFile as _readFile, writeFile as _writeFile} from 'fs'
@@ -36,12 +36,23 @@ export class MockProvider implements APIProvider {
         if (process.env['MOCK_RECORD'] !== 'overwrite') {
             const existing = await this.getExisting(filename)
             if (existing) {
-                return existing
+                return {
+                    ...existing,
+                    headers: new Headers(existing.headers),
+                }
             }
         }
         if (process.env['MOCK_RECORD']) {
             const response = await this.recordProvider.call(path, params)
-            const json = JSON.stringify(response, undefined, 4)
+            const headers = response.headers.raw()
+            const json = JSON.stringify(
+                {
+                    ...response,
+                    headers,
+                },
+                undefined,
+                4
+            )
             await writeFile(filename, json)
             return response
         } else {

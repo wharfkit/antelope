@@ -347,6 +347,8 @@ suite('api v1', function () {
             assert.equal(apiError.message, 'Account not found at /v1/chain/get_account')
             assert.equal(apiError.name, 'exception')
             assert.equal(apiError.code, 0)
+            assert.equal(error.headers.get('access-control-allow-origin'), '*')
+            assert.equal(error.headers.get('date'), 'Wed, 08 Sep 2021 20:56:33 GMT')
             assert.deepEqual(apiError.details, [
                 {
                     file: 'http_plugin.cpp',
