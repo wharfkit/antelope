@@ -1,29 +1,13 @@
 {
     "headers": {
-        "server": [
-            "nginx"
-        ],
-        "date": [
-            "Wed, 08 Sep 2021 20:56:33 GMT"
-        ],
-        "content-type": [
-            "application/json"
-        ],
-        "content-length": [
-            "484"
-        ],
-        "connection": [
-            "close"
-        ],
-        "access-control-allow-origin": [
-            "*"
-        ],
-        "access-control-allow-methods": [
-            "GET, POST, OPTIONS"
-        ],
-        "access-control-allow-headers": [
-            "X-Requested-With,Accept,Content-Type,Origin"
-        ]
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "484",
+        "content-type": "application/json",
+        "date": "Fri, 10 Sep 2021 01:02:15 GMT",
+        "server": "nginx"
     },
     "status": 500,
     "json": {

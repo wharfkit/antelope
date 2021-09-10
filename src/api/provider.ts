@@ -61,6 +61,10 @@ export class FetchProvider implements APIProvider {
         } catch {
             // ignore json parse errors
         }
-        return {headers: response.headers, status: response.status, json, text}
+        const headers = {}
+        for (const [key, value] of response.headers.entries()) {
+            headers[key] = value
+        }
+        return {headers, status: response.status, json, text}
     }
 }

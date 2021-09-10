@@ -36,23 +36,12 @@ export class MockProvider implements APIProvider {
         if (process.env['MOCK_RECORD'] !== 'overwrite') {
             const existing = await this.getExisting(filename)
             if (existing) {
-                return {
-                    ...existing,
-                    headers: new Headers(existing.headers),
-                }
+                return existing
             }
         }
         if (process.env['MOCK_RECORD']) {
             const response = await this.recordProvider.call(path, params)
-            const headers = response.headers.raw()
-            const json = JSON.stringify(
-                {
-                    ...response,
-                    headers,
-                },
-                undefined,
-                4
-            )
+            const json = JSON.stringify(response, undefined, 4)
             await writeFile(filename, json)
             return response
         } else {

@@ -65,7 +65,6 @@ export class APIError extends Error {
         super(message)
         this.path = path
         this.response = response
-        this.headers = response.headers
     }
 
     /** The nodeos error object. */
