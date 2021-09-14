@@ -1,4 +1,4 @@
-import fetch, {Headers} from 'node-fetch'
+import fetch from 'node-fetch'
 import {join as joinPath} from 'path'
 import {promisify} from 'util'
 import {readFile as _readFile, writeFile as _writeFile} from 'fs'
