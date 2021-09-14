@@ -329,6 +329,22 @@ export class ABIDecoder {
         }
     }
 
+    setPosition(pos: number) {
+        if (pos < 0 || pos > this.array.byteLength) {
+            throw new Error('Invalid position')
+        }
+        this.pos = pos
+    }
+
+    getPosition(): number {
+        return this.pos
+    }
+
+    advance(bytes: number) {
+        this.ensure(bytes)
+        this.pos += bytes
+    }
+
     /** Read one byte. */
     readByte(): number {
         this.ensure(1)
