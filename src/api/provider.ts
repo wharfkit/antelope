@@ -5,7 +5,7 @@ export interface APIResponse {
     json?: any
     text: string
     status: number
-    headers: any
+    headers: Record<string, unknown>
 }
 
 export interface APIProvider {
