@@ -48,13 +48,16 @@ export class PublicKey implements ABISerializableObject {
 
     /** @internal */
     static fromABI(decoder: ABIDecoder) {
-        const type = CurveType.from(decoder.readByte())
-        if (type == CurveType.WA) {
-            // "WA" keys pack some sort of metadata
-            // we probably need to restructure key data storage into containers like FC does
-            const data = new Bytes(decoder.readArray(33))
-            Bytes.fromABI(decoder) // throw away metadata for now
-            return new PublicKey(type, data)
+        const type = KeyType.from(decoder.readByte())
+        if (type == KeyType.WA) {
+            const startPos = decoder.getPosition()
+            decoder.advance(33) // key_data
+            decoder.advance(1) // user presence
+            decoder.advance(decoder.readVaruint32()) // rpid
+            const len = decoder.getPosition() - startPos
+            decoder.setPosition(startPos)
+            const data = Bytes.from(decoder.readArray(len))
+            return new PublicKey(KeyType.WA, data)
         }
         return new PublicKey(type, new Bytes(decoder.readArray(33)))
     }
@@ -88,10 +91,7 @@ export class PublicKey implements ABISerializableObject {
 
     /** @internal */
     toABI(encoder: ABIEncoder) {
-        if (this.type === CurveType.WA) {
-            throw new Error('WA keys are not supported yet')
-        }
-        encoder.writeByte(CurveType.indexFor(this.type))
+        encoder.writeByte(KeyType.indexFor(this.type))
         encoder.writeArray(this.data.array)
     }
 

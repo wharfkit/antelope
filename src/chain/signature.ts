@@ -59,13 +59,16 @@ export class Signature implements ABISerializableObject {
 
     /** @internal */
     static fromABI(decoder: ABIDecoder) {
-        const type = CurveType.from(decoder.readByte())
-        if (type === CurveType.WA) {
-            // same as with public keys WA type has some extra data tacked on
-            const data = new Bytes(decoder.readArray(65)) // sig
-            Bytes.fromABI(decoder) // throw away for now
-            Bytes.fromABI(decoder)
-            return new Signature(CurveType.WA, data)
+        const type = KeyType.from(decoder.readByte())
+        if (type === KeyType.WA) {
+            const startPos = decoder.getPosition()
+            decoder.advance(65) // compact_signature
+            decoder.advance(decoder.readVaruint32()) // auth_data
+            decoder.advance(decoder.readVaruint32()) // client_json
+            const len = decoder.getPosition() - startPos
+            decoder.setPosition(startPos)
+            const data = Bytes.from(decoder.readArray(len))
+            return new Signature(KeyType.WA, data)
         }
         return new Signature(type, new Bytes(decoder.readArray(65)))
     }
@@ -111,10 +114,7 @@ export class Signature implements ABISerializableObject {
 
     /** @internal */
     toABI(encoder: ABIEncoder) {
-        if (this.type === CurveType.WA) {
-            throw new Error('WA signatures are not supported yet')
-        }
-        encoder.writeByte(CurveType.indexFor(this.type))
+        encoder.writeByte(KeyType.indexFor(this.type))
         encoder.writeArray(this.data.array)
     }
 

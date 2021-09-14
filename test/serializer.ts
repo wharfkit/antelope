@@ -264,6 +264,21 @@ suite('serializer', function () {
         assert.equal(JSON.stringify(object), json)
     })
 
+    test('public key (wa)', function () {
+        const data =
+            '020220b9dab512e892392a44a9f41f9433c9fbd80db864e9df5889c2407db3acbb9f010d6b656f73642e696e76616c6964'
+        const object = PublicKey.from(
+            'PUB_WA_WdCPfafVNxVMiW5ybdNs83oWjenQXvSt1F49fg9mv7qrCiRwHj5b38U3ponCFWxQTkDsMC'
+        )
+        const json =
+            '"PUB_WA_WdCPfafVNxVMiW5ybdNs83oWjenQXvSt1F49fg9mv7qrCiRwHj5b38U3ponCFWxQTkDsMC"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: PublicKey})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'public_key'})), json)
+        assert.equal(JSON.stringify(object), json)
+    })
+
     test('signature', function () {
         const data =
             '00205150a67288c3b393fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6c3dfdd231ed389'
@@ -272,6 +287,26 @@ suite('serializer', function () {
         )
         const json =
             '"SIG_K1_KfPLgpw35iX8nfDzhbcmSBCr7nEGNEYXgmmempQspDJYBCKuAEs5rm3s4ZuLJY428Ca8ZhvR2Dkwu118y3NAoMDxhicRj9"'
+
+        assert.equal(Serializer.encode({object}).hexString, data)
+        assert.equal(JSON.stringify(Serializer.decode({data, type: Signature})), json)
+        assert.equal(JSON.stringify(Serializer.decode({json, type: 'signature'})), json)
+        assert.equal(JSON.stringify(object), json)
+    })
+
+    test('signature (wa)', function () {
+        const sig =
+            'SIG_WA_2AAAuLJS3pLPgkQQPqLsehL6VeRBaAZS7NYM91UYRUrSAEfUvzKN7DCSwhjsDqe74cZNWKUU' +
+            'GAHGG8ddSA7cvUxChbfKxLSrDCpwe6MVUqz4PDdyCt5tXhEJmKekxG1o1ucY3LVj8Vi9rRbzAkKPCzW' +
+            'qC8cPcUtpLHNG8qUKkQrN4Xuwa9W8rsBiUKwZv1ToLyVhLrJe42pvHYBXicp4E8qec5E4m6SX11KuXE' +
+            'RFcV48Mhiie2NyaxdtNtNzQ5XZ5hjBkxRujqejpF4SNHvdAGKRBbvhkiPLA25FD3xoCbrN26z72'
+        const data =
+            '0220d9132bbdb219e4e2d99af9c507e3597f86b615814f36672d501034861792bbcf21a46d1a2eb12bace4a29100b942f987494f3aefc8' +
+            'efb2d5af4d4d8de3e0871525aa14905af60ca17a1bb80e0cf9c3b46908a0f14f72567a2f140c3a3bd2ef074c010000006d737b226f7269' +
+            '67696e223a2268747470733a2f2f6b656f73642e696e76616c6964222c2274797065223a22776562617574686e2e676574222c22636861' +
+            '6c6c656e6765223a226f69567235794848304a4336453962446675347142735a6a527a70416c5131505a50436e5974766850556b3d227d'
+        const object = Signature.from(sig)
+        const json = `"${sig}"`
 
         assert.equal(Serializer.encode({object}).hexString, data)
         assert.equal(JSON.stringify(Serializer.decode({data, type: Signature})), json)
