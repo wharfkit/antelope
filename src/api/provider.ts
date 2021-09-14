@@ -5,6 +5,7 @@ export interface APIResponse {
     json?: any
     text: string
     status: number
+    headers: Record<string, string>
 }
 
 export interface APIProvider {
@@ -60,6 +61,10 @@ export class FetchProvider implements APIProvider {
         } catch {
             // ignore json parse errors
         }
-        return {status: response.status, json, text}
+        const headers = {}
+        for (const [key, value] of response.headers.entries()) {
+            headers[key] = value
+        }
+        return {headers, status: response.status, json, text}
     }
 }
