@@ -1,4 +1,14 @@
 {
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "484",
+        "content-type": "application/json",
+        "date": "Fri, 10 Sep 2021 01:02:15 GMT",
+        "server": "nginx"
+    },
     "status": 500,
     "json": {
         "code": 500,
