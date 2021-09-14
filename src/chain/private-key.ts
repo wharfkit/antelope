@@ -12,7 +12,7 @@ import {
     Checksum256,
     Checksum256Type,
     Checksum512,
-    CurveType,
+    KeyType,
     PublicKey,
     Signature,
 } from '../'
@@ -20,7 +20,7 @@ import {
 export type PrivateKeyType = PrivateKey | string
 
 export class PrivateKey {
-    type: CurveType
+    type: KeyType
     data: Bytes
 
     /** Create PrivateKey object from representing types. */
@@ -40,14 +40,14 @@ export class PrivateKey {
         try {
             const {type, data} = decodeKey(string)
             return new this(type, data)
-        } catch (error) {
+        } catch (error: any) {
             error.message = `Invalid private key (${error.message})`
             if (
                 ignoreChecksumError &&
                 isInstanceOf(error, Base58.DecodingError) &&
                 error.code === Base58.ErrorCode.E_CHECKSUM
             ) {
-                const type = string.startsWith('PVT_R1') ? CurveType.R1 : CurveType.K1
+                const type = string.startsWith('PVT_R1') ? KeyType.R1 : KeyType.K1
                 let data = new Bytes(error.info.data)
                 if (data.array.length == 33) {
                     data = data.droppingFirst()
@@ -62,12 +62,12 @@ export class PrivateKey {
      * Generate new PrivateKey.
      * @throws If a secure random source isn't available.
      */
-    static generate(type: CurveType | string) {
-        return new PrivateKey(CurveType.from(type), new Bytes(generate(type)))
+    static generate(type: KeyType | string) {
+        return new PrivateKey(KeyType.from(type), new Bytes(generate(type)))
     }
 
     /** @internal */
-    constructor(type: CurveType, data: Bytes) {
+    constructor(type: KeyType, data: Bytes) {
         this.type = type
         this.data = data
     }
@@ -112,7 +112,7 @@ export class PrivateKey {
      * @throws If the key type isn't K1.
      */
     toWif() {
-        if (this.type !== CurveType.K1) {
+        if (this.type !== KeyType.K1) {
             throw new Error('Unable to generate WIF for non-k1 key')
         }
         return Base58.encodeCheck(Bytes.from([0x80]).appending(this.data))
@@ -142,11 +142,11 @@ function decodeKey(value: string) {
         if (parts.length !== 3) {
             throw new Error('Invalid PVT format')
         }
-        const type = CurveType.from(parts[1])
+        const type = KeyType.from(parts[1])
         let size: number | undefined
         switch (type) {
-            case CurveType.K1:
-            case CurveType.R1:
+            case KeyType.K1:
+            case KeyType.R1:
                 size = 32
                 break
         }
@@ -154,7 +154,7 @@ function decodeKey(value: string) {
         return {type, data}
     } else {
         // WIF format
-        const type = CurveType.K1
+        const type = KeyType.K1
         const data = Base58.decodeCheck(value)
         if (data.array[0] !== 0x80) {
             throw new Error('Invalid WIF')

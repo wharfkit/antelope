@@ -5,7 +5,7 @@ import {ABISerializableObject} from '../serializer/serializable'
 import {Base58} from '../base58'
 import {isInstanceOf} from '../utils'
 
-import {Bytes, CurveType} from '../'
+import {Bytes, KeyType} from '../'
 
 export type PublicKeyType = PublicKey | string | {type: string; compressed: Uint8Array}
 
@@ -13,7 +13,7 @@ export class PublicKey implements ABISerializableObject {
     static abiName = 'public_key'
 
     /** Type, e.g. `K1` */
-    type: CurveType
+    type: KeyType
     /** Compressed public key point. */
     data: Bytes
 
@@ -23,7 +23,7 @@ export class PublicKey implements ABISerializableObject {
             return value
         }
         if (typeof value === 'object' && value.type && value.compressed) {
-            return new PublicKey(CurveType.from(value.type), new Bytes(value.compressed))
+            return new PublicKey(KeyType.from(value.type), new Bytes(value.compressed))
         }
         if (typeof value !== 'string') {
             throw new Error('Invalid public key')
@@ -33,14 +33,14 @@ export class PublicKey implements ABISerializableObject {
             if (parts.length !== 3) {
                 throw new Error('Invalid public key string')
             }
-            const type = CurveType.from(parts[1])
-            const size = type === CurveType.K1 || type === CurveType.R1 ? 33 : undefined
+            const type = KeyType.from(parts[1])
+            const size = type === KeyType.K1 || type === KeyType.R1 ? 33 : undefined
             const data = Base58.decodeRipemd160Check(parts[2], size, type)
             return new PublicKey(type, data)
         } else if (value.length >= 50) {
             // Legacy EOS key
             const data = Base58.decodeRipemd160Check(value.slice(-50))
-            return new PublicKey(CurveType.K1, data)
+            return new PublicKey(KeyType.K1, data)
         } else {
             throw new Error('Invalid public key string')
         }
@@ -60,7 +60,7 @@ export class PublicKey implements ABISerializableObject {
     }
 
     /** @internal */
-    constructor(type: CurveType, data: Bytes) {
+    constructor(type: KeyType, data: Bytes) {
         this.type = type
         this.data = data
     }
@@ -75,7 +75,7 @@ export class PublicKey implements ABISerializableObject {
      * @throws If the key type isn't `K1`
      */
     toLegacyString(prefix = 'EOS') {
-        if (this.type !== CurveType.K1) {
+        if (this.type !== KeyType.K1) {
             throw new Error('Unable to create legacy formatted string for non-K1 key')
         }
         return `${prefix}${Base58.encodeRipemd160Check(this.data)}`
