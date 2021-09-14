@@ -1,7 +1,7 @@
 // types with no inter-dependencies
 export * from './bytes'
 export * from './checksum'
-export * from './curve-type'
+export * from './key-type'
 export * from './integer'
 export * from './struct'
 export * from './type-alias'

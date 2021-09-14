@@ -8,7 +8,7 @@ import {isInstanceOf} from '../utils'
 import {recover} from '../crypto/recover'
 import {verify} from '../crypto/verify'
 
-import {Bytes, BytesType, Checksum256, Checksum256Type, CurveType, PublicKey} from '../'
+import {Bytes, BytesType, Checksum256, Checksum256Type, KeyType, PublicKey} from '../'
 
 export type SignatureType =
     | Signature
@@ -19,7 +19,7 @@ export class Signature implements ABISerializableObject {
     static abiName = 'signature'
 
     /** Type, e.g. `K1` */
-    type: CurveType
+    type: KeyType
     /** Signature data. */
     data: Bytes
 
@@ -31,8 +31,8 @@ export class Signature implements ABISerializableObject {
         if (typeof value === 'object' && value.r && value.s) {
             const data = new Uint8Array(1 + 32 + 32)
             let recid = value.recid
-            const type = CurveType.from(value.type)
-            if (value.type === CurveType.K1 || value.type === CurveType.R1) {
+            const type = KeyType.from(value.type)
+            if (value.type === KeyType.K1 || value.type === KeyType.R1) {
                 recid += 31
             }
             data[0] = recid
@@ -48,8 +48,8 @@ export class Signature implements ABISerializableObject {
             if (parts.length !== 3) {
                 throw new Error('Invalid signature string')
             }
-            const type = CurveType.from(parts[1])
-            const size = type === CurveType.K1 || type === CurveType.R1 ? 65 : undefined
+            const type = KeyType.from(parts[1])
+            const size = type === KeyType.K1 || type === KeyType.R1 ? 65 : undefined
             const data = Base58.decodeRipemd160Check(parts[2], size, type)
             return new Signature(type, data)
         } else {
@@ -71,7 +71,7 @@ export class Signature implements ABISerializableObject {
     }
 
     /** @internal */
-    constructor(type: CurveType, data: Bytes) {
+    constructor(type: KeyType, data: Bytes) {
         this.type = type
         this.data = data
     }
