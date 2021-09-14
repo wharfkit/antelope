@@ -331,4 +331,8 @@ export class ABIEncoder {
     getData(): Uint8Array {
         return new Uint8Array(this.array.buffer, this.array.byteOffset, this.pos)
     }
+
+    getBytes(): Bytes {
+        return new Bytes(this.getData())
+    }
 }

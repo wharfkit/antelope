@@ -3,24 +3,34 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABIDecoder} from '../serializer/decoder'
 import {arrayEquals, arrayToHex, hexToArray, isInstanceOf, secureRandom} from '../utils'
 
-export type BytesType = Bytes | Uint8Array | ArrayLike<number> | string
+export type BytesType = Bytes | ArrayBufferView | ArrayBuffer | ArrayLike<number> | string
+
+// This allows passing any object following the .array convention to a Bytes method
+type AnyBytes = BytesType | {array: Uint8Array}
 
 export type BytesEncoding = 'hex' | 'utf8'
 
 export class Bytes implements ABISerializableObject {
     static abiName = 'bytes'
 
-    static from(value: BytesType, encoding?: BytesEncoding): Bytes {
+    /**
+     * Create a new Bytes instance.
+     * @note Make sure to take a [[copy]] before mutating the bytes as the underlying source is not copied here.
+     */
+    static from(value: AnyBytes, encoding?: BytesEncoding): Bytes {
         if (isInstanceOf(value, this)) {
             return value
         }
         if (typeof value === 'string') {
             return this.fromString(value, encoding)
         }
-        if (isInstanceOf(value, Uint8Array)) {
-            return new this(value)
+        if (ArrayBuffer.isView(value)) {
+            return new this(new Uint8Array(value.buffer, value.byteOffset, value.byteLength))
         }
-        return new this(new Uint8Array(value))
+        if (isInstanceOf(value['array'], Uint8Array)) {
+            return new this(value['array'])
+        }
+        return new this(new Uint8Array(value as any))
     }
 
     static fromString(value: string, encoding: BytesEncoding = 'hex') {
@@ -76,14 +86,22 @@ export class Bytes implements ABISerializableObject {
         return new TextDecoder().decode(this.array)
     }
 
-    appending(other: BytesType): Bytes {
+    /** Mutating. Append bytes to this instance. */
+    append(other: AnyBytes) {
         other = Bytes.from(other)
         const newSize = this.array.byteLength + other.array.byteLength
         const buffer = new ArrayBuffer(newSize)
         const array = new Uint8Array(buffer)
         array.set(this.array)
         array.set(other.array, this.array.byteLength)
-        return new Bytes(array)
+        this.array = array
+    }
+
+    /** Non-mutating, returns a copy of this instance with appended bytes. */
+    appending(other: AnyBytes): Bytes {
+        const rv = new Bytes(this.array)
+        rv.append(other)
+        return rv
     }
 
     droppingFirst(n = 1) {
@@ -97,7 +115,7 @@ export class Bytes implements ABISerializableObject {
         return new Bytes(array)
     }
 
-    equals(other: BytesType): boolean {
+    equals(other: AnyBytes): boolean {
         return arrayEquals(this.array, Bytes.from(other).array)
     }
 
