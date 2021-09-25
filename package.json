@@ -3,7 +3,7 @@
     "description": "Library for working with EOSIO blockchains",
     "version": "0.5.0",
     "homepage": "https://github.com/greymass/eosio-core",
-    "license": "BSD-3-Clause",
+    "license": "BSD-3-Clause-No-Military-License",
     "main": "lib/eosio-core.js",
     "module": "lib/eosio-core.m.js",
     "types": "lib/eosio-core.d.ts",
