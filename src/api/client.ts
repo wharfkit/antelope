@@ -67,22 +67,26 @@ export class APIError extends Error {
 
     /** The nodeos error object. */
     get error() {
-        return this.response.json?.error as APIErrorData | undefined
+        const {json} = this.response
+        return (json ? json.error : undefined) as APIErrorData | undefined
     }
 
     /** The nodeos error name, e.g. `tx_net_usage_exceeded` */
     get name() {
-        return this.error?.name || 'unspecified'
+        const {error} = this
+        return error ? error.name : 'unspecified'
     }
 
     /** The nodeos error code, e.g. `3080002`. */
     get code() {
-        return this.error?.code || 0
+        const {error} = this
+        return error ? error.code : 0
     }
 
     /** List of exceptions, if any. */
     get details() {
-        return this.error?.details || []
+        const {error} = this
+        return error ? error.details : []
     }
 }
 
@@ -119,7 +123,8 @@ export class APIClient {
     async call<T = unknown>(args: {path: string; params?: unknown}): Promise<T>
     async call(args: {path: string; params?: unknown; responseType?: ABISerializableType}) {
         const response = await this.provider.call(args.path, args.params)
-        if (Math.floor(response.status / 100) !== 2 || typeof response.json?.error === 'object') {
+        const {json} = response
+        if (Math.floor(response.status / 100) !== 2 || (json && typeof json.error === 'object')) {
             throw new APIError(args.path, response)
         }
         if (args.responseType) {
