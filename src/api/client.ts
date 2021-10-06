@@ -32,7 +32,8 @@ export class APIError extends Error {
     static formatError(error: APIErrorData) {
         if (
             error.what === 'unspecified' &&
-            error.details[0]?.file === 'http_plugin.cpp' &&
+            error.details[0].file &&
+            error.details[0].file === 'http_plugin.cpp' &&
             error.details[0].message.slice(0, 11) === 'unknown key'
         ) {
             // fix cryptic error messages from nodeos for missing accounts
