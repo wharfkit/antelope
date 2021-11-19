@@ -1061,4 +1061,28 @@ suite('serializer', function () {
             Test.from({b: 'foo'})
         }, /encountered undefined for non-optional/)
     })
+
+    test('abi def', function () {
+        const abi = ABI.from({
+            types: [{new_type_name: 'b', type: 'a'}],
+            structs: [{base: '', name: 'a', fields: [{name: 'f', type: 'a'}]}],
+            tables: [
+                {name: 't', type: 'a', index_type: 'i64', key_names: ['k'], key_types: ['i64']},
+            ],
+            ricardian_clauses: [{id: 'foo', body: 'bar'}],
+            variants: [{name: 'v', types: ['a', 'b']}],
+        })
+        const data = Serializer.encode({object: abi})
+        assert.equal(
+            data.hexString,
+            '0e656f73696f3a3a6162692f312e310101620161010161000101660161000100000000000000c80369363401016b010369363401610103666f6f0362617200000101760201610162'
+        )
+        const decoded = Serializer.objectify(Serializer.decode({data, type: ABI}))
+        assert.deepEqual(abi.types, decoded.types)
+        assert.deepEqual(abi.structs, decoded.structs)
+        assert.deepEqual(abi.tables, decoded.tables)
+        assert.deepEqual(abi.ricardian_clauses, decoded.ricardian_clauses)
+        assert.deepEqual(abi.variants, decoded.variants)
+        assert.ok(abi.equals(decoded))
+    })
 })
