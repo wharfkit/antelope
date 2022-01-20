@@ -374,6 +374,36 @@ suite('chain', function () {
         assert.equal(digest1.toString(), digest2.toString())
     })
 
+    test('transaction signingData', async function () {
+        const transaction = Transaction.from({
+            expiration: '1970-01-01T00:00:00',
+            ref_block_num: 0,
+            ref_block_prefix: 0,
+            max_net_usage_words: 0,
+            max_cpu_usage_ms: 0,
+            delay_sec: 0,
+            context_free_actions: [],
+            actions: [
+                {
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{actor: 'corecorecore', permission: 'active'}],
+                    data:
+                        'a02e45ea52a42e4580b1915e5d268dcaba0100000000000004454f5300' +
+                        '00000019656f73696f2d636f7265206973207468652062657374203c33',
+                },
+            ],
+            transaction_extensions: [],
+        })
+        const chainId = Checksum256.from(
+            '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
+        )
+        const data1 = transaction.signingData(chainId)
+        const data2 = transaction.signingData(chainId.toString())
+        assert.equal(data1.equals(data2), true)
+        assert.equal(data1.toString(), data2.toString())
+    })
+
     test('action with no arguments', function () {
         const abi = {
             structs: [{name: 'noop', base: '', fields: []}],

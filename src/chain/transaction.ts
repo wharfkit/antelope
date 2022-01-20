@@ -136,10 +136,15 @@ export class Transaction extends TransactionHeader {
     }
 
     signingDigest(chainId: Checksum256Type): Checksum256 {
+        const data = this.signingData(chainId)
+        return Checksum256.hash(data)
+    }
+
+    signingData(chainId: Checksum256Type): Bytes {
         let data = Bytes.from(Checksum256.from(chainId).array)
         data = data.appending(abiEncode({object: this}))
         data = data.appending(new Uint8Array(32))
-        return Checksum256.hash(data)
+        return data
     }
 }
 
