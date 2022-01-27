@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ABIDecoder | @greymass/eosio - v0.4.7</title>
-	<meta name="description" content="Documentation for @greymass/eosio - v0.4.7">
+	<title>ABIDecoder | @greymass/eosio - v0.5.4</title>
+	<meta name="description" content="Documentation for @greymass/eosio - v0.5.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@greymass/eosio - v0.4.7</a>
+					<a href="../index.html" class="title">@greymass/eosio - v0.5.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../index.html">@greymass/eosio - v0.4.7</a>
+					<a href="../index.html">@greymass/eosio - v0.5.4</a>
 				</li>
 				<li>
 					<a href="ABIDecoder.html">ABIDecoder</a>
@@ -93,13 +93,16 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#advance" class="tsd-kind-icon">advance</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#canRead" class="tsd-kind-icon">can<wbr>Read</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#getPosition" class="tsd-kind-icon">get<wbr>Position</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readArray" class="tsd-kind-icon">read<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readByte" class="tsd-kind-icon">read<wbr>Byte</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readFloat" class="tsd-kind-icon">read<wbr>Float</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readString" class="tsd-kind-icon">read<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readVarint32" class="tsd-kind-icon">read<wbr>Varint32</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#readVaruint32" class="tsd-kind-icon">read<wbr>Varuint32</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABIDecoder.html#setPosition" class="tsd-kind-icon">set<wbr>Position</a></li>
 							</ul>
 						</section>
 					</div>
@@ -117,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L318">src/serializer/decoder.ts:318</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L318">src/serializer/decoder.ts:318</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L316">src/serializer/decoder.ts:316</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L316">src/serializer/decoder.ts:316</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,13 +157,36 @@
 					<div class="tsd-signature tsd-kind-icon">__class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;ABIDecoder&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L309">src/serializer/decoder.ts:309</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L309">src/serializer/decoder.ts:309</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="advance" class="tsd-anchor"></a>
+					<h3>advance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">advance<span class="tsd-signature-symbol">(</span>bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L343">src/serializer/decoder.ts:343</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bytes: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="canRead" class="tsd-anchor"></a>
 					<h3>can<wbr>Read</h3>
@@ -171,7 +197,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L322">src/serializer/decoder.ts:322</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L322">src/serializer/decoder.ts:322</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -185,6 +211,23 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getPosition" class="tsd-anchor"></a>
+					<h3>get<wbr>Position</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Position<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L339">src/serializer/decoder.ts:339</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="readArray" class="tsd-anchor"></a>
 					<h3>read<wbr>Array</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -194,7 +237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L379">src/serializer/decoder.ts:379</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L395">src/serializer/decoder.ts:395</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -217,7 +260,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L333">src/serializer/decoder.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L349">src/serializer/decoder.ts:349</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,7 +282,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L339">src/serializer/decoder.ts:339</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L355">src/serializer/decoder.ts:355</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -267,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L386">src/serializer/decoder.ts:386</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L402">src/serializer/decoder.ts:402</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -284,7 +327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L370">src/serializer/decoder.ts:370</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L386">src/serializer/decoder.ts:386</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -301,10 +344,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/serializer/decoder.ts#L356">src/serializer/decoder.ts:356</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L372">src/serializer/decoder.ts:372</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setPosition" class="tsd-anchor"></a>
+					<h3>set<wbr>Position</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Position<span class="tsd-signature-symbol">(</span>pos<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/serializer/decoder.ts#L332">src/serializer/decoder.ts:332</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pos: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -335,7 +401,13 @@
 								<a href="ABIDecoder.html#__className" class="tsd-kind-icon">__class<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABIDecoder.html#advance" class="tsd-kind-icon">advance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ABIDecoder.html#canRead" class="tsd-kind-icon">can<wbr>Read</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABIDecoder.html#getPosition" class="tsd-kind-icon">get<wbr>Position</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ABIDecoder.html#readArray" class="tsd-kind-icon">read<wbr>Array</a>
@@ -354,6 +426,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ABIDecoder.html#readVaruint32" class="tsd-kind-icon">read<wbr>Varuint32</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABIDecoder.html#setPosition" class="tsd-kind-icon">set<wbr>Position</a>
 							</li>
 						</ul>
 					</li>

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ABI | @greymass/eosio - v0.4.7</title>
-	<meta name="description" content="Documentation for @greymass/eosio - v0.4.7">
+	<title>ABI | @greymass/eosio - v0.5.4</title>
+	<meta name="description" content="Documentation for @greymass/eosio - v0.5.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@greymass/eosio - v0.4.7</a>
+					<a href="../index.html" class="title">@greymass/eosio - v0.5.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../index.html">@greymass/eosio - v0.4.7</a>
+					<a href="../index.html">@greymass/eosio - v0.5.4</a>
 				</li>
 				<li>
 					<a href="ABI.html">ABI</a>
@@ -71,6 +71,12 @@
 					<li>
 						<span class="target">ABI</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/ABISerializableObject.html" class="tsd-signature-type" data-tsd-kind="Interface">ABISerializableObject</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -93,19 +99,23 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ABI.html#types" class="tsd-kind-icon">types</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ABI.html#variants" class="tsd-kind-icon">variants</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ABI.html#version" class="tsd-kind-icon">version</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ABI.html#__className" class="tsd-kind-icon">__class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ABI.html#abiName" class="tsd-kind-icon">abi<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="ABI.html#version-1" class="tsd-kind-icon">version</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#equals" class="tsd-kind-icon">equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#getActionType" class="tsd-kind-icon">get<wbr>Action<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#getStruct" class="tsd-kind-icon">get<wbr>Struct</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#getVariant" class="tsd-kind-icon">get<wbr>Variant</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#resolveAll" class="tsd-kind-icon">resolve<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#resolveType" class="tsd-kind-icon">resolve<wbr>Type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#toABI" class="tsd-kind-icon">toABI</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="ABI.html#toJSON" class="tsd-kind-icon">toJSON</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ABI.html#from" class="tsd-kind-icon">from</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ABI.html#fromABI" class="tsd-kind-icon">fromABI</a></li>
 							</ul>
 						</section>
 					</div>
@@ -123,7 +133,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L25">src/chain/abi.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L28">src/chain/abi.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -145,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">actions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.Action.html" class="tsd-signature-type" data-tsd-kind="Interface">Action</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L19">src/chain/abi.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L22">src/chain/abi.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">ricardian_<wbr>clauses<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.Clause.html" class="tsd-signature-type" data-tsd-kind="Interface">Clause</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L23">src/chain/abi.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L26">src/chain/abi.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -165,7 +175,7 @@
 					<div class="tsd-signature tsd-kind-icon">structs<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.Struct.html" class="tsd-signature-type" data-tsd-kind="Interface">Struct</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L17">src/chain/abi.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L20">src/chain/abi.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">tables<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.Table.html" class="tsd-signature-type" data-tsd-kind="Interface">Table</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L21">src/chain/abi.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L24">src/chain/abi.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +195,7 @@
 					<div class="tsd-signature tsd-kind-icon">types<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.TypeDef.html" class="tsd-signature-type" data-tsd-kind="Interface">TypeDef</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L13">src/chain/abi.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L16">src/chain/abi.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,7 +205,7 @@
 					<div class="tsd-signature tsd-kind-icon">variants<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ABI.Variant.html" class="tsd-signature-type" data-tsd-kind="Interface">Variant</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L15">src/chain/abi.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L18">src/chain/abi.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -205,17 +215,17 @@
 					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L11">src/chain/abi.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L14">src/chain/abi.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="__className" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> __class<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">__class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;ABI&#x27;</span></div>
+					<a name="abiName" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> abi<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">abi<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;abi&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L8">src/chain/abi.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L11">src/chain/abi.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -225,13 +235,42 @@
 					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;eosio::abi/1.1&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L9">src/chain/abi.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L12">src/chain/abi.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="equals" class="tsd-anchor"></a>
+					<h3>equals</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>other<span class="tsd-signature-symbol">: </span><a href="../index.html#ABIDef" class="tsd-signature-type" data-tsd-kind="Type alias">ABIDef</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ABISerializableObject.html">ABISerializableObject</a>.<a href="../interfaces/ABISerializableObject.html#equals">equals</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L260">src/chain/abi.ts:260</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Return true if the object equals the other object passed.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>other: <a href="../index.html#ABIDef" class="tsd-signature-type" data-tsd-kind="Type alias">ABIDef</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getActionType" class="tsd-anchor"></a>
 					<h3>get<wbr>Action<wbr>Type</h3>
@@ -242,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L106">src/chain/abi.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L252">src/chain/abi.ts:252</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -270,7 +309,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L97">src/chain/abi.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L243">src/chain/abi.ts:243</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -293,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L101">src/chain/abi.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L247">src/chain/abi.ts:247</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -316,7 +355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L50">src/chain/abi.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L196">src/chain/abi.ts:196</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>structs<span class="tsd-signature-symbol">: </span><a href="ABI.ResolvedType.html" class="tsd-signature-type" data-tsd-kind="Class">ResolvedType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>types<span class="tsd-signature-symbol">: </span><a href="ABI.ResolvedType.html" class="tsd-signature-type" data-tsd-kind="Class">ResolvedType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>variants<span class="tsd-signature-symbol">: </span><a href="ABI.ResolvedType.html" class="tsd-signature-type" data-tsd-kind="Class">ResolvedType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
@@ -344,7 +383,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L45">src/chain/abi.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L191">src/chain/abi.ts:191</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -354,6 +393,87 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ABI.ResolvedType.html" class="tsd-signature-type" data-tsd-kind="Class">ResolvedType</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toABI" class="tsd-anchor"></a>
+					<h3>toABI</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">toABI<span class="tsd-signature-symbol">(</span>encoder<span class="tsd-signature-symbol">: </span><a href="ABIEncoder.html" class="tsd-signature-type" data-tsd-kind="Class">ABIEncoder</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ABISerializableObject.html">ABISerializableObject</a>.<a href="../interfaces/ABISerializableObject.html#toABI">toABI</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L137">src/chain/abi.ts:137</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called when encoding to binary abi format.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>encoder: <a href="ABIEncoder.html" class="tsd-signature-type" data-tsd-kind="Class">ABIEncoder</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toJSON" class="tsd-anchor"></a>
+					<h3>toJSON</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">toJSON<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>abi_extensions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>actions<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Action.html" class="tsd-signature-type" data-tsd-kind="Interface">Action</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>error_messages<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>ricardian_clauses<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Clause.html" class="tsd-signature-type" data-tsd-kind="Interface">Clause</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>structs<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Struct.html" class="tsd-signature-type" data-tsd-kind="Interface">Struct</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>tables<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Table.html" class="tsd-signature-type" data-tsd-kind="Interface">Table</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>types<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.TypeDef.html" class="tsd-signature-type" data-tsd-kind="Interface">TypeDef</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>variants<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Variant.html" class="tsd-signature-type" data-tsd-kind="Interface">Variant</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ABISerializableObject.html">ABISerializableObject</a>.<a href="../interfaces/ABISerializableObject.html#toJSON">toJSON</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L276">src/chain/abi.ts:276</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called when encoding to json abi format.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>abi_extensions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>actions<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Action.html" class="tsd-signature-type" data-tsd-kind="Interface">Action</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>error_messages<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>ricardian_clauses<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Clause.html" class="tsd-signature-type" data-tsd-kind="Interface">Clause</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>structs<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Struct.html" class="tsd-signature-type" data-tsd-kind="Interface">Struct</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>tables<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Table.html" class="tsd-signature-type" data-tsd-kind="Interface">Table</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>types<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.TypeDef.html" class="tsd-signature-type" data-tsd-kind="Interface">TypeDef</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>variants<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Variant.html" class="tsd-signature-type" data-tsd-kind="Interface">Variant</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>abi_<wbr>extensions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>actions<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Action.html" class="tsd-signature-type" data-tsd-kind="Interface">Action</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>error_<wbr>messages<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>ricardian_<wbr>clauses<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Clause.html" class="tsd-signature-type" data-tsd-kind="Interface">Clause</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>structs<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Struct.html" class="tsd-signature-type" data-tsd-kind="Interface">Struct</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>tables<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Table.html" class="tsd-signature-type" data-tsd-kind="Interface">Table</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>types<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.TypeDef.html" class="tsd-signature-type" data-tsd-kind="Interface">TypeDef</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>variants<span class="tsd-signature-symbol">: </span><a href="../interfaces/ABI.Variant.html" class="tsd-signature-type" data-tsd-kind="Interface">Variant</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -367,13 +487,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/a46d191/src/chain/abi.ts#L35">src/chain/abi.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L38">src/chain/abi.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>value: <a href="../index.html#ABIDef" class="tsd-signature-type" data-tsd-kind="Type alias">ABIDef</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ABI.html" class="tsd-signature-type" data-tsd-kind="Class">ABI</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromABI" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> fromABI</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">fromABI<span class="tsd-signature-symbol">(</span>decoder<span class="tsd-signature-symbol">: </span><a href="ABIDecoder.html" class="tsd-signature-type" data-tsd-kind="Class">ABIDecoder</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ABI.html" class="tsd-signature-type" data-tsd-kind="Class">ABI</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/greymass/eosio-core/blob/7d5f824/src/chain/abi.ts#L48">src/chain/abi.ts:48</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>decoder: <a href="ABIDecoder.html" class="tsd-signature-type" data-tsd-kind="Class">ABIDecoder</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ABI.html" class="tsd-signature-type" data-tsd-kind="Class">ABI</a></h4>
@@ -422,10 +565,13 @@
 								<a href="ABI.html#version" class="tsd-kind-icon">version</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="ABI.html#__className" class="tsd-kind-icon">__class<wbr>Name</a>
+								<a href="ABI.html#abiName" class="tsd-kind-icon">abi<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="ABI.html#version-1" class="tsd-kind-icon">version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABI.html#equals" class="tsd-kind-icon">equals</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ABI.html#getActionType" class="tsd-kind-icon">get<wbr>Action<wbr>Type</a>
@@ -442,8 +588,17 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="ABI.html#resolveType" class="tsd-kind-icon">resolve<wbr>Type</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABI.html#toABI" class="tsd-kind-icon">toABI</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="ABI.html#toJSON" class="tsd-kind-icon">toJSON</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="ABI.html#from" class="tsd-kind-icon">from</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="ABI.html#fromABI" class="tsd-kind-icon">fromABI</a>
 							</li>
 						</ul>
 					</li>
