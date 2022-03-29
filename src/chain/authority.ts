@@ -13,22 +13,22 @@ import {
 import {isInstanceOf} from '../utils'
 
 @TypeAlias('weight_type')
-class Weight extends UInt16 {}
+export class Weight extends UInt16 {}
 
 @Struct.type('key_weight')
-class KeyWeight extends Struct {
+export class KeyWeight extends Struct {
     @Struct.field(PublicKey) key!: PublicKey
     @Struct.field(Weight) weight!: Weight
 }
 
 @Struct.type('permission_level_weight')
-class PermissionLevelWeight extends Struct {
+export class PermissionLevelWeight extends Struct {
     @Struct.field(PermissionLevel) permission!: PermissionLevel
     @Struct.field(Weight) weight!: Weight
 }
 
 @Struct.type('wait_weight')
-class WaitWeight extends Struct {
+export class WaitWeight extends Struct {
     @Struct.field(UInt32) wait_sec!: UInt32
     @Struct.field(Weight) weight!: Weight
 }
