@@ -58,14 +58,19 @@ export class TransactionHeader extends Struct {
     /** Specifies the lower 32 bits of the block id. */
     @Struct.field('uint32') ref_block_prefix!: UInt32
     /** Upper limit on total network bandwidth (in 8 byte words) billed for this transaction. */
-    @Struct.field('varuint32', {default: 0}) max_net_usage_words!: VarUInt
+    @Struct.field('varuint32') max_net_usage_words!: VarUInt
     /** Upper limit on the total CPU time billed for this transaction. */
-    @Struct.field('uint8', {default: 0}) max_cpu_usage_ms!: UInt8
+    @Struct.field('uint8') max_cpu_usage_ms!: UInt8
     /** Number of seconds to delay this transaction for during which it may be canceled. */
-    @Struct.field('varuint32', {default: 0}) delay_sec!: VarUInt
+    @Struct.field('varuint32') delay_sec!: VarUInt
 
     static from(object: TransactionHeaderType) {
-        return super.from(object) as TransactionHeader
+        return super.from({
+            max_net_usage_words: 0,
+            max_cpu_usage_ms: 0,
+            delay_sec: 0,
+            ...object,
+        }) as TransactionHeader
     }
 }
 
@@ -92,11 +97,11 @@ export type TransactionType = Transaction | TransactionFields
 @Struct.type('transaction')
 export class Transaction extends TransactionHeader {
     /** The context free actions in the transaction. */
-    @Struct.field(Action, {array: true, default: []}) context_free_actions!: Action[]
+    @Struct.field(Action, {array: true}) context_free_actions!: Action[]
     /** The actions in the transaction. */
-    @Struct.field(Action, {array: true, default: []}) actions!: Action[]
+    @Struct.field(Action, {array: true}) actions!: Action[]
     /** Transaction extensions. */
-    @Struct.field(TransactionExtension, {array: true, default: []})
+    @Struct.field(TransactionExtension, {array: true})
     transaction_extensions!: TransactionExtension[]
 
     static from(
@@ -118,6 +123,7 @@ export class Transaction extends TransactionHeader {
         const actions = (object.actions || []).map(resolveAction)
         const context_free_actions = (object.context_free_actions || []).map(resolveAction)
         const transaction = {
+            transaction_extensions: [],
             ...object,
             context_free_actions,
             actions,
@@ -160,21 +166,43 @@ export type SignedTransactionType = SignedTransaction | SignedTransactionFields
 @Struct.type('signed_transaction')
 export class SignedTransaction extends Transaction {
     /** List of signatures. */
-    @Struct.field('signature[]', {default: []}) signatures!: Signature[]
+    @Struct.field('signature[]') signatures!: Signature[]
     /** Context-free action data, for each context-free action, there is an entry here. */
-    @Struct.field('bytes[]', {default: []}) context_free_data!: Bytes[]
+    @Struct.field('bytes[]') context_free_data!: Bytes[]
 
     static from(object: SignedTransactionType) {
-        return super.from(object) as SignedTransaction
+        return super.from({
+            signatures: [],
+            context_free_data: [],
+            ...object,
+        }) as SignedTransaction
     }
 }
+
+export type PackedTransactionType =
+    | PackedTransaction
+    | {
+          signatures?: SignatureType[]
+          compression?: UInt8Type
+          packed_context_free_data?: BytesType
+          packed_trx: BytesType
+      }
 
 @Struct.type('packed_transaction')
 export class PackedTransaction extends Struct {
     @Struct.field('signature[]') signatures!: Signature[]
-    @Struct.field('uint8', {default: 0}) compression!: UInt8
+    @Struct.field('uint8') compression!: UInt8
     @Struct.field('bytes') packed_context_free_data!: Bytes
     @Struct.field('bytes') packed_trx!: Bytes
+
+    static from(object: PackedTransactionType) {
+        return super.from({
+            signatures: [],
+            packed_context_free_data: '',
+            compression: 0,
+            ...object,
+        }) as PackedTransaction
+    }
 
     static fromSigned(signed: SignedTransaction) {
         const tx = Transaction.from(signed)

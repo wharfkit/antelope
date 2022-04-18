@@ -35,6 +35,7 @@ import {
 
 const StringType = {
     abiName: 'string',
+    abiDefault: () => '',
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readString()
     },
@@ -46,6 +47,7 @@ const StringType = {
 
 const BoolType = {
     abiName: 'bool',
+    abiDefault: () => false,
     fromABI: (decoder: ABIDecoder) => {
         return decoder.readByte() === 1
     },

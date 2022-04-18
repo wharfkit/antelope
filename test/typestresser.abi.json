@@ -68,7 +68,7 @@
             "base": "",
             "fields": [
                 {"name": "message", "type": "string"},
-                {"name": "extension", "type": "extension$"}
+                {"name": "extension", "type": "extension?"}
             ]
         }
     ],

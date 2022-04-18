@@ -10,6 +10,7 @@ import {
     ABIEncoder,
     Asset,
     Bytes,
+    Checksum256,
     Int128,
     Int32,
     Int32Type,
@@ -26,6 +27,7 @@ import {
     TypeAlias,
     UInt128,
     UInt16,
+    UInt32,
     UInt64,
     UInt8,
     Variant,
@@ -818,6 +820,7 @@ suite('serializer', function () {
                 message: 'hello',
                 extension: {
                     message: 'world',
+                    extension: null,
                 },
             },
         }
@@ -833,7 +836,7 @@ suite('serializer', function () {
                 'ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393' +
                 'fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6' +
                 'c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750' +
-                '49000000000000000053419a81ab0101010001020101000568656c6c6f05776f726c64'
+                '49000000000000000053419a81ab0101010001020101000568656c6c6f0105776f726c6400'
         )
         const decoded = Serializer.decode({data, type: 'all_types', abi})
         assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)
@@ -1084,5 +1087,83 @@ suite('serializer', function () {
         assert.deepEqual(abi.ricardian_clauses, decoded.ricardian_clauses)
         assert.deepEqual(abi.variants, decoded.variants)
         assert.ok(abi.equals(decoded))
+    })
+
+    test('binary extensions', function () {
+        @Struct.type('info_pair')
+        class InfoPair extends Struct {
+            @Struct.field('string') declare key: string
+            @Struct.field('bytes') declare value: Bytes
+        }
+        @TypeAlias('super_int')
+        class SuperInt extends UInt8 {
+            static abiDefault() {
+                return SuperInt.from(42)
+            }
+        }
+        @Variant.type('jazz_variant', [SuperInt, 'string'])
+        class JazzVariant extends Variant {}
+        @Struct.type('many_extensions')
+        class ManyExtensions extends Struct {
+            @Struct.field('string') declare name: string
+            @Struct.field(InfoPair, {array: true, extension: true}) declare info: InfoPair[]
+            @Struct.field(InfoPair, {extension: true}) declare singleInfo: InfoPair
+            @Struct.field('uint32$') declare uint32: UInt32
+            @Struct.field('asset$') declare asset: Asset
+            @Struct.field('checksum256$') declare checksum256: Checksum256
+            @Struct.field(SuperInt, {extension: true}) declare superInt: SuperInt
+            @Struct.field(JazzVariant, {extension: true}) declare jazz: JazzVariant
+            @Struct.field(JazzVariant, {extension: true, optional: true})
+            declare maybeJazz?: JazzVariant
+            @Struct.field('bool?$') declare dumbBool?: boolean
+            @Struct.field('bool$') declare bool: boolean
+        }
+        const res1 = Serializer.decode({data: '03666f6f', type: ManyExtensions})
+        assert.equal(res1.uint32.toNumber(), 0)
+        assert.equal(res1.asset.toString(), '0.0000 SYS')
+        assert.equal(res1.superInt.toNumber(), 42)
+        assert.equal(res1.jazz.value, 42)
+        assert.strictEqual(res1.maybeJazz, null)
+        assert.strictEqual(res1.dumbBool, null)
+        assert.strictEqual(res1.bool, false)
+        const res2 = Serializer.decode({object: {name: 'foo'}, type: ManyExtensions})
+        assert.ok(res1.equals(res2))
+        const abi = Serializer.synthesize(ManyExtensions)
+        const res3 = Serializer.decode({
+            object: {name: 'foo', dumbBool: false},
+            abi,
+            type: 'many_extensions',
+        }) as any
+        assert.equal(res3.superInt.toNumber(), 0) // expected since we loose coupling to the SuperInt type implementation and it resolves to UInt8 instead
+        assert.equal(res3.jazz[0], 'super_int')
+        assert.strictEqual(res3.dumbBool, false)
+        assert.strictEqual(res3.bool, false)
+        const res4 = Serializer.decode({
+            object: {name: 'foo', jazz: JazzVariant.from('hi'), maybeJazz: ['super_int', 22]},
+            abi,
+            type: 'many_extensions',
+            customTypes: [SuperInt, JazzVariant],
+        }) as any
+        assert.equal(res4.superInt.toNumber(), 42) // coupling restored
+        assert.equal(res4.jazz.value, 'hi')
+        assert.equal(res4.maybeJazz.value, 22)
+        const OptimisticBool: any = {
+            // don't try this at home, just because you can doesn't mean you should
+            abiName: 'bool',
+            abiDefault: () => true,
+            from: (value: boolean): boolean => value,
+        }
+        const res5 = Serializer.decode({
+            object: {name: 'foo'},
+            abi,
+            type: 'many_extensions',
+            customTypes: [SuperInt, JazzVariant, OptimisticBool],
+        }) as any
+        assert.strictEqual(res5.bool, true)
+
+        abi.structs[1].fields[1].type = 'many_extensions$'
+        assert.throws(() => {
+            Serializer.decode({data: '03666f6f', abi, type: 'many_extensions'})
+        }, /Circular type reference/)
     })
 })

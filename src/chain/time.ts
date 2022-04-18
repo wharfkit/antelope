@@ -55,6 +55,11 @@ class TimePointBase implements ABISerializableObject {
         return this.fromMilliseconds(date.getTime())
     }
 
+    static abiDefault<T extends TimePointConstructor>(this: T): InstanceType<T>
+    static abiDefault(): unknown {
+        return this.from(0)
+    }
+
     toABI(encoder: ABIEncoder) {
         const self = this as any
         self.value.toABI(encoder)

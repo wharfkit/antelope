@@ -144,7 +144,7 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
     }
     if (type.isExtension) {
         if (!decoder.canRead()) {
-            return undefined
+            return defaultValue(type, ctx)
         }
     }
     if (type.isOptional) {
@@ -219,11 +219,13 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
 
 function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext): any {
     if (value === null || value === undefined) {
-        if (type.isOptional || type.isExtension) {
+        if (type.isOptional) {
             return null
-        } else {
-            throw new Error(`Unexpectedly encountered ${value} for non-optional`)
         }
+        if (type.isExtension) {
+            return defaultValue(type, ctx)
+        }
+        throw new Error(`Unexpectedly encountered ${value} for non-optional`)
     } else if (type.isArray) {
         if (!Array.isArray(value)) {
             throw new Error('Expected array')
@@ -303,6 +305,56 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             return abiType.from(value)
         }
     }
+}
+
+/** Return default value (aka initialized value, matching C++ where possible) for given type */
+function defaultValue(
+    type: ABI.ResolvedType,
+    ctx: DecodingContext,
+    seen: Set<string> = new Set()
+): any {
+    if (type.isArray) {
+        return []
+    }
+    if (type.isOptional) {
+        return null
+    }
+    const abiType = ctx.types[type.name]
+    if (abiType && abiType.abiDefault) {
+        return abiType.abiDefault()
+    }
+    if (seen.has(type.name)) {
+        throw new Error('Circular type reference')
+    }
+    seen.add(type.name)
+    if (type.allFields) {
+        const rv: any = {}
+        for (const field of type.allFields) {
+            ctx.codingPath.push({field: field.name, type: field.type})
+            rv[field.name] = defaultValue(field.type, ctx, seen)
+            ctx.codingPath.pop()
+        }
+        if (abiType) {
+            rv[Resolved] = true
+            return abiType.from(rv)
+        }
+        return rv
+    }
+    if (type.variant && type.variant.length > 0) {
+        const rv = [type.variant[0].typeName, defaultValue(type.variant[0], ctx)]
+        if (abiType) {
+            rv[Resolved] = true
+            return abiType.from(rv)
+        }
+        return rv
+    }
+    if (type.ref) {
+        ctx.codingPath.push({field: '', type: type.ref})
+        const rv = defaultValue(type.ref, ctx, seen)
+        ctx.codingPath.pop()
+        return rv
+    }
+    throw new Error('Unable to determine default value')
 }
 
 export class ABIDecoder {

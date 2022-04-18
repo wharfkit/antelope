@@ -27,12 +27,7 @@ export class Struct implements ABISerializableObject {
         if (isInstanceOf(value, this)) {
             return value
         }
-        const object: any = {}
-        for (const field of this.structFields) {
-            const v = value[field.name] === undefined ? field.default : value[field.name]
-            object[field.name] = v
-        }
-        return abiDecode({object, type: this})
+        return abiDecode({object: value, type: this})
     }
 
     static get structFields() {

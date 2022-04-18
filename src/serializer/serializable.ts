@@ -32,7 +32,6 @@ export interface ABITypeDescriptor {
 
 export interface ABIField extends ABITypeDescriptor {
     name: string
-    default?: any
 }
 
 export interface ABISerializableConstructor {
@@ -46,6 +45,8 @@ export interface ABISerializableConstructor {
     abiVariant?: ABITypeDescriptor[]
     /** Alias to another type. */
     abiAlias?: ABITypeDescriptor
+    /** Return value to use when creating a new instance of this type, used when decoding binary extensions. */
+    abiDefault?: () => ABISerializable
     /**
      * Create new instance from JavaScript object.
      * Should also accept an instance of itself and return that unchanged.
@@ -86,11 +87,11 @@ export function synthesizeABI(type: ABISerializableConstructor) {
         if (t.array === true) {
             typeName += '[]'
         }
-        if (t.extension === true) {
-            typeName += '$'
-        }
         if (t.optional === true) {
             typeName += '?'
+        }
+        if (t.extension === true) {
+            typeName += '$'
         }
         return typeName
     }
@@ -140,11 +141,11 @@ export function abiTypeString(type: ABITypeDescriptor) {
     if (type.array === true) {
         typeName += '[]'
     }
-    if (type.extension === true) {
-        typeName += '$'
-    }
     if (type.optional === true) {
         typeName += '?'
+    }
+    if (type.extension === true) {
+        typeName += '$'
     }
     return typeName
 }

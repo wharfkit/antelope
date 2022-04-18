@@ -31,6 +31,10 @@ class Float implements ABISerializableObject {
         return new this(decoder.readFloat(this.byteWidth))
     }
 
+    static abiDefault() {
+        return this.from(0)
+    }
+
     static random<T extends typeof Float>(this: T): InstanceType<T>
     static random(): unknown
     static random() {

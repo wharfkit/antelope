@@ -50,6 +50,10 @@ export class Bytes implements ABISerializableObject {
         return new this(decoder.readArray(len))
     }
 
+    static abiDefault() {
+        return new Bytes()
+    }
+
     static equal(a: BytesType, b: BytesType): boolean {
         return this.from(a).equals(this.from(b))
     }

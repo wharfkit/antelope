@@ -43,6 +43,10 @@ export class Name implements ABISerializableObject {
         return new Name(UInt64.fromABI(decoder))
     }
 
+    static abiDefault() {
+        return new this(UInt64.from(0))
+    }
+
     constructor(value: UInt64) {
         this.value = value
     }

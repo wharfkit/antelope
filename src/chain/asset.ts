@@ -58,6 +58,10 @@ export class Asset implements ABISerializableObject {
         return new Asset(units, symbol)
     }
 
+    static abiDefault() {
+        return new this(Int64.from(0), Asset.Symbol.abiDefault())
+    }
+
     constructor(units: Int64, symbol: Asset.Symbol) {
         this.units = units
         this.symbol = symbol
@@ -139,6 +143,10 @@ export namespace Asset {
             return new Symbol(UInt64.fromABI(decoder))
         }
 
+        static abiDefault() {
+            return this.from('4,SYS') // CORE_SYMBOL = 4,CORE_SYMBOL_NAME
+        }
+
         value: UInt64
 
         constructor(value: UInt64) {
@@ -212,6 +220,10 @@ export namespace Asset {
 
         static fromABI(decoder: ABIDecoder) {
             return new SymbolCode(UInt64.fromABI(decoder))
+        }
+
+        static abiDefault() {
+            return this.from('SYS') // CORE_SYMBOL_NAME
         }
 
         value: UInt64

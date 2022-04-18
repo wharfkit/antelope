@@ -31,6 +31,12 @@ class Checksum implements ABISerializableObject {
         return new this(decoder.readArray(this.byteSize))
     }
 
+    static abiDefault<T extends typeof Checksum>(this: T): InstanceType<T>
+    static abiDefault(): unknown
+    static abiDefault() {
+        return new this(new Uint8Array(this.byteSize))
+    }
+
     readonly array: Uint8Array
 
     constructor(array: Uint8Array) {

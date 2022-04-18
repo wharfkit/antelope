@@ -177,6 +177,10 @@ export class Int implements ABISerializableObject {
         return this.from(decoder.readArray(this.byteWidth))
     }
 
+    static abiDefault() {
+        return this.from(0)
+    }
+
     static random<T extends typeof Int>(this: T): InstanceType<T>
     static random(): unknown
     static random() {
