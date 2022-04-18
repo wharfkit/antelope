@@ -48,7 +48,7 @@ suite('serializer', function () {
         class CustomType extends Struct {
             static abiName = 'custom'
             static abiFields = [{name: 'foo', type: 'string[]'}]
-            foo!: string[]
+            declare foo: string[]
         }
         const customArray = ['hello', 'world'].map((s) => {
             return CustomType.from({foo: s.split('')})
@@ -159,7 +159,7 @@ suite('serializer', function () {
         class Other extends Struct {
             static abiName = 'other'
             static abiFields = [{name: 'doeet', type: 'bool'}]
-            doeet!: boolean
+            declare doeet: boolean
         }
         class Test extends Struct {
             static abiName = 'test'
@@ -169,10 +169,10 @@ suite('serializer', function () {
                 {name: 'keys', type: PublicKey, optional: true, array: true},
                 {name: 'other', type: Other},
             ]
-            foo!: Name
-            things!: string[]
+            declare foo: Name
+            declare things: string[]
             keys?: PublicKey[]
-            other!: Other
+            declare other: Other
         }
         const object = Test.from({foo: 'bar', things: ['a', 'b', 'c'], other: {doeet: true}})
         const encoded = Serializer.encode({object})
@@ -187,10 +187,10 @@ suite('serializer', function () {
     test('struct decorators', function () {
         @Struct.type('transfer')
         class Transfer extends Struct {
-            @Struct.field('name') from!: Name
-            @Struct.field('name') to!: Name
-            @Struct.field('asset') quantity!: Asset
-            @Struct.field('string') memo!: string
+            @Struct.field('name') declare from: Name
+            @Struct.field('name') declare to: Name
+            @Struct.field('asset') declare quantity: Asset
+            @Struct.field('string') declare memo: string
         }
 
         const transfer = Transfer.from({
@@ -451,7 +451,7 @@ suite('serializer', function () {
             {type: MyStruct, array: true},
         ])
         class MyVariant extends Variant {
-            value!: string | boolean | string[] | MyStruct | MyStruct[]
+            declare value: string | boolean | string[] | MyStruct | MyStruct[]
         }
         assert.deepEqual(MyVariant.from('hello'), {value: 'hello', variantIdx: 0})
         assert.deepEqual(MyVariant.from(false), {value: false, variantIdx: 1})
@@ -696,7 +696,7 @@ suite('serializer', function () {
         class SeveralThings extends Variant {}
         @Struct.type('complex')
         class Complex extends Struct {
-            @Struct.field(SeveralThings) things!: SeveralThings
+            @Struct.field(SeveralThings) declare things: SeveralThings
             @Struct.field(Complex, {optional: true}) self?: Complex
         }
         const object = Complex.from({
@@ -886,10 +886,10 @@ suite('serializer', function () {
     test('object-only any coding', function () {
         @Struct.type('my_struct')
         class MyStruct extends Struct {
-            @Struct.field('any') foo!: any
-            @Struct.field('any[]') bar!: any[]
+            @Struct.field('any') declare foo: any
+            @Struct.field('any[]') declare bar: any[]
             @Struct.field('any', {optional: true}) baz?: any
-            @Struct.field('name') account!: Name
+            @Struct.field('name') declare account: Name
         }
         const decoded = Serializer.decode({
             object: {
@@ -948,7 +948,7 @@ suite('serializer', function () {
         assert.deepEqual(obj, [false, true, false])
         @Struct.type('my_struct')
         class MyStruct extends Struct {
-            @Struct.field('uint16') foo!: UInt16
+            @Struct.field('uint16') declare foo: UInt16
         }
         const encoded = Serializer.encode({
             object: [{foo: 0}, {foo: 65535}],
@@ -980,9 +980,9 @@ suite('serializer', function () {
         // should never mutate input values to 'from' methods
         @Struct.type('test_obj')
         class TestObj extends Struct {
-            @Struct.field('asset') asset!: Asset
+            @Struct.field('asset') declare asset: Asset
             @Struct.field('int32') int32!: Int32
-            @Struct.field(PermissionLevel) auth!: PermissionLevel
+            @Struct.field(PermissionLevel) declare auth: PermissionLevel
         }
         const object = {asset: '1.3 ROCKS', int32: 1234, auth: {actor: 'foo', permission: 'bar'}}
         const original = JSON.parse(JSON.stringify(object))
@@ -1052,7 +1052,7 @@ suite('serializer', function () {
     test('struct optional field', function () {
         @Struct.type('test')
         class Test extends Struct {
-            @Struct.field('string') a!: string
+            @Struct.field('string') declare a: string
             @Struct.field('string?') b?: string
             @Struct.field('string', {optional: true}) c?: string
             @Struct.field('string[]?') d?: string

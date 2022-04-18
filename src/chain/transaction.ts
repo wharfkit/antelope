@@ -28,8 +28,8 @@ import {
 
 @Struct.type('transaction_extension')
 export class TransactionExtension extends Struct {
-    @Struct.field('uint16') type!: UInt16
-    @Struct.field('bytes') data!: Bytes
+    @Struct.field('uint16') declare type: UInt16
+    @Struct.field('bytes') declare data: Bytes
 }
 
 export interface TransactionHeaderFields {
@@ -52,17 +52,17 @@ export type TransactionHeaderType = TransactionHeader | TransactionHeaderFields
 @Struct.type('transaction_header')
 export class TransactionHeader extends Struct {
     /** The time at which a transaction expires. */
-    @Struct.field('time_point_sec') expiration!: TimePointSec
+    @Struct.field('time_point_sec') declare expiration: TimePointSec
     /** *Specifies a block num in the last 2^16 blocks. */
-    @Struct.field('uint16') ref_block_num!: UInt16
+    @Struct.field('uint16') declare ref_block_num: UInt16
     /** Specifies the lower 32 bits of the block id. */
-    @Struct.field('uint32') ref_block_prefix!: UInt32
+    @Struct.field('uint32') declare ref_block_prefix: UInt32
     /** Upper limit on total network bandwidth (in 8 byte words) billed for this transaction. */
-    @Struct.field('varuint32') max_net_usage_words!: VarUInt
+    @Struct.field('varuint32') declare max_net_usage_words: VarUInt
     /** Upper limit on the total CPU time billed for this transaction. */
-    @Struct.field('uint8') max_cpu_usage_ms!: UInt8
+    @Struct.field('uint8') declare max_cpu_usage_ms: UInt8
     /** Number of seconds to delay this transaction for during which it may be canceled. */
-    @Struct.field('varuint32') delay_sec!: VarUInt
+    @Struct.field('varuint32') declare delay_sec: VarUInt
 
     static from(object: TransactionHeaderType) {
         return super.from({
@@ -97,12 +97,12 @@ export type TransactionType = Transaction | TransactionFields
 @Struct.type('transaction')
 export class Transaction extends TransactionHeader {
     /** The context free actions in the transaction. */
-    @Struct.field(Action, {array: true}) context_free_actions!: Action[]
+    @Struct.field(Action, {array: true}) declare context_free_actions: Action[]
     /** The actions in the transaction. */
-    @Struct.field(Action, {array: true}) actions!: Action[]
+    @Struct.field(Action, {array: true}) declare actions: Action[]
     /** Transaction extensions. */
     @Struct.field(TransactionExtension, {array: true})
-    transaction_extensions!: TransactionExtension[]
+    declare transaction_extensions: TransactionExtension[]
 
     static from(
         object: TransactionType | AnyTransaction,
@@ -166,9 +166,9 @@ export type SignedTransactionType = SignedTransaction | SignedTransactionFields
 @Struct.type('signed_transaction')
 export class SignedTransaction extends Transaction {
     /** List of signatures. */
-    @Struct.field('signature[]') signatures!: Signature[]
+    @Struct.field('signature[]') declare signatures: Signature[]
     /** Context-free action data, for each context-free action, there is an entry here. */
-    @Struct.field('bytes[]') context_free_data!: Bytes[]
+    @Struct.field('bytes[]') declare context_free_data: Bytes[]
 
     static from(object: SignedTransactionType) {
         return super.from({
@@ -190,10 +190,10 @@ export type PackedTransactionType =
 
 @Struct.type('packed_transaction')
 export class PackedTransaction extends Struct {
-    @Struct.field('signature[]') signatures!: Signature[]
-    @Struct.field('uint8') compression!: UInt8
-    @Struct.field('bytes') packed_context_free_data!: Bytes
-    @Struct.field('bytes') packed_trx!: Bytes
+    @Struct.field('signature[]') declare signatures: Signature[]
+    @Struct.field('uint8') declare compression: UInt8
+    @Struct.field('bytes') declare packed_context_free_data: Bytes
+    @Struct.field('bytes') declare packed_trx: Bytes
 
     static from(object: PackedTransactionType) {
         return super.from({
@@ -235,7 +235,7 @@ export class PackedTransaction extends Struct {
 
 @Struct.type('transaction_receipt')
 export class TransactionReceipt extends Struct {
-    @Struct.field('string') status!: string
-    @Struct.field('uint32') cpu_usage_us!: UInt32
-    @Struct.field('uint32') net_usage_words!: UInt32
+    @Struct.field('string') declare status: string
+    @Struct.field('uint32') declare cpu_usage_us: UInt32
+    @Struct.field('uint32') declare net_usage_words: UInt32
 }
