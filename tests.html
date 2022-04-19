@@ -5814,7 +5814,7 @@
         elliptic.eddsa = eddsa;
     })(elliptic);
     /**
-     * EOSIO Core v0.5.5
+     * EOSIO Core v0.6.0
      * https://github.com/greymass/eosio-core
      *
      * @license
@@ -5979,6 +5979,9 @@
             const len = decoder.readVaruint32();
             return new this(decoder.readArray(len));
         }
+        static abiDefault() {
+            return new Bytes;
+        }
         static equal(a, b) {
             return this.from(a).equals(this.from(b));
         }
@@ -6066,6 +6069,9 @@
         }
         static fromABI(decoder) {
             return new this(decoder.readArray(this.byteSize));
+        }
+        static abiDefault() {
+            return new this(new Uint8Array(this.byteSize));
         }
         equals(other) {
             const self = this.constructor;
@@ -6268,6 +6274,9 @@
         }
         static fromABI(decoder) {
             return this.from(decoder.readArray(this.byteWidth));
+        }
+        static abiDefault() {
+            return this.from(0);
         }
         static random() {
             return this.from(secureRandom(this.byteWidth));
@@ -6494,11 +6503,11 @@
             if (t.array === true) {
                 typeName += "[]";
             }
-            if (t.extension === true) {
-                typeName += "$";
-            }
             if (t.optional === true) {
                 typeName += "?";
+            }
+            if (t.extension === true) {
+                typeName += "$";
             }
             return typeName;
         };
@@ -6553,11 +6562,11 @@
         if (type.array === true) {
             typeName += "[]";
         }
-        if (type.extension === true) {
-            typeName += "$";
-        }
         if (type.optional === true) {
             typeName += "?";
+        }
+        if (type.extension === true) {
+            typeName += "$";
         }
         return typeName;
     }
@@ -6579,6 +6588,7 @@
     }
     const StringType = {
         abiName: "string",
+        abiDefault: () => "",
         fromABI: decoder => decoder.readString(),
         from: string => string,
         toABI: (string, encoder) => {
@@ -6587,6 +6597,7 @@
     };
     const BoolType = {
         abiName: "bool",
+        abiDefault: () => false,
         fromABI: decoder => decoder.readByte() === 1,
         from: value => value,
         toABI: (value, encoder) => {
@@ -6750,7 +6761,7 @@
         }
         if (type.isExtension) {
             if (!decoder.canRead()) {
-                return undefined;
+                return defaultValue(type, ctx);
             }
         }
         if (type.isOptional) {
@@ -6833,11 +6844,13 @@
     }
     function decodeObject(value, type, ctx) {
         if (value === null || value === undefined) {
-            if (type.isOptional || type.isExtension) {
+            if (type.isOptional) {
                 return null;
-            } else {
-                throw new Error(`Unexpectedly encountered ${value} for non-optional`);
             }
+            if (type.isExtension) {
+                return defaultValue(type, ctx);
+            }
+            throw new Error(`Unexpectedly encountered ${value} for non-optional`);
         } else if (type.isArray) {
             if (!Array.isArray(value)) {
                 throw new Error("Expected array");
@@ -6924,6 +6937,56 @@
                 return abiType.from(value);
             }
         }
+    }
+    function defaultValue(type, ctx, seen = new Set) {
+        if (type.isArray) {
+            return [];
+        }
+        if (type.isOptional) {
+            return null;
+        }
+        const abiType = ctx.types[type.name];
+        if (abiType && abiType.abiDefault) {
+            return abiType.abiDefault();
+        }
+        if (seen.has(type.name)) {
+            throw new Error("Circular type reference");
+        }
+        seen.add(type.name);
+        if (type.allFields) {
+            const rv = {};
+            for (const field of type.allFields) {
+                ctx.codingPath.push({
+                    field: field.name,
+                    type: field.type
+                });
+                rv[field.name] = defaultValue(field.type, ctx, seen);
+                ctx.codingPath.pop();
+            }
+            if (abiType) {
+                rv[Resolved] = true;
+                return abiType.from(rv);
+            }
+            return rv;
+        }
+        if (type.variant && type.variant.length > 0) {
+            const rv = [ type.variant[0].typeName, defaultValue(type.variant[0], ctx) ];
+            if (abiType) {
+                rv[Resolved] = true;
+                return abiType.from(rv);
+            }
+            return rv;
+        }
+        if (type.ref) {
+            ctx.codingPath.push({
+                field: "",
+                type: type.ref
+            });
+            const rv = defaultValue(type.ref, ctx, seen);
+            ctx.codingPath.pop();
+            return rv;
+        }
+        throw new Error("Unable to determine default value");
     }
     class ABIDecoder {
         constructor(array) {
@@ -7274,13 +7337,8 @@
             if (isInstanceOf(value, this)) {
                 return value;
             }
-            const object = {};
-            for (const field of this.structFields) {
-                const v = value[field.name] === undefined ? field.default : value[field.name];
-                object[field.name] = v;
-            }
             return abiDecode({
-                object: object,
+                object: value,
                 type: this
             });
         }
@@ -7432,6 +7490,9 @@
         static fromABI(decoder) {
             return new this(decoder.readFloat(this.byteWidth));
         }
+        static abiDefault() {
+            return this.from(0);
+        }
         static random() {
             const bytes = secureRandom(this.byteWidth);
             const decoder = new ABIDecoder(bytes);
@@ -7524,6 +7585,9 @@
         static fromABI(decoder) {
             return new Name(UInt64.fromABI(decoder));
         }
+        static abiDefault() {
+            return new this(UInt64.from(0));
+        }
         equals(other) {
             return this.value.equals(Name.from(other).value);
         }
@@ -7614,6 +7678,9 @@
         }
         static fromDate(date) {
             return this.fromMilliseconds(date.getTime());
+        }
+        static abiDefault() {
+            return this.from(0);
         }
         toABI(encoder) {
             const self = this;
@@ -8099,6 +8166,9 @@
             const symbol = Asset.Symbol.fromABI(decoder);
             return new Asset(units, symbol);
         }
+        static abiDefault() {
+            return new this(Int64.from(0), Asset.Symbol.abiDefault());
+        }
         equals(other) {
             const {symbol: symbol, units: units} = Asset.from(other);
             return this.symbol.value.equals(symbol.value) && this.units.equals(units);
@@ -8169,6 +8239,9 @@
             static fromABI(decoder) {
                 return new Symbol(UInt64.fromABI(decoder));
             }
+            static abiDefault() {
+                return this.from("4,SYS");
+            }
             equals(other) {
                 return this.value.equals(Symbol.from(other).value);
             }
@@ -8216,6 +8289,9 @@
             }
             static fromABI(decoder) {
                 return new SymbolCode(UInt64.fromABI(decoder));
+            }
+            static abiDefault() {
+                return this.from("SYS");
             }
             equals(other) {
                 return this.value.equals(SymbolCode.from(other).value);
@@ -8864,21 +8940,20 @@
     TransactionExtension = __decorate([ Struct.type("transaction_extension") ], TransactionExtension);
     let TransactionHeader = class TransactionHeader extends Struct {
         static from(object) {
-            return super.from(object);
+            return super.from({
+                max_net_usage_words: 0,
+                max_cpu_usage_ms: 0,
+                delay_sec: 0,
+                ...object
+            });
         }
     };
     __decorate([ Struct.field("time_point_sec") ], TransactionHeader.prototype, "expiration", void 0);
     __decorate([ Struct.field("uint16") ], TransactionHeader.prototype, "ref_block_num", void 0);
     __decorate([ Struct.field("uint32") ], TransactionHeader.prototype, "ref_block_prefix", void 0);
-    __decorate([ Struct.field("varuint32", {
-        default: 0
-    }) ], TransactionHeader.prototype, "max_net_usage_words", void 0);
-    __decorate([ Struct.field("uint8", {
-        default: 0
-    }) ], TransactionHeader.prototype, "max_cpu_usage_ms", void 0);
-    __decorate([ Struct.field("varuint32", {
-        default: 0
-    }) ], TransactionHeader.prototype, "delay_sec", void 0);
+    __decorate([ Struct.field("varuint32") ], TransactionHeader.prototype, "max_net_usage_words", void 0);
+    __decorate([ Struct.field("uint8") ], TransactionHeader.prototype, "max_cpu_usage_ms", void 0);
+    __decorate([ Struct.field("varuint32") ], TransactionHeader.prototype, "delay_sec", void 0);
     TransactionHeader = __decorate([ Struct.type("transaction_header") ], TransactionHeader);
     let Transaction = Transaction_1 = class Transaction extends TransactionHeader {
         static from(object, abis) {
@@ -8895,6 +8970,7 @@
             const actions = (object.actions || []).map(resolveAction);
             const context_free_actions = (object.context_free_actions || []).map(resolveAction);
             const transaction = {
+                transaction_extensions: [],
                 ...object,
                 context_free_actions: context_free_actions,
                 actions: actions
@@ -8924,31 +9000,36 @@
         }
     };
     __decorate([ Struct.field(Action, {
-        array: true,
-        default: []
+        array: true
     }) ], Transaction.prototype, "context_free_actions", void 0);
     __decorate([ Struct.field(Action, {
-        array: true,
-        default: []
+        array: true
     }) ], Transaction.prototype, "actions", void 0);
     __decorate([ Struct.field(TransactionExtension, {
-        array: true,
-        default: []
+        array: true
     }) ], Transaction.prototype, "transaction_extensions", void 0);
     Transaction = Transaction_1 = __decorate([ Struct.type("transaction") ], Transaction);
     let SignedTransaction = class SignedTransaction extends Transaction {
         static from(object) {
-            return super.from(object);
+            return super.from({
+                signatures: [],
+                context_free_data: [],
+                ...object
+            });
         }
     };
-    __decorate([ Struct.field("signature[]", {
-        default: []
-    }) ], SignedTransaction.prototype, "signatures", void 0);
-    __decorate([ Struct.field("bytes[]", {
-        default: []
-    }) ], SignedTransaction.prototype, "context_free_data", void 0);
+    __decorate([ Struct.field("signature[]") ], SignedTransaction.prototype, "signatures", void 0);
+    __decorate([ Struct.field("bytes[]") ], SignedTransaction.prototype, "context_free_data", void 0);
     SignedTransaction = __decorate([ Struct.type("signed_transaction") ], SignedTransaction);
     let PackedTransaction = class PackedTransaction extends Struct {
+        static from(object) {
+            return super.from({
+                signatures: [],
+                packed_context_free_data: "",
+                compression: 0,
+                ...object
+            });
+        }
         static fromSigned(signed) {
             const tx = Transaction.from(signed);
             return this.from({
@@ -8980,9 +9061,7 @@
         }
     };
     __decorate([ Struct.field("signature[]") ], PackedTransaction.prototype, "signatures", void 0);
-    __decorate([ Struct.field("uint8", {
-        default: 0
-    }) ], PackedTransaction.prototype, "compression", void 0);
+    __decorate([ Struct.field("uint8") ], PackedTransaction.prototype, "compression", void 0);
     __decorate([ Struct.field("bytes") ], PackedTransaction.prototype, "packed_context_free_data", void 0);
     __decorate([ Struct.field("bytes") ], PackedTransaction.prototype, "packed_trx", void 0);
     PackedTransaction = __decorate([ Struct.type("packed_transaction") ], PackedTransaction);
@@ -18389,7 +18468,7 @@
             type: "string"
         }, {
             name: "extension",
-            type: "extension$"
+            type: "extension?"
         } ]
     } ];
     var actions = [ {
@@ -19415,7 +19494,8 @@
                 extension: {
                     message: "hello",
                     extension: {
-                        message: "world"
+                        message: "world",
+                        extension: null
                     }
                 }
             };
@@ -19424,7 +19504,7 @@
                 type: "all_types",
                 abi: abi
             });
-            chai.assert.equal(data.hexString, "017fffff7fffffffffff7fffffffffffffffffffffff7fffffffffffffffffffffffffffffffffffffffffffffff7fffff" + "fffffffffffffffffffffffffffffeffffff0fffffffff0fda0f4940182d4454fb210940beefbeefbeefbeefbeefbeefbe" + "efbeefb07d56318e9d05009a2d365e35d4914b000000005c73285d02beef0568656c6c6fffffffffffffffffffffffffff" + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + "ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393" + "fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6" + "c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750" + "49000000000000000053419a81ab0101010001020101000568656c6c6f05776f726c64");
+            chai.assert.equal(data.hexString, "017fffff7fffffffffff7fffffffffffffffffffffff7fffffffffffffffffffffffffffffffffffffffffffffff7fffff" + "fffffffffffffffffffffffffffffeffffff0fffffffff0fda0f4940182d4454fb210940beefbeefbeefbeefbeefbeefbe" + "efbeefb07d56318e9d05009a2d365e35d4914b000000005c73285d02beef0568656c6c6fffffffffffffffffffffffffff" + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" + "ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393" + "fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6" + "c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750" + "49000000000000000053419a81ab0101010001020101000568656c6c6f0105776f726c6400");
             const decoded = Serializer.decode({
                 data: data,
                 type: "all_types",
@@ -19783,6 +19863,112 @@
             chai.assert.deepEqual(abi.ricardian_clauses, decoded.ricardian_clauses);
             chai.assert.deepEqual(abi.variants, decoded.variants);
             chai.assert.ok(abi.equals(decoded));
+        }));
+        test("binary extensions", (function() {
+            var SuperInt_1;
+            let InfoPair = class InfoPair extends Struct {};
+            __decorate([ Struct.field("string") ], InfoPair.prototype, "key", void 0);
+            __decorate([ Struct.field("bytes") ], InfoPair.prototype, "value", void 0);
+            InfoPair = __decorate([ Struct.type("info_pair") ], InfoPair);
+            let SuperInt = SuperInt_1 = class SuperInt extends UInt8 {
+                static abiDefault() {
+                    return SuperInt_1.from(42);
+                }
+            };
+            SuperInt = SuperInt_1 = __decorate([ TypeAlias("super_int") ], SuperInt);
+            let JazzVariant = class JazzVariant extends Variant {};
+            JazzVariant = __decorate([ Variant.type("jazz_variant", [ SuperInt, "string" ]) ], JazzVariant);
+            let ManyExtensions = class ManyExtensions extends Struct {};
+            __decorate([ Struct.field("string") ], ManyExtensions.prototype, "name", void 0);
+            __decorate([ Struct.field(InfoPair, {
+                array: true,
+                extension: true
+            }) ], ManyExtensions.prototype, "info", void 0);
+            __decorate([ Struct.field(InfoPair, {
+                extension: true
+            }) ], ManyExtensions.prototype, "singleInfo", void 0);
+            __decorate([ Struct.field("uint32$") ], ManyExtensions.prototype, "uint32", void 0);
+            __decorate([ Struct.field("asset$") ], ManyExtensions.prototype, "asset", void 0);
+            __decorate([ Struct.field("checksum256$") ], ManyExtensions.prototype, "checksum256", void 0);
+            __decorate([ Struct.field(SuperInt, {
+                extension: true
+            }) ], ManyExtensions.prototype, "superInt", void 0);
+            __decorate([ Struct.field(JazzVariant, {
+                extension: true
+            }) ], ManyExtensions.prototype, "jazz", void 0);
+            __decorate([ Struct.field(JazzVariant, {
+                extension: true,
+                optional: true
+            }) ], ManyExtensions.prototype, "maybeJazz", void 0);
+            __decorate([ Struct.field("bool?$") ], ManyExtensions.prototype, "dumbBool", void 0);
+            __decorate([ Struct.field("bool$") ], ManyExtensions.prototype, "bool", void 0);
+            ManyExtensions = __decorate([ Struct.type("many_extensions") ], ManyExtensions);
+            const res1 = Serializer.decode({
+                data: "03666f6f",
+                type: ManyExtensions
+            });
+            chai.assert.equal(res1.uint32.toNumber(), 0);
+            chai.assert.equal(res1.asset.toString(), "0.0000 SYS");
+            chai.assert.equal(res1.superInt.toNumber(), 42);
+            chai.assert.equal(res1.jazz.value, 42);
+            chai.assert.strictEqual(res1.maybeJazz, null);
+            chai.assert.strictEqual(res1.dumbBool, null);
+            chai.assert.strictEqual(res1.bool, false);
+            const res2 = Serializer.decode({
+                object: {
+                    name: "foo"
+                },
+                type: ManyExtensions
+            });
+            chai.assert.ok(res1.equals(res2));
+            const abi = Serializer.synthesize(ManyExtensions);
+            const res3 = Serializer.decode({
+                object: {
+                    name: "foo",
+                    dumbBool: false
+                },
+                abi: abi,
+                type: "many_extensions"
+            });
+            chai.assert.equal(res3.superInt.toNumber(), 0);
+            chai.assert.equal(res3.jazz[0], "super_int");
+            chai.assert.strictEqual(res3.dumbBool, false);
+            chai.assert.strictEqual(res3.bool, false);
+            const res4 = Serializer.decode({
+                object: {
+                    name: "foo",
+                    jazz: JazzVariant.from("hi"),
+                    maybeJazz: [ "super_int", 22 ]
+                },
+                abi: abi,
+                type: "many_extensions",
+                customTypes: [ SuperInt, JazzVariant ]
+            });
+            chai.assert.equal(res4.superInt.toNumber(), 42);
+            chai.assert.equal(res4.jazz.value, "hi");
+            chai.assert.equal(res4.maybeJazz.value, 22);
+            const OptimisticBool = {
+                abiName: "bool",
+                abiDefault: () => true,
+                from: value => value
+            };
+            const res5 = Serializer.decode({
+                object: {
+                    name: "foo"
+                },
+                abi: abi,
+                type: "many_extensions",
+                customTypes: [ SuperInt, JazzVariant, OptimisticBool ]
+            });
+            chai.assert.strictEqual(res5.bool, true);
+            abi.structs[1].fields[1].type = "many_extensions$";
+            chai.assert.throws((() => {
+                Serializer.decode({
+                    data: "03666f6f",
+                    abi: abi,
+                    type: "many_extensions"
+                });
+            }), /Circular type reference/);
         }));
     }));
 })(chai);
