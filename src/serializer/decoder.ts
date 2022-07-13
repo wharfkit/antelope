@@ -23,8 +23,13 @@ interface DecodeArgsBase {
     json?: string
     object?: any
     customTypes?: ABISerializableConstructor[]
-    /** Optional encoder metadata.  */
+    /** Optional encoder metadata. */
     metadata?: Record<string, any>
+    /**
+     * Binary extension handling, if set to true missing extensions will be initialized,
+     * otherwise they will be set to null. Defaults to false.
+     */
+    strictExtensions?: boolean
 }
 
 interface TypedDecodeArgs<T extends ABISerializableType> extends DecodeArgsBase {
@@ -102,6 +107,7 @@ export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | Typ
 
     const ctx: DecodingContext = {
         types: buildTypeLookup(customTypes),
+        strictExtensions: args.strictExtensions || false,
         codingPath: [{field: 'root', type: resolved}],
     }
 
@@ -132,6 +138,7 @@ export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | Typ
 
 interface DecodingContext {
     types: TypeLookup
+    strictExtensions: boolean
     codingPath: {field: string | number; type: ABI.ResolvedType}[]
 }
 
@@ -144,7 +151,11 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
     }
     if (type.isExtension) {
         if (!decoder.canRead()) {
-            return defaultValue(type, ctx)
+            if (ctx.strictExtensions) {
+                return defaultValue(type, ctx)
+            } else {
+                return null
+            }
         }
     }
     if (type.isOptional) {
@@ -223,7 +234,11 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             return null
         }
         if (type.isExtension) {
-            return defaultValue(type, ctx)
+            if (ctx.strictExtensions) {
+                return defaultValue(type, ctx)
+            } else {
+                return null
+            }
         }
         throw new Error(`Unexpectedly encountered ${value} for non-optional`)
     } else if (type.isArray) {

@@ -1118,7 +1118,11 @@ suite('serializer', function () {
             @Struct.field('bool?$') declare dumbBool?: boolean
             @Struct.field('bool$') declare bool: boolean
         }
-        const res1 = Serializer.decode({data: '03666f6f', type: ManyExtensions})
+        const res1 = Serializer.decode({
+            data: '03666f6f',
+            type: ManyExtensions,
+            strictExtensions: true,
+        })
         assert.equal(res1.uint32.toNumber(), 0)
         assert.equal(res1.asset.toString(), '0.0000 SYS')
         assert.equal(res1.superInt.toNumber(), 42)
@@ -1126,13 +1130,18 @@ suite('serializer', function () {
         assert.strictEqual(res1.maybeJazz, null)
         assert.strictEqual(res1.dumbBool, null)
         assert.strictEqual(res1.bool, false)
-        const res2 = Serializer.decode({object: {name: 'foo'}, type: ManyExtensions})
+        const res2 = Serializer.decode({
+            object: {name: 'foo'},
+            type: ManyExtensions,
+            strictExtensions: true,
+        })
         assert.ok(res1.equals(res2))
         const abi = Serializer.synthesize(ManyExtensions)
         const res3 = Serializer.decode({
             object: {name: 'foo', dumbBool: false},
             abi,
             type: 'many_extensions',
+            strictExtensions: true,
         }) as any
         assert.equal(res3.superInt.toNumber(), 0) // expected since we loose coupling to the SuperInt type implementation and it resolves to UInt8 instead
         assert.equal(res3.jazz[0], 'super_int')
@@ -1143,6 +1152,7 @@ suite('serializer', function () {
             abi,
             type: 'many_extensions',
             customTypes: [SuperInt, JazzVariant],
+            strictExtensions: true,
         }) as any
         assert.equal(res4.superInt.toNumber(), 42) // coupling restored
         assert.equal(res4.jazz.value, 'hi')
@@ -1158,12 +1168,18 @@ suite('serializer', function () {
             abi,
             type: 'many_extensions',
             customTypes: [SuperInt, JazzVariant, OptimisticBool],
+            strictExtensions: true,
         }) as any
         assert.strictEqual(res5.bool, true)
 
         abi.structs[1].fields[1].type = 'many_extensions$'
         assert.throws(() => {
-            Serializer.decode({data: '03666f6f', abi, type: 'many_extensions'})
+            Serializer.decode({
+                data: '03666f6f',
+                abi,
+                type: 'many_extensions',
+                strictExtensions: true,
+            })
         }, /Circular type reference/)
     })
 })
