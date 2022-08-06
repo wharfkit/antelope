@@ -396,4 +396,11 @@ suite('api v1', function () {
         const res = await eos.v1.history.get_controlled_accounts('teamgreymass')
         assert.equal(res.controlled_accounts.length, 2)
     })
+
+    test('chain get_transaction_status', async function () {
+        const res = await jungle.v1.chain.get_transaction_status(
+            '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
+        )
+        assert.equal(res.state, 'IN_BLOCK')
+    })
 })

@@ -511,3 +511,16 @@ export class GetKeyAccountsResponse extends Struct {
 export class GetControlledAccountsResponse extends Struct {
     @Struct.field('name', {array: true}) declare controlled_accounts: Name[]
 }
+
+@Struct.type('get_transaction_status_response')
+export class GetTransactionStatusResponse extends Struct {
+    @Struct.field('string') declare state: string
+    @Struct.field('uint32') declare head_number: UInt32
+    @Struct.field('checksum256') declare head_id: Checksum256
+    @Struct.field('time_point') declare head_timestamp: TimePoint
+    @Struct.field('uint32') declare irreversible_number: UInt32
+    @Struct.field('checksum256') declare irreversible_id: Checksum256
+    @Struct.field('time_point') declare irreversible_timestamp: TimePoint
+    @Struct.field('checksum256') declare earliest_tracked_block_id: Checksum256
+    @Struct.field('uint32') declare earliest_tracked_block_number: UInt32
+}

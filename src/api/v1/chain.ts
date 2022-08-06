@@ -30,6 +30,7 @@ import {
     GetTableRowsParamsKeyed,
     GetTableRowsParamsTyped,
     GetTableRowsResponse,
+    GetTransactionStatusResponse,
     PushTransactionResponse,
     TableIndexType,
     TableIndexTypes,
@@ -244,6 +245,16 @@ export class ChainAPI {
             path: '/v1/chain/get_table_by_scope',
             params,
             responseType: GetTableByScopeResponse,
+        })
+    }
+
+    async get_transaction_status(id: Checksum256Type) {
+        return this.client.call({
+            path: '/v1/chain/get_transaction_status',
+            params: {
+                id: Checksum256.from(id),
+            },
+            responseType: GetTransactionStatusResponse,
         })
     }
 }

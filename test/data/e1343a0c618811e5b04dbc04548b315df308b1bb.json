@@ -1,0 +1,25 @@
+{
+    "headers": {
+        "connection": "close",
+        "content-length": "651",
+        "content-type": "application/json",
+        "server": "WebSocket++/0.7.0"
+    },
+    "status": 200,
+    "json": {
+        "state": "IN_BLOCK",
+        "block_number": 28145598,
+        "block_id": "01ad77be3e2d6b0b60d9a73f64862d93683aa128b2c17a7da055808269748c87",
+        "block_timestamp": "2022-08-06T06:52:41.000",
+        "expiration": "2022-08-06T06:54:20.000",
+        "head_number": 28145817,
+        "head_id": "01ad7899b5456d7f61ee450c9f9b7857a78fe901e6268bc60868bca1d2380b68",
+        "head_timestamp": "2022-08-06T06:54:30.500",
+        "irreversible_number": 28145491,
+        "irreversible_id": "01ad775373b40d9218fc825955e7b1a110d708497dace5e9ed81ec3b16ec3b89",
+        "irreversible_timestamp": "2022-08-06T06:51:47.500",
+        "earliest_tracked_block_id": "01ac61fffb3a15d99e40889bd334219d62cceddb7e19ebaf1db549e4bc5f977d",
+        "earliest_tracked_block_number": 28074495
+    },
+    "text": "{\"state\":\"IN_BLOCK\",\"block_number\":28145598,\"block_id\":\"01ad77be3e2d6b0b60d9a73f64862d93683aa128b2c17a7da055808269748c87\",\"block_timestamp\":\"2022-08-06T06:52:41.000\",\"expiration\":\"2022-08-06T06:54:20.000\",\"head_number\":28145817,\"head_id\":\"01ad7899b5456d7f61ee450c9f9b7857a78fe901e6268bc60868bca1d2380b68\",\"head_timestamp\":\"2022-08-06T06:54:30.500\",\"irreversible_number\":28145491,\"irreversible_id\":\"01ad775373b40d9218fc825955e7b1a110d708497dace5e9ed81ec3b16ec3b89\",\"irreversible_timestamp\":\"2022-08-06T06:51:47.500\",\"earliest_tracked_block_id\":\"01ac61fffb3a15d99e40889bd334219d62cceddb7e19ebaf1db549e4bc5f977d\",\"earliest_tracked_block_number\":28074495}"
+}
