@@ -372,6 +372,27 @@ export interface SendTransactionResponse {
     }
 }
 
+export interface SendTransaction2Options {
+    return_failure_trace?: boolean
+    retry_trx?: boolean
+    retry_trx_num_blocks?: number
+}
+
+export interface SendTransaction2Response {
+    transaction_id: string
+    processed: {
+        id: string
+        block_num: number
+        block_time: string
+        receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
+        elapsed: number
+        net_usage: number
+        scheduled: boolean
+        action_traces: any[]
+        account_ram_delta: any
+    }
+}
+
 export interface TableIndexTypes {
     float128: Float128
     float64: Float64
