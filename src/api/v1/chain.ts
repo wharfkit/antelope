@@ -1,4 +1,5 @@
 import {APIClient} from '../client'
+import {abiEncode} from '../../serializer/encoder'
 
 import {
     Bytes,
@@ -10,8 +11,10 @@ import {
     Name,
     NameType,
     PackedTransaction,
+    PackedTransactionType,
     SignedTransaction,
     SignedTransactionType,
+    Transaction,
     UInt128,
     UInt32,
     UInt32Type,
@@ -95,6 +98,18 @@ export class ChainAPI {
         return this.client.call({
             path: '/v1/chain/get_info',
             responseType: GetInfoResponse,
+        })
+    }
+
+    async compute_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransactionResponse>({
+            path: '/v1/chain/compute_transaction',
+            params: {
+                transaction: tx,
+            },
         })
     }
 

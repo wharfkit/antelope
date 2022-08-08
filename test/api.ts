@@ -258,7 +258,15 @@ suite('api v1', function () {
             ...transaction,
             signatures: [signature],
         })
-        const result = await jungle.v1.chain.push_transaction(signedTransaction)
+        const result = await jungle4.v1.chain.push_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain compute_transaction', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const transaction = await makeMockTransaction(info)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.compute_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
