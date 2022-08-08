@@ -192,7 +192,7 @@ suite('api v1', function () {
             @Struct.field('asset') quantity!: Asset
             @Struct.field('string') memo!: string
         }
-        const info = await jungle.v1.chain.get_info()
+        const info = await jungle4.v1.chain.get_info()
         const header = info.getTransactionHeader()
         const action = Action.from({
             authorization: [
@@ -220,12 +220,12 @@ suite('api v1', function () {
             ...transaction,
             signatures: [signature],
         })
-        const result = await jungle.v1.chain.push_transaction(signedTransaction)
+        const result = await jungle4.v1.chain.push_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
     test('chain push_transaction (untyped)', async function () {
-        const info = await jungle.v1.chain.get_info()
+        const info = await jungle4.v1.chain.get_info()
         const header = info.getTransactionHeader()
         const untypedAction: AnyAction = {
             authorization: [
@@ -243,7 +243,7 @@ suite('api v1', function () {
                 memo: 'eosio-core is the best <3',
             },
         }
-        const {abi} = await jungle.v1.chain.get_abi(untypedAction.account)
+        const {abi} = await jungle4.v1.chain.get_abi(untypedAction.account)
         if (!abi) {
             throw new Error(`No ABI for ${untypedAction.account}`)
         }
