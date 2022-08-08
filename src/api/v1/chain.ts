@@ -32,6 +32,7 @@ import {
     GetTableRowsResponse,
     GetTransactionStatusResponse,
     PushTransactionResponse,
+    SendTransactionResponse,
     TableIndexType,
     TableIndexTypes,
 } from './types'
@@ -101,6 +102,16 @@ export class ChainAPI {
         }
         return this.client.call<PushTransactionResponse>({
             path: '/v1/chain/push_transaction',
+            params: tx,
+        })
+    }
+
+    async send_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransactionResponse>({
+            path: '/v1/chain/send_transaction',
             params: tx,
         })
     }

@@ -257,6 +257,46 @@ suite('api v1', function () {
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
+    test('chain send_transaction', async function () {
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const result = await jungle.v1.chain.send_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
     test('chain get_table_rows (untyped)', async function () {
         const res = await eos.v1.chain.get_table_rows({
             code: 'eosio.token',
