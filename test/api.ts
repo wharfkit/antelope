@@ -1,6 +1,7 @@
 import {assert} from 'chai'
 
 import {MockProvider} from './utils/mock-provider'
+import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
 
 import {
     Action,
@@ -21,6 +22,10 @@ import {
 
 const jungle = new APIClient({
     provider: new MockProvider(),
+})
+
+const jungle4 = new APIClient({
+    provider: new MockProvider('http://localhost:8888'),
 })
 
 const eos = new APIClient({
@@ -258,42 +263,42 @@ suite('api v1', function () {
     })
 
     test('chain send_transaction', async function () {
-        @Struct.type('transfer')
-        class Transfer extends Struct {
-            @Struct.field('name') from!: Name
-            @Struct.field('name') to!: Name
-            @Struct.field('asset') quantity!: Asset
-            @Struct.field('string') memo!: string
-        }
-        const info = await jungle.v1.chain.get_info()
-        const header = info.getTransactionHeader()
-        const action = Action.from({
-            authorization: [
-                {
-                    actor: 'corecorecore',
-                    permission: 'active',
-                },
-            ],
-            account: 'eosio.token',
-            name: 'transfer',
-            data: Transfer.from({
-                from: 'corecorecore',
-                to: 'teamgreymass',
-                quantity: '0.0042 EOS',
-                memo: 'eosio-core is the best <3',
-            }),
+        const info = await jungle4.v1.chain.get_info()
+        const transaction = await makeMockTransaction(info)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (default)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (failure traces)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction, {
+            return_failure_trace: true,
         })
-        const transaction = Transaction.from({
-            ...header,
-            actions: [action],
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (retry)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction, {
+            retry_trx: true,
+            retry_trx_num_blocks: 10,
         })
-        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
-        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
-        const signedTransaction = SignedTransaction.from({
-            ...transaction,
-            signatures: [signature],
-        })
-        const result = await jungle.v1.chain.send_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
@@ -438,9 +443,9 @@ suite('api v1', function () {
     })
 
     test('chain get_transaction_status', async function () {
-        const res = await jungle.v1.chain.get_transaction_status(
+        const res = await jungle4.v1.chain.get_transaction_status(
             '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
         )
-        assert.equal(res.state, 'IN_BLOCK')
+        assert.equal(res.state, 'IRREVERSIBLE')
     })
 })

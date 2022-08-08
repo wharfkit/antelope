@@ -9,24 +9,24 @@
     "json": {
         "server_version": "5e9b0a28",
         "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
-        "head_block_num": 28583418,
-        "last_irreversible_block_num": 28583087,
-        "last_irreversible_block_id": "01b424afc52ea5c0e3a8f2d94d30fa42d01b00ec11be18710e33af5037b99eb9",
-        "head_block_id": "01b425fa28cb45adc55c4c1d29125afc9aa4c43b111dd8673846aa135b58b0b8",
-        "head_block_time": "2022-08-08T19:43:09.000",
-        "head_block_producer": "junglesweden",
+        "head_block_num": 28598331,
+        "last_irreversible_block_num": 28598000,
+        "last_irreversible_block_id": "01b45ef06e0714ecfff4c4086c44084350541fe7e425e5a9625335ac2ebb42f5",
+        "head_block_id": "01b4603b17cfaf787be1e2ad19d321bcfee2c186a3060409c62a9f0fe5171ff4",
+        "head_block_time": "2022-08-08T21:47:27.000",
+        "head_block_producer": "alohaeostest",
         "virtual_block_cpu_limit": 200000000,
         "virtual_block_net_limit": 1048576000,
         "block_cpu_limit": 200000,
         "block_net_limit": 1048576,
         "server_version_string": "v3.1.0-rc2",
-        "fork_db_head_block_num": 28583418,
-        "fork_db_head_block_id": "01b425fa28cb45adc55c4c1d29125afc9aa4c43b111dd8673846aa135b58b0b8",
+        "fork_db_head_block_num": 28598331,
+        "fork_db_head_block_id": "01b4603b17cfaf787be1e2ad19d321bcfee2c186a3060409c62a9f0fe5171ff4",
         "server_full_version_string": "v3.1.0-rc2-5e9b0a28763745b985f227c58186128fd7aa087d",
-        "total_cpu_weight": "120460347160100",
+        "total_cpu_weight": "120460347260100",
         "total_net_weight": "117528893505100",
         "earliest_available_block_num": 28074493,
-        "last_irreversible_block_time": "2022-08-08T19:40:23.500"
+        "last_irreversible_block_time": "2022-08-08T21:44:41.500"
     },
-    "text": "{\"server_version\":\"5e9b0a28\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":28583418,\"last_irreversible_block_num\":28583087,\"last_irreversible_block_id\":\"01b424afc52ea5c0e3a8f2d94d30fa42d01b00ec11be18710e33af5037b99eb9\",\"head_block_id\":\"01b425fa28cb45adc55c4c1d29125afc9aa4c43b111dd8673846aa135b58b0b8\",\"head_block_time\":\"2022-08-08T19:43:09.000\",\"head_block_producer\":\"junglesweden\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc2\",\"fork_db_head_block_num\":28583418,\"fork_db_head_block_id\":\"01b425fa28cb45adc55c4c1d29125afc9aa4c43b111dd8673846aa135b58b0b8\",\"server_full_version_string\":\"v3.1.0-rc2-5e9b0a28763745b985f227c58186128fd7aa087d\",\"total_cpu_weight\":\"120460347160100\",\"total_net_weight\":\"117528893505100\",\"earliest_available_block_num\":28074493,\"last_irreversible_block_time\":\"2022-08-08T19:40:23.500\"}"
+    "text": "{\"server_version\":\"5e9b0a28\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":28598331,\"last_irreversible_block_num\":28598000,\"last_irreversible_block_id\":\"01b45ef06e0714ecfff4c4086c44084350541fe7e425e5a9625335ac2ebb42f5\",\"head_block_id\":\"01b4603b17cfaf787be1e2ad19d321bcfee2c186a3060409c62a9f0fe5171ff4\",\"head_block_time\":\"2022-08-08T21:47:27.000\",\"head_block_producer\":\"alohaeostest\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc2\",\"fork_db_head_block_num\":28598331,\"fork_db_head_block_id\":\"01b4603b17cfaf787be1e2ad19d321bcfee2c186a3060409c62a9f0fe5171ff4\",\"server_full_version_string\":\"v3.1.0-rc2-5e9b0a28763745b985f227c58186128fd7aa087d\",\"total_cpu_weight\":\"120460347260100\",\"total_net_weight\":\"117528893505100\",\"earliest_available_block_num\":28074493,\"last_irreversible_block_time\":\"2022-08-08T21:44:41.500\"}"
 }
