@@ -25,7 +25,7 @@ const jungle = new APIClient({
 })
 
 const jungle4 = new APIClient({
-    provider: new MockProvider('http://localhost:8888'),
+    provider: new MockProvider('https://jungle4.api.eosnation.io'),
 })
 
 const eos = new APIClient({
