@@ -170,6 +170,19 @@ export class SignedTransaction extends Transaction {
     /** Context-free action data, for each context-free action, there is an entry here. */
     @Struct.field('bytes[]') declare context_free_data: Bytes[]
 
+    /** The transaction without the signatures. */
+    get transaction(): Transaction {
+        return Transaction.from({
+            ...this,
+            signatures: undefined,
+            context_free_data: undefined,
+        })
+    }
+
+    get id(): Checksum256 {
+        return this.transaction.id
+    }
+
     static from(object: SignedTransactionType) {
         return super.from({
             signatures: [],

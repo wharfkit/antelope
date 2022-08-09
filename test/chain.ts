@@ -17,6 +17,7 @@ import {
     PermissionLevel,
     PublicKey,
     Signature,
+    SignedTransaction,
     Struct,
     TimePoint,
     TimePointSec,
@@ -167,6 +168,14 @@ suite('chain', function () {
         )
         const transfer = transaction.actions[0].decodeData(Transfer)
         assert.equal(String(transfer.from), 'foo')
+
+        const signed = SignedTransaction.from({
+            ...transaction,
+            signatures: [
+                'SIG_K1_KdNTcLLSyzUFC4AdMxEDn58X8ZN368euanvet4jucUdSPXvLkgsG32tpcqVvnDR9Xv1f7HsTm6kocjeZzFGvUSc2yCbdEA',
+            ],
+        })
+        assert.equal(String(signed.id), String(transaction.id))
     })
 
     test('any transaction', function () {
