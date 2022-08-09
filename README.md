@@ -14,6 +14,30 @@ npm install @greymass/eosio
 
 https://greymass.github.io/eosio-core/
 
+## Running Tests
+
+### Run the unit test suite:
+
+```
+make test
+```
+
+### Run the unit test suite with coverage:
+
+```
+make coverage
+```
+
+The report for the current version can also be found at: https://greymass.github.io/eosio-core/coverage/
+
+### Run the test suite in a browser:
+
+```
+make browser-test
+```
+
+The browser test suite for the current version of the library is available at: https://greymass.github.io/eosio-core/tests.html
+
 ## Documentation
 
 Documentation beyond the automatically generated API documentation above is currently incomplete. Until full documentation is complete, the tests themselves provide good reference material on how to do nearly everything.
