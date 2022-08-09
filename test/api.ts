@@ -305,7 +305,7 @@ suite('api v1', function () {
         const signedTransaction = await signMockTransaction(transaction, info)
         const result = await jungle4.v1.chain.send_transaction2(signedTransaction, {
             retry_trx: true,
-            retry_trx_num_blocks: 10,
+            retry_trx_num_blocks: 120,
         })
         assert.equal(result.transaction_id, transaction.id.hexString)
     })

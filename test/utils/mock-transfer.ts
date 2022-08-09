@@ -13,7 +13,7 @@ export async function makeMockTransaction(
     memo?: string
 ): Promise<Transaction> {
     // Assemble transaction header
-    const header = info.getTransactionHeader()
+    const header = info.getTransactionHeader(60)
     // Generate typed data for action data
     const transfer = Transfer.from({
         from: 'corecorecore',
