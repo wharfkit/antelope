@@ -11,12 +11,15 @@ test: lib node_modules
 	@TS_NODE_PROJECT='./test/tsconfig.json' \
 		${BIN}/mocha ${MOCHA_OPTS} test/*.ts --grep '$(grep)'
 
-.PHONY: coverage
-coverage: lib node_modules
+.PHONY: test-coverage
+test-coverage: lib node_modules
 	@TS_NODE_PROJECT='./test/tsconfig.json' \
 		${BIN}/nyc --reporter=html \
-		${BIN}/mocha ${MOCHA_OPTS} -R nyan test/*.ts \
-			&& open coverage/index.html
+		${BIN}/mocha ${MOCHA_OPTS} -R nyan test/*.ts
+
+.PHONY: coverage
+coverage: test-coverage
+	@open coverage/index.html
 
 .PHONY: ci-test
 ci-test: lib node_modules
@@ -56,10 +59,11 @@ docs: $(SRC_FILES) node_modules
 		src/index.ts
 
 .PHONY: deploy-site
-deploy-site: | clean docs test/browser.html
+deploy-site: | clean docs test/browser.html test-coverage
 	@mkdir -p site
 	@cp -r docs/* site/
 	@cp -r test/browser.html site/tests.html
+	@cp -r coverage/ site/coverage/
 	@${BIN}/gh-pages -d site
 
 .PHONY: clean
