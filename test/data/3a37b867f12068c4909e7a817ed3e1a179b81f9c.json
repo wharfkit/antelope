@@ -4,9 +4,9 @@
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
-        "content-length": "853",
+        "content-length": "852",
         "content-type": "application/json",
-        "date": "Tue, 09 Aug 2022 21:18:17 GMT",
+        "date": "Tue, 09 Aug 2022 23:33:37 GMT",
         "host": "jungle3.greymass.com",
         "server": "nginx"
     },
@@ -14,21 +14,21 @@
     "json": {
         "server_version": "26a4d285",
         "chain_id": "2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840",
-        "head_block_num": 155569509,
-        "last_irreversible_block_num": 155569173,
-        "last_irreversible_block_id": "0945cc159e1f8b50c347e18343736dab56bed30fa332bf83d328b66dd8bb6f6d",
-        "head_block_id": "0945cd65b3667b28818a887d957a9a83106a7514505f4db6953b8e61c527b8da",
-        "head_block_time": "2022-08-09T21:18:17.500",
-        "head_block_producer": "lioninjungle",
-        "virtual_block_cpu_limit": 200000000,
+        "head_block_num": 155585739,
+        "last_irreversible_block_num": 155585410,
+        "last_irreversible_block_id": "09460b825568a02ddd90e0438bd9f0e483943540281d2b6867012f73b746e2b2",
+        "head_block_id": "09460ccbcc50c07656a5b3da089d7f7f60d7929d8cc857a31e8dbbb647ac9d66",
+        "head_block_time": "2022-08-09T23:33:38.000",
+        "head_block_producer": "eosnationftw",
+        "virtual_block_cpu_limit": 94805045,
         "virtual_block_net_limit": 1048576000,
         "block_cpu_limit": 200000,
         "block_net_limit": 1048576,
         "server_version_string": "v2.1.0",
-        "fork_db_head_block_num": 155569509,
-        "fork_db_head_block_id": "0945cd65b3667b28818a887d957a9a83106a7514505f4db6953b8e61c527b8da",
+        "fork_db_head_block_num": 155585739,
+        "fork_db_head_block_id": "09460ccbcc50c07656a5b3da089d7f7f60d7929d8cc857a31e8dbbb647ac9d66",
         "server_full_version_string": "v2.1.0-26a4d285d0be1052d962149e431eb81500782991",
-        "last_irreversible_block_time": "2022-08-09T21:15:29.500"
+        "last_irreversible_block_time": "2022-08-09T23:30:53.500"
     },
-    "text": "{\"server_version\":\"26a4d285\",\"chain_id\":\"2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840\",\"head_block_num\":155569509,\"last_irreversible_block_num\":155569173,\"last_irreversible_block_id\":\"0945cc159e1f8b50c347e18343736dab56bed30fa332bf83d328b66dd8bb6f6d\",\"head_block_id\":\"0945cd65b3667b28818a887d957a9a83106a7514505f4db6953b8e61c527b8da\",\"head_block_time\":\"2022-08-09T21:18:17.500\",\"head_block_producer\":\"lioninjungle\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v2.1.0\",\"fork_db_head_block_num\":155569509,\"fork_db_head_block_id\":\"0945cd65b3667b28818a887d957a9a83106a7514505f4db6953b8e61c527b8da\",\"server_full_version_string\":\"v2.1.0-26a4d285d0be1052d962149e431eb81500782991\",\"last_irreversible_block_time\":\"2022-08-09T21:15:29.500\"}"
+    "text": "{\"server_version\":\"26a4d285\",\"chain_id\":\"2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840\",\"head_block_num\":155585739,\"last_irreversible_block_num\":155585410,\"last_irreversible_block_id\":\"09460b825568a02ddd90e0438bd9f0e483943540281d2b6867012f73b746e2b2\",\"head_block_id\":\"09460ccbcc50c07656a5b3da089d7f7f60d7929d8cc857a31e8dbbb647ac9d66\",\"head_block_time\":\"2022-08-09T23:33:38.000\",\"head_block_producer\":\"eosnationftw\",\"virtual_block_cpu_limit\":94805045,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v2.1.0\",\"fork_db_head_block_num\":155585739,\"fork_db_head_block_id\":\"09460ccbcc50c07656a5b3da089d7f7f60d7929d8cc857a31e8dbbb647ac9d66\",\"server_full_version_string\":\"v2.1.0-26a4d285d0be1052d962149e431eb81500782991\",\"last_irreversible_block_time\":\"2022-08-09T23:30:53.500\"}"
 }

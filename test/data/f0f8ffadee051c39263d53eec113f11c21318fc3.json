@@ -6,31 +6,31 @@
         "connection": "close",
         "content-length": "965",
         "content-type": "application/json",
-        "date": "Tue, 09 Aug 2022 23:03:49 GMT",
+        "date": "Tue, 09 Aug 2022 23:33:43 GMT",
         "server": "nginx/1.22.0"
     },
     "status": 200,
     "json": {
         "server_version": "f63346e1",
         "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
-        "head_block_num": 28780250,
-        "last_irreversible_block_num": 28779923,
-        "last_irreversible_block_id": "01b7259383d1538abbf2af15861ebd1c4b870762de45bf434e612474d44b6b67",
-        "head_block_id": "01b726daf0816332f50596a000a07f4803b7f3dcf49513304c2a4086dddd06eb",
-        "head_block_time": "2022-08-09T23:03:49.000",
-        "head_block_producer": "aus1genereos",
+        "head_block_num": 28783836,
+        "last_irreversible_block_num": 28783511,
+        "last_irreversible_block_id": "01b73397f2b1d4d18ffa4c0ecfd9b1c25b3e5cd4fa8adb727f1929c4f468f5e3",
+        "head_block_id": "01b734dc5f6258ac4ae6881053f4261cefe403041b52fb15ea2a060f22b1a961",
+        "head_block_time": "2022-08-09T23:33:42.000",
+        "head_block_producer": "eosdacserval",
         "virtual_block_cpu_limit": 200000000,
         "virtual_block_net_limit": 1048576000,
         "block_cpu_limit": 200000,
         "block_net_limit": 1048576,
         "server_version_string": "v3.1.0-rc3",
-        "fork_db_head_block_num": 28780250,
-        "fork_db_head_block_id": "01b726daf0816332f50596a000a07f4803b7f3dcf49513304c2a4086dddd06eb",
+        "fork_db_head_block_num": 28783836,
+        "fork_db_head_block_id": "01b734dc5f6258ac4ae6881053f4261cefe403041b52fb15ea2a060f22b1a961",
         "server_full_version_string": "v3.1.0-rc3-f63346e18a8b2ffafc17ee3141be17d15306c3c2",
         "total_cpu_weight": "120460347260100",
         "total_net_weight": "117528893505100",
         "earliest_available_block_num": 1,
-        "last_irreversible_block_time": "2022-08-09T23:01:05.500"
+        "last_irreversible_block_time": "2022-08-09T23:30:59.500"
     },
-    "text": "{\"server_version\":\"f63346e1\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":28780250,\"last_irreversible_block_num\":28779923,\"last_irreversible_block_id\":\"01b7259383d1538abbf2af15861ebd1c4b870762de45bf434e612474d44b6b67\",\"head_block_id\":\"01b726daf0816332f50596a000a07f4803b7f3dcf49513304c2a4086dddd06eb\",\"head_block_time\":\"2022-08-09T23:03:49.000\",\"head_block_producer\":\"aus1genereos\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc3\",\"fork_db_head_block_num\":28780250,\"fork_db_head_block_id\":\"01b726daf0816332f50596a000a07f4803b7f3dcf49513304c2a4086dddd06eb\",\"server_full_version_string\":\"v3.1.0-rc3-f63346e18a8b2ffafc17ee3141be17d15306c3c2\",\"total_cpu_weight\":\"120460347260100\",\"total_net_weight\":\"117528893505100\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2022-08-09T23:01:05.500\"}"
+    "text": "{\"server_version\":\"f63346e1\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":28783836,\"last_irreversible_block_num\":28783511,\"last_irreversible_block_id\":\"01b73397f2b1d4d18ffa4c0ecfd9b1c25b3e5cd4fa8adb727f1929c4f468f5e3\",\"head_block_id\":\"01b734dc5f6258ac4ae6881053f4261cefe403041b52fb15ea2a060f22b1a961\",\"head_block_time\":\"2022-08-09T23:33:42.000\",\"head_block_producer\":\"eosdacserval\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc3\",\"fork_db_head_block_num\":28783836,\"fork_db_head_block_id\":\"01b734dc5f6258ac4ae6881053f4261cefe403041b52fb15ea2a060f22b1a961\",\"server_full_version_string\":\"v3.1.0-rc3-f63346e18a8b2ffafc17ee3141be17d15306c3c2\",\"total_cpu_weight\":\"120460347260100\",\"total_net_weight\":\"117528893505100\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2022-08-09T23:30:59.500\"}"
 }

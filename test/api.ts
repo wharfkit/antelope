@@ -454,6 +454,6 @@ suite('api v1', function () {
         const res = await jungle4.v1.chain.get_transaction_status(
             '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
         )
-        assert.equal(res.state, 'IRREVERSIBLE')
+        assert.equal(res.state, 'UNKNOWN')
     })
 })
