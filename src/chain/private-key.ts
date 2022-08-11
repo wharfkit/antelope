@@ -48,10 +48,11 @@ export class PrivateKey {
                 error.code === Base58.ErrorCode.E_CHECKSUM
             ) {
                 const type = string.startsWith('PVT_R1') ? KeyType.R1 : KeyType.K1
-                let data = new Bytes(error.info.data)
-                if (data.array.length == 33) {
-                    data = data.droppingFirst()
+                const data = new Bytes(error.info.data)
+                if (data.length === 33) {
+                    data.dropFirst()
                 }
+                data.zeropad(32, true)
                 return new this(type, data)
             }
             throw error
@@ -68,6 +69,9 @@ export class PrivateKey {
 
     /** @internal */
     constructor(type: KeyType, data: Bytes) {
+        if ((type === KeyType.K1 || type === KeyType.R1) && data.length !== 32) {
+            throw new Error('Invalid private key length')
+        }
         this.type = type
         this.data = data
     }

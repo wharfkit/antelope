@@ -1,6 +1,6 @@
 import {assert} from 'chai'
 
-import {Base58, Bytes, PrivateKey, PublicKey} from '$lib'
+import {Base58, Bytes, KeyType, PrivateKey, PublicKey} from '$lib'
 
 suite('crypto', function () {
     this.slow(200)
@@ -174,6 +174,13 @@ suite('crypto', function () {
             true
         )
         assert.equal(key2.toWif(), '5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zFu')
+        assert.doesNotThrow(() => {
+            PrivateKey.fromString('PVT_K1_ApBgGcJ2HeGR3szXA9JJptGCWUbSwewtGsxm3DVr86pJtb5V', true)
+        })
+        assert.throws(() => {
+            PrivateKey.fromString('PVT_K1_ApBgGcJ2HeGR3szXA9JJptGCWUbSwewtGsxm3DVr86pJtb5V')
+        }, /Checksum mismatch/)
+    })
 
     test('key generation', function () {
         assert.doesNotThrow(() => {
