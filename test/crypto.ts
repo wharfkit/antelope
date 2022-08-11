@@ -174,5 +174,19 @@ suite('crypto', function () {
             true
         )
         assert.equal(key2.toWif(), '5KQvfsPJ9YvGuVbLRLXVWPNubed6FWvV8yax6cNSJEzB4co3zFu')
+
+    test('key generation', function () {
+        assert.doesNotThrow(() => {
+            const k = PrivateKey.generate('K1')
+            PrivateKey.fromString(String(k))
+        })
+        assert.throws(() => {
+            new PrivateKey(KeyType.K1, Bytes.random(31))
+        })
+        assert.throws(() => {
+            const k = PrivateKey.generate('K1')
+            k.data = Bytes.random(31)
+            PrivateKey.fromString(String(k))
+        })
     })
 })
