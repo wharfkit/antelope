@@ -117,6 +117,12 @@ suite('chain', function () {
         assert.throws(() => {
             Bytes.from('babababa').toString('latin' as any)
         })
+        assert.equal(Bytes.from('beef').zeropadded(4).toString('hex'), '0000beef')
+        assert.equal(Bytes.from('beef').zeropadded(2).toString('hex'), 'beef')
+        assert.equal(Bytes.from('beef').zeropadded(1).toString('hex'), 'beef')
+        assert.equal(Bytes.from('beef').zeropadded(1, true).toString('hex'), 'be')
+        assert.equal(Bytes.from('beef').zeropadded(2, true).toString('hex'), 'beef')
+        assert.equal(Bytes.from('beef').zeropadded(3, true).toString('hex'), '00beef')
     })
 
     test('time', function () {
