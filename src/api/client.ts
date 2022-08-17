@@ -5,6 +5,8 @@ import {ChainAPI} from './v1/chain'
 import {HistoryAPI} from './v1/history'
 import {BuiltinTypes} from '../serializer/builtins'
 
+export {ChainAPI, HistoryAPI}
+
 export interface APIClientOptions extends FetchProviderOptions {
     /** URL to the API node to use, only used if the provider option is not set. */
     url?: string
