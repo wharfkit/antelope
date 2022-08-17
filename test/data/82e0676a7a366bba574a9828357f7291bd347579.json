@@ -1,15 +1,4 @@
 {
-    "headers": {
-        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
-        "access-control-allow-methods": "GET, POST, OPTIONS",
-        "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "5927",
-        "content-type": "application/json",
-        "date": "Tue, 09 Aug 2022 23:33:38 GMT",
-        "host": "jungle3.greymass.com",
-        "server": "nginx"
-    },
     "status": 200,
     "json": {
         "account_name": "eosio.token",
