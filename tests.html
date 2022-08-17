@@ -15236,6 +15236,279 @@
             },
             text: '{"transaction_id":"871e3b49f88dfebdaf410a7f37ec991cd8df89d5bbcd3f7a146947e43628019a","processed":{"id":"871e3b49f88dfebdaf410a7f37ec991cd8df89d5bbcd3f7a146947e43628019a","block_num":30016247,"block_time":"2022-08-17T03:02:31.000","producer_block_id":null,"receipt":{"status":"executed","cpu_usage_us":241,"net_usage_words":19},"elapsed":241,"net_usage":152,"scheduled":false,"action_traces":[{"action_ordinal":1,"creator_action_ordinal":0,"closest_unnotified_ancestor_action_ordinal":0,"receipt":{"receiver":"eosio.token","act_digest":"191c3e951ef08ea5acd2764bc64028cf908aa4743206778a023c4b2e95fd8174","global_sequence":31792960,"recv_sequence":7102,"auth_sequence":[["corecorecore",686]],"code_sequence":2,"abi_sequence":2},"receiver":"eosio.token","act":{"account":"eosio.token","name":"transfer","authorization":[{"actor":"corecorecore","permission":"active"}],"data":{"from":"corecorecore","to":"teamgreymass","quantity":"0.0042 EOS","memo":"eosio-core is the best <3"},"hex_data":"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000019656f73696f2d636f7265206973207468652062657374203c33"},"context_free":false,"elapsed":88,"console":"","trx_id":"871e3b49f88dfebdaf410a7f37ec991cd8df89d5bbcd3f7a146947e43628019a","block_num":30016247,"block_time":"2022-08-17T03:02:31.000","producer_block_id":null,"account_ram_deltas":[],"except":null,"error_code":null,"return_value_hex_data":""},{"action_ordinal":2,"creator_action_ordinal":1,"closest_unnotified_ancestor_action_ordinal":1,"receipt":{"receiver":"corecorecore","act_digest":"191c3e951ef08ea5acd2764bc64028cf908aa4743206778a023c4b2e95fd8174","global_sequence":31792961,"recv_sequence":231,"auth_sequence":[["corecorecore",687]],"code_sequence":2,"abi_sequence":2},"receiver":"corecorecore","act":{"account":"eosio.token","name":"transfer","authorization":[{"actor":"corecorecore","permission":"active"}],"data":{"from":"corecorecore","to":"teamgreymass","quantity":"0.0042 EOS","memo":"eosio-core is the best <3"},"hex_data":"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000019656f73696f2d636f7265206973207468652062657374203c33"},"context_free":false,"elapsed":2,"console":"","trx_id":"871e3b49f88dfebdaf410a7f37ec991cd8df89d5bbcd3f7a146947e43628019a","block_num":30016247,"block_time":"2022-08-17T03:02:31.000","producer_block_id":null,"account_ram_deltas":[],"except":null,"error_code":null,"return_value_hex_data":""},{"action_ordinal":3,"creator_action_ordinal":1,"closest_unnotified_ancestor_action_ordinal":1,"receipt":{"receiver":"teamgreymass","act_digest":"191c3e951ef08ea5acd2764bc64028cf908aa4743206778a023c4b2e95fd8174","global_sequence":31792962,"recv_sequence":228,"auth_sequence":[["corecorecore",688]],"code_sequence":2,"abi_sequence":2},"receiver":"teamgreymass","act":{"account":"eosio.token","name":"transfer","authorization":[{"actor":"corecorecore","permission":"active"}],"data":{"from":"corecorecore","to":"teamgreymass","quantity":"0.0042 EOS","memo":"eosio-core is the best <3"},"hex_data":"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000019656f73696f2d636f7265206973207468652062657374203c33"},"context_free":false,"elapsed":3,"console":"","trx_id":"871e3b49f88dfebdaf410a7f37ec991cd8df89d5bbcd3f7a146947e43628019a","block_num":30016247,"block_time":"2022-08-17T03:02:31.000","producer_block_id":null,"account_ram_deltas":[],"except":null,"error_code":null,"return_value_hex_data":""}],"account_ram_delta":null,"except":null,"error_code":null}}'
         },
+        "eosio.msig.abi.json": {
+            account_name: "eosio.msig",
+            abi: {
+                version: "eosio::abi/1.1",
+                types: [],
+                structs: [ {
+                    name: "action",
+                    base: "",
+                    fields: [ {
+                        name: "account",
+                        type: "name"
+                    }, {
+                        name: "name",
+                        type: "name"
+                    }, {
+                        name: "authorization",
+                        type: "permission_level[]"
+                    }, {
+                        name: "data",
+                        type: "bytes"
+                    } ]
+                }, {
+                    name: "approval",
+                    base: "",
+                    fields: [ {
+                        name: "level",
+                        type: "permission_level"
+                    }, {
+                        name: "time",
+                        type: "time_point"
+                    } ]
+                }, {
+                    name: "approvals_info",
+                    base: "",
+                    fields: [ {
+                        name: "version",
+                        type: "uint8"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "requested_approvals",
+                        type: "approval[]"
+                    }, {
+                        name: "provided_approvals",
+                        type: "approval[]"
+                    } ]
+                }, {
+                    name: "approve",
+                    base: "",
+                    fields: [ {
+                        name: "proposer",
+                        type: "name"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "level",
+                        type: "permission_level"
+                    }, {
+                        name: "proposal_hash",
+                        type: "checksum256$"
+                    } ]
+                }, {
+                    name: "cancel",
+                    base: "",
+                    fields: [ {
+                        name: "proposer",
+                        type: "name"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "canceler",
+                        type: "name"
+                    } ]
+                }, {
+                    name: "exec",
+                    base: "",
+                    fields: [ {
+                        name: "proposer",
+                        type: "name"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "executer",
+                        type: "name"
+                    } ]
+                }, {
+                    name: "extension",
+                    base: "",
+                    fields: [ {
+                        name: "type",
+                        type: "uint16"
+                    }, {
+                        name: "data",
+                        type: "bytes"
+                    } ]
+                }, {
+                    name: "invalidate",
+                    base: "",
+                    fields: [ {
+                        name: "account",
+                        type: "name"
+                    } ]
+                }, {
+                    name: "invalidation",
+                    base: "",
+                    fields: [ {
+                        name: "account",
+                        type: "name"
+                    }, {
+                        name: "last_invalidation_time",
+                        type: "time_point"
+                    } ]
+                }, {
+                    name: "old_approvals_info",
+                    base: "",
+                    fields: [ {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "requested_approvals",
+                        type: "permission_level[]"
+                    }, {
+                        name: "provided_approvals",
+                        type: "permission_level[]"
+                    } ]
+                }, {
+                    name: "permission_level",
+                    base: "",
+                    fields: [ {
+                        name: "actor",
+                        type: "name"
+                    }, {
+                        name: "permission",
+                        type: "name"
+                    } ]
+                }, {
+                    name: "proposal",
+                    base: "",
+                    fields: [ {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "packed_transaction",
+                        type: "bytes"
+                    }, {
+                        name: "earliest_exec_time",
+                        type: "time_point?$"
+                    } ]
+                }, {
+                    name: "propose",
+                    base: "",
+                    fields: [ {
+                        name: "proposer",
+                        type: "name"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "requested",
+                        type: "permission_level[]"
+                    }, {
+                        name: "trx",
+                        type: "transaction"
+                    } ]
+                }, {
+                    name: "transaction",
+                    base: "transaction_header",
+                    fields: [ {
+                        name: "context_free_actions",
+                        type: "action[]"
+                    }, {
+                        name: "actions",
+                        type: "action[]"
+                    }, {
+                        name: "transaction_extensions",
+                        type: "extension[]"
+                    } ]
+                }, {
+                    name: "transaction_header",
+                    base: "",
+                    fields: [ {
+                        name: "expiration",
+                        type: "time_point_sec"
+                    }, {
+                        name: "ref_block_num",
+                        type: "uint16"
+                    }, {
+                        name: "ref_block_prefix",
+                        type: "uint32"
+                    }, {
+                        name: "max_net_usage_words",
+                        type: "varuint32"
+                    }, {
+                        name: "max_cpu_usage_ms",
+                        type: "uint8"
+                    }, {
+                        name: "delay_sec",
+                        type: "varuint32"
+                    } ]
+                }, {
+                    name: "unapprove",
+                    base: "",
+                    fields: [ {
+                        name: "proposer",
+                        type: "name"
+                    }, {
+                        name: "proposal_name",
+                        type: "name"
+                    }, {
+                        name: "level",
+                        type: "permission_level"
+                    } ]
+                } ],
+                actions: [ {
+                    name: "approve",
+                    type: "approve",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Approve Proposed Transaction\nsummary: '{{nowrap level.actor}} approves the {{nowrap proposal_name}} proposal'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{level.actor}} approves the {{proposal_name}} proposal proposed by {{proposer}} with the {{level.permission}} permission of {{level.actor}}."
+                }, {
+                    name: "cancel",
+                    type: "cancel",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Cancel Proposed Transaction\nsummary: '{{nowrap canceler}} cancels the {{nowrap proposal_name}} proposal'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{canceler}} cancels the {{proposal_name}} proposal submitted by {{proposer}}."
+                }, {
+                    name: "exec",
+                    type: "exec",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Execute Proposed Transaction\nsummary: '{{nowrap executer}} executes the {{nowrap proposal_name}} proposal'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{executer}} executes the {{proposal_name}} proposal submitted by {{proposer}} if the minimum required approvals for the proposal have been secured."
+                }, {
+                    name: "invalidate",
+                    type: "invalidate",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Invalidate All Approvals\nsummary: '{{nowrap account}} invalidates approvals on outstanding proposals'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{account}} invalidates all approvals on proposals which have not yet executed."
+                }, {
+                    name: "propose",
+                    type: "propose",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Propose Transaction\nsummary: '{{nowrap proposer}} creates the {{nowrap proposal_name}}'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{proposer}} creates the {{proposal_name}} proposal for the following transaction:\n{{to_json trx}}\n\nThe proposal requests approvals from the following accounts at the specified permission levels:\n{{#each requested}}\n   + {{this.permission}} permission of {{this.actor}}\n{{/each}}\n\nIf the proposed transaction is not executed prior to {{trx.expiration}}, the proposal will automatically expire."
+                }, {
+                    name: "unapprove",
+                    type: "unapprove",
+                    ricardian_contract: "---\nspec_version: \"0.2.0\"\ntitle: Unapprove Proposed Transaction\nsummary: '{{nowrap level.actor}} revokes the approval previously provided to {{nowrap proposal_name}} proposal'\nicon: https://raw.githubusercontent.com/EOS-Nation/eosio.msig/master/contracts/icons/multisig.png#4fb41d3cf02d0dd2d35a29308e93c2d826ec770d6bb520db668f530764be7153\n---\n\n{{level.actor}} revokes the approval previously provided at their {{level.permission}} permission level from the {{proposal_name}} proposal proposed by {{proposer}}."
+                } ],
+                tables: [ {
+                    name: "approvals",
+                    index_type: "i64",
+                    key_names: [],
+                    key_types: [],
+                    type: "old_approvals_info"
+                }, {
+                    name: "approvals2",
+                    index_type: "i64",
+                    key_names: [],
+                    key_types: [],
+                    type: "approvals_info"
+                }, {
+                    name: "invals",
+                    index_type: "i64",
+                    key_names: [],
+                    key_types: [],
+                    type: "invalidation"
+                }, {
+                    name: "proposal",
+                    index_type: "i64",
+                    key_names: [],
+                    key_types: [],
+                    type: "proposal"
+                } ],
+                ricardian_clauses: [],
+                error_messages: [],
+                abi_extensions: [],
+                variants: []
+            }
+        },
         "f0106008013b62a558774617ef77a690a2507ae0.json": {
             status: 200,
             json: {
