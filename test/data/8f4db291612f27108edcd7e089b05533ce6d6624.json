@@ -1,0 +1,25 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "465",
+        "content-type": "application/json",
+        "date": "Wed, 17 Aug 2022 03:01:56 GMT",
+        "server": "nginx/1.22.0"
+    },
+    "status": 200,
+    "json": {
+        "state": "UNKNOWN",
+        "head_number": 30016177,
+        "head_id": "01ca02b1a15a7b32838ce5410e4fef7710538d91882353634df15c4d07b4f6f9",
+        "head_timestamp": "2022-08-17T03:01:56.000",
+        "irreversible_number": 30015848,
+        "irreversible_id": "01ca0168aec853517347c803aecc1b4d62e52134c2be88200cebbefaddcbe855",
+        "irreversible_timestamp": "2022-08-17T02:59:11.500",
+        "earliest_tracked_block_id": "01bc4d365ae817d436cab9035905318db6b05d74e4e24b8fa6b4815c1d4049f4",
+        "earliest_tracked_block_number": 29117750
+    },
+    "text": "{\"state\":\"UNKNOWN\",\"head_number\":30016177,\"head_id\":\"01ca02b1a15a7b32838ce5410e4fef7710538d91882353634df15c4d07b4f6f9\",\"head_timestamp\":\"2022-08-17T03:01:56.000\",\"irreversible_number\":30015848,\"irreversible_id\":\"01ca0168aec853517347c803aecc1b4d62e52134c2be88200cebbefaddcbe855\",\"irreversible_timestamp\":\"2022-08-17T02:59:11.500\",\"earliest_tracked_block_id\":\"01bc4d365ae817d436cab9035905318db6b05d74e4e24b8fa6b4815c1d4049f4\",\"earliest_tracked_block_number\":29117750}"
+}
