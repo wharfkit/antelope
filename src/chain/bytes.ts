@@ -82,10 +82,17 @@ export class Bytes implements ABISerializableObject {
         this.array = array
     }
 
+    /** Number of bytes in this instance. */
+    get length(): number {
+        return this.array.byteLength
+    }
+
+    /** Hex string representation of this instance. */
     get hexString(): string {
         return arrayToHex(this.array)
     }
 
+    /** UTF-8 string representation of this instance. */
     get utf8String(): string {
         return new TextDecoder().decode(this.array)
     }
@@ -108,6 +115,33 @@ export class Bytes implements ABISerializableObject {
         return rv
     }
 
+    /** Mutating. Pad this instance to length. */
+    zeropad(n: number, truncate = false) {
+        const newSize = truncate ? n : Math.max(n, this.array.byteLength)
+        const buffer = new ArrayBuffer(newSize)
+        const array = new Uint8Array(buffer)
+        array.fill(0)
+        if (truncate && this.array.byteLength > newSize) {
+            array.set(this.array.slice(0, newSize), 0)
+        } else {
+            array.set(this.array, newSize - this.array.byteLength)
+        }
+        this.array = array
+    }
+
+    /** Non-mutating, returns a copy of this instance with zeros padded. */
+    zeropadded(n: number, truncate = false) {
+        const rv = new Bytes(this.array)
+        rv.zeropad(n, truncate)
+        return rv
+    }
+
+    /** Mutating. Drop bytes from the start of this instance. */
+    dropFirst(n = 1) {
+        this.array = this.array.subarray(n)
+    }
+
+    /** Non-mutating, returns a copy of this instance with dropped bytes from the start. */
     droppingFirst(n = 1) {
         return new Bytes(this.array.subarray(n))
     }
