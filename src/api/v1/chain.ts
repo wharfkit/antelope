@@ -30,7 +30,11 @@ import {
     GetTableRowsParamsKeyed,
     GetTableRowsParamsTyped,
     GetTableRowsResponse,
+    GetTransactionStatusResponse,
     PushTransactionResponse,
+    SendTransaction2Options,
+    SendTransaction2Response,
+    SendTransactionResponse,
     TableIndexType,
     TableIndexTypes,
 } from './types'
@@ -94,6 +98,18 @@ export class ChainAPI {
         })
     }
 
+    async compute_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransactionResponse>({
+            path: '/v1/chain/compute_transaction',
+            params: {
+                transaction: tx,
+            },
+        })
+    }
+
     async push_transaction(tx: SignedTransactionType | PackedTransaction) {
         if (!isInstanceOf(tx, PackedTransaction)) {
             tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
@@ -101,6 +117,35 @@ export class ChainAPI {
         return this.client.call<PushTransactionResponse>({
             path: '/v1/chain/push_transaction',
             params: tx,
+        })
+    }
+
+    async send_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransactionResponse>({
+            path: '/v1/chain/send_transaction',
+            params: tx,
+        })
+    }
+
+    async send_transaction2(
+        tx: SignedTransactionType | PackedTransaction,
+        options?: SendTransaction2Options
+    ) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransaction2Response>({
+            path: '/v1/chain/send_transaction2',
+            params: {
+                return_failure_trace: true,
+                retry_trx: false,
+                retry_trx_num_blocks: 0,
+                transaction: tx,
+                ...options,
+            },
         })
     }
 
@@ -244,6 +289,16 @@ export class ChainAPI {
             path: '/v1/chain/get_table_by_scope',
             params,
             responseType: GetTableByScopeResponse,
+        })
+    }
+
+    async get_transaction_status(id: Checksum256Type) {
+        return this.client.call({
+            path: '/v1/chain/get_transaction_status',
+            params: {
+                id: Checksum256.from(id),
+            },
+            responseType: GetTransactionStatusResponse,
         })
     }
 }

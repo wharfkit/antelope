@@ -1,6 +1,7 @@
 import {assert} from 'chai'
 
 import {MockProvider} from './utils/mock-provider'
+import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
 
 import {
     Action,
@@ -21,6 +22,10 @@ import {
 
 const jungle = new APIClient({
     provider: new MockProvider(),
+})
+
+const jungle4 = new APIClient({
+    provider: new MockProvider('https://jungle4.api.eosnation.io'),
 })
 
 const eos = new APIClient({
@@ -257,6 +262,54 @@ suite('api v1', function () {
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
+    test('chain compute_transaction', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const transaction = await makeMockTransaction(info)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.compute_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const transaction = await makeMockTransaction(info)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (default)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (failure traces)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction, {
+            return_failure_trace: true,
+        })
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain send_transaction2 (retry)', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const memo = this.test ? this.test.title : undefined
+        const transaction = await makeMockTransaction(info, memo)
+        const signedTransaction = await signMockTransaction(transaction, info)
+        const result = await jungle4.v1.chain.send_transaction2(signedTransaction, {
+            retry_trx: true,
+            retry_trx_num_blocks: 10,
+        })
+        assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
     test('chain get_table_rows (untyped)', async function () {
         const res = await eos.v1.chain.get_table_rows({
             code: 'eosio.token',
@@ -395,5 +448,12 @@ suite('api v1', function () {
     test('history get_controlled_accounts', async function () {
         const res = await eos.v1.history.get_controlled_accounts('teamgreymass')
         assert.equal(res.controlled_accounts.length, 2)
+    })
+
+    test('chain get_transaction_status', async function () {
+        const res = await jungle4.v1.chain.get_transaction_status(
+            '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
+        )
+        assert.equal(res.state, 'UNKNOWN')
     })
 })

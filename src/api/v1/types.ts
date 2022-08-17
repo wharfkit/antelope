@@ -357,6 +357,42 @@ export interface PushTransactionResponse {
     }
 }
 
+export interface SendTransactionResponse {
+    transaction_id: string
+    processed: {
+        id: string
+        block_num: number
+        block_time: string
+        receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
+        elapsed: number
+        net_usage: number
+        scheduled: boolean
+        action_traces: any[]
+        account_ram_delta: any
+    }
+}
+
+export interface SendTransaction2Options {
+    return_failure_trace?: boolean
+    retry_trx?: boolean
+    retry_trx_num_blocks?: number
+}
+
+export interface SendTransaction2Response {
+    transaction_id: string
+    processed: {
+        id: string
+        block_num: number
+        block_time: string
+        receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
+        elapsed: number
+        net_usage: number
+        scheduled: boolean
+        action_traces: any[]
+        account_ram_delta: any
+    }
+}
+
 export interface TableIndexTypes {
     float128: Float128
     float64: Float64
@@ -510,4 +546,17 @@ export class GetKeyAccountsResponse extends Struct {
 @Struct.type('get_controlled_accounts_response')
 export class GetControlledAccountsResponse extends Struct {
     @Struct.field('name', {array: true}) declare controlled_accounts: Name[]
+}
+
+@Struct.type('get_transaction_status_response')
+export class GetTransactionStatusResponse extends Struct {
+    @Struct.field('string') declare state: string
+    @Struct.field('uint32') declare head_number: UInt32
+    @Struct.field('checksum256') declare head_id: Checksum256
+    @Struct.field('time_point') declare head_timestamp: TimePoint
+    @Struct.field('uint32') declare irreversible_number: UInt32
+    @Struct.field('checksum256') declare irreversible_id: Checksum256
+    @Struct.field('time_point') declare irreversible_timestamp: TimePoint
+    @Struct.field('checksum256') declare earliest_tracked_block_id: Checksum256
+    @Struct.field('uint32') declare earliest_tracked_block_number: UInt32
 }

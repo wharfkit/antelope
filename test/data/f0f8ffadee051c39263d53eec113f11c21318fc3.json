@@ -1,0 +1,36 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "965",
+        "content-type": "application/json",
+        "date": "Wed, 17 Aug 2022 03:02:30 GMT",
+        "server": "nginx/1.22.0"
+    },
+    "status": 200,
+    "json": {
+        "server_version": "74fc8e6e",
+        "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
+        "head_block_num": 30016245,
+        "last_irreversible_block_num": 30015920,
+        "last_irreversible_block_id": "01ca01b045354b061ee0e46527dd9e7ec607ad87d6d780af1ef0d5ac6d572424",
+        "head_block_id": "01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5",
+        "head_block_time": "2022-08-17T03:02:30.000",
+        "head_block_producer": "jumpingfrogs",
+        "virtual_block_cpu_limit": 200000000,
+        "virtual_block_net_limit": 1048576000,
+        "block_cpu_limit": 200000,
+        "block_net_limit": 1048576,
+        "server_version_string": "v3.1.0-rc3",
+        "fork_db_head_block_num": 30016245,
+        "fork_db_head_block_id": "01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5",
+        "server_full_version_string": "v3.1.0-rc3-74fc8e6e4c9deabe443b17f99283c5eb1a39c677",
+        "total_cpu_weight": "120460448750100",
+        "total_net_weight": "117528994245100",
+        "earliest_available_block_num": 1,
+        "last_irreversible_block_time": "2022-08-17T02:59:47.500"
+    },
+    "text": "{\"server_version\":\"74fc8e6e\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":30016245,\"last_irreversible_block_num\":30015920,\"last_irreversible_block_id\":\"01ca01b045354b061ee0e46527dd9e7ec607ad87d6d780af1ef0d5ac6d572424\",\"head_block_id\":\"01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5\",\"head_block_time\":\"2022-08-17T03:02:30.000\",\"head_block_producer\":\"jumpingfrogs\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc3\",\"fork_db_head_block_num\":30016245,\"fork_db_head_block_id\":\"01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5\",\"server_full_version_string\":\"v3.1.0-rc3-74fc8e6e4c9deabe443b17f99283c5eb1a39c677\",\"total_cpu_weight\":\"120460448750100\",\"total_net_weight\":\"117528994245100\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2022-08-17T02:59:47.500\"}"
+}
