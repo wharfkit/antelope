@@ -131,7 +131,7 @@ export class AccountObject extends Struct {
     @Struct.field(AccountResourceLimit) declare cpu_limit: AccountResourceLimit
     @Struct.field('uint64') declare ram_usage: UInt64
     @Struct.field(AccountPermission, {array: true}) declare permissions: AccountPermission[]
-    @Struct.field(AccountTotalResources) declare total_resources: AccountTotalResources
+    @Struct.field(AccountTotalResources, {optional: true}) declare total_resources: AccountTotalResources
     @Struct.field(AccountSelfDelegatedBandwidth, {optional: true})
     self_delegated_bandwidth?: AccountSelfDelegatedBandwidth
     @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
