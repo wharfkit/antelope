@@ -5,3 +5,4 @@ coverage/
 test/browser.html
 site/
 docs/
+.idea/
