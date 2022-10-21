@@ -50,3 +50,9 @@ More:
 -   Serialization: https://github.com/greymass/eosio-core/blob/master/test/serializer.ts
 -   Crypto Operations: https://github.com/greymass/eosio-core/blob/master/test/crypto.ts
 -   Primative EOSIO Types: https://github.com/greymass/eosio-core/blob/master/test/chain.ts
+
+## Debugging 
+
+Instructions and notes on debugging typescript in your IDE. Explains how to match the Mocha test configuration found in the Makefile.
+
+[Notes on setting up IDE Debuggers](docs_build/IDE_Debug.md)
