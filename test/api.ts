@@ -458,6 +458,10 @@ suite('api v1', function () {
             assert.equal(error instanceof APIError, true)
             const apiError = error as APIError
             assert.equal(apiError.message.length > 30, true)
+            assert.equal(
+                apiError.message,
+                'Transaction exception : action\'s authorizations include a non-existent permission: {"actor":"corecorecore","permission":"foobar"} at /v1/chain/push_transaction'
+            )
         }
     })
 

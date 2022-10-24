@@ -1,0 +1,30 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "365",
+        "content-type": "application/json",
+        "date": "Mon, 24 Oct 2022 21:01:20 GMT",
+        "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3040000,
+            "name": "transaction_exception",
+            "what": "Transaction exception",
+            "details": [
+                {
+                    "message": "action's authorizations include a non-existent permission: {\"actor\":\"corecorecore\",\"permission\":\"foobar\"}",
+                    "file": "transaction_context.cpp",
+                    "line_number": 769,
+                    "method": "validate_referenced_accounts"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3040000,\"name\":\"transaction_exception\",\"what\":\"Transaction exception\",\"details\":[{\"message\":\"action's authorizations include a non-existent permission: {\\\"actor\\\":\\\"corecorecore\\\",\\\"permission\\\":\\\"foobar\\\"}\",\"file\":\"transaction_context.cpp\",\"line_number\":769,\"method\":\"validate_referenced_accounts\"}]}}"
+}

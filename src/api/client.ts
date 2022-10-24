@@ -51,7 +51,7 @@ export class APIError extends Error {
             // return detailed message if it exists
             return ''.concat(error.what, ' : ', error.details[0].message)
         } else if (error.what && error.what.length > 0) {
-            // lacks detailed message, fallback to simple error statement
+            // lacks detailed message, fallback to error statement
             // note this isn't very helpful to developers
             return error.what
         } else {
