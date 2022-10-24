@@ -42,7 +42,17 @@ export class APIError extends Error {
             return 'Account not found'
         } else if (error.what === 'unspecified' && error.details && error.details.length > 0) {
             return error.details[0].message
+        } else if (
+            error.what &&
+            error.what.length > 0 &&
+            error.details[0].message &&
+            error.details[0].message.length > 0
+        ) {
+            // return detailed message if it exists
+            return ''.concat(error.what, ' : ', error.details[0].message)
         } else if (error.what && error.what.length > 0) {
+            // lacks detailed message, fallback to simple error statement
+            // note this isn't very helpful to developers
             return error.what
         } else {
             return 'Unknown API error'

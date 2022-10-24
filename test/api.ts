@@ -414,6 +414,53 @@ suite('api v1', function () {
         }
     })
 
+    test('api error with details', async function () {
+        // test improved, longer error message with failed permission
+        try {
+            @Struct.type('transfer')
+            class Transfer extends Struct {
+                @Struct.field('name') from!: Name
+                @Struct.field('name') to!: Name
+                @Struct.field('asset') quantity!: Asset
+                @Struct.field('string') memo!: string
+            }
+
+            const info = await jungle.v1.chain.get_info()
+            const header = info.getTransactionHeader()
+            const action = Action.from({
+                authorization: [
+                    {
+                        actor: 'corecorecore',
+                        permission: 'badperm',
+                    },
+                ],
+                account: 'eosio.token',
+                name: 'transfer',
+                data: Transfer.from({
+                    from: 'corecorecore',
+                    to: 'teamgreymass',
+                    quantity: '0.0042 EOS',
+                    memo: 'expected to fail',
+                }),
+            })
+            const transaction = Transaction.from({
+                ...header,
+                actions: [action],
+            })
+            const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+            const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+            const signedTransaction = SignedTransaction.from({
+                ...transaction,
+                signatures: [signature],
+            })
+            const result = await jungle.v1.chain.push_transaction(signedTransaction)
+        } catch (error) {
+            assert.equal(error instanceof APIError, true)
+            const apiError = error as APIError
+            assert.equal(apiError.message.length > 30, true)
+        }
+    })
+
     test('history get_actions', async function () {
         const res = await eos.v1.history.get_actions('teamgreymass', 1, 1)
         assert.equal(res.actions.length, 1)
