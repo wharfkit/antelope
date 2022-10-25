@@ -52,23 +52,23 @@ publish: | distclean node_modules
 	@yarn config set version-tag-prefix "" && yarn config set version-git-message "Version %s"
 	@yarn publish && git push && git push --tags
 
-docs: $(SRC_FILES) node_modules
-	@${BIN}/typedoc --out docs \
+docs_build: $(SRC_FILES) node_modules
+	@${BIN}/typedoc --out docs_build \
 		--excludeInternal --excludePrivate --excludeProtected \
 		--includeVersion --readme none \
 		src/index.ts
 
 .PHONY: deploy-site
-deploy-site: | clean docs test/browser.html test-coverage
+deploy-site: | clean docs_build test/browser.html test-coverage
 	@mkdir -p site
-	@cp -r docs/* site/
+	@cp -r docs_build/* site/
 	@cp -r test/browser.html site/tests.html
 	@cp -r coverage/ site/coverage/
 	@${BIN}/gh-pages -d site
 
 .PHONY: clean
 clean:
-	rm -rf lib/ coverage/ docs/ site/ test/browser.html
+	rm -rf lib/ coverage/ docs_build/ site/ test/browser.html
 
 .PHONY: distclean
 distclean: clean
