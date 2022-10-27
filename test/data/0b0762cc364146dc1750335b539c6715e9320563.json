@@ -1,0 +1,21 @@
+{
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3010008,
+            "name": "block_id_type_exception",
+            "what": "unspecified",
+            "details": [
+                {
+                    "message": "Invalid block ID: A1234",
+                    "file": "chain_plugin.cpp",
+                    "line_number": 2096,
+                    "method": "get_block"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3010008,\"name\":\"block_id_type_exception\",\"what\":\"unspecified\",\"details\":[{\"message\":\"Invalid block ID: A1234\",\"file\":\"chain_plugin.cpp\",\"line_number\":2096,\"method\":\"get_block\"}]}}"
+}

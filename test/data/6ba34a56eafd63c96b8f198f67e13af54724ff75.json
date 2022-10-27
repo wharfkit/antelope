@@ -1,0 +1,13 @@
+{
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3010008,
+            "name": "block_id_type_exception",
+            "what": "random message for testing"
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3010008,\"name\":\"block_id_type_exception\",\"what\":\"random message for testing\"}}"
+}

@@ -1,0 +1,28 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "635",
+        "content-type": "application/json",
+        "date": "Tue, 25 Oct 2022 19:44:02 GMT",
+        "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    "status": 200,
+    "json": {
+        "timestamp": "2022-10-25T19:36:02.500",
+        "producer": "batinthedark",
+        "confirmed": 0,
+        "previous": "02815e2ea45b167ea012ad16e8bfa6c055fda8eb5fc88a864cf8dbe10676fc2b",
+        "transaction_mroot": "0000000000000000000000000000000000000000000000000000000000000000",
+        "action_mroot": "a0d2d67035c34a5ec2b058ac07b8d57dd2036330262aba04ed67435b5ce89c7e",
+        "schedule_version": 50,
+        "new_producers": null,
+        "producer_signature": "SIG_K1_K2fhzvVFx7DUtkjhdJoaefmR7mhkq1HaPdCaPVYzC8xvkSJ8QEYpaYxKLD99AHWJWL1QM6vbFsQvjSHjxLMRcQBnofNeu6",
+        "transactions": [],
+        "id": "02815e2f90ecf10acfb9dc7f2aa301a5a008b47c3d7a2743f9dd8dffcfa3762e",
+        "block_num": 42032687,
+        "ref_block_prefix": 2145171919
+    },
+    "text": "{\"timestamp\":\"2022-10-25T19:36:02.500\",\"producer\":\"batinthedark\",\"confirmed\":0,\"previous\":\"02815e2ea45b167ea012ad16e8bfa6c055fda8eb5fc88a864cf8dbe10676fc2b\",\"transaction_mroot\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"action_mroot\":\"a0d2d67035c34a5ec2b058ac07b8d57dd2036330262aba04ed67435b5ce89c7e\",\"schedule_version\":50,\"new_producers\":null,\"producer_signature\":\"SIG_K1_K2fhzvVFx7DUtkjhdJoaefmR7mhkq1HaPdCaPVYzC8xvkSJ8QEYpaYxKLD99AHWJWL1QM6vbFsQvjSHjxLMRcQBnofNeu6\",\"transactions\":[],\"id\":\"02815e2f90ecf10acfb9dc7f2aa301a5a008b47c3d7a2743f9dd8dffcfa3762e\",\"block_num\":42032687,\"ref_block_prefix\":2145171919}"
+}

@@ -1,0 +1,36 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "392",
+        "content-type": "application/json",
+        "date": "Tue, 25 Oct 2022 14:25:14 GMT",
+        "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3010008,
+            "name": "block_id_type_exception",
+            "what": "Invalid block ID",
+            "details": [
+                {
+                    "message": "Invalid block ID: A1234",
+                    "file": "chain_plugin.cpp",
+                    "line_number": 2096,
+                    "method": "get_block"
+                },
+                {
+                    "message": "str.size() % 2 == 0: the length of hex string should be even number",
+                    "file": "variant.cpp",
+                    "line_number": 740,
+                    "method": "from_variant"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3010008,\"name\":\"block_id_type_exception\",\"what\":\"Invalid block ID\",\"details\":[{\"message\":\"Invalid block ID: A1234\",\"file\":\"chain_plugin.cpp\",\"line_number\":2096,\"method\":\"get_block\"},{\"message\":\"str.size() % 2 == 0: the length of hex string should be even number\",\"file\":\"variant.cpp\",\"line_number\":740,\"method\":\"from_variant\"}]}}"
+}

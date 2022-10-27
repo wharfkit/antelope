@@ -31,6 +31,10 @@ In the top Right Corner, select the checkbox `Store as Project File`. To save co
 
 ![Webstorm IDE Configuration](Webstorm2022-Run-EditConfiguration.png)
 
+Optionally you may add `NODE_DEBUG=HTTP` as an environment variable to see http requests.
+- :heavy_exclamation_mark: This won't show mocked requests.
+- :blue_book: Separate multiple environment variables with semi-colon `;`
+
 ## Visual Studio
 
 ### <font color="red">Need help updating and verifying this section.</font> 

@@ -1,4 +1,9 @@
-import {assert} from 'chai'
+import * as chai from 'chai'
+// needed for assert.isRejected test
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
+const assert = chai.assert
+const expect = chai.expect
 
 import {MockProvider} from './utils/mock-provider'
 import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
@@ -89,6 +94,12 @@ suite('api v1', function () {
             block.id.hexString,
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
         )
+    })
+
+    test('jungle get_block (by id)', async function () {
+        const good_block_id = '02815e2f90ecf10acfb9dc7f2aa301a5a008b47c3d7a2743f9dd8dffcfa3762e'
+        const block_info = await jungle4.v1.chain.get_block(good_block_id)
+        assert.equal(Number(block_info.block_num), 42032687)
     })
 
     test('chain get_block (by num)', async function () {
@@ -416,53 +427,94 @@ suite('api v1', function () {
 
     test('api error with details', async function () {
         // test improved, longer error message with failed permission
-        try {
-            @Struct.type('transfer')
-            class Transfer extends Struct {
-                @Struct.field('name') from!: Name
-                @Struct.field('name') to!: Name
-                @Struct.field('asset') quantity!: Asset
-                @Struct.field('string') memo!: string
-            }
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
 
-            const info = await jungle.v1.chain.get_info()
-            const header = info.getTransactionHeader()
-            const action = Action.from({
-                authorization: [
-                    {
-                        actor: 'corecorecore',
-                        permission: 'badperm',
-                    },
-                ],
-                account: 'eosio.token',
-                name: 'transfer',
-                data: Transfer.from({
-                    from: 'corecorecore',
-                    to: 'teamgreymass',
-                    quantity: '0.0042 EOS',
-                    memo: 'expected to fail',
-                }),
-            })
-            const transaction = Transaction.from({
-                ...header,
-                actions: [action],
-            })
-            const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
-            const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
-            const signedTransaction = SignedTransaction.from({
-                ...transaction,
-                signatures: [signature],
-            })
-            const result = await jungle.v1.chain.push_transaction(signedTransaction)
-        } catch (error) {
-            assert.equal(error instanceof APIError, true)
-            const apiError = error as APIError
-            assert.equal(apiError.message.length > 30, true)
-            assert.equal(
-                apiError.message,
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'badperm',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'expected to fail',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from(
+            '5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9'
+        )
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        await expect(jungle.v1.chain.push_transaction(signedTransaction))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.have.property(
+                'message',
                 'Transaction exception : action\'s authorizations include a non-existent permission: {"actor":"corecorecore","permission":"foobar"} at /v1/chain/push_transaction'
             )
-        }
+            .with.lengthOf.above(30)
+    })
+
+    // check an error with multiple error details returned
+    test('api error multi message', async function () {
+        await expect(jungle4.v1.chain.get_block('A1234'))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.have.property(
+                'message',
+                'Invalid block ID: A1234 , str.size() % 2 == 0: the length of hex string should be even number at /v1/chain/get_block'
+            )
+    })
+
+    // checks error message code is robust and can handle missing elements
+    test('api error sparse message', async function () {
+        // code only, no error.what , no error.details[].message
+        await expect(jungle4.v1.chain.get_block('AnswerCodeOnly'))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.has.property('code')
+            .and.does.not.have.property('message')
+    })
+
+    test('api error unspecified', async function () {
+        // code exists, error.what == unspecified, error.details[].message exists
+        await expect(jungle4.v1.chain.get_block('AnswerUnspecified'))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.has.property('code')
+            .and.does.not.have.property('message')
+    })
+
+    test('api error has what no details.message', async function () {
+        // code exists, error.what exists, no error.details[].message
+        await expect(jungle4.v1.chain.get_block('AnswerWhatOnly'))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.has.property('code')
+            .and.does.not.have.property('message')
+    })
+
+    test('api error no message error code only', async function () {
+        // only 500 code, no other details
+        await expect(jungle4.v1.chain.get_block('AnswerWithNothing'))
+            .to.eventually.be.rejected.and.be.an.instanceOf(APIError)
+            .and.has.property('message')
+            .and.does.not.have.property('name')
     })
 
     test('history get_actions', async function () {
@@ -475,8 +527,11 @@ suite('api v1', function () {
             '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'
         )
         assert(Array.isArray(res.traces), 'response should have traces')
-        assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
-        assert.equal(res.block_num, 199068081)
+        assert.equal(
+            res.id.hexString,
+            '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'
+        )
+        assert.equal(Number(res.block_num), 199068081)
     })
 
     test('history get_transaction (no traces)', async function () {
@@ -485,8 +540,11 @@ suite('api v1', function () {
             {excludeTraces: true}
         )
         assert.equal(res.traces, null, 'response should not have traces')
-        assert.equal(res.id, '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7')
-        assert.equal(res.block_num, 199068081)
+        assert.equal(
+            res.id.hexString,
+            '03ef96a276a252b66595d91006ad0ff38ed999816f078bc5d87f88368a9354e7'
+        )
+        assert.equal(Number(res.block_num), 199068081)
     })
 
     test('history get_key_accounts', async function () {

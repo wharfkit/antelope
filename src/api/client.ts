@@ -33,24 +33,29 @@ export class APIError extends Error {
 
     static formatError(error: APIErrorData) {
         if (
-            error.what === 'unspecified' &&
-            error.details[0].file &&
-            error.details[0].file === 'http_plugin.cpp' &&
-            error.details[0].message.slice(0, 11) === 'unknown key'
+            error?.what === 'unspecified' &&
+            error?.details?.[0]?.file === 'http_plugin.cpp' &&
+            error?.details?.[0]?.message?.slice(0, 11) === 'unknown key'
         ) {
             // fix cryptic error messages from nodeos for missing accounts
             return 'Account not found'
-        } else if (error.what === 'unspecified' && error.details && error.details.length > 0) {
+        } else if (error?.what === 'unspecified' && error?.details?.[0]) {
             return error.details[0].message
-        } else if (
-            error.what &&
-            error.what.length > 0 &&
-            error.details[0].message &&
-            error.details[0].message.length > 0
-        ) {
-            // return detailed message if it exists
-            return ''.concat(error.what, ' : ', error.details[0].message)
-        } else if (error.what && error.what.length > 0) {
+        } else if (error?.what?.length > 0 && error?.details?.[0]?.message?.length > 0) {
+            // return detailed messages
+            // dedupe text between message and details
+            const canonical_what_message: string = error.what.replace(':;', '').trim()
+            // intentionally check first message
+            // code not good enough to dedupe across entire message chain
+            const message_from_all_details: string = error.details
+                .map(({message}) => message)
+                .join(' , ')
+            if (error.details[0].message.includes(canonical_what_message)) {
+                return message_from_all_details
+            } else {
+                return ''.concat(canonical_what_message, ' : ', message_from_all_details)
+            }
+        } else if (error?.what?.length > 0) {
             // lacks detailed message, fallback to error statement
             // note this isn't very helpful to developers
             return error.what
