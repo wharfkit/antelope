@@ -20,6 +20,12 @@
                 "ignoreDeclarationSort": true
             }
         ],
+        "no-restricted-imports": ["ERROR", {
+            "patterns": [{
+                "group": ["chai-*"],
+                "message": "Use of additional chai packages not allowed. Please restrict testing to chai"
+            }]
+        }],
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-namespace": "off",
