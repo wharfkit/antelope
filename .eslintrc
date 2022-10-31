@@ -1,13 +1,14 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint", "es-x"],
     "ignorePatterns": ["lib/*", "node_modules/**"],
     "extends": [
         "eslint:recommended",
         "plugin:prettier/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:es-x/no-new-in-es2020"
     ],
     "rules": {
         "prettier/prettier": "warn",
@@ -26,5 +27,8 @@
         "@typescript-eslint/no-empty-function": "warn",
         "@typescript-eslint/no-this-alias": "off",
         "no-inner-declarations": "off",
+        "es-x/no-optional-chaining": "ERROR",
+        "es-x/no-class-fields": "OFF",
+        "es-x/no-export-ns-from": "OFF"
     }
 }
