@@ -167,3 +167,8 @@ export function toTypeDescriptor(type: ABISerializableType): ABITypeDescriptor {
     }
     return type as ABITypeDescriptor
 }
+
+/** Returns true if the given value conforms to ABISerializableObject. */
+export function isABISerializableObject(value: any): value is ABISerializableObject {
+    return value && value.constructor && typeof value.constructor.abiName === 'string'
+}
