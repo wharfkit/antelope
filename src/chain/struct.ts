@@ -2,6 +2,7 @@ import {
     ABIField,
     ABISerializableConstructor,
     ABISerializableObject,
+    ABITypeModifiers,
 } from '../serializer/serializable'
 import {abiDecode, Resolved} from '../serializer/decoder'
 import {abiEncode} from '../serializer/encoder'
@@ -89,8 +90,10 @@ export namespace Struct {
             return struct
         }
     }
-    export function field(type: ABISerializableConstructor | string, options?: Partial<ABIField>) {
-        if (!options) options = {}
+    export function field(
+        type: ABISerializableConstructor | string,
+        options: ABITypeModifiers = {}
+    ) {
         return <T extends Struct>(target: T, name: string) => {
             const ctor = target.constructor as StructConstructor
             if (!ctor.abiFields) {

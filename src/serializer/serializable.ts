@@ -23,14 +23,22 @@ export interface ABISerializableObject {
     equals(other: any): boolean
 }
 
-export interface ABITypeDescriptor {
-    type: ABISerializableConstructor | string
+export interface ABITypeModifiers {
+    /** Type is optional, defaults to false. */
     optional?: boolean
+    /** Type is an array, defaults to false. */
     array?: boolean
+    /** Type is a binary extension, defaults to false. */
     extension?: boolean
 }
 
+export interface ABITypeDescriptor extends ABITypeModifiers {
+    /** Type name or class. */
+    type: ABISerializableConstructor | string
+}
+
 export interface ABIField extends ABITypeDescriptor {
+    /** Field name. */
     name: string
 }
 
