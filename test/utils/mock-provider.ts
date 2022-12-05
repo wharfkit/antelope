@@ -6,9 +6,10 @@ import {readFile as _readFile, writeFile as _writeFile} from 'fs'
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
 
-import {APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
+import {APIProvider, Bytes, Checksum160, FetchType, FetchProvider} from '$lib'
 
 export class MockProvider implements APIProvider {
+    readonly fetch: FetchType = fetch
     recordProvider = new FetchProvider(this.api, {fetch})
 
     constructor(private api: string = 'https://jungle3.greymass.com') {}

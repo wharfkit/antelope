@@ -1,4 +1,4 @@
-type Fetch = (input: any, init?: any) => Promise<any>
+export type FetchType = (input: any, init?: any) => Promise<any>
 
 /** Response to an API call.  */
 export interface APIResponse {
@@ -16,6 +16,10 @@ export interface APIProvider {
      * @argument params The request body if any.
      */
     call(path: string, params?: unknown): Promise<APIResponse>
+    /**
+     * Require an instance of Fetch to exist on the APIProvider
+     */
+    fetch: FetchType
 }
 
 export interface FetchProviderOptions {
@@ -23,13 +27,13 @@ export interface FetchProviderOptions {
      * Fetch instance, must be provided in non-browser environments.
      * You can use the node-fetch package in Node.js.
      */
-    fetch?: Fetch
+    fetch?: FetchType
 }
 
 /** Default provider that uses the Fetch API to call a single node. */
 export class FetchProvider implements APIProvider {
     readonly url: string
-    readonly fetch: Fetch
+    readonly fetch: FetchType
 
     constructor(url: string, options: FetchProviderOptions = {}) {
         url = url.trim()
