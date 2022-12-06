@@ -1,4 +1,4 @@
-type Fetch = (input: any, init?: any) => Promise<any>
+export type FetchType = (input: any, init?: any) => Promise<any>
 
 /** Response to an API call.  */
 export interface APIResponse {
@@ -23,29 +23,32 @@ export interface FetchProviderOptions {
      * Fetch instance, must be provided in non-browser environments.
      * You can use the node-fetch package in Node.js.
      */
-    fetch?: Fetch
+    fetch?: FetchType
 }
 
 /** Default provider that uses the Fetch API to call a single node. */
 export class FetchProvider implements APIProvider {
     readonly url: string
-    readonly fetch: Fetch
+    readonly fetch: FetchType
+
+    static getFetch(options: FetchProviderOptions): FetchType {
+        if (options.fetch) {
+            return options.fetch
+        }
+        if (typeof window !== 'undefined' && window.fetch) {
+            return window.fetch.bind(window)
+        }
+        if (typeof global !== 'undefined' && global.fetch) {
+            return global.fetch.bind(global)
+        }
+        throw new Error('Missing fetch')
+    }
 
     constructor(url: string, options: FetchProviderOptions = {}) {
         url = url.trim()
         if (url.endsWith('/')) url = url.slice(0, -1)
         this.url = url
-        if (!options.fetch) {
-            if (typeof window !== 'undefined' && window.fetch) {
-                this.fetch = window.fetch.bind(window)
-            } else if (typeof global !== 'undefined' && global.fetch) {
-                this.fetch = global.fetch.bind(global)
-            } else {
-                throw new Error('Missing fetch')
-            }
-        } else {
-            this.fetch = options.fetch
-        }
+        this.fetch = FetchProvider.getFetch(options)
     }
 
     async call(path: string, params?: unknown) {
