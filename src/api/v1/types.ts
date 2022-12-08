@@ -79,7 +79,7 @@ export class AccountVoterInfo extends Struct {
     @Struct.field('bool') declare is_proxy: boolean
     @Struct.field('uint32', {optional: true}) flags1?: UInt32
     @Struct.field('uint32') reserved2!: UInt32
-    @Struct.field('string') reserved3!: string
+    @Struct.field(Asset) reserved3!: Asset
 }
 
 @Struct.type('account_rex_info_maturities')
