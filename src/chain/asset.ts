@@ -153,7 +153,17 @@ export namespace Asset {
             if (toSymbolPrecision(value) > Symbol.maxPrecision) {
                 throw new Error('Invalid asset symbol, precision too large')
             }
-            if (!Symbol.symbolNamePattern.test(toSymbolName(value))) {
+            /**
+             * Within the `voters` table of the `eosio` contract, the `reserved3` value
+             * is a required field with a type of `asset`, but has a value of UInt64.from(0)
+             *
+             * This doesn't match our regex, so we need to allow it to pass to deserialize
+             * the data properly. The string renders out to "0 " according to nodeos APIs.
+             */
+            if (
+                !value.equals(UInt64.from(0)) &&
+                !Symbol.symbolNamePattern.test(toSymbolName(value))
+            ) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
