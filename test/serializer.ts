@@ -11,6 +11,7 @@ import {
     Asset,
     Bytes,
     Checksum256,
+    Float64,
     Int128,
     Int32,
     Int32Type,
@@ -1181,5 +1182,74 @@ suite('serializer', function () {
                 strictExtensions: true,
             })
         }, /Circular type reference/)
+    })
+
+    test('struct test against weird assets', function () {
+        // cleos -u https://eos.greymass.com get abi eosio | abi2core
+        @Struct.type('voter_info')
+        class VoterInfo extends Struct {
+            @Struct.field(Name) owner!: Name
+            @Struct.field(Name) proxy!: Name
+            @Struct.field(Name, {array: true}) producers!: Name[]
+            @Struct.field(Int64) staked!: Int64
+            @Struct.field(Float64) last_vote_weight!: Float64
+            @Struct.field(Float64) proxied_vote_weight!: Float64
+            @Struct.field('bool') is_proxy!: boolean
+            @Struct.field(UInt32) flags1!: UInt32
+            @Struct.field(UInt32) reserved2!: UInt32
+            @Struct.field(Asset) reserved3!: Asset
+        }
+
+        /*
+        curl https://telos.greymass.com/v1/chain/get_table_rows -d '{"code":"eosio","scope":"eosio","table":"voters","json":true, "lower_bound": "teamgreymass", "limit": 1}'
+
+        {
+            "rows": [
+                "80b1915e5d268dca000000000000000000d54af8550100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            ],
+            "more": true,
+            "next_key": "14595367156193135920"
+        }
+        */
+        const hex =
+            '80b1915e5d268dca000000000000000000d54af8550100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+
+        /*
+        curl https://telos.greymass.com/v1/chain/get_table_rows -d '{"code":"eosio","scope":"eosio","table":"voters","json":true, "lower_bound": "teamgreymass", "limit": 1}'
+
+        {
+            "rows": [
+                {
+                "owner": "teamgreymass",
+                "proxy": "",
+                "producers": [],
+                "staked": "5737302741",
+                "last_stake": 0,
+                "last_vote_weight": "0.00000000000000000",
+                "proxied_vote_weight": "0.00000000000000000",
+                "is_proxy": 0,
+                "flags1": 0,
+                "reserved2": 0,
+                "reserved3": "0 "
+                }
+            ],
+            "more": true,
+            "next_key": "14595367156193135920"
+        }
+        */
+        const voter = VoterInfo.from({
+            owner: 'teamgreymass',
+            proxy: '',
+            producers: [],
+            staked: '5737302741',
+            last_stake: 0,
+            last_vote_weight: '0.00000000000000000',
+            proxied_vote_weight: '0.00000000000000000',
+            is_proxy: 0,
+            flags1: 0,
+            reserved2: 0,
+            reserved3: '0 ',
+        })
+        assert.equal(Serializer.encode({object: voter}).hexString, hex)
     })
 })
