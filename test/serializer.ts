@@ -106,6 +106,15 @@ suite('serializer', function () {
         assert.equal(JSON.stringify(Serializer.decode({data, type: Asset})), json)
         assert.equal(JSON.stringify(Serializer.decode({json, type: 'asset'})), json)
         assert.equal(JSON.stringify(object), json)
+
+        const data2 = '00000000000000000000000000000000'
+        const object2 = Asset.from('0 ')
+        const json2 = '"0 "'
+
+        assert.equal(Serializer.encode({object: object2}).hexString, data2)
+        assert.equal(JSON.stringify(Serializer.decode({data: data2, type: Asset})), json2)
+        assert.equal(JSON.stringify(Serializer.decode({json: json2, type: 'asset'})), json2)
+        assert.equal(JSON.stringify(object2), json2)
     })
 
     test('asset symbol', function () {

@@ -50,6 +50,11 @@ suite('chain', function () {
         assert.equal(symbol.precision, '10')
         assert.equal(Asset.Symbol.from(symbol.value).toString(), symbol.toString())
 
+        // test null asset
+        asset = Asset.from('0 ')
+        assert.equal(Number(asset.value), 0)
+        assert.equal(String(asset), '0 ')
+
         asset = Asset.from(10, '4,POX')
         assert.equal(asset.value, 10)
         assert.equal(Number(asset.units), 100000)
@@ -87,9 +92,6 @@ suite('chain', function () {
         })
         assert.throws(() => {
             Asset.Symbol.from('12')
-        })
-        assert.throws(() => {
-            Asset.Symbol.from('4,')
         })
     })
 
