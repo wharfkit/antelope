@@ -1191,4 +1191,26 @@ suite('serializer', function () {
             })
         }, /Circular type reference/)
     })
+
+    test('null data', function () {
+        const abi = ABI.from({
+            version: 'eosio::abi/1.1',
+            structs: [
+                {
+                    name: 'doresources',
+                    base: '',
+                    fields: [],
+                },
+            ],
+            actions: [
+                {
+                    name: 'doresources',
+                    type: 'doresources',
+                    ricardian_contract: '',
+                },
+            ],
+        })
+        const data = ''
+        Serializer.decode({data, type: 'noop', abi})
+    })
 })
