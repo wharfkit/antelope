@@ -1211,6 +1211,6 @@ suite('serializer', function () {
             ],
         })
         const data = ''
-        Serializer.decode({data, type: 'noop', abi})
+        Serializer.decode({data, type: 'doresources', abi})
     })
 })
