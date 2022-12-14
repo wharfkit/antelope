@@ -112,7 +112,7 @@ export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | Typ
     }
 
     try {
-        if (args.data) {
+        if (args.data || args.data === '') {
             let decoder: ABIDecoder
             if (isInstanceOf(args.data, ABIDecoder)) {
                 decoder = args.data
