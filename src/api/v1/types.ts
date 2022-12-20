@@ -366,6 +366,24 @@ export interface SendTransactionResponse {
         block_time: string
         receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
         elapsed: number
+        except?: {
+            code: number
+            name: string
+            message: string
+            stack: {
+                context: {
+                    level: string
+                    file: string
+                    line: number
+                    method: string
+                    hostname: string
+                    thread_name: string
+                    timestamp: string
+                }
+                format: string
+                data: any
+            }
+        }
         net_usage: number
         scheduled: boolean
         action_traces: any[]
