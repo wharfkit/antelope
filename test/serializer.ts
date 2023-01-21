@@ -3,6 +3,7 @@ import BN from 'bn.js'
 import {assert} from 'chai'
 
 import typestresserAbi from './typestresser.abi.json'
+import { hexToArray } from "../src/utils";
 
 import {
     ABI,
@@ -416,6 +417,40 @@ suite('serializer', function () {
                 'Decoding error at root<type1>.foo<type2?>.bar<type3[]>.6.baz<int8>: Read past end of buffer'
             )
         }
+    })
+
+    test('signed int64', function () {
+        const hex = 'a38b82d9a906bdfe'
+        const object = Int64.from(hexToArray(hex))
+        const textValue = '-90909090909090909'
+        const json = '"' + textValue + '"'
+        const expected = BigInt(textValue)
+
+        assert.equal(textValue, expected.toString())
+        assert.equal(Serializer.encode({object}).hexString, hex)
+
+        assert.equal(JSON.stringify(Serializer.decode({data: hexToArray(hex), type: Int64})), json)
+        assert.equal(JSON.stringify(object), json)
+        assert.deepEqual(Int64.from(textValue), object)
+        assert.equal(object.value.toString(), textValue)
+        assert.equal(JSON.stringify(Int64.from(0)), '0')
+    })
+
+    test('uint64', function () {
+        const hex = 'ffffffffffffffff'
+        const object = UInt64.from(hexToArray(hex))
+        const textValue = '18446744073709551615'
+        const json = '"' + textValue + '"'
+        const expected = BigInt(textValue)
+
+        assert.equal(textValue, expected.toString())
+        assert.equal(Serializer.encode({object}).hexString, hex)
+
+        assert.equal(JSON.stringify(Serializer.decode({data: hexToArray(hex), type: UInt64})), json)
+        assert.equal(JSON.stringify(object), json)
+        assert.deepEqual(UInt64.from(textValue), object)
+        assert.equal(object.value.toString(), textValue)
+        assert.equal(JSON.stringify(UInt64.from(0)), '0')
     })
 
     test('variant', function () {
