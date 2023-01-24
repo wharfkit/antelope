@@ -8,7 +8,6 @@ suite('p2p', function () {
         const mockProvider = new MockP2PProvider();
         const client = new P2PClient({...additionalOpts, provider:mockProvider});
 
-        let called = false;
         client.on('error', (e)=>{
             console.dir(e)
             assert.fail(e)
