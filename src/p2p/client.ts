@@ -2,7 +2,7 @@ import {Serializer} from '../serializer'
 import {P2PErrorHandler, P2PHandler, P2PProvider} from './provider'
 import {NetMessage, TimeMessage} from './types'
 
-type SetTimeout = typeof setTimeout
+type SetTimeout = (handler: any, timeout: number, ...args: any[]) => number
 type TimeoutID = ReturnType<SetTimeout>
 
 export interface P2PClientOptions {
@@ -49,15 +49,15 @@ export class P2PClient {
             throw new Error('Missing provider')
         }
 
-        if (options.heartbeatTimoutMs !== undefined) {
-            this.heartbeatTimoutMs = options.heartbeatTimoutMs
-            this.resetHeartbeat()
-        }
-
         if (options.setTimeoutImpl !== undefined) {
             this.setTimeoutImpl = options.setTimeoutImpl
         } else {
             this.setTimeoutImpl = setTimeout
+        }
+
+        if (options.heartbeatTimoutMs !== undefined) {
+            this.heartbeatTimoutMs = options.heartbeatTimoutMs
+            this.resetHeartbeat()
         }
 
         this.provider.on('data', (data: Buffer) => {
@@ -76,7 +76,8 @@ export class P2PClient {
     }
 
     send(message: NetMessage['value'], done?: P2PHandler): void {
-        const messageBuffer = Serializer.encode({object: message})
+        const wrappedMessage = NetMessage.from(message)
+        const messageBuffer = Serializer.encode({object: wrappedMessage})
         this.provider.send(Buffer.from(messageBuffer.array), done)
     }
 
@@ -135,10 +136,9 @@ export class P2PClient {
         handler: P2PClientEventMap[T]
     ): this {
         if (this.eventListeners[event] !== undefined) {
-            // Typescript cannot infer that these types will match
-            this.eventListeners[event] = (this.eventListeners[event] as any).filter((e) => {
+            this.eventListeners[event] = this.eventListeners[event]!.filter((e) => {
                 return e.handler !== handler
-            })
+            }) as typeof this.eventListeners[T]
         }
 
         return this
@@ -177,8 +177,8 @@ export class P2PClient {
             erasedHandler(...args)
         }
 
-        this.eventListeners[event] = (this.eventListeners[event] as any).filter((e) => {
+        this.eventListeners[event] = this.eventListeners[event]!.filter((e) => {
             return e.once !== true
-        })
+        }) as typeof this.eventListeners[T]
     }
 }

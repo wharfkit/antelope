@@ -7,7 +7,7 @@ export type P2PErrorHandler = (error: any) => void
 
 export type P2PHandler = () => void
 
-type P2PEventMap = {
+export type P2PEventMap = {
     data: P2PDataHandler
     error: P2PErrorHandler
     close: P2PHandler
@@ -23,8 +23,5 @@ export interface P2PProvider {
     destroy(err?: Error): void
 
     on<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
-    once<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
-    addListener<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
-    prependListener<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
-    removeListener<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
+    //removeListener<T extends keyof P2PEventMap>(event: T, handler: P2PEventMap[T]): this
 }
