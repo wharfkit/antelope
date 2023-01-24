@@ -98,6 +98,20 @@ suite('p2p', function () {
             mockProvider.emit('data', [vdata])
             assert.equal(called, true);
         })
+
+        test(`send ${vmessage.variantName}`, async function () {
+            const [client, mockProvider] = makeMockClient();
+            
+            let sentData = undefined as undefined | Buffer;
+            mockProvider.send = (data:Buffer) => {
+                sentData = data;
+            }
+
+            client.send(message);
+
+            assert.notEqual(sentData, undefined)
+            assert.equal(sentData!.toString('hex'), vdata.toString('hex'));
+        })
     }
 
     test('heartbeat trigger', async function(){
