@@ -1,6 +1,7 @@
 import {assert} from 'chai'
-import { P2PClient, P2P, P2PClientOptions, Serializer } from '$lib';
+import { P2PClient, P2P, P2PClientOptions, Serializer, PackedTransaction } from '$lib';
 import { MockP2PProvider } from './utils/mock-p2p-provider'
+import { readFileSync } from 'fs';
 
 suite('p2p', function () {
     const makeMockClient = (additionalOpts?:Partial<P2PClientOptions>):[P2PClient, MockP2PProvider] => {
@@ -76,9 +77,22 @@ suite('p2p', function () {
                 endBlock: 1024
             }),
             data: Buffer.from('0600000000040000','hex')
+        },{
+            message:P2P.SignedBlock.from(
+                JSON.parse(readFileSync('test/data/000000075fbe6bbad86e424962a190e8309394b7bff4bf3e16b0a2a71e5a617c.json').toString())
+            ),
+            data: readFileSync('test/data/000000075fbe6bbad86e424962a190e8309394b7bff4bf3e16b0a2a71e5a617c.bin')
+        },{
+            message:PackedTransaction.from({
+                compression:0,
+                packed_context_free_data:'',
+                packed_trx:'408c395b796efe6596160000000001a09861f648958566000000000080694a01a0986af74a94be6400000000a8ed32321e1d766f74652067753274656d6271676167652c207765206c6f766520424d00',
+                signatures: [
+                    'SIG_K1_KfPLgpw35iX8nfDzhbcmSBCr7nEGNEYXgmmempQspDJYBCKuAEs5rm3s4ZuLJY428Ca8ZhvR2Dkwu118y3NAoMDxhicRj9'
+                ]
+            }),
+            data: Buffer.from('0100205150a67288c3b393fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6c3dfdd231ed389000050408c395b796efe6596160000000001a09861f648958566000000000080694a01a0986af74a94be6400000000a8ed32321e1d766f74652067753274656d6271676167652c207765206c6f766520424d00','hex')
         }
-        // TODO: Signed Block example
-        // TODO: Packed Transaction example
     ];
 
     for (const {message, data} of testMessages) {

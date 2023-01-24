@@ -167,4 +167,5 @@ export class NetMessage extends Variant {
         | RequestMessage
         | SyncRequestMessage
         | SignedBlock
+        | PackedTransaction
 }
