@@ -3,7 +3,7 @@ import {assert} from 'chai'
 import { P2PEventMap, P2PProvider } from '$lib'
 
 export class MockP2PProvider implements P2PProvider {
-    public send = (_:Buffer) => { assert.fail('Unexpected call to P2PProvider.send') };
+    public write = (_:Buffer) => { assert.fail('Unexpected call to P2PProvider.send') };
     public end = () => { assert.fail('Unexpected call to P2PProvider.end') };
     public destroy = (_?:Error) => { assert.fail('Unexpected call to P2PProvider.destroy') };
 

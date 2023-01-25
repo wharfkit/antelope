@@ -78,7 +78,17 @@ export class P2PClient {
     send(message: NetMessage['value'], done?: P2PHandler): void {
         const wrappedMessage = NetMessage.from(message)
         const messageBuffer = Serializer.encode({object: wrappedMessage})
-        this.provider.send(Buffer.from(messageBuffer.array), done)
+        this.provider.write(Buffer.from(messageBuffer.array), done)
+    }
+
+    end(cb?: P2PHandler): void {
+        this.endHeartbeat()
+        this.provider.end(cb)
+    }
+
+    destroy(err?: Error): void {
+        this.endHeartbeat()
+        this.provider.destroy(err)
     }
 
     private handleData(data: Buffer): void {
@@ -90,10 +100,15 @@ export class P2PClient {
         }
     }
 
-    private resetHeartbeat() {
+    private endHeartbeat() {
         if (this.heartbeatTimoutId !== undefined) {
             clearTimeout(this.heartbeatTimoutId)
+            this.heartbeatTimoutId = undefined
         }
+    }
+
+    private resetHeartbeat() {
+        this.endHeartbeat()
 
         if (this.heartbeatTimoutMs !== undefined) {
             this.setTimeoutImpl(() => {

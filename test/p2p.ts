@@ -1,14 +1,19 @@
 import {assert} from 'chai'
-import {P2P, P2PClient, P2PClientOptions, PackedTransaction, Serializer} from '$lib'
+import {P2P, P2PClient, P2PClientOptions, PackedTransaction, Serializer, P2PProvider, SimpleEnvelopeP2PProvider} from '$lib'
 import {MockP2PProvider} from './utils/mock-p2p-provider'
 import {readFileSync} from 'fs'
 
 suite('p2p', function () {
     const makeMockClient = (
+        enveloped:boolean,
         additionalOpts?: Partial<P2PClientOptions>
     ): [P2PClient, MockP2PProvider] => {
         const mockProvider = new MockP2PProvider()
-        const client = new P2PClient({...additionalOpts, provider: mockProvider})
+        let useProvider:P2PProvider = mockProvider;
+        if (enveloped) {
+            useProvider = new SimpleEnvelopeP2PProvider(mockProvider);
+        }
+        const client = new P2PClient({...additionalOpts, provider: useProvider})
 
         client.on('error', (e) => {
             console.dir(e)
@@ -139,8 +144,11 @@ suite('p2p', function () {
         const vdata = Buffer.allocUnsafe(data.length + 1)
         vdata.writeUint8(vmessage.variantIdx, 0)
         vdata.set(data, 1)
+        const socketData = Buffer.allocUnsafe(vdata.length + 4)
+        socketData.writeUint32LE(vdata.length, 0);
+        socketData.set(vdata, 4)
         test(`receive ${vmessage.variantName}`, async function () {
-            const [client, mockProvider] = makeMockClient()
+            const [client, mockProvider] = makeMockClient(false)
 
             let called = false
             client.on('message', (message) => {
@@ -155,11 +163,30 @@ suite('p2p', function () {
             assert.equal(called, true)
         })
 
+        test(`receive socket ${vmessage.variantName}`, async function () {
+            const [client, mockProvider] = makeMockClient(true)
+
+            let called = false
+            client.on('message', (message) => {
+                assert.deepEqual(
+                    JSON.parse(JSON.stringify(message)),
+                    JSON.parse(JSON.stringify(vmessage))
+                )
+                called = true
+            })
+
+            const pivot = Math.floor(socketData.byteLength / 2);
+            mockProvider.emit('data', [socketData.slice(0, pivot)])
+            assert.equal(called, false)
+            mockProvider.emit('data', [socketData.slice(pivot)])
+            assert.equal(called, true)
+        })
+
         test(`send ${vmessage.variantName}`, async function () {
-            const [client, mockProvider] = makeMockClient()
+            const [client, mockProvider] = makeMockClient(false)
 
             let sentData = undefined as undefined | Buffer
-            mockProvider.send = (data: Buffer) => {
+            mockProvider.write = (data: Buffer) => {
                 sentData = data
             }
 
@@ -167,6 +194,20 @@ suite('p2p', function () {
 
             assert.notEqual(sentData, undefined)
             assert.equal(sentData!.toString('hex'), vdata.toString('hex'))
+        })
+
+        test(`send socket ${vmessage.variantName}`, async function () {
+            const [client, mockProvider] = makeMockClient(true)
+
+            let sentData = undefined as undefined | Buffer
+            mockProvider.write = (data: Buffer) => {
+                sentData = data
+            }
+
+            client.send(message)
+
+            assert.notEqual(sentData, undefined)
+            assert.equal(sentData!.toString('hex'), socketData.toString('hex'))
         })
     }
 
@@ -187,7 +228,7 @@ suite('p2p', function () {
             return 0
         }
 
-        const [_, mockProvider] = makeMockClient({
+        const [_, mockProvider] = makeMockClient(false, {
             setTimeoutImpl: setTimeoutMock,
             heartbeatTimoutMs: 6789,
         })
@@ -195,7 +236,7 @@ suite('p2p', function () {
         assert.equal(setTimeoutCalled, true)
 
         let sentData = undefined as undefined | Buffer
-        mockProvider.send = (data: Buffer) => {
+        mockProvider.write = (data: Buffer) => {
             sentData = data
         }
 
