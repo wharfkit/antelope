@@ -60,7 +60,7 @@ export class P2PClient {
             this.resetHeartbeat()
         }
 
-        this.provider.on('data', (data: Buffer) => {
+        this.provider.on('data', (data: Uint8Array) => {
             this.handleData(data)
         })
 
@@ -78,7 +78,7 @@ export class P2PClient {
     send(message: NetMessage['value'], done?: P2PHandler): void {
         const wrappedMessage = NetMessage.from(message)
         const messageBuffer = Serializer.encode({object: wrappedMessage})
-        this.provider.write(Buffer.from(messageBuffer.array), done)
+        this.provider.write(messageBuffer.array, done)
     }
 
     end(cb?: P2PHandler): void {
@@ -91,7 +91,7 @@ export class P2PClient {
         this.provider.destroy(err)
     }
 
-    private handleData(data: Buffer): void {
+    private handleData(data: Uint8Array): void {
         try {
             const message = Serializer.decode({type: NetMessage, data})
             this.emit('message', [message])
