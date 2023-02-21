@@ -625,7 +625,30 @@
 <a name='L560'></a><a href='#L560'>560</a>
 <a name='L561'></a><a href='#L561'>561</a>
 <a name='L562'></a><a href='#L562'>562</a>
-<a name='L563'></a><a href='#L563'>563</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a>
+<a name='L579'></a><a href='#L579'>579</a>
+<a name='L580'></a><a href='#L580'>580</a>
+<a name='L581'></a><a href='#L581'>581</a>
+<a name='L582'></a><a href='#L582'>582</a>
+<a name='L583'></a><a href='#L583'>583</a>
+<a name='L584'></a><a href='#L584'>584</a>
+<a name='L585'></a><a href='#L585'>585</a>
+<a name='L586'></a><a href='#L586'>586</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -758,6 +781,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -962,6 +986,28 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1320,7 +1366,8 @@ export class AccountObject extends Struct {
     @Struct.field(AccountResourceLimit) declare cpu_limit: AccountResourceLimit
     @Struct.field('uint64') declare ram_usage: UInt64
     @Struct.field(AccountPermission, {array: true}) declare permissions: AccountPermission[]
-    @Struct.field(AccountTotalResources) declare total_resources: AccountTotalResources
+    @Struct.field(AccountTotalResources, {optional: true})
+    declare total_resources: AccountTotalResources
     @Struct.field(AccountSelfDelegatedBandwidth, {optional: true})
     self_delegated_bandwidth?: AccountSelfDelegatedBandwidth
     @Struct.field(AccountRefundRequest, {optional: true}) refund_request?: AccountRefundRequest
@@ -1546,6 +1593,27 @@ export interface PushTransactionResponse {
     }
 }
 &nbsp;
+export interface SendTransactionResponseExceptionStack {
+    context: {
+        level: string
+        file: string
+        line: number
+        method: string
+        hostname: string
+        thread_name: string
+        timestamp: string
+    }
+    format: string
+    data: any
+}
+&nbsp;
+export interface SendTransactionResponseException {
+    code: number
+    name: string
+    message: string
+    stack: SendTransactionResponseExceptionStack[]
+}
+&nbsp;
 export interface SendTransactionResponse {
     transaction_id: string
     processed: {
@@ -1554,6 +1622,7 @@ export interface SendTransactionResponse {
         block_time: string
         receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
         elapsed: number
+        except?: SendTransactionResponseException
         net_usage: number
         scheduled: boolean
         action_traces: any[]
@@ -1756,7 +1825,7 @@ export class GetTransactionStatusResponse extends Struct {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-17T09:15:03.339Z
+                at 2023-02-21T01:46:36.570Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
