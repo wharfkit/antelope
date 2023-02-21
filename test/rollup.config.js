@@ -3,7 +3,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import {terser} from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
