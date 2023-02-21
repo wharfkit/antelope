@@ -77,7 +77,7 @@ export default [
         output: {
             file: 'test/browser.html',
             format: 'iife',
-            sourcemap: true,
+            sourcemap: 'inline',
             globals: {
                 chai: 'chai',
                 mocha: 'mocha',
