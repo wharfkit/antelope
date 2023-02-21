@@ -153,7 +153,7 @@ export class P2PClient {
         if (this.eventListeners[event] !== undefined) {
             this.eventListeners[event] = this.eventListeners[event]!.filter((e) => {
                 return e.handler !== handler
-            }) as typeof this.eventListeners[T]
+            }) as (typeof this.eventListeners)[T]
         }
 
         return this
@@ -194,6 +194,6 @@ export class P2PClient {
 
         this.eventListeners[event] = this.eventListeners[event]!.filter((e) => {
             return e.once !== true
-        }) as typeof this.eventListeners[T]
+        }) as (typeof this.eventListeners)[T]
     }
 }
