@@ -126,13 +126,21 @@ export class BlockHeader extends Struct {
     @Struct.field(HeaderExtension, {array: true}) declare header_extensions: HeaderExtension[]
 
     get blockNum(): number {
-        return Buffer.from(this.previous.array.slice(0, 4)).readUint32BE() + 1
+        const bytes = this.previous.array.slice(0, 4)
+        let num = 0
+        for (let i = 0; i < 4; i++) {
+            num = (num << 8) + bytes[i]
+        }
+        return num + 1
     }
 
     get id(): Checksum256 {
         const id = Checksum256.hash(Serializer.encode({object: this, type: BlockHeader}))
-        const numBuffer = Buffer.allocUnsafe(4)
-        numBuffer.writeUint32BE(this.blockNum)
+        const numBuffer = new Uint8Array(4)
+        numBuffer[0] = (this.blockNum >> 24) & 0xff
+        numBuffer[1] = (this.blockNum >> 16) & 0xff
+        numBuffer[2] = (this.blockNum >> 8) & 0xff
+        numBuffer[3] = this.blockNum & 0xff
         id.array.set(numBuffer, 0)
         return id
     }
