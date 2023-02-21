@@ -2,9 +2,10 @@ name: Tests
 on: [push, pull_request]
 jobs:
   test-node:
-    matrix:
-      node-version: [14, 16, 18]
+    strategy:
       fail-fast: false
+      matrix:
+        node-version: [14, 16, 18]
     name: Node.js v${{ matrix.node-version }}
     runs-on: ubuntu-latest
     steps:
