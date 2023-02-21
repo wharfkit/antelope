@@ -1,16 +1,25 @@
 import {assert} from 'chai'
-import {P2P, P2PClient, P2PClientOptions, PackedTransaction, Serializer, P2PProvider, SimpleEnvelopeP2PProvider, Bytes} from '$lib'
+import {
+    Bytes,
+    P2P,
+    P2PClient,
+    P2PClientOptions,
+    P2PProvider,
+    PackedTransaction,
+    Serializer,
+    SimpleEnvelopeP2PProvider,
+} from '$lib'
 import {MockP2PProvider} from './utils/mock-p2p-provider'
 
 suite('p2p', function () {
     const makeMockClient = (
-        enveloped:boolean,
+        enveloped: boolean,
         additionalOpts?: Partial<P2PClientOptions>
     ): [P2PClient, MockP2PProvider] => {
         const mockProvider = new MockP2PProvider()
-        let useProvider:P2PProvider = mockProvider;
+        let useProvider: P2PProvider = mockProvider
         if (enveloped) {
-            useProvider = new SimpleEnvelopeP2PProvider(mockProvider);
+            useProvider = new SimpleEnvelopeP2PProvider(mockProvider)
         }
         const client = new P2PClient({...additionalOpts, provider: useProvider})
 
@@ -112,18 +121,23 @@ suite('p2p', function () {
         {
             message: P2P.SignedBlock.from({
                 timeSlot: 1163721185,
-                producer: "eosio",
+                producer: 'eosio',
                 confirmed: 0,
-                previous: "00000006cdcc27dd5599c2bf11d6086315f7f3e20dab443b28b7a3a7b3e9b498",
-                transaction_mroot: "0000000000000000000000000000000000000000000000000000000000000000",
-                action_mroot: "c92b7fe28da371253c0764688c82cd4c3755c88580e5f3587243f3a98934554e",
+                previous: '00000006cdcc27dd5599c2bf11d6086315f7f3e20dab443b28b7a3a7b3e9b498',
+                transaction_mroot:
+                    '0000000000000000000000000000000000000000000000000000000000000000',
+                action_mroot: 'c92b7fe28da371253c0764688c82cd4c3755c88580e5f3587243f3a98934554e',
                 schedule_version: 0,
-                producer_signature: "SIG_K1_K4p4AW5xFwKbxRRUQjGMVfS1x5vSfbaLHMiCQpPgRESfQ6S3iXbcdzBYrhqup3sLgF1qNWGNP5Jio1uS2iKoPquUvifw8G",
+                producer_signature:
+                    'SIG_K1_K4p4AW5xFwKbxRRUQjGMVfS1x5vSfbaLHMiCQpPgRESfQ6S3iXbcdzBYrhqup3sLgF1qNWGNP5Jio1uS2iKoPquUvifw8G',
                 transactions: [],
-                header_extensions:[],
-                block_extensions:[]
+                header_extensions: [],
+                block_extensions: [],
             }),
-            data: Bytes.from('e1f95c450000000000ea3055000000000006cdcc27dd5599c2bf11d6086315f7f3e20dab443b28b7a3a7b3e9b4980000000000000000000000000000000000000000000000000000000000000000c92b7fe28da371253c0764688c82cd4c3755c88580e5f3587243f3a98934554e000000000000001f490bd9651e56b29585221deb072e4f13b3cd201e7167cd48952b872070d71b380596305b55bbd2c1029f3f29b7534ed56447cc7b4d07e5a52890a8d32c449e0c0000', 'hex'),
+            data: Bytes.from(
+                'e1f95c450000000000ea3055000000000006cdcc27dd5599c2bf11d6086315f7f3e20dab443b28b7a3a7b3e9b4980000000000000000000000000000000000000000000000000000000000000000c92b7fe28da371253c0764688c82cd4c3755c88580e5f3587243f3a98934554e000000000000001f490bd9651e56b29585221deb072e4f13b3cd201e7167cd48952b872070d71b380596305b55bbd2c1029f3f29b7534ed56447cc7b4d07e5a52890a8d32c449e0c0000',
+                'hex'
+            ),
         },
         {
             message: PackedTransaction.from({
@@ -181,7 +195,7 @@ suite('p2p', function () {
                 called = true
             })
 
-            const pivot = Math.floor(socketData.byteLength / 2);
+            const pivot = Math.floor(socketData.byteLength / 2)
             mockProvider.emit('data', [socketData.slice(0, pivot)])
             assert.equal(called, false)
             mockProvider.emit('data', [socketData.slice(pivot)])
