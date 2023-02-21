@@ -94,7 +94,7 @@ export default [
                 ],
             }),
             typescript({target: 'es6', module: 'esnext', tsconfig: './test/tsconfig.json'}),
-            replace({'global.MOCK_DATA': JSON.stringify(mockData)}),
+            replace({'global.MOCK_DATA': JSON.stringify(mockData), preventAssignment: true}),
             resolve({browser: true}),
             commonjs(),
             json(),
