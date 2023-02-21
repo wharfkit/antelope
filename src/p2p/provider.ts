@@ -41,13 +41,13 @@ export class SimpleEnvelopeP2PProvider {
 
         // process nextProvider data
         this.nextProvider.on('data', (data: Uint8Array) => {
-            const newData = new Uint8Array(this.remainingData.byteLength + data.byteLength);
-            newData.set(this.remainingData, 0);
-            newData.set(data, this.remainingData.byteLength);
-            this.remainingData = newData;
+            const newData = new Uint8Array(this.remainingData.byteLength + data.byteLength)
+            newData.set(this.remainingData, 0)
+            newData.set(data, this.remainingData.byteLength)
+            this.remainingData = newData
             while (this.remainingData.byteLength >= 4) {
                 const view = new DataView(this.remainingData.buffer)
-                const messageLength = view.getUint32(0, true);
+                const messageLength = view.getUint32(0, true)
                 if (messageLength > SimpleEnvelopeP2PProvider.maxReadLength) {
                     this.emitError(new Error('Incoming Message too long'))
                 }
@@ -58,7 +58,7 @@ export class SimpleEnvelopeP2PProvider {
                 }
 
                 const messageBuffer = this.remainingData.subarray(4, 4 + messageLength)
-                this.remainingData = this.remainingData.slice(4 + messageLength);
+                this.remainingData = this.remainingData.slice(4 + messageLength)
                 this.emitData(messageBuffer)
             }
         })
@@ -71,8 +71,8 @@ export class SimpleEnvelopeP2PProvider {
 
     write(data: Uint8Array, done?: P2PHandler): void {
         const nextBuffer = new Uint8Array(4 + data.byteLength)
-        const view = new DataView(nextBuffer.buffer);
-        view.setUint32(0, data.byteLength, true);
+        const view = new DataView(nextBuffer.buffer)
+        view.setUint32(0, data.byteLength, true)
         nextBuffer.set(data, 4)
         this.nextProvider.write(nextBuffer, done)
     }
