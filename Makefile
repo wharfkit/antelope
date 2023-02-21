@@ -3,7 +3,7 @@ TEST_FILES := $(wildcard test/*.ts)
 BIN := ./node_modules/.bin
 MOCHA_OPTS := -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts
 
-lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.js
+lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.mjs
 	@${BIN}/rollup -c && touch lib
 
 .PHONY: test
@@ -35,8 +35,8 @@ check: node_modules
 format: node_modules
 	@${BIN}/eslint src --ext .ts --fix
 
-test/browser.html: lib $(TEST_FILES) test/rollup.config.js node_modules
-	@${BIN}/rollup -c test/rollup.config.js
+test/browser.html: lib $(TEST_FILES) test/rollup.config.mjs node_modules
+	@${BIN}/rollup -c test/rollup.config.mjs
 
 .PHONY: browser-test
 browser-test: test/browser.html

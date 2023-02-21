@@ -1,8 +1,13 @@
 import fs from 'fs'
+import path from 'path'
+import {URL} from 'url'
+
 import dts from 'rollup-plugin-dts'
 import typescript from '@rollup/plugin-typescript'
 
-import pkg from './package.json'
+// eslint-disable-next-line es-x/no-import-meta
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')))
 
 const license = fs.readFileSync('LICENSE').toString('utf-8').trim()
 const banner = `

@@ -12,6 +12,9 @@ import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import virtual from '@rollup/plugin-virtual'
 
+// eslint-disable-next-line es-x/no-import-meta
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
+
 const mockData = Object.fromEntries(
     fs
         .readdirSync(path.join(__dirname, 'data'))
