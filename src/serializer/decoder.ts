@@ -30,6 +30,10 @@ interface DecodeArgsBase {
      * otherwise they will be set to null. Defaults to false.
      */
     strictExtensions?: boolean
+    /**
+     * Set to ignore invalid UTF-8, otherwise an error will be thrown (default).
+     */
+    ignoreInvalidUTF8?: boolean
 }
 
 interface TypedDecodeArgs<T extends ABISerializableType> extends DecodeArgsBase {
@@ -118,7 +122,8 @@ export function abiDecode(args: UntypedDecodeArgs | BuiltinDecodeArgs<any> | Typ
                 decoder = args.data
             } else {
                 const bytes = Bytes.from(args.data)
-                decoder = new ABIDecoder(bytes.array)
+                const fatal = args.ignoreInvalidUTF8 === undefined ? true : !args.ignoreInvalidUTF8
+                decoder = new ABIDecoder(bytes.array, new TextDecoder('utf-8', {fatal}))
             }
             if (args.metadata) {
                 decoder.metadata = args.metadata
@@ -377,12 +382,13 @@ export class ABIDecoder {
 
     private pos = 0
     private data: DataView
-    private textDecoder = new TextDecoder('utf-8', {fatal: true})
+    private textDecoder: TextDecoder
 
     /** User declared metadata, can be used to pass info to instances when decoding.  */
     metadata: Record<string, any> = {}
 
-    constructor(private array: Uint8Array) {
+    constructor(private array: Uint8Array, textDecoder?: TextDecoder) {
+        this.textDecoder = textDecoder || new TextDecoder('utf-8', {fatal: true})
         this.data = new DataView(array.buffer, array.byteOffset, array.byteLength)
     }
 
