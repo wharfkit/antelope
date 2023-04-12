@@ -604,7 +604,7 @@ export type ProducerEntry = [number, ProducerAuthority]
 @Struct.type('producer')
 export class Producer extends Struct {
     @Struct.field('name') declare producer_name: Name
-    @Struct.field([number, ProducerAuthority], {array: true}) declare authority: ProducerEntry
+    @Struct.field('any', {array: true}) declare authority: ProducerEntry
 }
 
 @Struct.type('producer_schedule')
