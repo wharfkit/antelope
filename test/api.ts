@@ -193,6 +193,13 @@ suite('api v1', function () {
         )
     })
 
+    test('chain get_producer_schedule', async function () {
+        const schedule = await jungle.v1.chain.get_producer_schedule()
+        console.log(schedule.active.producers[0])
+        console.log(schedule.active.producers[0].authority[1])
+        console.log(JSON.parse(JSON.stringify(schedule.active.producers[0].authority[1])))
+    })
+
     test('chain push_transaction', async function () {
         @Struct.type('transfer')
         class Transfer extends Struct {

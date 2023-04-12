@@ -11,6 +11,7 @@ import {
     Float64,
     Int32,
     Int64,
+    KeyWeight,
     Name,
     NameType,
     PublicKey,
@@ -590,4 +591,31 @@ export class GetTransactionStatusResponse extends Struct {
     @Struct.field('time_point') declare irreversible_timestamp: TimePoint
     @Struct.field('checksum256') declare earliest_tracked_block_id: Checksum256
     @Struct.field('uint32') declare earliest_tracked_block_number: UInt32
+}
+
+@Struct.type('producer_authority')
+export class ProducerAuthority extends Struct {
+    @Struct.field(UInt32) threshold!: UInt32
+    @Struct.field(KeyWeight, {array: true}) keys!: KeyWeight[]
+}
+
+export type ProducerEntry = [number, ProducerAuthority]
+
+@Struct.type('producer')
+export class Producer extends Struct {
+    @Struct.field('name') declare producer_name: Name
+    @Struct.field([number, ProducerAuthority], {array: true}) declare authority: ProducerEntry
+}
+
+@Struct.type('producer_schedule')
+export class ProducerSchedule extends Struct {
+    @Struct.field('uint32') declare version: UInt32
+    @Struct.field(Producer, {array: true}) declare producers: Producer
+}
+
+@Struct.type('get_producer_schedule_response')
+export class GetProducerScheduleResponse extends Struct {
+    @Struct.field(ProducerSchedule, {optional: true}) declare active: ProducerSchedule
+    @Struct.field(ProducerSchedule, {optional: true}) declare pending: ProducerSchedule
+    @Struct.field(ProducerSchedule, {optional: true}) declare proposed: ProducerSchedule
 }

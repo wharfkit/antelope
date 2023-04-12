@@ -24,6 +24,7 @@ import {
     GetBlockHeaderStateResponse,
     GetBlockResponse,
     GetInfoResponse,
+    GetProducerScheduleResponse,
     GetTableByScopeParams,
     GetTableByScopeResponse,
     GetTableRowsParams,
@@ -95,6 +96,13 @@ export class ChainAPI {
         return this.client.call({
             path: '/v1/chain/get_info',
             responseType: GetInfoResponse,
+        })
+    }
+
+    async get_producer_schedule() {
+        return this.client.call({
+            path: '/v1/chain/get_producer_schedule',
+            responseType: GetProducerScheduleResponse,
         })
     }
 
