@@ -1,0 +1,114 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "1542",
+        "content-type": "application/json",
+        "date": "Fri, 14 Apr 2023 22:53:12 GMT",
+        "server": "nginx/1.24.0"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "wharfkit1115",
+        "head_block_num": 71553528,
+        "head_block_time": "2023-04-14T22:53:13.000",
+        "privileged": false,
+        "last_code_update": "1970-01-01T00:00:00.000",
+        "created": "2022-12-07T01:12:07.500",
+        "core_liquid_balance": "4.9234 EOS",
+        "ram_quota": 3742,
+        "net_weight": 0,
+        "cpu_weight": 0,
+        "net_limit": {
+            "used": 0,
+            "available": 0,
+            "max": 0,
+            "last_usage_update_time": "2022-12-07T01:12:07.500",
+            "current_used": 0
+        },
+        "cpu_limit": {
+            "used": 0,
+            "available": 0,
+            "max": 0,
+            "last_usage_update_time": "2022-12-07T01:12:07.500",
+            "current_used": 0
+        },
+        "ram_usage": 3606,
+        "permissions": [
+            {
+                "perm_name": "active",
+                "parent": "owner",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS6XXTaRpWhPwnb7CTV9zVsCBrvCpYMMPSk8E8hsJxhf6VFW9DYN",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                },
+                "linked_actions": []
+            },
+            {
+                "perm_name": "owner",
+                "parent": "",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS6XXTaRpWhPwnb7CTV9zVsCBrvCpYMMPSk8E8hsJxhf6VFW9DYN",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                },
+                "linked_actions": []
+            },
+            {
+                "perm_name": "test",
+                "parent": "active",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS6RMS3nvoN9StPzZizve6WdovaDkE5KkEcCDXW7LbepyAioMiK6",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                },
+                "linked_actions": [
+                    {
+                        "account": "eosio.token",
+                        "action": "transfer"
+                    }
+                ]
+            }
+        ],
+        "total_resources": {
+            "owner": "wharfkit1115",
+            "net_weight": "0.0000 EOS",
+            "cpu_weight": "0.0000 EOS",
+            "ram_bytes": 2342
+        },
+        "self_delegated_bandwidth": null,
+        "refund_request": null,
+        "voter_info": null,
+        "rex_info": null,
+        "subjective_cpu_bill_limit": {
+            "used": 0,
+            "available": 0,
+            "max": 0,
+            "last_usage_update_time": "2000-01-01T00:00:00.000",
+            "current_used": 0
+        },
+        "eosio_any_linked_actions": []
+    },
+    "text": "{\"account_name\":\"wharfkit1115\",\"head_block_num\":71553528,\"head_block_time\":\"2023-04-14T22:53:13.000\",\"privileged\":false,\"last_code_update\":\"1970-01-01T00:00:00.000\",\"created\":\"2022-12-07T01:12:07.500\",\"core_liquid_balance\":\"4.9234 EOS\",\"ram_quota\":3742,\"net_weight\":0,\"cpu_weight\":0,\"net_limit\":{\"used\":0,\"available\":0,\"max\":0,\"last_usage_update_time\":\"2022-12-07T01:12:07.500\",\"current_used\":0},\"cpu_limit\":{\"used\":0,\"available\":0,\"max\":0,\"last_usage_update_time\":\"2022-12-07T01:12:07.500\",\"current_used\":0},\"ram_usage\":3606,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS6XXTaRpWhPwnb7CTV9zVsCBrvCpYMMPSk8E8hsJxhf6VFW9DYN\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS6XXTaRpWhPwnb7CTV9zVsCBrvCpYMMPSk8E8hsJxhf6VFW9DYN\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]},{\"perm_name\":\"test\",\"parent\":\"active\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS6RMS3nvoN9StPzZizve6WdovaDkE5KkEcCDXW7LbepyAioMiK6\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[{\"account\":\"eosio.token\",\"action\":\"transfer\"}]}],\"total_resources\":{\"owner\":\"wharfkit1115\",\"net_weight\":\"0.0000 EOS\",\"cpu_weight\":\"0.0000 EOS\",\"ram_bytes\":2342},\"self_delegated_bandwidth\":null,\"refund_request\":null,\"voter_info\":null,\"rex_info\":null,\"subjective_cpu_bill_limit\":{\"used\":0,\"available\":0,\"max\":0,\"last_usage_update_time\":\"2000-01-01T00:00:00.000\",\"current_used\":0},\"eosio_any_linked_actions\":[]}"
+}

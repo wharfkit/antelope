@@ -30,11 +30,19 @@ import {
 
 import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
 
+@Struct.type('account_linked_action')
+export class AccountLinkedAction extends Struct {
+    @Struct.field('name') declare account: Name
+    @Struct.field('name') declare action: Name
+}
+
 @Struct.type('account_permission')
 export class AccountPermission extends Struct {
     @Struct.field('name') declare perm_name: Name
     @Struct.field('name') declare parent: Name
     @Struct.field(Authority) declare required_auth: Authority
+    @Struct.field(AccountLinkedAction, {optional: true, array: true})
+    declare linked_actions: AccountLinkedAction[]
 }
 
 @Struct.type('account_resource_limit')

@@ -80,6 +80,15 @@ suite('api v1', function () {
         })
     })
 
+    test('chain get_account (linked actions)', async function () {
+        const account = await jungle4.v1.chain.get_account('wharfkit1115')
+        assert.equal(String(account.account_name), 'wharfkit1115')
+        const permission = account.getPermission(Name.from('test'))
+        assert.equal(permission.linked_actions.length, 1)
+        assert.isTrue(permission.linked_actions[0].account.equals('eosio.token'))
+        assert.isTrue(permission.linked_actions[0].action.equals('transfer'))
+    })
+
     test('chain get_block (by id)', async function () {
         const block = await eos.v1.chain.get_block(
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
