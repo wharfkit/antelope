@@ -195,9 +195,18 @@ suite('api v1', function () {
 
     test('chain get_producer_schedule', async function () {
         const schedule = await jungle.v1.chain.get_producer_schedule()
-        console.log(schedule.active.producers[0])
-        console.log(schedule.active.producers[0].authority[1])
-        console.log(JSON.parse(JSON.stringify(schedule.active.producers[0].authority[1])))
+        assert.isTrue(schedule.active.version.equals(108))
+        assert.lengthOf(schedule.active.producers, 21)
+        assert.isTrue(schedule.active.producers[0].producer_name.equals('alohaeostest'))
+        assert.lengthOf(schedule.active.producers[0].authority, 2)
+        assert.isTrue(schedule.active.producers[0].authority[1].threshold.equals(1))
+        assert.lengthOf(schedule.active.producers[0].authority[1].keys, 1)
+        assert.isTrue(schedule.active.producers[0].authority[1].keys[0].weight.equals(1))
+        assert.isTrue(
+            schedule.active.producers[0].authority[1].keys[0].key.equals(
+                'PUB_K1_8JTznQrfvYcoFskidgKeKsmPsx3JBMpTo1jsEG2y1Ho6oGNCgf'
+            )
+        )
     })
 
     test('chain push_transaction', async function () {

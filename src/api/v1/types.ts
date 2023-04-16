@@ -605,12 +605,19 @@ export type ProducerEntry = [number, ProducerAuthority]
 export class Producer extends Struct {
     @Struct.field('name') declare producer_name: Name
     @Struct.field('any', {array: true}) declare authority: ProducerEntry
+
+    static from(data: any) {
+        return new this({
+            ...data,
+            authority: [data.authority[0], ProducerAuthority.from(data.authority[1])],
+        })
+    }
 }
 
 @Struct.type('producer_schedule')
 export class ProducerSchedule extends Struct {
     @Struct.field('uint32') declare version: UInt32
-    @Struct.field(Producer, {array: true}) declare producers: Producer
+    @Struct.field(Producer, {array: true}) declare producers: Producer[]
 }
 
 @Struct.type('get_producer_schedule_response')
