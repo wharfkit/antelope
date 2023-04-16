@@ -10,6 +10,7 @@ import {
     Name,
     NameType,
     PackedTransaction,
+    PublicKeyType,
     SignedTransaction,
     SignedTransactionType,
     UInt128,
@@ -20,6 +21,7 @@ import {
 
 import {
     AccountObject,
+    AccountsByAuthorizers,
     GetAbiResponse,
     GetBlockHeaderStateResponse,
     GetBlockResponse,
@@ -58,6 +60,14 @@ export class ChainAPI {
             path: '/v1/chain/get_account',
             params: {account_name: Name.from(accountName)},
             responseType: AccountObject,
+        })
+    }
+
+    async get_accounts_by_authorizers(keys: PublicKeyType[]) {
+        return this.client.call({
+            path: '/v1/chain/get_accounts_by_authorizers',
+            params: {keys: keys},
+            responseType: AccountsByAuthorizers,
         })
     }
 

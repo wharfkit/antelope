@@ -27,6 +27,7 @@ import {
     UInt32,
     UInt32Type,
     UInt64,
+    Weight,
 } from '../../chain'
 
 import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
@@ -156,6 +157,21 @@ export class AccountObject extends Struct {
         }
         return match
     }
+}
+
+@Struct.type('account_by_authorizers_row')
+export class AccountByAuthorizersRow extends Struct {
+    @Struct.field(Name) declare account_name: Name
+    @Struct.field(Name) declare permission_name: Name
+    @Struct.field(PublicKey) declare authorizing_key: PublicKey
+    @Struct.field(Weight) declare weight: Weight
+    @Struct.field(UInt32) declare threshold: UInt32
+}
+
+@Struct.type('account_by_authorizers')
+export class AccountsByAuthorizers extends Struct {
+    @Struct.field(AccountByAuthorizersRow, {array: true})
+    declare accounts: AccountByAuthorizersRow[]
 }
 
 @Struct.type('new_producers_entry')
