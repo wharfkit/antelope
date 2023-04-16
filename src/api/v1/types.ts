@@ -11,6 +11,7 @@ import {
     Float64,
     Int32,
     Int64,
+    KeyWeight,
     Name,
     NameType,
     PublicKey,
@@ -26,6 +27,7 @@ import {
     UInt32,
     UInt32Type,
     UInt64,
+    Weight,
 } from '../../chain'
 
 import {ABISerializableObject, ABISerializableType, Serializer} from '../../serializer'
@@ -155,6 +157,21 @@ export class AccountObject extends Struct {
         }
         return match
     }
+}
+
+@Struct.type('account_by_authorizers_row')
+export class AccountByAuthorizersRow extends Struct {
+    @Struct.field(Name) declare account_name: Name
+    @Struct.field(Name) declare permission_name: Name
+    @Struct.field(PublicKey) declare authorizing_key: PublicKey
+    @Struct.field(Weight) declare weight: Weight
+    @Struct.field(UInt32) declare threshold: UInt32
+}
+
+@Struct.type('account_by_authorizers')
+export class AccountsByAuthorizers extends Struct {
+    @Struct.field(AccountByAuthorizersRow, {array: true})
+    declare accounts: AccountByAuthorizersRow[]
 }
 
 @Struct.type('new_producers_entry')
@@ -590,4 +607,69 @@ export class GetTransactionStatusResponse extends Struct {
     @Struct.field('time_point') declare irreversible_timestamp: TimePoint
     @Struct.field('checksum256') declare earliest_tracked_block_id: Checksum256
     @Struct.field('uint32') declare earliest_tracked_block_number: UInt32
+}
+
+@Struct.type('producer_authority')
+export class ProducerAuthority extends Struct {
+    @Struct.field(UInt32) threshold!: UInt32
+    @Struct.field(KeyWeight, {array: true}) keys!: KeyWeight[]
+}
+
+export type ProducerEntry = [number, ProducerAuthority]
+
+@Struct.type('producer')
+export class Producer extends Struct {
+    @Struct.field('name') declare producer_name: Name
+    @Struct.field('any', {array: true}) declare authority: ProducerEntry
+
+    static from(data: any) {
+        return new this({
+            ...data,
+            authority: [data.authority[0], ProducerAuthority.from(data.authority[1])],
+        })
+    }
+}
+
+@Struct.type('producer_schedule')
+export class ProducerSchedule extends Struct {
+    @Struct.field('uint32') declare version: UInt32
+    @Struct.field(Producer, {array: true}) declare producers: Producer[]
+}
+
+@Struct.type('get_producer_schedule_response')
+export class GetProducerScheduleResponse extends Struct {
+    @Struct.field(ProducerSchedule, {optional: true}) declare active: ProducerSchedule
+    @Struct.field(ProducerSchedule, {optional: true}) declare pending: ProducerSchedule
+    @Struct.field(ProducerSchedule, {optional: true}) declare proposed: ProducerSchedule
+}
+
+@Struct.type('protocol_feature')
+export class ProtocolFeature extends Struct {
+    @Struct.field('checksum256') declare feature_digest: Checksum256
+    @Struct.field('uint32') declare activation_ordinal: UInt32
+    @Struct.field('uint32') declare activation_block_num: UInt32
+    @Struct.field('checksum256') declare description_digest: Checksum256
+    @Struct.field('string', {array: true}) declare dependencies: string[]
+    @Struct.field('string') declare protocol_feature_type: string
+    @Struct.field('any', {array: true}) declare specification: any[]
+}
+
+@Struct.type('get_protocol_features_response')
+export class GetProtocolFeaturesResponse extends Struct {
+    @Struct.field(ProtocolFeature, {array: true})
+    declare activated_protocol_features: ProtocolFeature[]
+    @Struct.field('uint32', {optional: true}) declare more: UInt32
+}
+
+export interface GetProtocolFeaturesParams {
+    /** Lower lookup bound. */
+    lower_bound?: UInt32 | number
+    /** Upper lookup bound. */
+    upper_bound?: UInt32 | number
+    /** How many rows to fetch, defaults to 10 if unset. */
+    limit?: UInt32Type
+    /** Flag to indicate it is has to search by block number */
+    search_by_block_num?: boolean
+    /** Whether to iterate records in reverse order. */
+    reverse?: boolean
 }
