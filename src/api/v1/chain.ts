@@ -27,6 +27,8 @@ import {
     GetBlockResponse,
     GetInfoResponse,
     GetProducerScheduleResponse,
+    GetProtocolFeaturesParams,
+    GetProtocolFeaturesResponse,
     GetTableByScopeParams,
     GetTableByScopeResponse,
     GetTableRowsParams,
@@ -68,6 +70,14 @@ export class ChainAPI {
             path: '/v1/chain/get_accounts_by_authorizers',
             params: {keys: keys},
             responseType: AccountsByAuthorizers,
+        })
+    }
+
+    async get_activated_protocol_features(params?: GetProtocolFeaturesParams) {
+        return this.client.call({
+            path: '/v1/chain/get_activated_protocol_features',
+            params,
+            responseType: GetProtocolFeaturesResponse,
         })
     }
 

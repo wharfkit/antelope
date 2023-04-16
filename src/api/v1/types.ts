@@ -642,3 +642,34 @@ export class GetProducerScheduleResponse extends Struct {
     @Struct.field(ProducerSchedule, {optional: true}) declare pending: ProducerSchedule
     @Struct.field(ProducerSchedule, {optional: true}) declare proposed: ProducerSchedule
 }
+
+@Struct.type('protocol_feature')
+export class ProtocolFeature extends Struct {
+    @Struct.field('checksum256') declare feature_digest: Checksum256
+    @Struct.field('uint32') declare activation_ordinal: UInt32
+    @Struct.field('uint32') declare activation_block_num: UInt32
+    @Struct.field('checksum256') declare description_digest: Checksum256
+    @Struct.field('string', {array: true}) declare dependencies: string[]
+    @Struct.field('string') declare protocol_feature_type: string
+    @Struct.field('any', {array: true}) declare specification: any[]
+}
+
+@Struct.type('get_protocol_features_response')
+export class GetProtocolFeaturesResponse extends Struct {
+    @Struct.field(ProtocolFeature, {array: true})
+    declare activated_protocol_features: ProtocolFeature[]
+    @Struct.field('uint32', {optional: true}) declare more: UInt32
+}
+
+export interface GetProtocolFeaturesParams {
+    /** Lower lookup bound. */
+    lower_bound?: UInt32 | number
+    /** Upper lookup bound. */
+    upper_bound?: UInt32 | number
+    /** How many rows to fetch, defaults to 10 if unset. */
+    limit?: UInt32Type
+    /** Flag to indicate it is has to search by block number */
+    search_by_block_num?: boolean
+    /** Whether to iterate records in reverse order. */
+    reverse?: boolean
+}

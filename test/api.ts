@@ -105,6 +105,29 @@ suite('api v1', function () {
         assert.isTrue(response.accounts[0].threshold.equals(1))
     })
 
+    test('chain get_activated_protocol_features', async function () {
+        const response = await jungle4.v1.chain.get_activated_protocol_features()
+        assert.lengthOf(response.activated_protocol_features, 10)
+        assert.isTrue(response.more.equals(10))
+        const [feature] = response.activated_protocol_features
+        assert.isTrue(
+            feature.feature_digest.equals(
+                '0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd'
+            )
+        )
+        assert.isTrue(feature.activation_ordinal.equals(0))
+        assert.isTrue(feature.activation_block_num.equals(4))
+        assert.isTrue(
+            feature.description_digest.equals(
+                '64fe7df32e9b86be2b296b3f81dfd527f84e82b98e363bc97e40bc7a83733310'
+            )
+        )
+        assert.isArray(feature.dependencies)
+        assert.lengthOf(feature.dependencies, 0)
+        assert.equal(feature.protocol_feature_type, 'builtin')
+        assert.isArray(feature.specification)
+    })
+
     test('chain get_block (by id)', async function () {
         const block = await eos.v1.chain.get_block(
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
