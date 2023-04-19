@@ -623,7 +623,7 @@ export class Producer extends Struct {
     @Struct.field('any', {array: true}) declare authority: ProducerEntry
 
     static from(data: any) {
-        return new this({
+        return super.from({
             ...data,
             authority: [data.authority[0], ProducerAuthority.from(data.authority[1])],
         })
