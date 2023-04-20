@@ -1,0 +1,1641 @@
+{
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-encoding": "gzip",
+        "content-type": "application/json",
+        "date": "Thu, 20 Apr 2023 20:16:01 GMT",
+        "host": "wax.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "transfer-encoding": "chunked",
+        "x-cached": "MISS"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "deepmineappg",
+        "abi": {
+            "version": "eosio::abi/1.2",
+            "types": [
+                {
+                    "new_type_name": "dm_attributes",
+                    "type": "pair_string_string[]"
+                },
+                {
+                    "new_type_name": "dm_level",
+                    "type": "uint16"
+                },
+                {
+                    "new_type_name": "dm_template",
+                    "type": "int32"
+                },
+                {
+                    "new_type_name": "dm_time",
+                    "type": "uint32"
+                }
+            ],
+            "structs": [
+                {
+                    "name": "abandonmine",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "action_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "state",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "starts_at",
+                            "type": "dm_time"
+                        },
+                        {
+                            "name": "finishes_at",
+                            "type": "dm_time"
+                        },
+                        {
+                            "name": "attrs",
+                            "type": "dm_attributes"
+                        }
+                    ]
+                },
+                {
+                    "name": "activatemine",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "duration",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "addtemplates",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "templates",
+                            "type": "template_item[]"
+                        }
+                    ]
+                },
+                {
+                    "name": "area_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "init_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "engaged",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "mine_slots",
+                            "type": "mine_slot_item[]"
+                        },
+                        {
+                            "name": "layer_0",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_1",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_2",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_3",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_4",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_5",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_6",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_7",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_8",
+                            "type": "area_layer_t"
+                        },
+                        {
+                            "name": "layer_9",
+                            "type": "area_layer_t"
+                        }
+                    ]
+                },
+                {
+                    "name": "area_layer_t",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "current_amount",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "amount_capacity",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "returned_dme",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "areaupdmslot",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "area_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "slot_idx",
+                            "type": "int16"
+                        },
+                        {
+                            "name": "reserved",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "slot_available_from",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "authorize",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "authverif_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "key",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "changelocn",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "new_location",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "cmdfinish",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "cmdstart",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "depth_to",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "contr_slot_item",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "reserved",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "contractor",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "createareas",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "count",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "area_rarity",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "createinvitm",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "template_id",
+                            "type": "dm_template"
+                        },
+                        {
+                            "name": "inv_owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "inv_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "struct_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "equip_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "badge_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "schema_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "in_use",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "in_contract",
+                            "type": "bool"
+                        }
+                    ]
+                },
+                {
+                    "name": "deactmine",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "engagearea",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "evalstamina",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "stamina_to_spend",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "ids",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "role_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "action_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "importtbl",
+                    "base": "",
+                    "fields": []
+                },
+                {
+                    "name": "initlayercap",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "layer_depth",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "inventory_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "template_id",
+                            "type": "dm_template"
+                        },
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "inv_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "struct_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "equip_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "badge_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "schema_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "in_use",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "in_contract",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "broken",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "available_from",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "llclaim",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "logaction",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "action_type",
+                            "type": "string"
+                        },
+                        {
+                            "name": "info",
+                            "type": "dm_attributes"
+                        }
+                    ]
+                },
+                {
+                    "name": "makeejection",
+                    "base": "",
+                    "fields": []
+                },
+                {
+                    "name": "mine_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "area_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "ll_mo_contract_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "area_rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "layer_depth",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "sublevel",
+                            "type": "uint16"
+                        },
+                        {
+                            "name": "state",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "ll_mo_contract_finishes_at",
+                            "type": "dm_time"
+                        },
+                        {
+                            "name": "contractor_slots",
+                            "type": "contr_slot_item[]"
+                        }
+                    ]
+                },
+                {
+                    "name": "mine_slot_item",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "reserved",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "available_from",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "mineupdcslot",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "contr_slot_idx",
+                            "type": "int16"
+                        },
+                        {
+                            "name": "reserved",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "contractor",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "misc",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "last_ejection_time",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "rand_counter",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "moclaim",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "modifydata",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "from",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "to",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "pair_string_string",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "first",
+                            "type": "string"
+                        },
+                        {
+                            "name": "second",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "premasset_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "template_id",
+                            "type": "dm_template"
+                        }
+                    ]
+                },
+                {
+                    "name": "remaction",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "action_type",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "reminvitem",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "remprasset",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "remuserrole",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "role",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "role_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "role",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "attrs",
+                            "type": "dm_attributes"
+                        }
+                    ]
+                },
+                {
+                    "name": "rsrvcntrslot",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "attrs",
+                            "type": "dm_attributes"
+                        }
+                    ]
+                },
+                {
+                    "name": "rsrvmineslot",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "area_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "attrs",
+                            "type": "dm_attributes"
+                        }
+                    ]
+                },
+                {
+                    "name": "schema_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "schema_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "stamina",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "time",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "setinvcstate",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "inventory_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "inv_owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "in_contract",
+                            "type": "bool"
+                        }
+                    ]
+                },
+                {
+                    "name": "setinvustate",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "inventory_ids",
+                            "type": "uint64[]"
+                        },
+                        {
+                            "name": "inv_owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "in_use",
+                            "type": "bool"
+                        }
+                    ]
+                },
+                {
+                    "name": "setoption",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "option",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "val",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "settings",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "user_weight_limit",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "setupmine",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "contract_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "duration",
+                            "type": "dm_time"
+                        },
+                        {
+                            "name": "amount",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "showasmtdata",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "template_item",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "inv_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "struct_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "equip_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "badge_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "schema_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "schema_stamina",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "schema_time",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "template_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "inv_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "rarity",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "struct_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "equip_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "badge_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "schema_type",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "test1",
+                    "base": "",
+                    "fields": []
+                },
+                {
+                    "name": "unengagearea",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "area_id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "unsetupmine",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "landlord",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "updaction",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "action_type",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "state_opt",
+                            "type": "uint8?"
+                        },
+                        {
+                            "name": "starts_at_opt",
+                            "type": "dm_time?"
+                        },
+                        {
+                            "name": "finishes_at_opt",
+                            "type": "dm_time?"
+                        },
+                        {
+                            "name": "attrs_opt",
+                            "type": "dm_attributes?"
+                        }
+                    ]
+                },
+                {
+                    "name": "updarealayer",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "area_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "depth",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "layer_new",
+                            "type": "area_layer_t"
+                        }
+                    ]
+                },
+                {
+                    "name": "updasstmdata",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "opt_dme_to_upgrade",
+                            "type": "float64?"
+                        },
+                        {
+                            "name": "opt_dme_mined",
+                            "type": "float64?"
+                        },
+                        {
+                            "name": "opt_broken",
+                            "type": "uint8?"
+                        },
+                        {
+                            "name": "opt_depreciation",
+                            "type": "uint64?"
+                        },
+                        {
+                            "name": "opt_current_capacity",
+                            "type": "uint64?"
+                        },
+                        {
+                            "name": "opt_maximal_capacity",
+                            "type": "uint64?"
+                        }
+                    ]
+                },
+                {
+                    "name": "updinvavfrom",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "asset_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "available_from",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "updmdmemined",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "dme_mined",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "updminefinat",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "time_new",
+                            "type": "dm_time"
+                        }
+                    ]
+                },
+                {
+                    "name": "updmineprms1",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id_old",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "mine_id_new",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "level",
+                            "type": "dm_level"
+                        },
+                        {
+                            "name": "slots_count",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "name": "updminesblvl",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "mine_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "sublevel",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "name": "updroleattr",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "role_id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "key",
+                            "type": "string"
+                        },
+                        {
+                            "name": "value",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "upduserrole",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "role",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "level_opt",
+                            "type": "dm_level?"
+                        },
+                        {
+                            "name": "attrs_opt",
+                            "type": "dm_attributes?"
+                        }
+                    ]
+                },
+                {
+                    "name": "user_j",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "owner",
+                            "type": "name"
+                        },
+                        {
+                            "name": "register_datetime",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "location",
+                            "type": "uint8"
+                        },
+                        {
+                            "name": "weight",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "stamina",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "stamina_updated_at",
+                            "type": "dm_time"
+                        },
+                        {
+                            "name": "reputation",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "verifyauth",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        }
+                    ]
+                },
+                {
+                    "name": "withdrawasst",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "wax_user",
+                            "type": "name"
+                        },
+                        {
+                            "name": "asset_ids",
+                            "type": "uint64[]"
+                        }
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "name": "abandonmine",
+                    "type": "abandonmine",
+                    "ricardian_contract": "---\ntitle: Abandone the Mine\nsummary: The intent of the `{{ abandonmine }}` action is the Mine abandoning by the Mineowner."
+                },
+                {
+                    "name": "activatemine",
+                    "type": "activatemine",
+                    "ricardian_contract": "---\ntitle: Activate the Mine\nsummary: The intent of the `{{ activatemine }}` action is the Mine activation by the Mineowner."
+                },
+                {
+                    "name": "addtemplates",
+                    "type": "addtemplates",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "areaupdmslot",
+                    "type": "areaupdmslot",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: Area - update Mine Slot"
+                },
+                {
+                    "name": "authorize",
+                    "type": "authorize",
+                    "ricardian_contract": "---\ntitle: Authorize\nsummary: The intent of the `{{ authorize }}` action is creating User's Entity in game."
+                },
+                {
+                    "name": "changelocn",
+                    "type": "changelocn",
+                    "ricardian_contract": "---\ntitle: Change user location\nsummary: The intent of the `{{ changelocn }}` action is changing player's location."
+                },
+                {
+                    "name": "cmdfinish",
+                    "type": "cmdfinish",
+                    "ricardian_contract": "---\ntitle: Finish of Mine's depth changing\nsummary: The intent of the `{{ cmdfinish }}` action is finish of changing the Mine's depth by the Mineowner."
+                },
+                {
+                    "name": "cmdstart",
+                    "type": "cmdstart",
+                    "ricardian_contract": "---\ntitle: Start of Mine's depth changing\nsummary: The intent of the `{{ cmdstart }}` action is start of changing the Mine's depth by the Mineowner."
+                },
+                {
+                    "name": "createareas",
+                    "type": "createareas",
+                    "ricardian_contract": "---\ntitle: Create Areas\nsummary: The intent of the `{{ createareas }}` action is creating the Areas by the admin."
+                },
+                {
+                    "name": "createinvitm",
+                    "type": "createinvitm",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "deactmine",
+                    "type": "deactmine",
+                    "ricardian_contract": "---\ntitle: Deactivate the Mine\nsummary: The intent of the `{{ deactmine }}` action is the Mine deactivation by the Mineowner."
+                },
+                {
+                    "name": "engagearea",
+                    "type": "engagearea",
+                    "ricardian_contract": "---\ntitle: Engage the Area\nsummary: The intent of the `{{ engagearea }}` action is engaging the Area by the Landlord."
+                },
+                {
+                    "name": "evalstamina",
+                    "type": "evalstamina",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "importtbl",
+                    "type": "importtbl",
+                    "ricardian_contract": "---\ntitle: Import table\nsummary: The intent of the `{{ importtbl }}` action is using it for table import procedures, used by admin."
+                },
+                {
+                    "name": "initlayercap",
+                    "type": "initlayercap",
+                    "ricardian_contract": "---\ntitle: Initiate capacity of the Layer\nsummary: The intent of the `{{ initlayercap }}` action is initiation of the Layer capacity, admin action."
+                },
+                {
+                    "name": "llclaim",
+                    "type": "llclaim",
+                    "ricardian_contract": "---\ntitle: Claim DME by the Landlord\nsummary: The intent of the `{{ llclaim }}` action is DME claiming by the Landlord."
+                },
+                {
+                    "name": "logaction",
+                    "type": "logaction",
+                    "ricardian_contract": "---\ntitle: Log action\nsummary: The intent of the `{{ logaction }}` action is logging in-game actions, used by backend."
+                },
+                {
+                    "name": "makeejection",
+                    "type": "makeejection",
+                    "ricardian_contract": "---\ntitle: Making DME ejection\nsummary: The intent of the `{{ makeejection }}` action is making of DME ejection process, admin action."
+                },
+                {
+                    "name": "mineupdcslot",
+                    "type": "mineupdcslot",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: Mine - update Contractor Slot"
+                },
+                {
+                    "name": "moclaim",
+                    "type": "moclaim",
+                    "ricardian_contract": "---\ntitle: Claim DME by the Mineowner\nsummary: The intent of the `{{ moclaim }}` action is DME claiming by the Mineowner."
+                },
+                {
+                    "name": "modifydata",
+                    "type": "modifydata",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: The intent of the `{{ modifydata }}` action is using it for some table-modifications, used by admin."
+                },
+                {
+                    "name": "remaction",
+                    "type": "remaction",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "reminvitem",
+                    "type": "reminvitem",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "remprasset",
+                    "type": "remprasset",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "remuserrole",
+                    "type": "remuserrole",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "rsrvcntrslot",
+                    "type": "rsrvcntrslot",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: reserve Contractor Slot"
+                },
+                {
+                    "name": "rsrvmineslot",
+                    "type": "rsrvmineslot",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: reserve Mine Slot"
+                },
+                {
+                    "name": "setinvcstate",
+                    "type": "setinvcstate",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: set Intentory Item state"
+                },
+                {
+                    "name": "setinvustate",
+                    "type": "setinvustate",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "setoption",
+                    "type": "setoption",
+                    "ricardian_contract": "---\ntitle: Set game-contract option\nsummary: The intent of the `{{ setoption }}` action is setting up some game-contract option, admin action."
+                },
+                {
+                    "name": "setupmine",
+                    "type": "setupmine",
+                    "ricardian_contract": "---\ntitle: Setup the Mine\nsummary: The intent of the `{{ setupmine }}` action is setting up the Mine by the Mineowner."
+                },
+                {
+                    "name": "showasmtdata",
+                    "type": "showasmtdata",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "test1",
+                    "type": "test1",
+                    "ricardian_contract": "---\ntitle: Test action\nsummary: The intent of the `{{ test1 }}` action is using it for the tests, used by admin."
+                },
+                {
+                    "name": "unengagearea",
+                    "type": "unengagearea",
+                    "ricardian_contract": "---\ntitle: Unengage the Area\nsummary: The intent of the `{{ unengagearea }}` action is unengaging the Area by the Landlord."
+                },
+                {
+                    "name": "unsetupmine",
+                    "type": "unsetupmine",
+                    "ricardian_contract": "---\ntitle: Modifications of tables and data\nsummary: unsetup Mine"
+                },
+                {
+                    "name": "updaction",
+                    "type": "updaction",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "updarealayer",
+                    "type": "updarealayer",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "updasstmdata",
+                    "type": "updasstmdata",
+                    "ricardian_contract": "---\ntitle: Update asset mutable data\nsummary: Updating asset mutable data, used by admin."
+                },
+                {
+                    "name": "updinvavfrom",
+                    "type": "updinvavfrom",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "updmdmemined",
+                    "type": "updmdmemined",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "updminefinat",
+                    "type": "updminefinat",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "updmineprms1",
+                    "type": "updmineprms1",
+                    "ricardian_contract": "---\ntitle: -\nsummary: -"
+                },
+                {
+                    "name": "updminesblvl",
+                    "type": "updminesblvl",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "updroleattr",
+                    "type": "updroleattr",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "upduserrole",
+                    "type": "upduserrole",
+                    "ricardian_contract": "---\ntitle: for Intercontract interaction purposes\nsummary: for Intercontract interaction purposes"
+                },
+                {
+                    "name": "verifyauth",
+                    "type": "verifyauth",
+                    "ricardian_contract": "---\ntitle: Verifying account\nsummary: The intent of the `{{ verifyauth }}` action is the account verification."
+                },
+                {
+                    "name": "withdrawasst",
+                    "type": "withdrawasst",
+                    "ricardian_contract": "---\ntitle: Withdraw assets\nsummary: The intent of the `{{ withdrawasst }}` action is withdrawing assets back to Atomic assets."
+                }
+            ],
+            "tables": [
+                {
+                    "name": "actions",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "action_j"
+                },
+                {
+                    "name": "areas",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "area_j"
+                },
+                {
+                    "name": "authverif",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "authverif_j"
+                },
+                {
+                    "name": "ids",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "ids"
+                },
+                {
+                    "name": "inventories",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "inventory_j"
+                },
+                {
+                    "name": "mines",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "mine_j"
+                },
+                {
+                    "name": "misc",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "misc"
+                },
+                {
+                    "name": "premassets",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "premasset_j"
+                },
+                {
+                    "name": "roles",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "role_j"
+                },
+                {
+                    "name": "schemas",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "schema_j"
+                },
+                {
+                    "name": "settings",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "settings"
+                },
+                {
+                    "name": "templates",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "template_j"
+                },
+                {
+                    "name": "users",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "user_j"
+                }
+            ],
+            "ricardian_clauses": [],
+            "error_messages": [],
+            "abi_extensions": [],
+            "variants": [],
+            "action_results": []
+        }
+    },
+    "text": "{\"account_name\":\"deepmineappg\",\"abi\":{\"version\":\"eosio::abi/1.2\",\"types\":[{\"new_type_name\":\"dm_attributes\",\"type\":\"pair_string_string[]\"},{\"new_type_name\":\"dm_level\",\"type\":\"uint16\"},{\"new_type_name\":\"dm_template\",\"type\":\"int32\"},{\"new_type_name\":\"dm_time\",\"type\":\"uint32\"}],\"structs\":[{\"name\":\"abandonmine\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"mine_id\",\"type\":\"uint64\"}]},{\"name\":\"action_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"type\",\"type\":\"uint8\"},{\"name\":\"state\",\"type\":\"uint8\"},{\"name\":\"starts_at\",\"type\":\"dm_time\"},{\"name\":\"finishes_at\",\"type\":\"dm_time\"},{\"name\":\"attrs\",\"type\":\"dm_attributes\"}]},{\"name\":\"activatemine\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"duration\",\"type\":\"dm_time\"}]},{\"name\":\"addtemplates\",\"base\":\"\",\"fields\":[{\"name\":\"templates\",\"type\":\"template_item[]\"}]},{\"name\":\"area_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"init_id\",\"type\":\"uint64\"},{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"engaged\",\"type\":\"bool\"},{\"name\":\"mine_slots\",\"type\":\"mine_slot_item[]\"},{\"name\":\"layer_0\",\"type\":\"area_layer_t\"},{\"name\":\"layer_1\",\"type\":\"area_layer_t\"},{\"name\":\"layer_2\",\"type\":\"area_layer_t\"},{\"name\":\"layer_3\",\"type\":\"area_layer_t\"},{\"name\":\"layer_4\",\"type\":\"area_layer_t\"},{\"name\":\"layer_5\",\"type\":\"area_layer_t\"},{\"name\":\"layer_6\",\"type\":\"area_layer_t\"},{\"name\":\"layer_7\",\"type\":\"area_layer_t\"},{\"name\":\"layer_8\",\"type\":\"area_layer_t\"},{\"name\":\"layer_9\",\"type\":\"area_layer_t\"}]},{\"name\":\"area_layer_t\",\"base\":\"\",\"fields\":[{\"name\":\"current_amount\",\"type\":\"uint64\"},{\"name\":\"amount_capacity\",\"type\":\"uint64\"},{\"name\":\"returned_dme\",\"type\":\"uint64\"}]},{\"name\":\"areaupdmslot\",\"base\":\"\",\"fields\":[{\"name\":\"area_id\",\"type\":\"uint64\"},{\"name\":\"slot_idx\",\"type\":\"int16\"},{\"name\":\"reserved\",\"type\":\"bool\"},{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"slot_available_from\",\"type\":\"dm_time\"}]},{\"name\":\"authorize\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"key\",\"type\":\"string\"}]},{\"name\":\"authverif_j\",\"base\":\"\",\"fields\":[{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"key\",\"type\":\"string\"}]},{\"name\":\"changelocn\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"new_location\",\"type\":\"uint8\"}]},{\"name\":\"cmdfinish\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"mine_id\",\"type\":\"uint64\"}]},{\"name\":\"cmdstart\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"depth_to\",\"type\":\"uint8\"}]},{\"name\":\"contr_slot_item\",\"base\":\"\",\"fields\":[{\"name\":\"reserved\",\"type\":\"bool\"},{\"name\":\"contractor\",\"type\":\"name\"}]},{\"name\":\"createareas\",\"base\":\"\",\"fields\":[{\"name\":\"count\",\"type\":\"uint64\"},{\"name\":\"area_rarity\",\"type\":\"uint8\"}]},{\"name\":\"createinvitm\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"},{\"name\":\"template_id\",\"type\":\"dm_template\"},{\"name\":\"inv_owner\",\"type\":\"name\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"inv_type\",\"type\":\"uint8\"},{\"name\":\"struct_type\",\"type\":\"uint8\"},{\"name\":\"equip_type\",\"type\":\"uint8\"},{\"name\":\"badge_type\",\"type\":\"uint8\"},{\"name\":\"schema_type\",\"type\":\"uint8\"},{\"name\":\"in_use\",\"type\":\"bool\"},{\"name\":\"in_contract\",\"type\":\"bool\"}]},{\"name\":\"deactmine\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"mine_id\",\"type\":\"uint64\"}]},{\"name\":\"engagearea\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"asset_id\",\"type\":\"uint64\"}]},{\"name\":\"evalstamina\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"stamina_to_spend\",\"type\":\"uint32\"}]},{\"name\":\"ids\",\"base\":\"\",\"fields\":[{\"name\":\"role_id\",\"type\":\"uint64\"},{\"name\":\"action_id\",\"type\":\"uint64\"}]},{\"name\":\"importtbl\",\"base\":\"\",\"fields\":[]},{\"name\":\"initlayercap\",\"base\":\"\",\"fields\":[{\"name\":\"layer_depth\",\"type\":\"uint8\"}]},{\"name\":\"inventory_j\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"},{\"name\":\"template_id\",\"type\":\"dm_template\"},{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"inv_type\",\"type\":\"uint8\"},{\"name\":\"struct_type\",\"type\":\"uint8\"},{\"name\":\"equip_type\",\"type\":\"uint8\"},{\"name\":\"badge_type\",\"type\":\"uint8\"},{\"name\":\"schema_type\",\"type\":\"uint8\"},{\"name\":\"in_use\",\"type\":\"bool\"},{\"name\":\"in_contract\",\"type\":\"bool\"},{\"name\":\"broken\",\"type\":\"bool\"},{\"name\":\"available_from\",\"type\":\"dm_time\"}]},{\"name\":\"llclaim\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"}]},{\"name\":\"logaction\",\"base\":\"\",\"fields\":[{\"name\":\"action_type\",\"type\":\"string\"},{\"name\":\"info\",\"type\":\"dm_attributes\"}]},{\"name\":\"makeejection\",\"base\":\"\",\"fields\":[]},{\"name\":\"mine_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"area_id\",\"type\":\"uint64\"},{\"name\":\"ll_mo_contract_id\",\"type\":\"uint64\"},{\"name\":\"area_rarity\",\"type\":\"uint8\"},{\"name\":\"layer_depth\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"sublevel\",\"type\":\"uint16\"},{\"name\":\"state\",\"type\":\"uint8\"},{\"name\":\"ll_mo_contract_finishes_at\",\"type\":\"dm_time\"},{\"name\":\"contractor_slots\",\"type\":\"contr_slot_item[]\"}]},{\"name\":\"mine_slot_item\",\"base\":\"\",\"fields\":[{\"name\":\"reserved\",\"type\":\"bool\"},{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"available_from\",\"type\":\"dm_time\"}]},{\"name\":\"mineupdcslot\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"contr_slot_idx\",\"type\":\"int16\"},{\"name\":\"reserved\",\"type\":\"bool\"},{\"name\":\"contractor\",\"type\":\"name\"}]},{\"name\":\"misc\",\"base\":\"\",\"fields\":[{\"name\":\"last_ejection_time\",\"type\":\"uint32\"},{\"name\":\"rand_counter\",\"type\":\"uint32\"}]},{\"name\":\"moclaim\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"}]},{\"name\":\"modifydata\",\"base\":\"\",\"fields\":[{\"name\":\"from\",\"type\":\"uint64\"},{\"name\":\"to\",\"type\":\"uint64\"}]},{\"name\":\"pair_string_string\",\"base\":\"\",\"fields\":[{\"name\":\"first\",\"type\":\"string\"},{\"name\":\"second\",\"type\":\"string\"}]},{\"name\":\"premasset_j\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"},{\"name\":\"template_id\",\"type\":\"dm_template\"}]},{\"name\":\"remaction\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"action_type\",\"type\":\"uint8\"}]},{\"name\":\"reminvitem\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"}]},{\"name\":\"remprasset\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"}]},{\"name\":\"remuserrole\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"role\",\"type\":\"uint8\"}]},{\"name\":\"role_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"role\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"attrs\",\"type\":\"dm_attributes\"}]},{\"name\":\"rsrvcntrslot\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"attrs\",\"type\":\"dm_attributes\"}]},{\"name\":\"rsrvmineslot\",\"base\":\"\",\"fields\":[{\"name\":\"area_id\",\"type\":\"uint64\"},{\"name\":\"attrs\",\"type\":\"dm_attributes\"}]},{\"name\":\"schema_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"schema_type\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"stamina\",\"type\":\"uint32\"},{\"name\":\"time\",\"type\":\"dm_time\"}]},{\"name\":\"setinvcstate\",\"base\":\"\",\"fields\":[{\"name\":\"inventory_id\",\"type\":\"uint64\"},{\"name\":\"inv_owner\",\"type\":\"name\"},{\"name\":\"in_contract\",\"type\":\"bool\"}]},{\"name\":\"setinvustate\",\"base\":\"\",\"fields\":[{\"name\":\"inventory_ids\",\"type\":\"uint64[]\"},{\"name\":\"inv_owner\",\"type\":\"name\"},{\"name\":\"in_use\",\"type\":\"bool\"}]},{\"name\":\"setoption\",\"base\":\"\",\"fields\":[{\"name\":\"option\",\"type\":\"uint8\"},{\"name\":\"val\",\"type\":\"uint64\"}]},{\"name\":\"settings\",\"base\":\"\",\"fields\":[{\"name\":\"user_weight_limit\",\"type\":\"uint32\"}]},{\"name\":\"setupmine\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"contract_id\",\"type\":\"uint64\"},{\"name\":\"duration\",\"type\":\"dm_time\"},{\"name\":\"amount\",\"type\":\"uint64\"}]},{\"name\":\"showasmtdata\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"}]},{\"name\":\"template_item\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"inv_type\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"struct_type\",\"type\":\"uint8\"},{\"name\":\"equip_type\",\"type\":\"uint8\"},{\"name\":\"badge_type\",\"type\":\"uint8\"},{\"name\":\"schema_type\",\"type\":\"uint8\"},{\"name\":\"schema_stamina\",\"type\":\"uint32\"},{\"name\":\"schema_time\",\"type\":\"dm_time\"}]},{\"name\":\"template_j\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"inv_type\",\"type\":\"uint8\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"rarity\",\"type\":\"uint8\"},{\"name\":\"struct_type\",\"type\":\"uint8\"},{\"name\":\"equip_type\",\"type\":\"uint8\"},{\"name\":\"badge_type\",\"type\":\"uint8\"},{\"name\":\"schema_type\",\"type\":\"uint8\"}]},{\"name\":\"test1\",\"base\":\"\",\"fields\":[]},{\"name\":\"unengagearea\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"area_id\",\"type\":\"uint64\"}]},{\"name\":\"unsetupmine\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"landlord\",\"type\":\"name\"}]},{\"name\":\"updaction\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"action_type\",\"type\":\"uint8\"},{\"name\":\"state_opt\",\"type\":\"uint8?\"},{\"name\":\"starts_at_opt\",\"type\":\"dm_time?\"},{\"name\":\"finishes_at_opt\",\"type\":\"dm_time?\"},{\"name\":\"attrs_opt\",\"type\":\"dm_attributes?\"}]},{\"name\":\"updarealayer\",\"base\":\"\",\"fields\":[{\"name\":\"area_id\",\"type\":\"uint64\"},{\"name\":\"depth\",\"type\":\"uint8\"},{\"name\":\"layer_new\",\"type\":\"area_layer_t\"}]},{\"name\":\"updasstmdata\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"},{\"name\":\"opt_dme_to_upgrade\",\"type\":\"float64?\"},{\"name\":\"opt_dme_mined\",\"type\":\"float64?\"},{\"name\":\"opt_broken\",\"type\":\"uint8?\"},{\"name\":\"opt_depreciation\",\"type\":\"uint64?\"},{\"name\":\"opt_current_capacity\",\"type\":\"uint64?\"},{\"name\":\"opt_maximal_capacity\",\"type\":\"uint64?\"}]},{\"name\":\"updinvavfrom\",\"base\":\"\",\"fields\":[{\"name\":\"asset_id\",\"type\":\"uint64\"},{\"name\":\"available_from\",\"type\":\"dm_time\"}]},{\"name\":\"updmdmemined\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"dme_mined\",\"type\":\"uint64\"}]},{\"name\":\"updminefinat\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"time_new\",\"type\":\"dm_time\"}]},{\"name\":\"updmineprms1\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id_old\",\"type\":\"uint64\"},{\"name\":\"mine_id_new\",\"type\":\"uint64\"},{\"name\":\"level\",\"type\":\"dm_level\"},{\"name\":\"slots_count\",\"type\":\"uint16\"}]},{\"name\":\"updminesblvl\",\"base\":\"\",\"fields\":[{\"name\":\"mine_id\",\"type\":\"uint64\"},{\"name\":\"sublevel\",\"type\":\"uint16\"}]},{\"name\":\"updroleattr\",\"base\":\"\",\"fields\":[{\"name\":\"role_id\",\"type\":\"uint64\"},{\"name\":\"key\",\"type\":\"string\"},{\"name\":\"value\",\"type\":\"string\"}]},{\"name\":\"upduserrole\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"role\",\"type\":\"uint8\"},{\"name\":\"level_opt\",\"type\":\"dm_level?\"},{\"name\":\"attrs_opt\",\"type\":\"dm_attributes?\"}]},{\"name\":\"user_j\",\"base\":\"\",\"fields\":[{\"name\":\"owner\",\"type\":\"name\"},{\"name\":\"register_datetime\",\"type\":\"uint32\"},{\"name\":\"location\",\"type\":\"uint8\"},{\"name\":\"weight\",\"type\":\"uint32\"},{\"name\":\"stamina\",\"type\":\"uint32\"},{\"name\":\"stamina_updated_at\",\"type\":\"dm_time\"},{\"name\":\"reputation\",\"type\":\"uint32\"}]},{\"name\":\"verifyauth\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"}]},{\"name\":\"withdrawasst\",\"base\":\"\",\"fields\":[{\"name\":\"wax_user\",\"type\":\"name\"},{\"name\":\"asset_ids\",\"type\":\"uint64[]\"}]}],\"actions\":[{\"name\":\"abandonmine\",\"type\":\"abandonmine\",\"ricardian_contract\":\"---\\ntitle: Abandone the Mine\\nsummary: The intent of the `{{ abandonmine }}` action is the Mine abandoning by the Mineowner.\"},{\"name\":\"activatemine\",\"type\":\"activatemine\",\"ricardian_contract\":\"---\\ntitle: Activate the Mine\\nsummary: The intent of the `{{ activatemine }}` action is the Mine activation by the Mineowner.\"},{\"name\":\"addtemplates\",\"type\":\"addtemplates\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"areaupdmslot\",\"type\":\"areaupdmslot\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: Area - update Mine Slot\"},{\"name\":\"authorize\",\"type\":\"authorize\",\"ricardian_contract\":\"---\\ntitle: Authorize\\nsummary: The intent of the `{{ authorize }}` action is creating User's Entity in game.\"},{\"name\":\"changelocn\",\"type\":\"changelocn\",\"ricardian_contract\":\"---\\ntitle: Change user location\\nsummary: The intent of the `{{ changelocn }}` action is changing player's location.\"},{\"name\":\"cmdfinish\",\"type\":\"cmdfinish\",\"ricardian_contract\":\"---\\ntitle: Finish of Mine's depth changing\\nsummary: The intent of the `{{ cmdfinish }}` action is finish of changing the Mine's depth by the Mineowner.\"},{\"name\":\"cmdstart\",\"type\":\"cmdstart\",\"ricardian_contract\":\"---\\ntitle: Start of Mine's depth changing\\nsummary: The intent of the `{{ cmdstart }}` action is start of changing the Mine's depth by the Mineowner.\"},{\"name\":\"createareas\",\"type\":\"createareas\",\"ricardian_contract\":\"---\\ntitle: Create Areas\\nsummary: The intent of the `{{ createareas }}` action is creating the Areas by the admin.\"},{\"name\":\"createinvitm\",\"type\":\"createinvitm\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"deactmine\",\"type\":\"deactmine\",\"ricardian_contract\":\"---\\ntitle: Deactivate the Mine\\nsummary: The intent of the `{{ deactmine }}` action is the Mine deactivation by the Mineowner.\"},{\"name\":\"engagearea\",\"type\":\"engagearea\",\"ricardian_contract\":\"---\\ntitle: Engage the Area\\nsummary: The intent of the `{{ engagearea }}` action is engaging the Area by the Landlord.\"},{\"name\":\"evalstamina\",\"type\":\"evalstamina\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"importtbl\",\"type\":\"importtbl\",\"ricardian_contract\":\"---\\ntitle: Import table\\nsummary: The intent of the `{{ importtbl }}` action is using it for table import procedures, used by admin.\"},{\"name\":\"initlayercap\",\"type\":\"initlayercap\",\"ricardian_contract\":\"---\\ntitle: Initiate capacity of the Layer\\nsummary: The intent of the `{{ initlayercap }}` action is initiation of the Layer capacity, admin action.\"},{\"name\":\"llclaim\",\"type\":\"llclaim\",\"ricardian_contract\":\"---\\ntitle: Claim DME by the Landlord\\nsummary: The intent of the `{{ llclaim }}` action is DME claiming by the Landlord.\"},{\"name\":\"logaction\",\"type\":\"logaction\",\"ricardian_contract\":\"---\\ntitle: Log action\\nsummary: The intent of the `{{ logaction }}` action is logging in-game actions, used by backend.\"},{\"name\":\"makeejection\",\"type\":\"makeejection\",\"ricardian_contract\":\"---\\ntitle: Making DME ejection\\nsummary: The intent of the `{{ makeejection }}` action is making of DME ejection process, admin action.\"},{\"name\":\"mineupdcslot\",\"type\":\"mineupdcslot\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: Mine - update Contractor Slot\"},{\"name\":\"moclaim\",\"type\":\"moclaim\",\"ricardian_contract\":\"---\\ntitle: Claim DME by the Mineowner\\nsummary: The intent of the `{{ moclaim }}` action is DME claiming by the Mineowner.\"},{\"name\":\"modifydata\",\"type\":\"modifydata\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: The intent of the `{{ modifydata }}` action is using it for some table-modifications, used by admin.\"},{\"name\":\"remaction\",\"type\":\"remaction\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"reminvitem\",\"type\":\"reminvitem\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"remprasset\",\"type\":\"remprasset\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"remuserrole\",\"type\":\"remuserrole\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"rsrvcntrslot\",\"type\":\"rsrvcntrslot\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: reserve Contractor Slot\"},{\"name\":\"rsrvmineslot\",\"type\":\"rsrvmineslot\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: reserve Mine Slot\"},{\"name\":\"setinvcstate\",\"type\":\"setinvcstate\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: set Intentory Item state\"},{\"name\":\"setinvustate\",\"type\":\"setinvustate\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"setoption\",\"type\":\"setoption\",\"ricardian_contract\":\"---\\ntitle: Set game-contract option\\nsummary: The intent of the `{{ setoption }}` action is setting up some game-contract option, admin action.\"},{\"name\":\"setupmine\",\"type\":\"setupmine\",\"ricardian_contract\":\"---\\ntitle: Setup the Mine\\nsummary: The intent of the `{{ setupmine }}` action is setting up the Mine by the Mineowner.\"},{\"name\":\"showasmtdata\",\"type\":\"showasmtdata\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"test1\",\"type\":\"test1\",\"ricardian_contract\":\"---\\ntitle: Test action\\nsummary: The intent of the `{{ test1 }}` action is using it for the tests, used by admin.\"},{\"name\":\"unengagearea\",\"type\":\"unengagearea\",\"ricardian_contract\":\"---\\ntitle: Unengage the Area\\nsummary: The intent of the `{{ unengagearea }}` action is unengaging the Area by the Landlord.\"},{\"name\":\"unsetupmine\",\"type\":\"unsetupmine\",\"ricardian_contract\":\"---\\ntitle: Modifications of tables and data\\nsummary: unsetup Mine\"},{\"name\":\"updaction\",\"type\":\"updaction\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"updarealayer\",\"type\":\"updarealayer\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"updasstmdata\",\"type\":\"updasstmdata\",\"ricardian_contract\":\"---\\ntitle: Update asset mutable data\\nsummary: Updating asset mutable data, used by admin.\"},{\"name\":\"updinvavfrom\",\"type\":\"updinvavfrom\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"updmdmemined\",\"type\":\"updmdmemined\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"updminefinat\",\"type\":\"updminefinat\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"updmineprms1\",\"type\":\"updmineprms1\",\"ricardian_contract\":\"---\\ntitle: -\\nsummary: -\"},{\"name\":\"updminesblvl\",\"type\":\"updminesblvl\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"updroleattr\",\"type\":\"updroleattr\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"upduserrole\",\"type\":\"upduserrole\",\"ricardian_contract\":\"---\\ntitle: for Intercontract interaction purposes\\nsummary: for Intercontract interaction purposes\"},{\"name\":\"verifyauth\",\"type\":\"verifyauth\",\"ricardian_contract\":\"---\\ntitle: Verifying account\\nsummary: The intent of the `{{ verifyauth }}` action is the account verification.\"},{\"name\":\"withdrawasst\",\"type\":\"withdrawasst\",\"ricardian_contract\":\"---\\ntitle: Withdraw assets\\nsummary: The intent of the `{{ withdrawasst }}` action is withdrawing assets back to Atomic assets.\"}],\"tables\":[{\"name\":\"actions\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"action_j\"},{\"name\":\"areas\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"area_j\"},{\"name\":\"authverif\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"authverif_j\"},{\"name\":\"ids\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"ids\"},{\"name\":\"inventories\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"inventory_j\"},{\"name\":\"mines\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"mine_j\"},{\"name\":\"misc\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"misc\"},{\"name\":\"premassets\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"premasset_j\"},{\"name\":\"roles\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"role_j\"},{\"name\":\"schemas\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"schema_j\"},{\"name\":\"settings\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"settings\"},{\"name\":\"templates\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"template_j\"},{\"name\":\"users\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"user_j\"}],\"ricardian_clauses\":[],\"error_messages\":[],\"abi_extensions\":[],\"variants\":[],\"action_results\":[]}}"
+}

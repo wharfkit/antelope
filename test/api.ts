@@ -14,6 +14,7 @@ import {
     Float64,
     Name,
     PrivateKey,
+    Serializer,
     SignedTransaction,
     Struct,
     Transaction,
@@ -38,6 +39,10 @@ const fio = new APIClient({
 
 const beos = new APIClient({
     provider: new MockProvider('https://api.beos.world'),
+})
+
+const wax = new APIClient({
+    provider: new MockProvider('https://wax.greymass.com'),
 })
 
 suite('api v1', function () {
@@ -455,5 +460,13 @@ suite('api v1', function () {
             '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
         )
         assert.equal(res.state, 'UNKNOWN')
+    })
+
+    test('decoding test (issue #62)', async function () {
+        const abi = (await wax.v1.chain.get_abi('deepmineappg')).abi
+        const data = '30700506000100004d884164'
+        const decoded = Serializer.decode({data, type: 'updinvavfrom', abi}) as any
+        assert.equal(decoded.asset_id, '1099612647472')
+        assert.equal(decoded.available_from, 1682016333)
     })
 })
