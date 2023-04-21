@@ -14,6 +14,43 @@ npm install @greymass/eosio
 
 https://greymass.github.io/eosio-core/
 
+## Documentation
+
+Documentation beyond the automatically generated API documentation above is currently incomplete. Until full documentation is complete, the tests themselves provide good reference material on how to do nearly everything.
+
+https://github.com/greymass/eosio-core/tree/master/test
+
+More:
+
+-   Using APIs: https://github.com/greymass/eosio-core/blob/master/test/api.ts
+-   Serialization: https://github.com/greymass/eosio-core/blob/master/test/serializer.ts
+-   Crypto Operations: https://github.com/greymass/eosio-core/blob/master/test/crypto.ts
+-   Primative EOSIO Types: https://github.com/greymass/eosio-core/blob/master/test/chain.ts
+
+## Reporting Issues
+
+If you think you've found an issue with this codebase, please submit a pull request with a failing unit test to better help us reproduce and understand the issue you are experiencing.
+
+To do this, fork this repository and create your own branch. In this new branch, use the test scaffolding at the path below to write code that either fails to execute, throws an error, or doesn't return the anticipated response.
+
+```
+./test/bug-report.ts
+```
+
+This specific test can be run within the root project folder either using `make`:
+
+```bash
+grep="bug-report" make test
+```
+
+Or running `mocha` directly from the installed `./node_modules` folder:
+
+```bash
+TS_NODE_PROJECT='./test/tsconfig.json' ./node_modules/.bin/mocha -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts test/*.ts --grep="bug-report"
+```
+
+Once your test is failing and successfully shows the issue occurring, please submit a pull request to this repository. Feel free to include any additional details in the body of the pull request that might help us understand the situation.
+
 ## Running Tests
 
 ### Run the unit test suite:
@@ -37,19 +74,6 @@ make browser-test
 ```
 
 The browser test suite for the current version of the library is available at: https://greymass.github.io/eosio-core/tests.html
-
-## Documentation
-
-Documentation beyond the automatically generated API documentation above is currently incomplete. Until full documentation is complete, the tests themselves provide good reference material on how to do nearly everything.
-
-https://github.com/greymass/eosio-core/tree/master/test
-
-More:
-
--   Using APIs: https://github.com/greymass/eosio-core/blob/master/test/api.ts
--   Serialization: https://github.com/greymass/eosio-core/blob/master/test/serializer.ts
--   Crypto Operations: https://github.com/greymass/eosio-core/blob/master/test/crypto.ts
--   Primative EOSIO Types: https://github.com/greymass/eosio-core/blob/master/test/chain.ts
 
 ## Debugging
 
