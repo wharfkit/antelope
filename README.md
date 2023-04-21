@@ -51,6 +51,8 @@ TS_NODE_PROJECT='./test/tsconfig.json' ./node_modules/.bin/mocha -u tdd -r ts-no
 
 Once your test is failing and successfully shows the issue occurring, please submit a pull request to this repository. Feel free to include any additional details in the body of the pull request that might help us understand the situation.
 
+> NOTE: If you are performing API requests from within unit tests, you will need to prepend `MOCK_RECORD=true` to the above commands in order instruct the test running to execute and cache the API request. Any subsequent API requests will utilize this cache to prevent the test from continously accessing API endpoints. Prefixing your command with `MOCK_RECORD=overwrite` is also possible which forces the test to ignore the cache and fetch new data.
+
 ## Running Tests
 
 ### Run the unit test suite:
