@@ -130,10 +130,8 @@ export class BlockId extends Checksum256 {
 
     get blockNum(): UInt32 {
         const bytes = this.array.slice(0, 4)
-        // const num = UInt32.from(0)
         let num = 0
         for (let i = 0; i < 4; i++) {
-            // num.add((Number(num) << 8) + bytes[i])
             num = (num << 8) + bytes[i]
         }
         return UInt32.from(num)
