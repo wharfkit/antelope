@@ -10,6 +10,7 @@ import {
     APIClient,
     APIError,
     Asset,
+    BlockId,
     Checksum256,
     Float64,
     Name,
@@ -131,6 +132,17 @@ suite('api v1', function () {
     test('chain get_block (by id)', async function () {
         const block = await eos.v1.chain.get_block(
             '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
+        assert.equal(Number(block.block_num), 8482113)
+        assert.equal(
+            block.id.hexString,
+            '00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9'
+        )
+    })
+
+    test('chain get_block (by id, typed)', async function () {
+        const block = await eos.v1.chain.get_block(
+            BlockId.from('00816d41e41f1462acb648b810b20f152d944fabd79aaff31c9f50102e4e5db9')
         )
         assert.equal(Number(block.block_num), 8482113)
         assert.equal(

@@ -6,10 +6,12 @@ import {
     AnyTransaction,
     Asset,
     Authority,
+    BlockId,
     BlockTimestamp,
     Bytes,
     Checksum160,
     Checksum256,
+    Checksum256Type,
     Checksum512,
     Int32,
     Int64,
@@ -93,6 +95,16 @@ suite('chain', function () {
         assert.throws(() => {
             Asset.Symbol.from('12')
         })
+    })
+
+    test('block id', function () {
+        const id = '048865fb643bca3b644647177f0cf363f7956794d0a7ec3bc6d29d93d9637308'
+        const blockId = BlockId.from(id)
+        assert.equal(String(blockId), id)
+        assert.equal(blockId.equals(Checksum256.from(id)), true)
+        assert.equal(Number(blockId.blockNum), 76047867)
+        assert.equal(blockId.blockNum.equals(76047867), true)
+        assert.equal(blockId.blockNum.equals(UInt32.from(76047867)), true)
     })
 
     test('bytes', function () {
