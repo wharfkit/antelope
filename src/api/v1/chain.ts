@@ -1,6 +1,7 @@
 import {APIClient} from '../client'
 
 import {
+    BlockIdType,
     Bytes,
     Checksum160,
     Checksum256,
@@ -81,7 +82,7 @@ export class ChainAPI {
         })
     }
 
-    async get_block(block_num_or_id: Checksum256Type | UInt32Type) {
+    async get_block(block_num_or_id: BlockIdType | UInt32Type) {
         return this.client.call({
             path: '/v1/chain/get_block',
             params: {block_num_or_id},
@@ -89,7 +90,7 @@ export class ChainAPI {
         })
     }
 
-    async get_block_header_state(block_num_or_id: Checksum256Type | UInt32Type) {
+    async get_block_header_state(block_num_or_id: BlockIdType | UInt32Type) {
         return this.client.call({
             path: '/v1/chain/get_block_header_state',
             params: {block_num_or_id},

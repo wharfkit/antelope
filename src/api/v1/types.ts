@@ -253,7 +253,7 @@ export class GetBlockResponse extends Struct {
     @Struct.field('time_point') declare timestamp: TimePoint
     @Struct.field('name') declare producer: Name
     @Struct.field('uint16') declare confirmed: UInt16
-    @Struct.field('block_id') declare previous: BlockId
+    @Struct.field('block_id_type') declare previous: BlockId
     @Struct.field('checksum256') declare transaction_mroot: Checksum256
     @Struct.field('checksum256') declare action_mroot: Checksum256
     @Struct.field('uint32') declare schedule_version: UInt32
@@ -264,7 +264,7 @@ export class GetBlockResponse extends Struct {
     @Struct.field(GetBlockResponseTransactionReceipt, {array: true})
     declare transactions: GetBlockResponseTransactionReceipt[]
     @Struct.field('block_extension', {optional: true}) declare block_extensions: BlockExtension[]
-    @Struct.field('block_id') declare id: BlockId
+    @Struct.field('block_id_type') declare id: BlockId
     @Struct.field('uint32') declare block_num: UInt32
     @Struct.field('uint32') declare ref_block_prefix: UInt32
 }
@@ -293,7 +293,7 @@ export class BlockStateHeader extends Struct {
     @Struct.field('time_point') declare timestamp: TimePoint
     @Struct.field('name') declare producer: Name
     @Struct.field('uint16') declare confirmed: UInt16
-    @Struct.field('block_id') declare previous: BlockId
+    @Struct.field('block_id_type') declare previous: BlockId
     @Struct.field('checksum256') declare transaction_mroot: Checksum256
     @Struct.field('checksum256') declare action_mroot: Checksum256
     @Struct.field('uint32') declare schedule_version: UInt32
@@ -307,7 +307,7 @@ export class GetBlockHeaderStateResponse extends Struct {
     @Struct.field('uint32') declare block_num: UInt32
     @Struct.field('uint32') declare dpos_proposed_irreversible_blocknum: UInt32
     @Struct.field('uint32') declare dpos_irreversible_blocknum: UInt32
-    @Struct.field('block_id') declare id: BlockId
+    @Struct.field('block_id_type') declare id: BlockId
     @Struct.field(BlockStateHeader) declare header: BlockStateHeader
     /** Unstructured any fields specific to header state calls */
     @Struct.field('any') declare active_schedule: any
@@ -332,9 +332,9 @@ export class GetInfoResponse extends Struct {
     /** Highest block number on the chain that has been irreversibly applied to state. */
     @Struct.field('uint32') declare last_irreversible_block_num: UInt32
     /** Highest block ID on the chain that has been irreversibly applied to state. */
-    @Struct.field('block_id') declare last_irreversible_block_id: BlockId
+    @Struct.field('block_id_type') declare last_irreversible_block_id: BlockId
     /** Highest block ID on the chain. */
-    @Struct.field('block_id') declare head_block_id: BlockId
+    @Struct.field('block_id_type') declare head_block_id: BlockId
     /** Highest block unix timestamp. */
     @Struct.field('time_point') declare head_block_time: TimePoint
     /** Producer that signed the highest block (head block). */
@@ -352,7 +352,7 @@ export class GetInfoResponse extends Struct {
     /** Sequential block number representing the best known head in the fork database tree. */
     @Struct.field('uint32?') fork_db_head_block_num?: UInt32
     /** Hash representing the best known head in the fork database tree. */
-    @Struct.field('block_id?') fork_db_head_block_id?: BlockId
+    @Struct.field('block_id_type?') fork_db_head_block_id?: BlockId
 
     getTransactionHeader(secondsAhead = 120): TransactionHeader {
         const expiration = TimePointSec.fromMilliseconds(
@@ -601,12 +601,12 @@ export class GetControlledAccountsResponse extends Struct {
 export class GetTransactionStatusResponse extends Struct {
     @Struct.field('string') declare state: string
     @Struct.field('uint32') declare head_number: UInt32
-    @Struct.field('block_id') declare head_id: BlockId
+    @Struct.field('block_id_type') declare head_id: BlockId
     @Struct.field('time_point') declare head_timestamp: TimePoint
     @Struct.field('uint32') declare irreversible_number: UInt32
-    @Struct.field('block_id') declare irreversible_id: BlockId
+    @Struct.field('block_id_type') declare irreversible_id: BlockId
     @Struct.field('time_point') declare irreversible_timestamp: TimePoint
-    @Struct.field('block_id') declare earliest_tracked_block_id: BlockId
+    @Struct.field('block_id_type') declare earliest_tracked_block_id: BlockId
     @Struct.field('uint32') declare earliest_tracked_block_number: UInt32
 }
 

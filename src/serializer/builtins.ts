@@ -75,10 +75,10 @@ export interface BuiltinTypes {
     'extended_asset?'?: ExtendedAsset
     'extended_asset[]': ExtendedAsset[]
     'extended_asset[]?'?: ExtendedAsset[]
-    block_id: BlockId
-    'block_id?'?: BlockId
-    'block_id[]': BlockId[]
-    'block_id[]?'?: BlockId[]
+    block_id_type: BlockId
+    'block_id_type?'?: BlockId
+    'block_id_type[]': BlockId[]
+    'block_id_type[]?'?: BlockId[]
     bytes: Bytes
     'bytes?'?: Bytes
     'bytes[]': Bytes[]

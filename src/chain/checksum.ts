@@ -5,7 +5,7 @@ import {ABIEncoder} from '../serializer/encoder'
 import {ABISerializableObject} from '../serializer/serializable'
 import {arrayEquals, arrayToHex, isInstanceOf} from '../utils'
 
-import {Bytes, BytesType, UInt32} from '../'
+import {Bytes, BytesType} from '../'
 
 type ChecksumType = Checksum | BytesType
 
@@ -117,23 +117,5 @@ export class Checksum160 extends Checksum {
     static hash(data: BytesType): Checksum160 {
         const digest = new Uint8Array(ripemd160().update(Bytes.from(data).array).digest())
         return new Checksum160(digest)
-    }
-}
-
-export type BlockIdType = BlockId | Checksum256Type
-export class BlockId extends Checksum256 {
-    static abiName = 'block_id'
-
-    static from(value: Checksum512Type) {
-        return super.from(value) as BlockId
-    }
-
-    get blockNum(): UInt32 {
-        const bytes = this.array.slice(0, 4)
-        let num = 0
-        for (let i = 0; i < 4; i++) {
-            num = (num << 8) + bytes[i]
-        }
-        return UInt32.from(num)
     }
 }
