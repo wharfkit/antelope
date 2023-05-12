@@ -1,5 +1,5 @@
 import {Bytes, BytesType, Checksum256, Checksum256Type, isInstanceOf, UInt32, UInt32Type} from '..'
-import {ABIEncoder, ABISerializableObject} from '../serializer'
+import {ABIDecoder, ABIEncoder, ABISerializableObject} from '../serializer'
 import {arrayEquals, arrayToHex} from '../utils'
 
 export type BlockIdType = BlockId | BytesType | {blockNum: UInt32Type; checksum: Checksum256Type}
@@ -16,6 +16,10 @@ export class BlockId implements ABISerializableObject {
         } else {
             return this.fromBlockChecksum(value.checksum, value.blockNum)
         }
+    }
+
+    static fromABI(decoder: ABIDecoder) {
+        return new this(decoder.readArray(32))
     }
 
     static fromBlockChecksum(checksum: Checksum256Type, blockNum: UInt32Type): BlockId {
@@ -47,10 +51,6 @@ export class BlockId implements ABISerializableObject {
         }
     }
 
-    get hexString(): string {
-        return arrayToHex(this.array)
-    }
-
     toABI(encoder: ABIEncoder) {
         encoder.writeArray(this.array)
     }
@@ -61,6 +61,10 @@ export class BlockId implements ABISerializableObject {
 
     toJSON() {
         return this.toString()
+    }
+
+    get hexString(): string {
+        return arrayToHex(this.array)
     }
 
     get blockNum(): UInt32 {
