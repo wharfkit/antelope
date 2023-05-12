@@ -29,9 +29,9 @@ export class HandshakeMessage extends Struct {
     @Struct.field('signature') declare sig: Signature
     @Struct.field('string') declare p2pAddress: string
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('block_id_type') declare lastIrreversibleBlockId: BlockId
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('block_id_type') declare headId: BlockId
+    @Struct.field(BlockId) declare headId: BlockId
     @Struct.field('string') declare os: string
     @Struct.field('string') declare agent: string
     @Struct.field('int16') declare generation: Int16
@@ -40,9 +40,9 @@ export class HandshakeMessage extends Struct {
 @Struct.type('chain_size_message')
 export class ChainSizeMessage extends Struct {
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('block_id_type') declare lastIrreversibleBlockId: BlockId
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('block_id_type') declare headId: BlockId
+    @Struct.field(BlockId) declare headId: BlockId
 }
 
 @Struct.type('go_away_message')
@@ -62,13 +62,13 @@ export class TimeMessage extends Struct {
 @Struct.type('notice_message')
 export class NoticeMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare knownTrx: Checksum256[]
-    @Struct.field('block_id_type', {array: true}) declare knownBlocks: BlockId[]
+    @Struct.field(BlockId, {array: true}) declare knownBlocks: BlockId[]
 }
 
 @Struct.type('request_message')
 export class RequestMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare reqTrx: Checksum256[]
-    @Struct.field('block_id_type', {array: true}) declare reqBlocks: BlockId[]
+    @Struct.field(BlockId, {array: true}) declare reqBlocks: BlockId[]
 }
 
 @Struct.type('sync_request_message')
@@ -119,9 +119,9 @@ export class BlockHeader extends Struct {
     @Struct.field('uint32') declare timeSlot: UInt32
     @Struct.field('name') declare producer: Name
     @Struct.field('uint16') declare confirmed: UInt16
-    @Struct.field('block_id_type') declare previous: BlockId
-    @Struct.field('block_id_type') declare transaction_mroot: BlockId
-    @Struct.field('block_id_type') declare action_mroot: BlockId
+    @Struct.field(BlockId) declare previous: BlockId
+    @Struct.field(BlockId) declare transaction_mroot: BlockId
+    @Struct.field(BlockId) declare action_mroot: BlockId
     @Struct.field('uint32') declare schedule_version: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
     @Struct.field(HeaderExtension, {array: true}) declare header_extensions: HeaderExtension[]
