@@ -24,7 +24,6 @@ suite('p2p', function () {
         const client = new P2PClient({...additionalOpts, provider: useProvider})
 
         client.on('error', (e) => {
-            console.dir(e)
             assert.fail(e)
         })
 

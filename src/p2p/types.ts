@@ -1,4 +1,5 @@
 import {
+    BlockId,
     Bytes,
     Checksum256,
     Int16,
@@ -28,9 +29,9 @@ export class HandshakeMessage extends Struct {
     @Struct.field('signature') declare sig: Signature
     @Struct.field('string') declare p2pAddress: string
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('checksum256') declare lastIrreversibleBlockId: Checksum256
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('checksum256') declare headId: Checksum256
+    @Struct.field(BlockId) declare headId: BlockId
     @Struct.field('string') declare os: string
     @Struct.field('string') declare agent: string
     @Struct.field('int16') declare generation: Int16
@@ -39,9 +40,9 @@ export class HandshakeMessage extends Struct {
 @Struct.type('chain_size_message')
 export class ChainSizeMessage extends Struct {
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('checksum256') declare lastIrreversibleBlockId: Checksum256
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('checksum256') declare headId: Checksum256
+    @Struct.field(BlockId) declare headId: BlockId
 }
 
 @Struct.type('go_away_message')
@@ -61,13 +62,13 @@ export class TimeMessage extends Struct {
 @Struct.type('notice_message')
 export class NoticeMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare knownTrx: Checksum256[]
-    @Struct.field('checksum256', {array: true}) declare knownBlocks: Checksum256[]
+    @Struct.field(BlockId, {array: true}) declare knownBlocks: BlockId[]
 }
 
 @Struct.type('request_message')
 export class RequestMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare reqTrx: Checksum256[]
-    @Struct.field('checksum256', {array: true}) declare reqBlocks: Checksum256[]
+    @Struct.field(BlockId, {array: true}) declare reqBlocks: BlockId[]
 }
 
 @Struct.type('sync_request_message')
@@ -118,31 +119,20 @@ export class BlockHeader extends Struct {
     @Struct.field('uint32') declare timeSlot: UInt32
     @Struct.field('name') declare producer: Name
     @Struct.field('uint16') declare confirmed: UInt16
-    @Struct.field('checksum256') declare previous: Checksum256
-    @Struct.field('checksum256') declare transaction_mroot: Checksum256
-    @Struct.field('checksum256') declare action_mroot: Checksum256
+    @Struct.field(BlockId) declare previous: BlockId
+    @Struct.field(BlockId) declare transaction_mroot: BlockId
+    @Struct.field(BlockId) declare action_mroot: BlockId
     @Struct.field('uint32') declare schedule_version: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
     @Struct.field(HeaderExtension, {array: true}) declare header_extensions: HeaderExtension[]
 
-    get blockNum(): number {
-        const bytes = this.previous.array.slice(0, 4)
-        let num = 0
-        for (let i = 0; i < 4; i++) {
-            num = (num << 8) + bytes[i]
-        }
-        return num + 1
+    get blockNum(): UInt32 {
+        return this.previous.blockNum.adding(1)
     }
 
-    get id(): Checksum256 {
+    get id(): BlockId {
         const id = Checksum256.hash(Serializer.encode({object: this, type: BlockHeader}))
-        const numBuffer = new Uint8Array(4)
-        numBuffer[0] = (this.blockNum >> 24) & 0xff
-        numBuffer[1] = (this.blockNum >> 16) & 0xff
-        numBuffer[2] = (this.blockNum >> 8) & 0xff
-        numBuffer[3] = this.blockNum & 0xff
-        id.array.set(numBuffer, 0)
-        return id
+        return BlockId.fromBlockChecksum(id, this.blockNum)
     }
 }
 
