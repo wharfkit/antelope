@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>101/101</span>
+                <span class='fraction'>90/90</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>84/84</span>
+                <span class='fraction'>74/74</span>
             </div>
         
             
@@ -232,17 +232,7 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,6 +252,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -368,23 +359,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,6 +402,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+    BlockId,
     Bytes,
     Checksum256,
     Int16,
@@ -451,9 +432,9 @@ export class HandshakeMessage extends Struct {
     @Struct.field('signature') declare sig: Signature
     @Struct.field('string') declare p2pAddress: string
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('checksum256') declare lastIrreversibleBlockId: Checksum256
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('checksum256') declare headId: Checksum256
+    @Struct.field(BlockId) declare headId: BlockId
     @Struct.field('string') declare os: string
     @Struct.field('string') declare agent: string
     @Struct.field('int16') declare generation: Int16
@@ -462,9 +443,9 @@ export class HandshakeMessage extends Struct {
 @Struct.type('chain_size_message')
 export class ChainSizeMessage extends Struct {
     @Struct.field('uint32') declare lastIrreversibleBlockNumber: UInt32
-    @Struct.field('checksum256') declare lastIrreversibleBlockId: Checksum256
+    @Struct.field(BlockId) declare lastIrreversibleBlockId: BlockId
     @Struct.field('uint32') declare headNum: UInt32
-    @Struct.field('checksum256') declare headId: Checksum256
+    @Struct.field(BlockId) declare headId: BlockId
 }
 &nbsp;
 @Struct.type('go_away_message')
@@ -484,13 +465,13 @@ export class TimeMessage extends Struct {
 @Struct.type('notice_message')
 export class NoticeMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare knownTrx: Checksum256[]
-    @Struct.field('checksum256', {array: true}) declare knownBlocks: Checksum256[]
+    @Struct.field(BlockId, {array: true}) declare knownBlocks: BlockId[]
 }
 &nbsp;
 @Struct.type('request_message')
 export class RequestMessage extends Struct {
     @Struct.field('checksum256', {array: true}) declare reqTrx: Checksum256[]
-    @Struct.field('checksum256', {array: true}) declare reqBlocks: Checksum256[]
+    @Struct.field(BlockId, {array: true}) declare reqBlocks: BlockId[]
 }
 &nbsp;
 @Struct.type('sync_request_message')
@@ -541,31 +522,20 @@ export class BlockHeader extends Struct {
     @Struct.field('uint32') declare timeSlot: UInt32
     @Struct.field('name') declare producer: Name
     @Struct.field('uint16') declare confirmed: UInt16
-    @Struct.field('checksum256') declare previous: Checksum256
-    @Struct.field('checksum256') declare transaction_mroot: Checksum256
-    @Struct.field('checksum256') declare action_mroot: Checksum256
+    @Struct.field(BlockId) declare previous: BlockId
+    @Struct.field(BlockId) declare transaction_mroot: BlockId
+    @Struct.field(BlockId) declare action_mroot: BlockId
     @Struct.field('uint32') declare schedule_version: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
     @Struct.field(HeaderExtension, {array: true}) declare header_extensions: HeaderExtension[]
 &nbsp;
-    get blockNum(): number {
-        const bytes = this.previous.array.slice(0, 4)
-        let num = 0
-        for (let i = 0; i &lt; 4; i++) {
-            num = (num &lt;&lt; 8) + bytes[i]
-        }
-        return num + 1
+    get blockNum(): UInt32 {
+        return this.previous.blockNum.adding(1)
     }
 &nbsp;
-    get id(): Checksum256 {
+    get id(): BlockId {
         const id = Checksum256.hash(Serializer.encode({object: this, type: BlockHeader}))
-        const numBuffer = new Uint8Array(4)
-        numBuffer[0] = (this.blockNum &gt;&gt; 24) &amp; 0xff
-        numBuffer[1] = (this.blockNum &gt;&gt; 16) &amp; 0xff
-        numBuffer[2] = (this.blockNum &gt;&gt; 8) &amp; 0xff
-        numBuffer[3] = this.blockNum &amp; 0xff
-        id.array.set(numBuffer, 0)
-        return id
+        return BlockId.fromBlockChecksum(id, this.blockNum)
     }
 }
 &nbsp;
@@ -607,7 +577,7 @@ export class NetMessage extends Variant {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-21T01:46:36.570Z
+                at 2023-05-17T03:11:44.975Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
