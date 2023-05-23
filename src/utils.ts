@@ -111,7 +111,7 @@ export function isInstanceOf<T extends {new (...args: any[]): InstanceType<T>}>(
     if (isAlienInstance && !didWarn) {
         // eslint-disable-next-line no-console
         console.warn(
-            `Detected alien instance of ${className}, this usually means more than one version of @greymass/eosio has been included in your bundle.`
+            `Detected alien instance of ${className}, this usually means more than one version of @wharfkit/antelope has been included in your bundle.`
         )
         didWarn = true
     }

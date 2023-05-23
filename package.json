@@ -1,12 +1,12 @@
 {
-    "name": "@greymass/eosio",
-    "description": "Library for working with EOSIO blockchains",
+    "name": "@wharfkit/antelope",
+    "description": "Library for working with Antelope powered blockchains.",
     "version": "0.7.0",
-    "homepage": "https://github.com/greymass/eosio-core",
+    "homepage": "https://github.com/wharfkit/antelope",
     "license": "BSD-3-Clause-No-Military-License",
-    "main": "lib/eosio-core.js",
-    "module": "lib/eosio-core.m.js",
-    "types": "lib/eosio-core.d.ts",
+    "main": "lib/antelope.js",
+    "module": "lib/antelope.m.js",
+    "types": "lib/antelope.d.ts",
     "browser": {
         "buffer": false,
         "crypto": false

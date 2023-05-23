@@ -1,31 +1,31 @@
-# eosio-core (@greymass/eosio)
+# @wharfkit/antelope
 
-JavaScript library for working with EOSIO blockchains
+JavaScript library for working with Antelope powered blockchains.
 
-Avaiable on npm: https://www.npmjs.com/package/@greymass/eosio
+Avaiable on npm: https://www.npmjs.com/package/@wharfkit/antelope
 
 ## Install
 
 ```
-npm install @greymass/eosio
+npm install @wharfkit/antelope
 ```
 
 ## API Documentation
 
-https://greymass.github.io/eosio-core/
+https://wharfkit.github.io/antelope/
 
 ## Documentation
 
 Documentation beyond the automatically generated API documentation above is currently incomplete. Until full documentation is complete, the tests themselves provide good reference material on how to do nearly everything.
 
-https://github.com/greymass/eosio-core/tree/master/test
+https://github.com/wharfkit/antelope/tree/master/test
 
 More:
 
--   Using APIs: https://github.com/greymass/eosio-core/blob/master/test/api.ts
--   Serialization: https://github.com/greymass/eosio-core/blob/master/test/serializer.ts
--   Crypto Operations: https://github.com/greymass/eosio-core/blob/master/test/crypto.ts
--   Primative EOSIO Types: https://github.com/greymass/eosio-core/blob/master/test/chain.ts
+-   Using APIs: https://github.com/wharfkit/antelope/blob/master/test/api.ts
+-   Serialization: https://github.com/wharfkit/antelope/blob/master/test/serializer.ts
+-   Crypto Operations: https://github.com/wharfkit/antelope/blob/master/test/crypto.ts
+-   Primative EOSIO Types: https://github.com/wharfkit/antelope/blob/master/test/chain.ts
 
 ## Reporting Issues
 
@@ -67,7 +67,7 @@ make test
 make coverage
 ```
 
-The report for the current version can also be found at: https://greymass.github.io/eosio-core/coverage/
+The report for the current version can also be found at: https://wharfkit.github.io/antelope/coverage/
 
 ### Run the test suite in a browser:
 
@@ -75,7 +75,7 @@ The report for the current version can also be found at: https://greymass.github
 make browser-test
 ```
 
-The browser test suite for the current version of the library is available at: https://greymass.github.io/eosio-core/tests.html
+The browser test suite for the current version of the library is available at: https://wharfkit.github.io/antelope/tests.html
 
 ## Debugging
 
