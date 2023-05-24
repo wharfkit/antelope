@@ -1,4 +1,4 @@
-/** Supported EOSIO curve types. */
+/** Supported Antelope/EOSIO curve types. */
 export enum KeyType {
     K1 = 'K1',
     R1 = 'R1',

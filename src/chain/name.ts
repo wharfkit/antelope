@@ -8,11 +8,11 @@ import {UInt64} from '../'
 /** Type representing a name. */
 export type NameType = Name | UInt64 | string
 
-/** EOSIO Name */
+/** Antelope/EOSIO Name */
 export class Name implements ABISerializableObject {
     static abiName = 'name'
 
-    /** Regex pattern matching a EOSIO name, case-sensitive. */
+    /** Regex pattern matching a Antelope/EOSIO name, case-sensitive. */
     static pattern = /^[a-z1-5.]{0,13}$/
 
     /** The numeric representation of the name. */

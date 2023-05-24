@@ -15,7 +15,7 @@ export type {
 export namespace Serializer {
     export const encode = abiEncode
     export const decode = abiDecode
-    /** Create an EOSIO ABI definition for given core type. */
+    /** Create an Antelope/EOSIO ABI definition for given core type. */
     export function synthesize(type: ABISerializableConstructor) {
         return synthesizeABI(type).abi
     }

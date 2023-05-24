@@ -2,7 +2,7 @@ import {Name, NameType, Struct} from '../'
 
 export type PermissionLevelType = PermissionLevel | {actor: NameType; permission: NameType}
 
-/** EOSIO Permission Level, a.k.a "auth". */
+/** Antelope/EOSIO Permission Level, a.k.a "auth". */
 @Struct.type('permission_level')
 export class PermissionLevel extends Struct {
     @Struct.field('name') actor!: Name

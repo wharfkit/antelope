@@ -34,7 +34,7 @@ export class PrivateKey {
 
     /**
      * Create PrivateKey object from a string representation.
-     * Accepts WIF (5...) and EOSIO (PVT_...) style private keys.
+     * Accepts WIF (5...) and Antelope/EOSIO (PVT_...) style private keys.
      */
     static fromString(string: string, ignoreChecksumError = false) {
         try {
@@ -123,7 +123,7 @@ export class PrivateKey {
     }
 
     /**
-     * Return the key in EOSIO PVT_<type>_<base58check> format.
+     * Return the key in Antelope/EOSIO PVT_<type>_<base58check> format.
      */
     toString() {
         return `PVT_${this.type}_${Base58.encodeRipemd160Check(this.data, this.type)}`
@@ -141,7 +141,7 @@ function decodeKey(value: string) {
         throw new Error(`Expected string, got ${type}`)
     }
     if (value.startsWith('PVT_')) {
-        // EOSIO format
+        // Antelope/EOSIO format
         const parts = value.split('_')
         if (parts.length !== 3) {
             throw new Error('Invalid PVT format')

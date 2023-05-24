@@ -1,5 +1,5 @@
 /**
- * EOSIO ABI Decoder
+ * Antelope/EOSIO ABI Decoder
  */
 
 import {ABI, ABIDef, Bytes, BytesType, Variant} from '../chain'

@@ -74,7 +74,7 @@ export class PublicKey implements ABISerializableObject {
     }
 
     /**
-     * Return EOSIO legacy (`EOS<base58data>`) formatted key.
+     * Return Antelope/EOSIO legacy (`EOS<base58data>`) formatted key.
      * @throws If the key type isn't `K1`
      */
     toLegacyString(prefix = 'EOS') {
@@ -84,7 +84,7 @@ export class PublicKey implements ABISerializableObject {
         return `${prefix}${Base58.encodeRipemd160Check(this.data)}`
     }
 
-    /** Return key in modern EOSIO format (`PUB_<type>_<base58data>`) */
+    /** Return key in modern Antelope/EOSIO format (`PUB_<type>_<base58data>`) */
     toString() {
         return `PUB_${this.type}_${Base58.encodeRipemd160Check(this.data, this.type)}`
     }

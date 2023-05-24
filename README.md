@@ -1,6 +1,10 @@
+**NOTICE:** This was formerly the `@greymass/eosio` library distributed on [npmjs](https://www.npmjs.com/package/@greymass/eosio). Future distributions will be made using the new organization and namespace, and distributed as `@wharfkit/antelope` again on [npmjs](https://www.npmjs.com/package/@wharfkit/antelope).
+
+To update your codebase, remove the `@greymass/eosio` library and add the `@wharfkit/antelope` library, then replace all instances of `@greymass/eosio` with `@wharfkit/antelope` in all files.
+
 # @wharfkit/antelope
 
-JavaScript library for working with Antelope powered blockchains.
+JavaScript library for working with Antelope powered blockchains (formerly EOSIO, still compatible with EOSIO).
 
 Avaiable on npm: https://www.npmjs.com/package/@wharfkit/antelope
 
@@ -25,7 +29,7 @@ More:
 -   Using APIs: https://github.com/wharfkit/antelope/blob/master/test/api.ts
 -   Serialization: https://github.com/wharfkit/antelope/blob/master/test/serializer.ts
 -   Crypto Operations: https://github.com/wharfkit/antelope/blob/master/test/crypto.ts
--   Primative EOSIO Types: https://github.com/wharfkit/antelope/blob/master/test/chain.ts
+-   Primitive Data Types: https://github.com/wharfkit/antelope/blob/master/test/chain.ts
 
 ## Reporting Issues
 
