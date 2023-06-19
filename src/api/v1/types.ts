@@ -36,7 +36,7 @@ import {ABISerializableObject, ABISerializableType, Serializer} from '../../seri
 @Struct.type('account_linked_action')
 export class AccountLinkedAction extends Struct {
     @Struct.field('name') declare account: Name
-    @Struct.field('name') declare action: Name
+    @Struct.field('name', {optional: true}) declare action: Name
 }
 
 @Struct.type('account_permission')
