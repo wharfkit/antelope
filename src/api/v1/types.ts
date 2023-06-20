@@ -116,7 +116,7 @@ export class AccountRexInfo extends Struct {
 
 export interface GetAbiResponse {
     account_name: string
-    abi?: ABI.Def
+    abi?: ABI
 }
 
 @Struct.type('account_object')
