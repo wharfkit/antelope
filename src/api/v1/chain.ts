@@ -139,6 +139,18 @@ export class ChainAPI {
         })
     }
 
+    async send_read_only_transaction(tx: SignedTransactionType | PackedTransaction) {
+        if (!isInstanceOf(tx, PackedTransaction)) {
+            tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
+        }
+        return this.client.call<SendTransactionResponse>({
+            path: '/v1/chain/send_read_only_transaction',
+            params: {
+                transaction: tx,
+            },
+        })
+    }
+
     async push_transaction(tx: SignedTransactionType | PackedTransaction) {
         if (!isInstanceOf(tx, PackedTransaction)) {
             tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))

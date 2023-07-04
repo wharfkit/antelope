@@ -11,10 +11,12 @@ import {
     APIError,
     Asset,
     BlockId,
+    Bytes,
     Checksum256,
     Float64,
     Name,
     PrivateKey,
+    Serializer,
     SignedTransaction,
     Struct,
     Transaction,
@@ -464,6 +466,46 @@ suite('api v1', function () {
         res2.rows.forEach((row) => {
             assert.equal(row instanceof API.v1.GetTableByScopeResponseRow, true)
         })
+    })
+
+    test('chain send_read_only_transaction', async function () {
+        const info = await jungle4.v1.chain.get_info()
+        const header = info.getTransactionHeader(90)
+
+        @Struct.type('returnvalue')
+        class Returnvalue extends Struct {
+            @Struct.field(Name) message!: Name
+        }
+
+        const action = Action.from({
+            authorization: [], // No authorizations
+            account: 'abcabcabc333',
+            name: 'returnvalue',
+            data: Returnvalue.from({
+                message: 'hello',
+            }),
+        })
+
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+
+        const res = await jungle4.v1.chain.send_read_only_transaction(transaction)
+
+        assert.equal(res.processed.action_traces.length, 1)
+        assert.equal(res.processed.action_traces[0].return_value_data, 'Validation has passed.')
+        assert.equal(
+            res.processed.action_traces[0].return_value_hex_data,
+            '1656616c69646174696f6e20686173207061737365642e'
+        )
+
+        // Test decoding raw hex data as string
+        const decoded = Serializer.decode({
+            type: 'string',
+            data: Bytes.from(res.processed.action_traces[0].return_value_hex_data),
+        })
+        assert.equal(decoded, 'Validation has passed.')
     })
 
     test('api errors', async function () {
