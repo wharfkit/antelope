@@ -426,6 +426,24 @@ suite('api v1', function () {
         assert.equal(Number(res2.rows[1].balance).toFixed(6), (104.14631).toFixed(6))
     })
 
+    test('chain get_table_rows (typed from ABI)', async function () {
+        const {abi} = await jungle4.v1.chain.get_abi('eosio')
+        if (!abi) {
+            throw new Error('unable to load ABI')
+        }
+        const res1 = await jungle4.v1.chain.get_table_rows({
+            code: 'fuel.gm',
+            table: 'users',
+            abi,
+            type: 'delegate_bandwidth',
+            limit: 1,
+        })
+        assert.instanceOf(res1.rows[0].from, Name)
+        assert.instanceOf(res1.rows[0].to, Name)
+        assert.instanceOf(res1.rows[0].cpu_weight, Asset)
+        assert.instanceOf(res1.rows[0].net_weight, Asset)
+    })
+
     test('chain get_table_rows (empty scope)', async function () {
         const res = await jungle.v1.chain.get_table_rows({
             code: 'eosio',
