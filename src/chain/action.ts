@@ -5,10 +5,11 @@ import {
     ABISerializableConstructor,
     ABISerializableObject,
     ABISerializableType,
+    synthesizeABI,
 } from '../serializer/serializable'
 
 import {arrayEquatableEquals} from '../utils'
-import {BuiltinTypes} from '../serializer/builtins'
+import {BuiltinTypes, getType} from '../serializer/builtins'
 
 import {
     ABI,
@@ -54,7 +55,10 @@ export class Action extends Struct {
     /** The ABI-encoded action data. */
     @Struct.field('bytes') data!: Bytes
 
+    public abi?: ABI
+
     static from(object: ActionType | AnyAction, abi?: ABIDef): Action {
+        // console.log(object)
         const data = object.data as any
         if (!Bytes.isBytes(data)) {
             let type: string | undefined
@@ -70,12 +74,23 @@ export class Action extends Struct {
                 data: abiEncode({object: data, type, abi}),
             }
         }
-        return super.from(object) as Action
+
+        const action = super.from(object) as Action
+        if (abi) {
+            action.abi = ABI.from(abi)
+        } else {
+            const type = getType(data)
+            if (type) {
+                action.abi = ABI.from(synthesizeABI(type).abi)
+            }
+        }
+
+        return action
     }
 
     /** Return true if this Action is equal to given action. */
     equals(other: ActionType | AnyAction) {
-        const otherAction = Action.from(other)
+        const otherAction = Action.from(other, this.abi)
         return (
             this.account.equals(otherAction.account) &&
             this.name.equals(otherAction.name) &&
