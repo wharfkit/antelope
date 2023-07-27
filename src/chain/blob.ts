@@ -22,7 +22,24 @@ export class Blob implements ABISerializableObject {
     }
 
     static fromString(value: string) {
-        return new this(new Uint8Array(Buffer.from(value, 'base64')))
+        // fix up base64 padding from nodeos
+        switch (value.length % 4) {
+            case 2:
+                value += '=='
+                break
+            case 3:
+                value += '='
+                break
+            case 1:
+                value = value.substring(0, value.length - 1)
+                break
+        }
+        const string = atob(value)
+        const array = new Uint8Array(string.length)
+        for (let i = 0; i < string.length; i++) {
+            array[i] = string.charCodeAt(i)
+        }
+        return new this(array)
     }
 
     readonly array: Uint8Array
@@ -41,7 +58,12 @@ export class Blob implements ABISerializableObject {
     }
 
     get base64String(): string {
-        return Buffer.from(this.array).toString('base64')
+        return btoa(this.utf8String)
+    }
+
+    /** UTF-8 string representation of this instance. */
+    get utf8String(): string {
+        return new TextDecoder().decode(this.array)
     }
 
     toABI(encoder: ABIEncoder) {
