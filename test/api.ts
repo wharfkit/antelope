@@ -47,6 +47,14 @@ suite('api v1', function () {
     this.slow(200)
     this.timeout(10 * 10000)
 
+    test('chain get_abi', async function () {
+        const response = await jungle4.v1.chain.get_abi('eosio.token')
+        assert.equal(response.account_name, 'eosio.token')
+        assert.isObject(response.abi)
+        if (response.abi) {
+            assert.equal(response.abi.version, 'eosio::abi/1.2')
+        }
+    })
     test('chain get_account', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
         assert.equal(String(account.account_name), 'teamgreymass')
