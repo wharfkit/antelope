@@ -6,6 +6,7 @@ import {
     AnyTransaction,
     Asset,
     Authority,
+    Blob,
     BlockId,
     BlockTimestamp,
     Bytes,
@@ -15,7 +16,6 @@ import {
     Int32,
     Int64,
     Name,
-    P2P,
     PermissionLevel,
     PublicKey,
     Signature,
@@ -113,6 +113,15 @@ suite('chain', function () {
             '000000075fbe6bbad86e424962a190e8309394b7bff4bf3e16b0a2a71e5a617c'
         )
         assert.equal(blockId2.blockNum.equals(7), true)
+    })
+
+    test('blob', function () {
+        const string =
+            'DmVvc2lvOjphYmkvMS4yAAgHYWNjb3VudAABB2JhbGFuY2UFYXNzZXQFY2xvc2UAAgVvd25lcgRuYW1lBnN5bWJvbAZzeW1ib2wGY3JlYXRlAAIGaXNzdWVyBG5hbWUObWF4aW11bV9zdXBwbHkFYXNzZXQOY3VycmVuY3lfc3RhdHMAAwZzdXBwbHkFYXNzZXQKbWF4X3N1cHBseQVhc3NldAZpc3N1ZXIEbmFtZQVpc3N1ZQADAnRvBG5hbWUIcXVhbnRpdHkFYXNzZXQEbWVtbwZzdHJpbmcEb3BlbgADBW93bmVyBG5hbWUGc3ltYm9sBnN5bWJvbAlyYW1fcGF5ZXIEbmFtZQZyZXRpcmUAAghxdWFudGl0eQVhc3NldARtZW1vBnN0cmluZwh0cmFuc2ZlcgAEBGZyb20EbmFtZQJ0bwRuYW1lCHF1YW50aXR5BWFzc2V0BG1lbW8Gc3RyaW5nBgAAAAAAhWlEBWNsb3NlAAAAAACobNRFBmNyZWF0ZQAAAAAAAKUxdgVpc3N1ZQAAAAAAADBVpQRvcGVuAAAAAACo67K6BnJldGlyZQAAAABXLTzNzQh0cmFuc2ZlcgACAAAAOE9NETIDaTY0AAAHYWNjb3VudAAAAAAAkE3GA2k2NAAADmN1cnJlbmN5X3N0YXRzAAAAAA==='
+        const blob = Blob.from(string)
+        console.log(blob)
+        console.log(String(blob))
+        assert.equal(String(blob), string)
     })
 
     test('bytes', function () {

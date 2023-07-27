@@ -3,6 +3,7 @@ import {
     AnyAction,
     Asset,
     Authority,
+    Blob,
     BlockId,
     BlockTimestamp,
     Bytes,
@@ -128,7 +129,7 @@ export class GetRawAbiResponse extends Struct {
     static from(data: any) {
         return super.from({
             ...data,
-            abi: Serializer.decode({data: Bytes.from(Buffer.from(data.abi, 'base64')), type: ABI}),
+            abi: Serializer.decode({data: Blob.from(data.abi).array, type: ABI}),
         })
     }
 }
