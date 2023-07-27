@@ -116,12 +116,25 @@ suite('chain', function () {
     })
 
     test('blob', function () {
-        const string =
-            'DmVvc2lvOjphYmkvMS4yAAgHYWNjb3VudAABB2JhbGFuY2UFYXNzZXQFY2xvc2UAAgVvd25lcgRuYW1lBnN5bWJvbAZzeW1ib2wGY3JlYXRlAAIGaXNzdWVyBG5hbWUObWF4aW11bV9zdXBwbHkFYXNzZXQOY3VycmVuY3lfc3RhdHMAAwZzdXBwbHkFYXNzZXQKbWF4X3N1cHBseQVhc3NldAZpc3N1ZXIEbmFtZQVpc3N1ZQADAnRvBG5hbWUIcXVhbnRpdHkFYXNzZXQEbWVtbwZzdHJpbmcEb3BlbgADBW93bmVyBG5hbWUGc3ltYm9sBnN5bWJvbAlyYW1fcGF5ZXIEbmFtZQZyZXRpcmUAAghxdWFudGl0eQVhc3NldARtZW1vBnN0cmluZwh0cmFuc2ZlcgAEBGZyb20EbmFtZQJ0bwRuYW1lCHF1YW50aXR5BWFzc2V0BG1lbW8Gc3RyaW5nBgAAAAAAhWlEBWNsb3NlAAAAAACobNRFBmNyZWF0ZQAAAAAAAKUxdgVpc3N1ZQAAAAAAADBVpQRvcGVuAAAAAACo67K6BnJldGlyZQAAAABXLTzNzQh0cmFuc2ZlcgACAAAAOE9NETIDaTY0AAAHYWNjb3VudAAAAAAAkE3GA2k2NAAADmN1cnJlbmN5X3N0YXRzAAAAAA==='
+        const expected = Bytes.from([0xbe, 0xef, 0xfa, 0xce])
+
+        // Correct
+        const string = 'vu/6zg=='
         const blob = Blob.from(string)
-        console.log(blob)
-        console.log(String(blob))
-        assert.equal(String(blob), string)
+        assert.isTrue(Bytes.from(blob.array).equals(expected))
+
+        // Wrong padding, ensure it still works
+        const string2 = 'vu/6zg='
+        const blob2 = Blob.from(string2)
+        assert.isTrue(Bytes.from(blob2.array).equals(expected))
+
+        const string3 = 'vu/6zg'
+        const blob3 = Blob.from(string3)
+        assert.isTrue(Bytes.from(blob3.array).equals(expected))
+
+        const string4 = 'vu/6zg==='
+        const blob4 = Blob.from(string4)
+        assert.isTrue(Bytes.from(blob4.array).equals(expected))
     })
 
     test('bytes', function () {

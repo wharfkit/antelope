@@ -22,7 +22,7 @@ export class Blob implements ABISerializableObject {
     }
 
     static fromString(value: string) {
-        return new this(Buffer.from(value, 'base64'))
+        return new this(new Uint8Array(Buffer.from(value, 'base64')))
     }
 
     readonly array: Uint8Array
