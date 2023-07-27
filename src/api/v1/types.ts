@@ -119,6 +119,20 @@ export interface GetAbiResponse {
     abi?: ABI.Def
 }
 
+@Struct.type('get_raw_abi_response')
+export class GetRawAbiResponse extends Struct {
+    @Struct.field('name') declare account_name: Name
+    @Struct.field('checksum256') declare code_hash: Checksum256
+    @Struct.field('checksum256') declare abi_hash: Checksum256
+    @Struct.field('string') declare abi: ABI
+    static from(data: any) {
+        return super.from({
+            ...data,
+            abi: Serializer.decode({data: Bytes.from(Buffer.from(data.abi, 'base64')), type: ABI}),
+        })
+    }
+}
+
 @Struct.type('account_object')
 export class AccountObject extends Struct {
     /** The account name of the retrieved account */

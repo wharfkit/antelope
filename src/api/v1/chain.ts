@@ -30,6 +30,7 @@ import {
     GetProducerScheduleResponse,
     GetProtocolFeaturesParams,
     GetProtocolFeaturesResponse,
+    GetRawAbiResponse,
     GetTableByScopeParams,
     GetTableByScopeResponse,
     GetTableRowsParams,
@@ -55,6 +56,14 @@ export class ChainAPI {
         return this.client.call<GetAbiResponse>({
             path: '/v1/chain/get_abi',
             params: {account_name: Name.from(accountName)},
+        })
+    }
+
+    async get_raw_abi(accountName: NameType) {
+        return this.client.call({
+            path: '/v1/chain/get_raw_abi',
+            params: {account_name: Name.from(accountName)},
+            responseType: GetRawAbiResponse,
         })
     }
 
