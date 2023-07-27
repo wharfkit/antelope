@@ -1,6 +1,6 @@
 import {ABISerializableObject} from '../serializer/serializable'
 import {ABIEncoder} from '../serializer/encoder'
-import {arrayEquals, arrayToHex, isInstanceOf} from '../utils'
+import {arrayEquals, isInstanceOf} from '../utils'
 
 export type BlobType = Blob | string
 
