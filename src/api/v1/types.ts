@@ -125,13 +125,7 @@ export class GetRawAbiResponse extends Struct {
     @Struct.field('name') declare account_name: Name
     @Struct.field('checksum256') declare code_hash: Checksum256
     @Struct.field('checksum256') declare abi_hash: Checksum256
-    @Struct.field('string') declare abi: ABI
-    static from(data: any) {
-        return super.from({
-            ...data,
-            abi: Serializer.decode({data: Blob.from(data.abi).array, type: ABI}),
-        })
-    }
+    @Struct.field('blob') declare abi: Blob
 }
 
 @Struct.type('account_object')

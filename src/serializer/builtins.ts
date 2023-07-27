@@ -4,6 +4,7 @@ import {ABIField, ABISerializableConstructor} from './serializable'
 
 import {
     Asset,
+    Blob,
     BlockTimestamp,
     Bytes,
     Checksum160,
@@ -74,6 +75,10 @@ export interface BuiltinTypes {
     'extended_asset?'?: ExtendedAsset
     'extended_asset[]': ExtendedAsset[]
     'extended_asset[]?'?: ExtendedAsset[]
+    blob: Blob
+    'blob?': Blob
+    'blob[]': Blob[]
+    'blob[]?': Blob[]
     bytes: Bytes
     'bytes?'?: Bytes
     'bytes[]': Bytes[]
@@ -193,6 +198,7 @@ function getBuiltins(): ABISerializableConstructor[] {
         Asset,
         Asset.Symbol,
         Asset.SymbolCode,
+        Blob,
         BlockTimestamp,
         Bytes,
         Checksum160,

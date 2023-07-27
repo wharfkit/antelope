@@ -1,11 +1,11 @@
 import {isInstanceOf} from '../utils'
 import type {ABISerializableObject} from '../serializer/serializable'
-import type {ABIDecoder} from '../serializer/decoder'
+import {abiDecode, ABIDecoder} from '../serializer/decoder'
 import {abiEncode, ABIEncoder} from '../serializer/encoder'
 
-import {Name, NameType} from '../'
+import {Blob, Name, NameType} from '../'
 
-export type ABIDef = string | Partial<ABI.Def> | ABI
+export type ABIDef = string | Partial<ABI.Def> | ABI | Blob
 
 export class ABI implements ABISerializableObject {
     static abiName = 'abi'
@@ -38,6 +38,12 @@ export class ABI implements ABISerializableObject {
     static from(value: ABIDef) {
         if (isInstanceOf(value, ABI)) {
             return value
+        }
+        if (isInstanceOf(value, Blob)) {
+            return abiDecode({
+                data: value.array,
+                type: this,
+            })
         }
         if (typeof value === 'string') {
             return new ABI(JSON.parse(value))

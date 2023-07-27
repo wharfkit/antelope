@@ -11,6 +11,7 @@ import {
     APIClient,
     APIError,
     Asset,
+    Blob,
     BlockId,
     Bytes,
     Checksum256,
@@ -82,8 +83,10 @@ suite('api v1', function () {
                 'd84356074da34a976528321472d73ac919227b9b01d9de59d8ade6d96440455c'
             )
         )
-        assert.instanceOf(response.abi, ABI)
-        assert.equal(response.abi.version, 'eosio::abi/1.2')
+        assert.instanceOf(response.abi, Blob)
+        const abi = ABI.from(response.abi)
+        assert.instanceOf(abi, ABI)
+        assert.equal(abi.version, 'eosio::abi/1.2')
     })
 
     test('chain get_account', async function () {
