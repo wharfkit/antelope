@@ -125,7 +125,7 @@ export class GetRawAbiResponse extends Struct {
     @Struct.field('name') declare account_name: Name
     @Struct.field('checksum256') declare code_hash: Checksum256
     @Struct.field('checksum256') declare abi_hash: Checksum256
-    @Struct.field('blob') declare abi: Blob
+    @Struct.field(Blob) declare abi: Blob
 }
 
 @Struct.type('account_object')
