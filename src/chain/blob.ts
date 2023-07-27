@@ -40,7 +40,7 @@ export class Blob implements ABISerializableObject {
         }
     }
 
-    get hexString(): string {
+    get base64String(): string {
         return Buffer.from(this.array).toString('base64')
     }
 
@@ -49,7 +49,7 @@ export class Blob implements ABISerializableObject {
     }
 
     toString() {
-        return this.hexString
+        return this.base64String
     }
 
     toJSON() {
