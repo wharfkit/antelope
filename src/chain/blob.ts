@@ -22,6 +22,10 @@ export class Blob implements ABISerializableObject {
     }
 
     static fromString(value: string) {
+        // If buffer is available, use it (maintains support for nodejs 14)
+        if (typeof Buffer === 'function') {
+            return new this(new Uint8Array(Buffer.from(value, 'base64')))
+        }
         // fix up base64 padding from nodeos
         switch (value.length % 4) {
             case 2:
@@ -58,6 +62,10 @@ export class Blob implements ABISerializableObject {
     }
 
     get base64String(): string {
+        // If buffer is available, use it (maintains support for nodejs 14)
+        if (typeof Buffer === 'function') {
+            return Buffer.from(this.array).toString('base64')
+        }
         return btoa(this.utf8String)
     }
 
