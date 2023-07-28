@@ -38,18 +38,18 @@ suite('chain', function () {
             version: 'eosio::abi/1.1',
             actions: [
                 {
-                    name: 'my_action',
-                    type: 'my_struct',
+                    name: 'myaction',
+                    type: 'mystruct',
                     ricardian_contract: '',
                 },
             ],
             tables: [
                 {
-                    name: 'my_table',
+                    name: 'mytable',
                     index_type: 'i64',
                     key_names: [],
                     key_types: [],
-                    type: 'my_struct',
+                    type: 'mystruct',
                 },
             ],
         })
