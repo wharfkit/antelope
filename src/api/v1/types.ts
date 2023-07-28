@@ -3,6 +3,7 @@ import {
     AnyAction,
     Asset,
     Authority,
+    Blob,
     BlockId,
     BlockTimestamp,
     Bytes,
@@ -117,6 +118,14 @@ export class AccountRexInfo extends Struct {
 export interface GetAbiResponse {
     account_name: string
     abi?: ABI.Def
+}
+
+@Struct.type('get_raw_abi_response')
+export class GetRawAbiResponse extends Struct {
+    @Struct.field('name') declare account_name: Name
+    @Struct.field('checksum256') declare code_hash: Checksum256
+    @Struct.field('checksum256') declare abi_hash: Checksum256
+    @Struct.field(Blob) declare abi: Blob
 }
 
 @Struct.type('account_object')

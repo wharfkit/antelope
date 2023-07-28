@@ -6,6 +6,7 @@ import {
     AnyTransaction,
     Asset,
     Authority,
+    Blob,
     BlockId,
     BlockTimestamp,
     Bytes,
@@ -15,7 +16,6 @@ import {
     Int32,
     Int64,
     Name,
-    P2P,
     PermissionLevel,
     PublicKey,
     Signature,
@@ -113,6 +113,28 @@ suite('chain', function () {
             '000000075fbe6bbad86e424962a190e8309394b7bff4bf3e16b0a2a71e5a617c'
         )
         assert.equal(blockId2.blockNum.equals(7), true)
+    })
+
+    test('blob', function () {
+        const expected = Bytes.from([0xbe, 0xef, 0xfa, 0xce])
+
+        // Correct
+        const string = 'vu/6zg=='
+        const blob = Blob.from(string)
+        assert.isTrue(Bytes.from(blob.array).equals(expected))
+
+        // Wrong padding, ensure it still works
+        const string2 = 'vu/6zg='
+        const blob2 = Blob.from(string2)
+        assert.isTrue(Bytes.from(blob2.array).equals(expected))
+
+        const string3 = 'vu/6zg'
+        const blob3 = Blob.from(string3)
+        assert.isTrue(Bytes.from(blob3.array).equals(expected))
+
+        const string4 = 'vu/6zg==='
+        const blob4 = Blob.from(string4)
+        assert.isTrue(Bytes.from(blob4.array).equals(expected))
     })
 
     test('bytes', function () {

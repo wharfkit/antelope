@@ -4,12 +4,14 @@ import {MockProvider} from './utils/mock-provider'
 import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
 
 import {
+    ABI,
     Action,
     AnyAction,
     API,
     APIClient,
     APIError,
     Asset,
+    Blob,
     BlockId,
     Bytes,
     Checksum256,
@@ -46,6 +48,46 @@ const beos = new APIClient({
 suite('api v1', function () {
     this.slow(200)
     this.timeout(10 * 10000)
+
+    test('chain get_abi', async function () {
+        const response = await jungle4.v1.chain.get_abi('eosio.token')
+        assert.equal(response.account_name, 'eosio.token')
+        assert.isObject(response.abi)
+        if (response.abi) {
+            assert.equal(response.abi.version, 'eosio::abi/1.2')
+        }
+    })
+
+    test('chain get_raw_abi', async function () {
+        const response = await jungle4.v1.chain.get_raw_abi('eosio.token')
+        assert.instanceOf(response, API.v1.GetRawAbiResponse)
+        assert.instanceOf(response.account_name, Name)
+        assert.equal(response.account_name, 'eosio.token')
+        assert.instanceOf(response.code_hash, Checksum256)
+        assert.equal(
+            response.code_hash,
+            '33109b3dd5d354cab5a425c1d4c404c4db056717215f1a8b7ba036a6692811df'
+        )
+        assert.isTrue(
+            response.code_hash.equals(
+                '33109b3dd5d354cab5a425c1d4c404c4db056717215f1a8b7ba036a6692811df'
+            )
+        )
+        assert.instanceOf(response.abi_hash, Checksum256)
+        assert.equal(
+            response.abi_hash,
+            'd84356074da34a976528321472d73ac919227b9b01d9de59d8ade6d96440455c'
+        )
+        assert.isTrue(
+            response.abi_hash.equals(
+                'd84356074da34a976528321472d73ac919227b9b01d9de59d8ade6d96440455c'
+            )
+        )
+        assert.instanceOf(response.abi, Blob)
+        const abi = ABI.from(response.abi)
+        assert.instanceOf(abi, ABI)
+        assert.equal(abi.version, 'eosio::abi/1.2')
+    })
 
     test('chain get_account', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
