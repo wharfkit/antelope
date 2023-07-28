@@ -8,8 +8,7 @@ export class Blob implements ABISerializableObject {
     static abiName = 'blob'
 
     /**
-     * Create a new Bytes instance.
-     * @note Make sure to take a [[copy]] before mutating the bytes as the underlying source is not copied here.
+     * Create a new Blob instance.
      */
     static from(value: BlobType): Blob {
         if (isInstanceOf(value, this)) {
