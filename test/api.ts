@@ -58,6 +58,34 @@ suite('api v1', function () {
         }
     })
 
+    test('ABI to blob to ABI', async function () {
+        // Get an ABI from the API
+        const response = await jungle4.v1.chain.get_abi('eosio.token')
+        if (!response.abi) {
+            throw Error('unable to load ABI')
+        }
+
+        // Convert the ABI in the response to an ABI serializable object
+        const originalAbi = ABI.from(response.abi)
+
+        // Encode the ABI
+        const serializedABI = Serializer.encode({object: originalAbi, type: ABI})
+
+        // Convert the serialized ABI data into a blob
+        const blob = new Blob(serializedABI.array)
+
+        // String representation of the blob
+        const string = String(blob)
+
+        // Restore a new ABI instance from the string representation of the blob
+        const abiFromBlob = ABI.from(Blob.from(string))
+
+        // Ensure the two ABIs match
+        assert.isTrue(originalAbi.equals(abiFromBlob))
+        assert.equal(abiFromBlob.tables[0].name, originalAbi.tables[0].name)
+        assert.equal(originalAbi.tables[0].name, abiFromBlob.tables[0].name)
+    })
+
     test('chain get_raw_abi', async function () {
         const response = await jungle4.v1.chain.get_raw_abi('eosio.token')
         assert.instanceOf(response, API.v1.GetRawAbiResponse)
