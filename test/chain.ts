@@ -1,6 +1,7 @@
 import {assert} from 'chai'
 
 import {
+    ABI,
     ABIDef,
     Action,
     AnyTransaction,
@@ -18,6 +19,7 @@ import {
     Name,
     PermissionLevel,
     PublicKey,
+    Serializer,
     Signature,
     SignedTransaction,
     Struct,
@@ -31,6 +33,33 @@ import {
 } from '$lib'
 
 suite('chain', function () {
+    test('abi', function () {
+        const original = ABI.from({
+            version: 'eosio::abi/1.1',
+            actions: [
+                {
+                    name: 'my_action',
+                    type: 'my_struct',
+                    ricardian_contract: '',
+                },
+            ],
+            tables: [
+                {
+                    name: 'my_table',
+                    index_type: 'i64',
+                    key_names: [],
+                    key_types: [],
+                    type: 'my_struct',
+                },
+            ],
+        })
+
+        const encoded = Serializer.encode({object: original, type: ABI})
+        const decoded = Serializer.decode({data: encoded, type: ABI})
+        assert.equal(original.actions[0].name, decoded.actions[0].name)
+        assert.equal(original.tables[0].name, decoded.tables[0].name)
+    })
+
     test('asset', function () {
         assert.equal(Asset.from('-1.2345 NEGS').toString(), '-1.2345 NEGS')
         assert.equal(Asset.from('-0.2345 NEGS').toString(), '-0.2345 NEGS')
