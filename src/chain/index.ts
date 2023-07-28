@@ -1,4 +1,5 @@
 // types with no inter-dependencies
+export * from './blob'
 export * from './bytes'
 export * from './checksum'
 export * from './key-type'
