@@ -86,8 +86,8 @@ export class AccountVoterInfo extends Struct {
     @Struct.field('name') declare proxy: Name
     @Struct.field('name', {array: true}) declare producers: Name[]
     @Struct.field('int64', {optional: true}) staked?: Int64
-    // @Struct.field('float64') declare last_vote_weight: Float64
-    // @Struct.field('float64') declare proxied_vote_weight: Float64
+    @Struct.field('float64') declare last_vote_weight: Float64
+    @Struct.field('float64') declare proxied_vote_weight: Float64
     @Struct.field('bool') declare is_proxy: boolean
     @Struct.field('uint32', {optional: true}) flags1?: UInt32
     @Struct.field('uint32') reserved2!: UInt32

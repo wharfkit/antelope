@@ -122,6 +122,14 @@ suite('api v1', function () {
         assert.equal(String(account.account_name), 'teamgreymass')
     })
 
+    test('chain get_account (voter info)', async function () {
+        const account = await eos.v1.chain.get_account('teamgreymass')
+        assert.equal(String(account.account_name), 'teamgreymass')
+        const voterinfo = account.voter_info
+        assert.instanceOf(voterinfo!.last_vote_weight, Float64)
+        assert.instanceOf(voterinfo!.proxied_vote_weight, Float64)
+    })
+
     test('chain get_account (system account)', async function () {
         const account = await jungle.v1.chain.get_account('eosio')
         assert.equal(String(account.account_name), 'eosio')
