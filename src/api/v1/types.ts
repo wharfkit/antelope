@@ -229,7 +229,14 @@ export class TrxVariant implements ABISerializableObject {
 
     get transaction(): Transaction | undefined {
         if (this.extra.packed_trx) {
-            return Serializer.decode({data: this.extra.packed_trx, type: Transaction})
+            switch (this.extra.compression) {
+                case 'none': {
+                    return Serializer.decode({data: this.extra.packed_trx, type: Transaction})
+                }
+                default: {
+                    throw new Error(`Unsupported compression type ${this.extra.compression}`)
+                }
+            }
         }
     }
 
