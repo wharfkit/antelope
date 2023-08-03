@@ -310,7 +310,6 @@ suite('api v1', function () {
         const block = await wax.v1.chain.get_block(258546986)
         assert.equal(Number(block.block_num), 258546986)
         for (const tx of block.transactions) {
-            // console.log(tx.trx.extra.compression, tx.trx.id)
             assert.instanceOf(tx.trx.transaction, Transaction)
         }
     })
