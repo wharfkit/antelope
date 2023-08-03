@@ -24,6 +24,7 @@
         "brorand": "^1.1.0",
         "elliptic": "^6.5.4",
         "hash.js": "^1.0.0",
+        "pako": "^2.1.0",
         "tslib": "^2.0.3"
     },
     "devDependencies": {

@@ -1,3 +1,5 @@
+import pako from 'pako'
+
 import {abiEncode} from '../serializer/encoder'
 import {Signature, SignatureType} from './signature'
 import {abiDecode} from '../serializer/decoder'
@@ -230,10 +232,21 @@ export class PackedTransaction extends Struct {
     }
 
     getTransaction(): Transaction {
-        if (Number(this.compression) !== 0) {
-            throw new Error('Transaction compression not supported yet')
+        // reference: https://github.com/AntelopeIO/leap/blob/339d98eed107b9fd94736988996082c7002fa52a/libraries/chain/include/eosio/chain/transaction.hpp#L131-L134
+        switch (Number(this.compression)) {
+            // none
+            case 0: {
+                return abiDecode({data: this.packed_trx, type: Transaction})
+            }
+            // zlib compressed
+            case 1: {
+                const inflated = pako.inflate(Buffer.from(this.packed_trx.array))
+                return abiDecode({data: inflated, type: Transaction})
+            }
+            default: {
+                throw new Error(`Unknown transaction compression ${this.compression}`)
+            }
         }
-        return abiDecode({data: this.packed_trx, type: Transaction})
     }
 
     getSignedTransaction(): SignedTransaction {

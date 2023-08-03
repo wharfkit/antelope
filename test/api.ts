@@ -45,6 +45,10 @@ const beos = new APIClient({
     provider: new MockProvider('https://api.beos.world'),
 })
 
+const wax = new APIClient({
+    provider: new MockProvider('https://wax.greymass.com'),
+})
+
 suite('api v1', function () {
     this.slow(200)
     this.timeout(10 * 10000)
@@ -302,6 +306,14 @@ suite('api v1', function () {
         })
     })
 
+    test('chain get_block w/ compression', async function () {
+        const block = await wax.v1.chain.get_block(258546986)
+        assert.equal(Number(block.block_num), 258546986)
+        for (const tx of block.transactions) {
+            // console.log(tx.trx.extra.compression, tx.trx.id)
+            assert.instanceOf(tx.trx.transaction, Transaction)
+        }
+    })
     test('chain get_currency_balance', async function () {
         const balances = await jungle.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
         assert.equal(balances.length, 2)
