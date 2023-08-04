@@ -203,6 +203,7 @@ export type PackedTransactionType =
           packed_trx: BytesType
       }
 
+// reference: https://github.com/AntelopeIO/leap/blob/339d98eed107b9fd94736988996082c7002fa52a/libraries/chain/include/eosio/chain/transaction.hpp#L131-L134
 export enum CompressionType {
     none = 0,
     zlib = 1,
@@ -251,14 +252,13 @@ export class PackedTransaction extends Struct {
     }
 
     getTransaction(): Transaction {
-        // reference: https://github.com/AntelopeIO/leap/blob/339d98eed107b9fd94736988996082c7002fa52a/libraries/chain/include/eosio/chain/transaction.hpp#L131-L134
         switch (Number(this.compression)) {
             // none
-            case 0: {
+            case CompressionType.none: {
                 return abiDecode({data: this.packed_trx, type: Transaction})
             }
             // zlib compressed
-            case 1: {
+            case CompressionType.zlib: {
                 const inflated = pako.inflate(Buffer.from(this.packed_trx.array))
                 return abiDecode({data: inflated, type: Transaction})
             }
