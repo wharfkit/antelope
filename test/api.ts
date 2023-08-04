@@ -404,6 +404,72 @@ suite('api v1', function () {
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
+    test('chain push_transaction (compression by default)', async function () {
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const packed = PackedTransaction.fromSigned(signedTransaction)
+        assert.equal(packed.compression, CompressionType.zlib)
+    })
+
+    test('chain push_transaction (optional uncompressed)', async function () {
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const packed = PackedTransaction.fromSigned(signedTransaction, CompressionType.none)
+        assert.equal(packed.compression, CompressionType.none)
+    })
+
     test('chain push_transaction (untyped)', async function () {
         const info = await jungle.v1.chain.get_info()
         const header = info.getTransactionHeader()
