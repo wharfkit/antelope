@@ -203,6 +203,11 @@ export type PackedTransactionType =
           packed_trx: BytesType
       }
 
+export enum CompressionType {
+    none = 0,
+    zlib = 1,
+}
+
 @Struct.type('packed_transaction')
 export class PackedTransaction extends Struct {
     @Struct.field('signature[]') declare signatures: Signature[]
@@ -219,15 +224,23 @@ export class PackedTransaction extends Struct {
         }) as PackedTransaction
     }
 
-    static fromSigned(signed: SignedTransaction) {
+    static fromSigned(signed: SignedTransaction, compression: CompressionType = 1) {
         const tx = Transaction.from(signed)
+        // encode and compress the transaction data
+        const packed_trx = pako.deflate(Buffer.from(abiEncode({object: tx}).array))
+        const packed_context_free_data = pako.deflate(
+            Buffer.from(
+                abiEncode({
+                    object: signed.context_free_data,
+                    type: 'bytes[]',
+                }).array
+            )
+        )
         return this.from({
+            compression,
             signatures: signed.signatures,
-            packed_context_free_data: abiEncode({
-                object: signed.context_free_data,
-                type: 'bytes[]',
-            }),
-            packed_trx: abiEncode({object: tx}),
+            packed_context_free_data,
+            packed_trx,
         }) as PackedTransaction
     }
 
