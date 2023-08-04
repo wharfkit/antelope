@@ -1,14 +1,15 @@
 {
-    "api": "https://jungle4.api.eosnation.io",
+    "api": "https://jungle4.greymass.com",
     "headers": {
-        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
-        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
         "content-length": "1707",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:30 GMT",
-        "server": "nginx/1.24.0"
+        "date": "Fri, 04 Aug 2023 18:49:43 GMT",
+        "host": "jungle4.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)"
     },
     "status": 200,
     "json": {

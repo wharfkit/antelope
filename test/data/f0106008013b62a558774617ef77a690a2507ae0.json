@@ -1,10 +1,23 @@
 {
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "154",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:58 GMT",
+        "host": "eos.greymass.com",
+        "server": "nginx",
+        "x-cached": "MISS"
+    },
     "status": 200,
     "json": {
         "rows": [
             {
                 "data": {
-                    "supply": "1033251565.4115 EOS",
+                    "supply": "1163425144.7960 EOS",
                     "max_supply": "10000000000.0000 EOS",
                     "issuer": "eosio"
                 },
@@ -12,8 +25,7 @@
             }
         ],
         "more": false,
-        "next_key": "",
-        "next_key_bytes": ""
+        "next_key": ""
     },
-    "text": "{\"rows\":[{\"data\":{\"supply\":\"1033251565.4115 EOS\",\"max_supply\":\"10000000000.0000 EOS\",\"issuer\":\"eosio\"},\"payer\":\"eosio.token\"}],\"more\":false,\"next_key\":\"\",\"next_key_bytes\":\"\"}"
+    "text": "{\"rows\":[{\"data\":{\"supply\":\"1163425144.7960 EOS\",\"max_supply\":\"10000000000.0000 EOS\",\"issuer\":\"eosio\"},\"payer\":\"eosio.token\"}],\"more\":false,\"next_key\":\"\"}"
 }

@@ -1,4 +1,5 @@
 {
+    "api": "https://wax.greymass.com",
     "headers": {
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
@@ -6,7 +7,7 @@
         "connection": "close",
         "content-encoding": "gzip",
         "content-type": "application/json",
-        "date": "Thu, 03 Aug 2023 17:51:10 GMT",
+        "date": "Fri, 04 Aug 2023 18:49:40 GMT",
         "host": "wax.greymass.com",
         "server": "nginx/1.18.0 (Ubuntu)",
         "transfer-encoding": "chunked",

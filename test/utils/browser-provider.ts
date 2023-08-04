@@ -3,7 +3,7 @@ import {APIProvider, Bytes, Checksum160} from '$lib'
 const data = global.MOCK_DATA
 
 export class MockProvider implements APIProvider {
-    constructor(private api: string = 'https://jungle3.greymass.com') {}
+    constructor(private api: string = 'https://jungle4.greymass.com') {}
 
     getFilename(path: string, params?: unknown) {
         const digest = Checksum160.hash(

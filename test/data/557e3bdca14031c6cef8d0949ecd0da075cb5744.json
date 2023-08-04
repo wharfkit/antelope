@@ -1,12 +1,13 @@
 {
+    "api": "https://jungle4.api.eosnation.io",
     "headers": {
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
-        "content-length": "801",
+        "content-length": "2059",
         "content-type": "application/json",
-        "date": "Sun, 16 Apr 2023 20:37:11 GMT",
+        "date": "Fri, 04 Aug 2023 18:49:34 GMT",
         "server": "nginx/1.24.0"
     },
     "status": 200,
@@ -46,8 +47,64 @@
                 "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
                 "weight": 1,
                 "threshold": 1
+            },
+            {
+                "account_name": "2jhxuljzx.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "toctba3dk.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "1xqjktypf.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "nnrjzvbx5.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "ug5idhlks.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "llwnxbisj.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "zwadpa1ix.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "zwadpa1ix.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
             }
         ]
     },
-    "text": "{\"accounts\":[{\"account_name\":\"testtestasdf\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdf\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"corecorecore\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1}]}"
+    "text": "{\"accounts\":[{\"account_name\":\"testtestasdf\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdf\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"corecorecore\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"2jhxuljzx.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"toctba3dk.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"1xqjktypf.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"nnrjzvbx5.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"ug5idhlks.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"llwnxbisj.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1}]}"
 }

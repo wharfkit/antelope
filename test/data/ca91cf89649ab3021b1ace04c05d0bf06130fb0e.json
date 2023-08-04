@@ -1,0 +1,115 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "1542",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:33 GMT",
+        "host": "jungle4.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "eosio",
+        "head_block_num": 90841393,
+        "head_block_time": "2023-08-04T18:49:33.000",
+        "privileged": true,
+        "last_code_update": "2022-08-10T04:18:52.000",
+        "created": "2022-02-22T22:22:22.000",
+        "core_liquid_balance": "11293285784.0217 EOS",
+        "ram_quota": "68719476736",
+        "net_weight": 2000000000,
+        "cpu_weight": "20000000000",
+        "net_limit": {
+            "used": 0,
+            "available": 3083383922,
+            "max": 3083383922
+        },
+        "cpu_limit": {
+            "used": 149300,
+            "available": "5730953301",
+            "max": "5731102601"
+        },
+        "ram_usage": 3303920,
+        "permissions": [
+            {
+                "perm_name": "active",
+                "parent": "owner",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [],
+                    "accounts": [
+                        {
+                            "permission": {
+                                "actor": "eosio.prods",
+                                "permission": "active"
+                            },
+                            "weight": 1
+                        },
+                        {
+                            "permission": {
+                                "actor": "lioninjungle",
+                                "permission": "active"
+                            },
+                            "weight": 1
+                        }
+                    ],
+                    "waits": []
+                },
+                "linked_actions": []
+            },
+            {
+                "perm_name": "owner",
+                "parent": "",
+                "required_auth": {
+                    "threshold": 1,
+                    "keys": [
+                        {
+                            "key": "EOS5UAjunGLeR6eBfbpU4CxGssxa9DKKjbPA4zrCuUpoJQwvdpACs",
+                            "weight": 1
+                        }
+                    ],
+                    "accounts": [],
+                    "waits": []
+                },
+                "linked_actions": []
+            }
+        ],
+        "total_resources": {
+            "owner": "eosio",
+            "net_weight": "200000.0000 EOS",
+            "cpu_weight": "2000000.0000 EOS",
+            "ram_bytes": 307449231
+        },
+        "self_delegated_bandwidth": {
+            "from": "eosio",
+            "to": "eosio",
+            "net_weight": "100000.0000 EOS",
+            "cpu_weight": "1000000.0000 EOS"
+        },
+        "refund_request": null,
+        "voter_info": {
+            "owner": "eosio",
+            "proxy": "",
+            "producers": [],
+            "staked": "11000000000",
+            "last_vote_weight": "0.00000000000000000",
+            "proxied_vote_weight": "0.00000000000000000",
+            "is_proxy": 0,
+            "flags1": 1,
+            "reserved2": 0,
+            "reserved3": "0 "
+        },
+        "rex_info": null,
+        "subjective_cpu_bill_limit": {
+            "used": 0,
+            "available": 0,
+            "max": 0
+        },
+        "eosio_any_linked_actions": []
+    },
+    "text": "{\"account_name\":\"eosio\",\"head_block_num\":90841393,\"head_block_time\":\"2023-08-04T18:49:33.000\",\"privileged\":true,\"last_code_update\":\"2022-08-10T04:18:52.000\",\"created\":\"2022-02-22T22:22:22.000\",\"core_liquid_balance\":\"11293285784.0217 EOS\",\"ram_quota\":\"68719476736\",\"net_weight\":2000000000,\"cpu_weight\":\"20000000000\",\"net_limit\":{\"used\":0,\"available\":3083383922,\"max\":3083383922},\"cpu_limit\":{\"used\":149300,\"available\":\"5730953301\",\"max\":\"5731102601\"},\"ram_usage\":3303920,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[],\"accounts\":[{\"permission\":{\"actor\":\"eosio.prods\",\"permission\":\"active\"},\"weight\":1},{\"permission\":{\"actor\":\"lioninjungle\",\"permission\":\"active\"},\"weight\":1}],\"waits\":[]},\"linked_actions\":[]},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS5UAjunGLeR6eBfbpU4CxGssxa9DKKjbPA4zrCuUpoJQwvdpACs\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]}],\"total_resources\":{\"owner\":\"eosio\",\"net_weight\":\"200000.0000 EOS\",\"cpu_weight\":\"2000000.0000 EOS\",\"ram_bytes\":307449231},\"self_delegated_bandwidth\":{\"from\":\"eosio\",\"to\":\"eosio\",\"net_weight\":\"100000.0000 EOS\",\"cpu_weight\":\"1000000.0000 EOS\"},\"refund_request\":null,\"voter_info\":{\"owner\":\"eosio\",\"proxy\":\"\",\"producers\":[],\"staked\":\"11000000000\",\"last_vote_weight\":\"0.00000000000000000\",\"proxied_vote_weight\":\"0.00000000000000000\",\"is_proxy\":0,\"flags1\":1,\"reserved2\":0,\"reserved3\":\"0 \"},\"rex_info\":null,\"subjective_cpu_bill_limit\":{\"used\":0,\"available\":0,\"max\":0},\"eosio_any_linked_actions\":[]}"
+}

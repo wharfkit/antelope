@@ -1,0 +1,62 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "1102",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:56 GMT",
+        "host": "jungle4.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "x-cached": "MISS"
+    },
+    "status": 200,
+    "json": {
+        "rows": [
+            {
+                "version": 0,
+                "net": {
+                    "version": 0,
+                    "weight": "99000000000000",
+                    "weight_ratio": "10000000000000",
+                    "assumed_stake_weight": "1000000000000",
+                    "initial_weight_ratio": "10000000000000",
+                    "target_weight_ratio": "10000000000000",
+                    "initial_timestamp": "2022-02-22T23:46:37",
+                    "target_timestamp": "2022-02-22T23:46:37",
+                    "exponent": "2.00000000000000000",
+                    "decay_secs": 86400,
+                    "min_price": "1000.0000 EOS",
+                    "max_price": "150000.0000 EOS",
+                    "utilization": "456144151395",
+                    "adjusted_utilization": "436344151395",
+                    "utilization_timestamp": "2023-08-04T12:03:38"
+                },
+                "cpu": {
+                    "version": 0,
+                    "weight": "99000000000000",
+                    "weight_ratio": "10000000000000",
+                    "assumed_stake_weight": "1000000000000",
+                    "initial_weight_ratio": "10000000000000",
+                    "target_weight_ratio": "10000000000000",
+                    "initial_timestamp": "2022-02-22T23:46:37",
+                    "target_timestamp": "2022-02-22T23:46:37",
+                    "exponent": "2.00000000000000000",
+                    "decay_secs": 86400,
+                    "min_price": "2500.0000 EOS",
+                    "max_price": "75000.0000 EOS",
+                    "utilization": "524350588234",
+                    "adjusted_utilization": "680790202778",
+                    "utilization_timestamp": "2023-08-04T12:03:38"
+                },
+                "powerup_days": 1,
+                "min_powerup_fee": "0.1000 EOS"
+            }
+        ],
+        "more": false,
+        "next_key": ""
+    },
+    "text": "{\"rows\":[{\"version\":0,\"net\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"1000.0000 EOS\",\"max_price\":\"150000.0000 EOS\",\"utilization\":\"456144151395\",\"adjusted_utilization\":\"436344151395\",\"utilization_timestamp\":\"2023-08-04T12:03:38\"},\"cpu\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"2500.0000 EOS\",\"max_price\":\"75000.0000 EOS\",\"utilization\":\"524350588234\",\"adjusted_utilization\":\"680790202778\",\"utilization_timestamp\":\"2023-08-04T12:03:38\"},\"powerup_days\":1,\"min_powerup_fee\":\"0.1000 EOS\"}],\"more\":false,\"next_key\":\"\"}"
+}

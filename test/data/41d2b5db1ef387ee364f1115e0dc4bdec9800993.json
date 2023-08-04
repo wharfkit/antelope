@@ -1,0 +1,39 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "964",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:42 GMT",
+        "host": "jungle4.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "x-cached": "MISS"
+    },
+    "status": 200,
+    "json": {
+        "server_version": "905c5cc9",
+        "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
+        "head_block_num": 90841411,
+        "last_irreversible_block_num": 90841086,
+        "last_irreversible_block_id": "056a1ffe45977223f33d8475ec7ded878b615c4fe9bf910a864787adec37dbee",
+        "head_block_id": "056a21438912145c3b9a2990f9997801c61cf16edcbf674ee6057da983b9a09c",
+        "head_block_time": "2023-08-04T18:49:42.000",
+        "head_block_producer": "eosarabianet",
+        "virtual_block_cpu_limit": 200000000,
+        "virtual_block_net_limit": 1048576000,
+        "block_cpu_limit": 200000,
+        "block_net_limit": 1048576,
+        "server_version_string": "v3.1.3",
+        "fork_db_head_block_num": 90841411,
+        "fork_db_head_block_id": "056a21438912145c3b9a2990f9997801c61cf16edcbf674ee6057da983b9a09c",
+        "server_full_version_string": "v3.1.3-905c5cc900b4e88aed4ab6912009127bf9f4f140",
+        "total_cpu_weight": "120605064695421",
+        "total_net_weight": "117529271310362",
+        "earliest_available_block_num": 90650517,
+        "last_irreversible_block_time": "2023-08-04T18:46:59.500"
+    },
+    "text": "{\"server_version\":\"905c5cc9\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":90841411,\"last_irreversible_block_num\":90841086,\"last_irreversible_block_id\":\"056a1ffe45977223f33d8475ec7ded878b615c4fe9bf910a864787adec37dbee\",\"head_block_id\":\"056a21438912145c3b9a2990f9997801c61cf16edcbf674ee6057da983b9a09c\",\"head_block_time\":\"2023-08-04T18:49:42.000\",\"head_block_producer\":\"eosarabianet\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.3\",\"fork_db_head_block_num\":90841411,\"fork_db_head_block_id\":\"056a21438912145c3b9a2990f9997801c61cf16edcbf674ee6057da983b9a09c\",\"server_full_version_string\":\"v3.1.3-905c5cc900b4e88aed4ab6912009127bf9f4f140\",\"total_cpu_weight\":\"120605064695421\",\"total_net_weight\":\"117529271310362\",\"earliest_available_block_num\":90650517,\"last_irreversible_block_time\":\"2023-08-04T18:46:59.500\"}"
+}

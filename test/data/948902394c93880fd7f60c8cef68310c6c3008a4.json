@@ -5,9 +5,9 @@
         "access-control-allow-methods": "GET, POST, OPTIONS, GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
-        "content-length": "267",
+        "content-length": "266",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:40 GMT",
+        "date": "Fri, 04 Aug 2023 18:55:34 GMT",
         "server": "nginx"
     },
     "status": 400,
@@ -20,7 +20,7 @@
             "what": "Unknown block",
             "details": [
                 {
-                    "message": "Could not find reversible block: 203110579",
+                    "message": "Could not find reversible block: 10000000",
                     "file": "chain_plugin.cpp",
                     "line_number": 2164,
                     "method": "get_block_header_state"
@@ -28,5 +28,5 @@
             ]
         }
     },
-    "text": "{\"code\":400,\"message\":\"Unknown Block\",\"error\":{\"code\":3100002,\"name\":\"unknown_block_exception\",\"what\":\"Unknown block\",\"details\":[{\"message\":\"Could not find reversible block: 203110579\",\"file\":\"chain_plugin.cpp\",\"line_number\":2164,\"method\":\"get_block_header_state\"}]}}"
+    "text": "{\"code\":400,\"message\":\"Unknown Block\",\"error\":{\"code\":3100002,\"name\":\"unknown_block_exception\",\"what\":\"Unknown block\",\"details\":[{\"message\":\"Could not find reversible block: 10000000\",\"file\":\"chain_plugin.cpp\",\"line_number\":2164,\"method\":\"get_block_header_state\"}]}}"
 }
