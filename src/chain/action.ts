@@ -58,7 +58,6 @@ export class Action extends Struct {
     public abi?: ABI
 
     static from(object: ActionType | AnyAction, abi?: ABIDef): Action {
-        // console.log(object)
         const data = object.data as any
         if (!Bytes.isBytes(data)) {
             let type: string | undefined
@@ -86,7 +85,7 @@ export class Action extends Struct {
                     actions: [
                         {
                             name: String(action.name),
-                            type: String(action.name),
+                            type: type.abiName,
                             ricardian_contract: '',
                         },
                     ],
