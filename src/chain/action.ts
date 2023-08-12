@@ -84,7 +84,7 @@ export class Action extends Struct {
                     ...synthesizeABI(type).abi,
                     actions: [
                         {
-                            name: String(action.name),
+                            name: action.name,
                             type: type.abiName,
                             ricardian_contract: '',
                         },
