@@ -81,7 +81,16 @@ export class Action extends Struct {
         } else {
             const type = getType(data)
             if (type) {
-                action.abi = ABI.from(synthesizeABI(type).abi)
+                action.abi = ABI.from({
+                    ...synthesizeABI(type).abi,
+                    actions: [
+                        {
+                            name: String(action.name),
+                            type: String(action.name),
+                            ricardian_contract: '',
+                        },
+                    ],
+                })
             }
         }
 
@@ -116,6 +125,16 @@ export class Action extends Struct {
                 throw new Error(`Action ${this.name} does not exist in provided ABI`)
             }
             return abiDecode({data: this.data, type, abi})
+        }
+    }
+
+    get decoded() {
+        if (!this.abi) {
+            throw new Error('Missing ABI definition when decoding action data')
+        }
+        return {
+            ...this.toJSON(),
+            data: this.decodeData(this.abi),
         }
     }
 }
