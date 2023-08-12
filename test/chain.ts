@@ -339,40 +339,63 @@ suite('chain', function () {
         assert.equal(variant.equals(Int32.from(1)), false)
         assert.equal(variant.equals(MyVariant.from('haj')), false)
 
+        @Struct.type('my_struct')
+        class MyStructWithVariant extends Struct {
+            @Struct.field(MyVariant) field!: MyVariant
+        }
         const action = Action.from({
             account: 'foo',
             name: 'bar',
             authorization: [perm],
-            data: variant,
+            data: MyStructWithVariant.from({
+                field: variant,
+            }),
         })
         assert.equal(action.equals(action), true)
-        // assert.equal(
-        //     action.equals({
-        //         account: 'foo',
-        //         name: 'bar',
-        //         authorization: [perm],
-        //         data: variant,
-        //     }),
-        //     true
-        // )
-        // assert.equal(
-        //     action.equals({
-        //         account: 'foo',
-        //         name: 'bar',
-        //         authorization: [],
-        //         data: variant,
-        //     }),
-        //     false
-        // )
-        // assert.equal(
-        //     action.equals({
-        //         account: 'foo',
-        //         name: 'bar',
-        //         authorization: [{actor: 'maa', permission: 'jong'}],
-        //         data: variant,
-        //     }),
-        //     false
-        // )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [perm],
+                data: {
+                    field: 'hello',
+                },
+            }),
+            true
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [perm],
+                data: {
+                    field: variant,
+                },
+            }),
+            true
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [],
+                data: {
+                    field: variant,
+                },
+            }),
+            false
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [{actor: 'maa', permission: 'jong'}],
+                data: {
+                    field: variant,
+                },
+            }),
+            false
+        )
 
         const time = TimePointSec.from(1)
         assert.equal(time.equals(time), true)
