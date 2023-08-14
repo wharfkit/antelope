@@ -170,10 +170,10 @@ suite('api v1', function () {
         assert.isTrue(permission.linked_actions[0].action.equals('transfer'))
     })
 
-    test('chain get_accounts_by_authorizers', async function () {
-        const response = await jungle4.v1.chain.get_accounts_by_authorizers([
-            'PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj',
-        ])
+    test('chain get_accounts_by_authorizers (keys)', async function () {
+        const response = await jungle4.v1.chain.get_accounts_by_authorizers({
+            keys: ['PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'],
+        })
         assert.lengthOf(response.accounts, 5)
         assert.isTrue(response.accounts[0].account_name.equals('testtestasdf'))
         assert.isTrue(response.accounts[0].permission_name.equals('owner'))
@@ -182,6 +182,19 @@ suite('api v1', function () {
                 'PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'
             )
         )
+        assert.isTrue(response.accounts[0].weight.equals(1))
+        assert.isTrue(response.accounts[0].threshold.equals(1))
+    })
+
+    test('chain get_accounts_by_authorizers (accounts)', async function () {
+        const response = await jungle4.v1.chain.get_accounts_by_authorizers({
+            accounts: ['eosio.prods'],
+        })
+        assert.lengthOf(response.accounts, 1)
+        assert.isTrue(response.accounts[0].account_name.equals('eosio'))
+        assert.isTrue(response.accounts[0].permission_name.equals('active'))
+        assert.isTrue(response.accounts[0].authorizing_account.actor.equals('eosio.prods'))
+        assert.isTrue(response.accounts[0].authorizing_account.permission.equals('active'))
         assert.isTrue(response.accounts[0].weight.equals(1))
         assert.isTrue(response.accounts[0].threshold.equals(1))
     })
