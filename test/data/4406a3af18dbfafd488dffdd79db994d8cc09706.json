@@ -1,0 +1,28 @@
+{
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "159",
+        "content-type": "application/json",
+        "date": "Mon, 14 Aug 2023 01:17:06 GMT",
+        "server": "nginx/1.24.0"
+    },
+    "status": 200,
+    "json": {
+        "accounts": [
+            {
+                "account_name": "eosio",
+                "permission_name": "active",
+                "authorizing_account": {
+                    "actor": "eosio.prods",
+                    "permission": "active"
+                },
+                "weight": 1,
+                "threshold": 1
+            }
+        ]
+    },
+    "text": "{\"accounts\":[{\"account_name\":\"eosio\",\"permission_name\":\"active\",\"authorizing_account\":{\"actor\":\"eosio.prods\",\"permission\":\"active\"},\"weight\":1,\"threshold\":1}]}"
+}

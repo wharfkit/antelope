@@ -16,7 +16,9 @@ import {
     KeyWeight,
     Name,
     NameType,
+    PermissionLevel,
     PublicKey,
+    PublicKeyType,
     Signature,
     Struct,
     TimePoint,
@@ -173,7 +175,8 @@ export class AccountObject extends Struct {
 export class AccountByAuthorizersRow extends Struct {
     @Struct.field(Name) declare account_name: Name
     @Struct.field(Name) declare permission_name: Name
-    @Struct.field(PublicKey) declare authorizing_key: PublicKey
+    @Struct.field(PublicKey, {optional: true}) declare authorizing_key: PublicKey
+    @Struct.field(PermissionLevel, {optional: true}) declare authorizing_account: PermissionLevel
     @Struct.field(Weight) declare weight: Weight
     @Struct.field(UInt32) declare threshold: UInt32
 }
@@ -689,4 +692,9 @@ export interface GetProtocolFeaturesParams {
     search_by_block_num?: boolean
     /** Whether to iterate records in reverse order. */
     reverse?: boolean
+}
+
+export interface GetAccountsByAuthorizersParams {
+    accounts?: NameType[]
+    keys?: PublicKeyType[]
 }
