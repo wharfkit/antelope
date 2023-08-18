@@ -4,10 +4,10 @@ import {abiDecode} from '../serializer/decoder'
 import {BuiltinTypes} from '../serializer/builtins'
 
 export interface APIClientOptions extends FetchProviderOptions {
-    /** URL to the API node to use, only used if the provider option is not set. */
-    url?: string
     /** API provider to use, if omitted and the url option is set the default provider will be used.  */
     provider?: APIProvider
+    /** URL to the API node to use, only used if the provider option is not set. */
+    url?: string
 }
 
 export interface APIErrorDetail {
