@@ -1,11 +1,7 @@
 import {APIProvider, APIResponse, FetchProvider, FetchProviderOptions} from './provider'
 import {ABISerializableConstructor, ABISerializableType} from '../serializer/serializable'
 import {abiDecode} from '../serializer/decoder'
-import {ChainAPI} from './v1/chain'
-import {HistoryAPI} from './v1/history'
 import {BuiltinTypes} from '../serializer/builtins'
-
-export {ChainAPI, HistoryAPI}
 
 export interface APIClientOptions extends FetchProviderOptions {
     /** URL to the API node to use, only used if the provider option is not set. */
@@ -105,11 +101,6 @@ export class APIClient {
         } else {
             throw new Error('Missing url or provider')
         }
-    }
-
-    v1 = {
-        chain: new ChainAPI(this),
-        history: new HistoryAPI(this),
     }
 
     async call<T extends ABISerializableConstructor>(args: {
