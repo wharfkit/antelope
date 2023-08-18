@@ -1,13 +1,14 @@
 {
+    "api": "https://jungle4.greymass.com",
     "headers": {
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
-        "content-length": "484",
+        "content-length": "483",
         "content-type": "application/json",
-        "date": "Fri, 10 Sep 2021 01:02:15 GMT",
-        "server": "nginx"
+        "date": "Fri, 04 Aug 2023 18:50:00 GMT",
+        "server": "nginx/1.18.0 (Ubuntu)"
     },
     "status": 500,
     "json": {
@@ -21,11 +22,11 @@
                 {
                     "message": "unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)",
                     "file": "http_plugin.cpp",
-                    "line_number": 1019,
+                    "line_number": 954,
                     "method": "handle_exception"
                 }
             ]
         }
     },
-    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":0,\"name\":\"exception\",\"what\":\"unspecified\",\"details\":[{\"message\":\"unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)\",\"file\":\"http_plugin.cpp\",\"line_number\":1019,\"method\":\"handle_exception\"}]}}"
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":0,\"name\":\"exception\",\"what\":\"unspecified\",\"details\":[{\"message\":\"unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)\",\"file\":\"http_plugin.cpp\",\"line_number\":954,\"method\":\"handle_exception\"}]}}"
 }

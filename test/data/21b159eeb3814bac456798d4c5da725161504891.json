@@ -1,4 +1,16 @@
 {
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS, GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "123",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:59 GMT",
+        "host": "nodeos-core",
+        "server": "nginx"
+    },
     "status": 200,
     "json": {
         "rows": [

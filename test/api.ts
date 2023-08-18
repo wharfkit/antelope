@@ -15,8 +15,10 @@ import {
     BlockId,
     Bytes,
     Checksum256,
+    CompressionType,
     Float64,
     Name,
+    PackedTransaction,
     PrivateKey,
     Serializer,
     SignedTransaction,
@@ -44,6 +46,18 @@ const fio = new APIClient({
 const beos = new APIClient({
     provider: new MockProvider('https://api.beos.world'),
 })
+
+const wax = new APIClient({
+    provider: new MockProvider('https://wax.greymass.com'),
+})
+
+@Struct.type('transfer')
+class Transfer extends Struct {
+    @Struct.field('name') from!: Name
+    @Struct.field('name') to!: Name
+    @Struct.field('asset') quantity!: Asset
+    @Struct.field('string') memo!: string
+}
 
 suite('api v1', function () {
     this.slow(200)
@@ -174,7 +188,7 @@ suite('api v1', function () {
         const response = await jungle4.v1.chain.get_accounts_by_authorizers({
             keys: ['PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'],
         })
-        assert.lengthOf(response.accounts, 5)
+        assert.lengthOf(response.accounts, 13)
         assert.isTrue(response.accounts[0].account_name.equals('testtestasdf'))
         assert.isTrue(response.accounts[0].permission_name.equals('owner'))
         assert.isTrue(
@@ -276,8 +290,8 @@ suite('api v1', function () {
     })
 
     test('chain get_block_header_state', async function () {
-        const header = await eos.v1.chain.get_block_header_state(203110579)
-        assert.equal(Number(header.block_num), 203110579)
+        const header = await eos.v1.chain.get_block_header_state(323978187)
+        assert.equal(Number(header.block_num), 323978187)
     })
 
     test('chain get_block', async function () {
@@ -302,13 +316,21 @@ suite('api v1', function () {
         })
     })
 
+    test('chain get_block w/ compression', async function () {
+        const block = await wax.v1.chain.get_block(258546986)
+        assert.equal(Number(block.block_num), 258546986)
+        for (const tx of block.transactions) {
+            assert.instanceOf(tx.trx.transaction, Transaction)
+        }
+    })
+
     test('chain get_currency_balance', async function () {
         const balances = await jungle.v1.chain.get_currency_balance('eosio.token', 'lioninjungle')
         assert.equal(balances.length, 2)
         balances.forEach((asset) => {
             assert.equal(asset instanceof Asset, true)
         })
-        assert.deepEqual(balances.map(String), ['884803231.0276 EOS', '100810.0000 JUNGLE'])
+        assert.deepEqual(balances.map(String), ['539235868.8986 EOS', '100360.0680 JUNGLE'])
     })
 
     test('chain get_currency_balance w/ symbol', async function () {
@@ -318,14 +340,14 @@ suite('api v1', function () {
             'JUNGLE'
         )
         assert.equal(balances.length, 1)
-        assert.equal(balances[0].value, 100810)
+        assert.equal(balances[0].value, 100360.068)
     })
 
     test('chain get_info', async function () {
         const info = await jungle.v1.chain.get_info()
         assert.equal(
             info.chain_id.hexString,
-            '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
+            '73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d'
         )
     })
 
@@ -339,7 +361,7 @@ suite('api v1', function () {
 
     test('chain get_producer_schedule', async function () {
         const schedule = await jungle.v1.chain.get_producer_schedule()
-        assert.isTrue(schedule.active.version.equals(108))
+        assert.isTrue(schedule.active.version.equals(72))
         assert.lengthOf(schedule.active.producers, 21)
         assert.isTrue(schedule.active.producers[0].producer_name.equals('alohaeostest'))
         assert.lengthOf(schedule.active.producers[0].authority, 2)
@@ -348,19 +370,12 @@ suite('api v1', function () {
         assert.isTrue(schedule.active.producers[0].authority[1].keys[0].weight.equals(1))
         assert.isTrue(
             schedule.active.producers[0].authority[1].keys[0].key.equals(
-                'PUB_K1_8JTznQrfvYcoFskidgKeKsmPsx3JBMpTo1jsEG2y1Ho6oGNCgf'
+                'PUB_K1_8QwUpioje5txP4XwwXjjufqMs7wjrxkuWhUxcVMaxqrr14Sd2v'
             )
         )
     })
 
     test('chain push_transaction', async function () {
-        @Struct.type('transfer')
-        class Transfer extends Struct {
-            @Struct.field('name') from!: Name
-            @Struct.field('name') to!: Name
-            @Struct.field('asset') quantity!: Asset
-            @Struct.field('string') memo!: string
-        }
         const info = await jungle.v1.chain.get_info()
         const header = info.getTransactionHeader()
         const action = Action.from({
@@ -391,6 +406,72 @@ suite('api v1', function () {
         })
         const result = await jungle.v1.chain.push_transaction(signedTransaction)
         assert.equal(result.transaction_id, transaction.id.hexString)
+    })
+
+    test('chain push_transaction (compression by default)', async function () {
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const packed = PackedTransaction.fromSigned(signedTransaction)
+        assert.equal(packed.compression, CompressionType.zlib)
+    })
+
+    test('chain push_transaction (optional uncompressed)', async function () {
+        const info = await jungle.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: Transfer.from({
+                from: 'corecorecore',
+                to: 'teamgreymass',
+                quantity: '0.0042 EOS',
+                memo: 'eosio-core is the best <3',
+            }),
+        })
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const packed = PackedTransaction.fromSigned(signedTransaction, CompressionType.none)
+        assert.equal(packed.compression, CompressionType.none)
     })
 
     test('chain push_transaction (untyped)', async function () {
@@ -512,9 +593,9 @@ suite('api v1', function () {
             limit: 2,
             lower_bound: res1.next_key,
         })
-        assert.equal(String(res2.rows[0].account), 'boidservices')
-        assert.equal(String(res2.next_key), 'jesta.x')
-        assert.equal(Number(res2.rows[1].balance).toFixed(6), (104.14631).toFixed(6))
+        assert.equal(String(res2.rows[0].account), 'atomichub')
+        assert.equal(String(res2.next_key), 'boidservices')
+        assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.02566).toFixed(6))
     })
 
     test('chain get_table_rows (empty scope)', async function () {
@@ -610,11 +691,11 @@ suite('api v1', function () {
             assert.equal(apiError.name, 'exception')
             assert.equal(apiError.code, 0)
             assert.equal(error.response.headers['access-control-allow-origin'], '*')
-            assert.equal(error.response.headers.date, 'Fri, 10 Sep 2021 01:02:15 GMT')
+            assert.equal(error.response.headers.date, 'Fri, 04 Aug 2023 18:50:00 GMT')
             assert.deepEqual(apiError.details, [
                 {
                     file: 'http_plugin.cpp',
-                    line_number: 1019,
+                    line_number: 954,
                     message:
                         'unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)',
                     method: 'handle_exception',

@@ -1,3 +1,4 @@
+import pako from 'pako'
 import {
     ABI,
     AnyAction,
@@ -233,6 +234,10 @@ export class TrxVariant implements ABISerializableObject {
     get transaction(): Transaction | undefined {
         if (this.extra.packed_trx) {
             switch (this.extra.compression) {
+                case 'zlib': {
+                    const inflated = pako.inflate(Buffer.from(this.extra.packed_trx, 'hex'))
+                    return Serializer.decode({data: inflated, type: Transaction})
+                }
                 case 'none': {
                     return Serializer.decode({data: this.extra.packed_trx, type: Transaction})
                 }

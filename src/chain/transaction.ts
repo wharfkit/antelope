@@ -1,3 +1,5 @@
+import pako from 'pako'
+
 import {abiEncode} from '../serializer/encoder'
 import {Signature, SignatureType} from './signature'
 import {abiDecode} from '../serializer/decoder'
@@ -201,6 +203,12 @@ export type PackedTransactionType =
           packed_trx: BytesType
       }
 
+// reference: https://github.com/AntelopeIO/leap/blob/339d98eed107b9fd94736988996082c7002fa52a/libraries/chain/include/eosio/chain/transaction.hpp#L131-L134
+export enum CompressionType {
+    none = 0,
+    zlib = 1,
+}
+
 @Struct.type('packed_transaction')
 export class PackedTransaction extends Struct {
     @Struct.field('signature[]') declare signatures: Signature[]
@@ -217,23 +225,47 @@ export class PackedTransaction extends Struct {
         }) as PackedTransaction
     }
 
-    static fromSigned(signed: SignedTransaction) {
-        const tx = Transaction.from(signed)
+    static fromSigned(signed: SignedTransaction, compression: CompressionType = 1) {
+        // Encode data
+        let packed_trx: Bytes = abiEncode({object: Transaction.from(signed)})
+        let packed_context_free_data: Bytes = abiEncode({
+            object: signed.context_free_data,
+            type: 'bytes[]',
+        })
+        switch (compression) {
+            case CompressionType.zlib: {
+                // compress data
+                packed_trx = pako.deflate(Buffer.from(packed_trx.array))
+                packed_context_free_data = pako.deflate(Buffer.from(packed_context_free_data.array))
+                break
+            }
+            case CompressionType.none: {
+                break
+            }
+        }
         return this.from({
+            compression,
             signatures: signed.signatures,
-            packed_context_free_data: abiEncode({
-                object: signed.context_free_data,
-                type: 'bytes[]',
-            }),
-            packed_trx: abiEncode({object: tx}),
+            packed_context_free_data,
+            packed_trx,
         }) as PackedTransaction
     }
 
     getTransaction(): Transaction {
-        if (Number(this.compression) !== 0) {
-            throw new Error('Transaction compression not supported yet')
+        switch (Number(this.compression)) {
+            // none
+            case CompressionType.none: {
+                return abiDecode({data: this.packed_trx, type: Transaction})
+            }
+            // zlib compressed
+            case CompressionType.zlib: {
+                const inflated = pako.inflate(Buffer.from(this.packed_trx.array))
+                return abiDecode({data: inflated, type: Transaction})
+            }
+            default: {
+                throw new Error(`Unknown transaction compression ${this.compression}`)
+            }
         }
-        return abiDecode({data: this.packed_trx, type: Transaction})
     }
 
     getSignedTransaction(): SignedTransaction {

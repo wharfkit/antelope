@@ -1,36 +1,37 @@
 {
+    "api": "https://jungle4.api.eosnation.io",
     "headers": {
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
         "connection": "close",
-        "content-length": "965",
+        "content-length": "957",
         "content-type": "application/json",
-        "date": "Wed, 17 Aug 2022 03:02:30 GMT",
-        "server": "nginx/1.22.0"
+        "date": "Fri, 04 Aug 2023 18:49:44 GMT",
+        "server": "nginx/1.24.0"
     },
     "status": 200,
     "json": {
-        "server_version": "74fc8e6e",
+        "server_version": "7e1ad13e",
         "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
-        "head_block_num": 30016245,
-        "last_irreversible_block_num": 30015920,
-        "last_irreversible_block_id": "01ca01b045354b061ee0e46527dd9e7ec607ad87d6d780af1ef0d5ac6d572424",
-        "head_block_id": "01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5",
-        "head_block_time": "2022-08-17T03:02:30.000",
-        "head_block_producer": "jumpingfrogs",
+        "head_block_num": 90841416,
+        "last_irreversible_block_num": 90841086,
+        "last_irreversible_block_id": "056a1ffe45977223f33d8475ec7ded878b615c4fe9bf910a864787adec37dbee",
+        "head_block_id": "056a21487172ba0dd4b8550f9c3d15187335fdfe03b5ef3192b6854ae86b722b",
+        "head_block_time": "2023-08-04T18:49:44.500",
+        "head_block_producer": "eosarabianet",
         "virtual_block_cpu_limit": 200000000,
         "virtual_block_net_limit": 1048576000,
         "block_cpu_limit": 200000,
         "block_net_limit": 1048576,
-        "server_version_string": "v3.1.0-rc3",
-        "fork_db_head_block_num": 30016245,
-        "fork_db_head_block_id": "01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5",
-        "server_full_version_string": "v3.1.0-rc3-74fc8e6e4c9deabe443b17f99283c5eb1a39c677",
-        "total_cpu_weight": "120460448750100",
-        "total_net_weight": "117528994245100",
+        "server_version_string": "v4.0.4",
+        "fork_db_head_block_num": 90841416,
+        "fork_db_head_block_id": "056a21487172ba0dd4b8550f9c3d15187335fdfe03b5ef3192b6854ae86b722b",
+        "server_full_version_string": "v4.0.4-7e1ad13e1e98b1e0703d0ea072b4fca5419cfdbe",
+        "total_cpu_weight": "120605064695421",
+        "total_net_weight": "117529271310362",
         "earliest_available_block_num": 1,
-        "last_irreversible_block_time": "2022-08-17T02:59:47.500"
+        "last_irreversible_block_time": "2023-08-04T18:46:59.500"
     },
-    "text": "{\"server_version\":\"74fc8e6e\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":30016245,\"last_irreversible_block_num\":30015920,\"last_irreversible_block_id\":\"01ca01b045354b061ee0e46527dd9e7ec607ad87d6d780af1ef0d5ac6d572424\",\"head_block_id\":\"01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5\",\"head_block_time\":\"2022-08-17T03:02:30.000\",\"head_block_producer\":\"jumpingfrogs\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v3.1.0-rc3\",\"fork_db_head_block_num\":30016245,\"fork_db_head_block_id\":\"01ca02f5b6987f25b014a301cfb541fe707d566462c826d7296532cd5688cda5\",\"server_full_version_string\":\"v3.1.0-rc3-74fc8e6e4c9deabe443b17f99283c5eb1a39c677\",\"total_cpu_weight\":\"120460448750100\",\"total_net_weight\":\"117528994245100\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2022-08-17T02:59:47.500\"}"
+    "text": "{\"server_version\":\"7e1ad13e\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":90841416,\"last_irreversible_block_num\":90841086,\"last_irreversible_block_id\":\"056a1ffe45977223f33d8475ec7ded878b615c4fe9bf910a864787adec37dbee\",\"head_block_id\":\"056a21487172ba0dd4b8550f9c3d15187335fdfe03b5ef3192b6854ae86b722b\",\"head_block_time\":\"2023-08-04T18:49:44.500\",\"head_block_producer\":\"eosarabianet\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v4.0.4\",\"fork_db_head_block_num\":90841416,\"fork_db_head_block_id\":\"056a21487172ba0dd4b8550f9c3d15187335fdfe03b5ef3192b6854ae86b722b\",\"server_full_version_string\":\"v4.0.4-7e1ad13e1e98b1e0703d0ea072b4fca5419cfdbe\",\"total_cpu_weight\":\"120605064695421\",\"total_net_weight\":\"117529271310362\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2023-08-04T18:46:59.500\"}"
 }

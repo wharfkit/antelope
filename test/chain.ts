@@ -16,6 +16,7 @@ import {
     Int32,
     Int64,
     Name,
+    PackedTransaction,
     PermissionLevel,
     PublicKey,
     Signature,
@@ -529,5 +530,31 @@ suite('chain', function () {
         assert.ok(
             !auth.hasPermission('PUB_K1_6E45rq9ZhnvnWNTNEEexpM8V8rqCjggUWHXJBurkVQSnEyCHQ9', true)
         )
+    })
+
+    test('packed transaction', function () {
+        // uncompressed packed transaction
+        const uncompressed = PackedTransaction.from({
+            packed_trx:
+                '34b6c664cb1b3056b588000000000190e2a51c5f25af590000000000e94c4402308db3ee1bf7a88900000000a8ed3232e04c9bae3b75a88900000000a8ed323210e04c9bae3b75a889529e9d0f0001000000',
+        })
+        assert.instanceOf(uncompressed.getTransaction(), Transaction)
+
+        // zlib compressed packed transation
+        const compressedString =
+            '78dacb3d782c659f64208be036062060345879fad9aa256213401c8605cb2633322c79c8c0e8bd651e88bfe2ad9191204c80e36d735716638b77330300024516b4'
+
+        // This is a compressed transaction and should throw since it cannot be read without a compression flag
+        const compressedError = PackedTransaction.from({
+            packed_trx: compressedString,
+        })
+        assert.throws(() => compressedError.getTransaction())
+
+        // This is a compressed transaction and should succeed since it has a compression flag
+        const compressedSuccess = PackedTransaction.from({
+            compression: 1,
+            packed_trx: compressedString,
+        })
+        assert.instanceOf(compressedSuccess.getTransaction(), Transaction)
     })
 })

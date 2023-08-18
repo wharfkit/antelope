@@ -11,7 +11,7 @@ import {APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 export class MockProvider implements APIProvider {
     recordProvider = new FetchProvider(this.api, {fetch})
 
-    constructor(private api: string = 'https://jungle3.greymass.com') {}
+    constructor(private api: string = 'https://jungle4.greymass.com') {}
 
     getFilename(path: string, params?: unknown) {
         const digest = Checksum160.hash(
@@ -41,7 +41,14 @@ export class MockProvider implements APIProvider {
         }
         if (process.env['MOCK_RECORD']) {
             const response = await this.recordProvider.call(path, params)
-            const json = JSON.stringify(response, undefined, 4)
+            const json = JSON.stringify(
+                {
+                    api: this.api,
+                    ...response,
+                },
+                undefined,
+                4
+            )
             await writeFile(filename, json)
             return response
         } else {

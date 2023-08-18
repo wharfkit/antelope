@@ -1,0 +1,20 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "43",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:41 GMT",
+        "host": "jungle4.greymass.com",
+        "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    "status": 200,
+    "json": [
+        "539235868.8986 EOS",
+        "100360.0680 JUNGLE"
+    ],
+    "text": "[\"539235868.8986 EOS\",\"100360.0680 JUNGLE\"]"
+}

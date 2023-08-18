@@ -1,4 +1,18 @@
 {
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-encoding": "gzip",
+        "content-type": "application/json",
+        "date": "Fri, 04 Aug 2023 18:49:39 GMT",
+        "host": "eos.greymass.com",
+        "server": "nginx",
+        "transfer-encoding": "chunked",
+        "x-cached": "MISS"
+    },
     "status": 200,
     "json": {
         "timestamp": "2020-06-05T17:22:47.500",
