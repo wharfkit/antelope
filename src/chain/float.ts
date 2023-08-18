@@ -46,13 +46,6 @@ class Float implements ABISerializableObject {
     value: number
 
     constructor(value: number) {
-        if (Number.isNaN(value)) {
-            this.value = 0
-            return
-        }
-        if (!Number.isFinite(value)) {
-            throw new Error('Invalid number')
-        }
         this.value = value
     }
 
