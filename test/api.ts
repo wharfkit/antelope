@@ -1,17 +1,17 @@
 import {assert} from 'chai'
 
-import {ABI, APIClient, Blob, Checksum256, Name, NameType, Struct} from '$lib'
+import {ABI, BaseAPIClient, Blob, Checksum256, Name, NameType, Struct} from '$lib'
 import {MockProvider} from './utils/mock-provider'
 
 suite('api', function () {
-    test('accepts plugin', async function () {
+    test('allows interface as generic', async function () {
         // Response type
         interface GetAbiResponse {
             account_name: string
             abi?: ABI.Def
         }
         // Client
-        class CustomAPI extends APIClient {
+        class CustomAPI extends BaseAPIClient {
             async get_abi(accountName: NameType) {
                 return this.call<GetAbiResponse>({
                     path: '/v1/chain/get_abi',
@@ -21,11 +21,11 @@ suite('api', function () {
         }
         const provider = new MockProvider('https://jungle4.greymass.com')
         const client = new CustomAPI({provider})
-        assert.instanceOf(client, APIClient)
+        assert.instanceOf(client, BaseAPIClient)
         const result = await client.get_abi('eosio.token')
         assert.equal(result.account_name, 'eosio.token')
     })
-    test('get_raw_abi', async function () {
+    test('allows defining response type', async function () {
         // Response type
         @Struct.type('get_raw_abi_response')
         class GetRawAbiResponse extends Struct {
@@ -35,7 +35,7 @@ suite('api', function () {
             @Struct.field(Blob) declare abi: Blob
         }
         // Client
-        class CustomAPI extends APIClient {
+        class CustomAPI extends BaseAPIClient {
             async get_raw_abi(accountName: NameType) {
                 return this.call({
                     path: '/v1/chain/get_raw_abi',
@@ -46,7 +46,7 @@ suite('api', function () {
         }
         const provider = new MockProvider('https://jungle4.greymass.com')
         const client = new CustomAPI({provider})
-        assert.instanceOf(client, APIClient)
+        assert.instanceOf(client, BaseAPIClient)
         const result = await client.get_raw_abi('eosio.token')
         assert.instanceOf(result.account_name, Name)
         assert.instanceOf(result.code_hash, Checksum256)
