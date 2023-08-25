@@ -88,7 +88,7 @@ export class APIError extends Error {
     }
 }
 
-export class APIClient {
+export class BaseAPIClient {
     static __className = 'APIClient'
 
     readonly provider: APIProvider
