@@ -86,3 +86,5 @@ The browser test suite for the current version of the library is available at: h
 Instructions and notes on debugging typescript in your IDE. Explains how to match the Mocha test configuration found in the Makefile.
 
 [Notes on setting up IDE Debuggers](docs/IDE_Debug.md)
+
+Made with ☕️ & ❤️ by [Greymass](https://greymass.com), if you find this useful please consider [supporting us](https://greymass.com/support-us).

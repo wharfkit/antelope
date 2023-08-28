@@ -9,7 +9,6 @@ export {isInstanceOf} from './utils'
 // api
 export * from './api/client'
 export * from './api/provider'
-export * as API from './api/types'
 
 // p2p
 export * from './p2p/client'
