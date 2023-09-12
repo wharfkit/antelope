@@ -1,6 +1,7 @@
 import {assert} from 'chai'
 
 import {
+    ABI,
     ABIDef,
     Action,
     AnyTransaction,
@@ -19,6 +20,7 @@ import {
     PackedTransaction,
     PermissionLevel,
     PublicKey,
+    Serializer,
     Signature,
     SignedTransaction,
     Struct,
@@ -360,11 +362,17 @@ suite('chain', function () {
         assert.equal(variant.equals(Int32.from(1)), false)
         assert.equal(variant.equals(MyVariant.from('haj')), false)
 
+        @Struct.type('my_struct')
+        class MyStructWithVariant extends Struct {
+            @Struct.field(MyVariant) field!: MyVariant
+        }
         const action = Action.from({
             account: 'foo',
             name: 'bar',
             authorization: [perm],
-            data: variant,
+            data: MyStructWithVariant.from({
+                field: variant,
+            }),
         })
         assert.equal(action.equals(action), true)
         assert.equal(
@@ -372,7 +380,20 @@ suite('chain', function () {
                 account: 'foo',
                 name: 'bar',
                 authorization: [perm],
-                data: variant,
+                data: {
+                    field: 'hello',
+                },
+            }),
+            true
+        )
+        assert.equal(
+            action.equals({
+                account: 'foo',
+                name: 'bar',
+                authorization: [perm],
+                data: {
+                    field: variant,
+                },
             }),
             true
         )
@@ -381,7 +402,9 @@ suite('chain', function () {
                 account: 'foo',
                 name: 'bar',
                 authorization: [],
-                data: variant,
+                data: {
+                    field: variant,
+                },
             }),
             false
         )
@@ -390,7 +413,9 @@ suite('chain', function () {
                 account: 'foo',
                 name: 'bar',
                 authorization: [{actor: 'maa', permission: 'jong'}],
-                data: variant,
+                data: {
+                    field: variant,
+                },
             }),
             false
         )
@@ -504,6 +529,171 @@ suite('chain', function () {
         )
         assert.equal(a1.equals(a2), true)
         assert.equal(a1.equals(a3), true)
+    })
+
+    test('action retains abi (abi)', function () {
+        const abi = {
+            structs: [{name: 'noop', base: '', fields: []}],
+            actions: [
+                {
+                    name: 'noop',
+                    type: 'noop',
+                    ricardian_contract: '',
+                },
+            ],
+        }
+        const action = Action.from(
+            {
+                account: 'greymassnoop',
+                name: 'noop',
+                authorization: [{actor: 'greymassfuel', permission: 'cosign'}],
+                data: '',
+            },
+            abi
+        )
+        assert.instanceOf(action.abi, ABI)
+    })
+
+    test('action can deserialize itself from abi', function () {
+        const abi = {
+            structs: [
+                {
+                    name: 'transfer',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'from',
+                            type: 'name',
+                        },
+                        {
+                            name: 'to',
+                            type: 'name',
+                        },
+                        {
+                            name: 'quantity',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'memo',
+                            type: 'string',
+                        },
+                    ],
+                },
+            ],
+            actions: [
+                {
+                    name: 'transfer',
+                    type: 'transfer',
+                    ricardian_contract: '',
+                },
+            ],
+        }
+
+        const action = Action.from(
+            {
+                account: 'eosio.token',
+                name: 'transfer',
+                authorization: [{actor: 'foo', permission: 'bar'}],
+                data: {
+                    from: 'foo',
+                    to: 'bar',
+                    quantity: '1.0000 EOS',
+                    memo: 'hello',
+                },
+            },
+            abi
+        )
+        assert.instanceOf(action.abi, ABI)
+        const decoded = action.decoded
+        assert.instanceOf(decoded.account, Name)
+        assert.instanceOf(decoded.name, Name)
+        assert.instanceOf(decoded.authorization, Array)
+        assert.instanceOf(decoded.authorization[0], PermissionLevel)
+        assert.instanceOf(decoded.data.from, Name)
+        assert.instanceOf(decoded.data.to, Name)
+        assert.instanceOf(decoded.data.quantity, Asset)
+    })
+
+    test('action retains abi (struct)', function () {
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
+
+        const data = Transfer.from({
+            from: 'foo',
+            to: 'bar',
+            quantity: '1.0000 EOS',
+            memo: 'hello',
+        })
+
+        const action = Action.from({
+            authorization: [],
+            account: 'eosio.token',
+            name: 'transfer',
+            data,
+        })
+        assert.instanceOf(action.abi, ABI)
+
+        const transaction = Transaction.from({
+            ref_block_num: 0,
+            ref_block_prefix: 0,
+            expiration: 0,
+            actions: [action],
+        })
+
+        assert.instanceOf(transaction.actions[0].abi, ABI)
+        assert.isTrue(action.equals(transaction.actions[0]))
+        assert.isTrue(transaction.actions[0].equals(action))
+        assert.isTrue(
+            data.equals(
+                Serializer.decode({
+                    data: transaction.actions[0].data,
+                    abi: transaction.actions[0].abi,
+                    type: String(transaction.actions[0].name),
+                })
+            )
+        )
+    })
+
+    test('action can deserialize itself from struct', function () {
+        @Struct.type('transfer')
+        class Transfer extends Struct {
+            @Struct.field('name') from!: Name
+            @Struct.field('name') to!: Name
+            @Struct.field('asset') quantity!: Asset
+            @Struct.field('string') memo!: string
+        }
+        const data = Transfer.from({
+            from: 'foo',
+            to: 'bar',
+            quantity: '1.0000 EOS',
+            memo: 'hello',
+        })
+
+        const action = Action.from({
+            authorization: [
+                {
+                    actor: 'foo',
+                    permission: 'bar',
+                },
+            ],
+            account: 'eosio.token',
+            name: 'transfer',
+            data,
+        })
+        assert.instanceOf(action.abi, ABI)
+        const decoded = action.decoded
+        assert.instanceOf(decoded.account, Name)
+        assert.instanceOf(decoded.name, Name)
+        assert.instanceOf(decoded.authorization, Array)
+        assert.instanceOf(decoded.authorization[0], PermissionLevel)
+        assert.instanceOf(decoded.data.from, Name)
+        assert.instanceOf(decoded.data.to, Name)
+        assert.instanceOf(decoded.data.quantity, Asset)
     })
 
     test('authority', function () {

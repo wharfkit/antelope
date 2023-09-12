@@ -121,7 +121,13 @@ export class Transaction extends TransactionHeader {
                 return abis
             }
         }
-        const resolveAction = (action: AnyAction) => Action.from(action, abiFor(action.account))
+        const resolveAction = (action: AnyAction) => {
+            if (action instanceof Action) {
+                return action
+            } else {
+                return Action.from(action, abiFor(action.account))
+            }
+        }
         const actions = (object.actions || []).map(resolveAction)
         const context_free_actions = (object.context_free_actions || []).map(resolveAction)
         const transaction = {
