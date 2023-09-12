@@ -57,7 +57,8 @@ export class Action extends Struct {
 
     public abi?: ABI
 
-    static from(object: ActionType | AnyAction, abi?: ABIDef): Action {
+    static from(anyAction: ActionType | AnyAction, abi?: ABIDef): Action {
+        let object = {...anyAction}
         const data = object.data as any
         if (!Bytes.isBytes(data)) {
             let type: string | undefined
