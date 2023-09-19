@@ -63,6 +63,23 @@ suite('api v1', function () {
     this.slow(200)
     this.timeout(10 * 10000)
 
+    test('FetchProvider methods', async function () {
+        const defaultresponse = await jungle4.provider.call({
+            path: '/v1/chain/get_info',
+        })
+        assert.equal(defaultresponse.status, 200)
+        const getresponse = await jungle4.provider.call({
+            path: '/v1/chain/get_info',
+            method: 'GET',
+        })
+        assert.equal(getresponse.status, 200)
+        const postresponse = await jungle4.provider.call({
+            path: '/v1/chain/get_info',
+            method: 'GET',
+        })
+        assert.equal(postresponse.status, 200)
+    })
+
     test('chain get_abi', async function () {
         const response = await jungle4.v1.chain.get_abi('eosio.token')
         assert.equal(response.account_name, 'eosio.token')

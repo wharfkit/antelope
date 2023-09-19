@@ -28,6 +28,8 @@ export interface APIErrorData {
     details: APIErrorDetail[]
 }
 
+export type APIMethods = 'POST' | 'GET'
+
 export class APIError extends Error {
     static __className = 'APIError'
 
@@ -113,18 +115,25 @@ export class APIClient {
     }
 
     async call<T extends ABISerializableConstructor>(args: {
+        method?: APIMethods
         path: string
         params?: unknown
         responseType: T
     }): Promise<InstanceType<T>>
     async call<T extends keyof BuiltinTypes>(args: {
+        method?: APIMethods
         path: string
         params?: unknown
         responseType: T
     }): Promise<BuiltinTypes[T]>
-    async call<T = unknown>(args: {path: string; params?: unknown}): Promise<T>
-    async call(args: {path: string; params?: unknown; responseType?: ABISerializableType}) {
-        const response = await this.provider.call(args.path, args.params)
+    async call<T = unknown>(args: {method?: APIMethods; path: string; params?: unknown}): Promise<T>
+    async call(args: {
+        method?: APIMethods
+        path: string
+        params?: unknown
+        responseType?: ABISerializableType
+    }) {
+        const response = await this.provider.call(args)
         const {json} = response
         if (Math.floor(response.status / 100) !== 2 || (json && typeof json.error === 'object')) {
             throw new APIError(args.path, response)

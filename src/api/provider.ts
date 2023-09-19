@@ -1,3 +1,5 @@
+import {APIMethods} from './client'
+
 type Fetch = (input: any, init?: any) => Promise<any>
 
 /** Response to an API call.  */
@@ -15,7 +17,7 @@ export interface APIProvider {
      * @argument path The endpoint path, e.g. `/v1/chain/get_info`
      * @argument params The request body if any.
      */
-    call(path: string, params?: unknown): Promise<APIResponse>
+    call(args: {path: string; params?: unknown; method?: APIMethods}): Promise<APIResponse>
 }
 
 export interface FetchProviderOptions {
@@ -48,11 +50,11 @@ export class FetchProvider implements APIProvider {
         }
     }
 
-    async call(path: string, params?: unknown) {
-        const url = this.url + path
+    async call(args: {path: string; params?: unknown; method?: APIMethods}) {
+        const url = this.url + args.path
         const response = await this.fetch(url, {
-            method: 'POST',
-            body: params !== undefined ? JSON.stringify(params) : undefined,
+            method: args.method || 'POST',
+            body: args.params !== undefined ? JSON.stringify(args.params) : undefined,
         })
         const text = await response.text()
         let json: any

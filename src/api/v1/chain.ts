@@ -126,6 +126,7 @@ export class ChainAPI {
         return this.client.call({
             path: '/v1/chain/get_info',
             responseType: GetInfoResponse,
+            method: 'GET',
         })
     }
 
