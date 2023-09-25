@@ -667,6 +667,7 @@ suite('serializer', function () {
             actions: [],
             tables: [],
             ricardian_clauses: [],
+            action_results: [],
         })
     })
 
@@ -1087,7 +1088,7 @@ suite('serializer', function () {
         const data = Serializer.encode({object: abi})
         assert.equal(
             data.hexString,
-            '0e656f73696f3a3a6162692f312e310101620161010161000101660161000100000000000000c80369363401016b010369363401610103666f6f0362617200000101760201610162'
+            '0e656f73696f3a3a6162692f312e310101620161010161000101660161000100000000000000c80369363401016b010369363401610103666f6f036261720000010176020161016200'
         )
         const decoded = Serializer.objectify(Serializer.decode({data, type: ABI}))
         assert.deepEqual(abi.types, decoded.types)
@@ -1190,5 +1191,58 @@ suite('serializer', function () {
                 strictExtensions: true,
             })
         }, /Circular type reference/)
+    })
+
+    test('action_results', function () {
+        const raw = {
+            ____comment: 'This file was generated with eosio-abigen. DO NOT EDIT ',
+            version: 'eosio::abi/1.2',
+            types: [],
+            structs: [
+                {
+                    name: 'Result',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'id',
+                            type: 'uint32',
+                        },
+                    ],
+                },
+                {
+                    name: 'test',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'eos_account',
+                            type: 'name',
+                        },
+                    ],
+                },
+            ],
+            actions: [
+                {
+                    name: 'test',
+                    type: 'test',
+                    ricardian_contract: '',
+                },
+            ],
+            tables: [],
+            ricardian_clauses: [],
+            variants: [],
+            action_results: [
+                {
+                    name: 'test',
+                    result_type: 'Result',
+                },
+            ],
+        }
+        const abi = ABI.from(raw)
+        const encoded = Serializer.encode({object: abi})
+        const decoded = Serializer.decode({data: encoded, type: ABI})
+        assert.isTrue(abi.equals(decoded))
+        assert.lengthOf(decoded.action_results, 1)
+        assert.isTrue(Name.from(decoded.action_results[0].name).equals('test'))
+        assert.equal(decoded.action_results[0].result_type, 'Result')
     })
 })
