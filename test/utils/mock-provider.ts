@@ -6,7 +6,7 @@ import {readFile as _readFile, writeFile as _writeFile} from 'fs'
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
 
-import {APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
+import {APIMethods, APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 
 export class MockProvider implements APIProvider {
     recordProvider = new FetchProvider(this.api, {fetch})
@@ -31,8 +31,8 @@ export class MockProvider implements APIProvider {
         }
     }
 
-    async call(path: string, params?: unknown) {
-        const filename = this.getFilename(path, params)
+    async call(args: {path: string; params?: unknown; method?: APIMethods}) {
+        const filename = this.getFilename(args.path, args.params)
         if (process.env['MOCK_RECORD'] !== 'overwrite') {
             const existing = await this.getExisting(filename)
             if (existing) {
@@ -40,7 +40,7 @@ export class MockProvider implements APIProvider {
             }
         }
         if (process.env['MOCK_RECORD']) {
-            const response = await this.recordProvider.call(path, params)
+            const response = await this.recordProvider.call(args)
             const json = JSON.stringify(
                 {
                     api: this.api,
@@ -52,7 +52,7 @@ export class MockProvider implements APIProvider {
             await writeFile(filename, json)
             return response
         } else {
-            throw new Error(`No data for ${path}`)
+            throw new Error(`No data for ${args.path}`)
         }
     }
 }
