@@ -136,7 +136,6 @@ export class ABI implements ABISerializableObject {
         if (decoder.canRead()) {
             const numActionResults = decoder.readVaruint32()
             for (let i = 0; i < numActionResults; i++) {
-                // const name = decoder.readString()
                 const name = Name.fromABI(decoder)
                 const result_type = decoder.readString()
                 action_results.push({name, result_type})
