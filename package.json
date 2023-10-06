@@ -1,7 +1,7 @@
 {
     "name": "@wharfkit/antelope",
     "description": "Library for working with Antelope powered blockchains.",
-    "version": "0.10.1-rc1",
+    "version": "0.10.0",
     "homepage": "https://github.com/wharfkit/antelope",
     "license": "BSD-3-Clause-No-Military-License",
     "main": "lib/antelope.js",
