@@ -1,0 +1,21 @@
+{
+    "api": "https://jungle4.api.eosnation.io",
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "326",
+        "content-type": "application/json",
+        "date": "Fri, 06 Oct 2023 18:22:28 GMT",
+        "server": "nginx/1.24.0"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "corecorecore",
+        "code_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "abi_hash": "093f6b637e7728741f99e410c7c0f0828fcd0a1511f425008fd81982fedb89aa",
+        "abi": "DmVvc2lvOjphYmkvMS4yAAIGUmVzdWx0AAECaWQGdWludDMyBHRlc3QAAQtlb3NfYWNjb3VudARuYW1lAQAAAAAAkLHKBHRlc3QAAAAAAAABAAAAAACQscoGUmVzdWx0="
+    },
+    "text": "{\"account_name\":\"corecorecore\",\"code_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"abi_hash\":\"093f6b637e7728741f99e410c7c0f0828fcd0a1511f425008fd81982fedb89aa\",\"abi\":\"DmVvc2lvOjphYmkvMS4yAAIGUmVzdWx0AAECaWQGdWludDMyBHRlc3QAAQtlb3NfYWNjb3VudARuYW1lAQAAAAAAkLHKBHRlc3QAAAAAAAABAAAAAACQscoGUmVzdWx0=\"}"
+}

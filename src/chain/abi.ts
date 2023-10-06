@@ -24,6 +24,8 @@ export class ABI implements ABISerializableObject {
     tables: ABI.Table[]
     /// Ricardian contracts.
     ricardian_clauses: ABI.Clause[]
+    /// Action Results
+    action_results: ABI.ActionResult[]
 
     constructor(args: Partial<ABI.Def>) {
         this.version = args.version || ABI.version
@@ -33,6 +35,7 @@ export class ABI implements ABISerializableObject {
         this.actions = args.actions || []
         this.tables = args.tables || []
         this.ricardian_clauses = args.ricardian_clauses || []
+        this.action_results = args.action_results || []
     }
 
     static from(value: ABIDef) {
@@ -129,6 +132,15 @@ export class ABI implements ABISerializableObject {
                 variants.push({name, types})
             }
         }
+        const action_results: ABI.ActionResult[] = []
+        if (decoder.canRead()) {
+            const numActionResults = decoder.readVaruint32()
+            for (let i = 0; i < numActionResults; i++) {
+                const name = Name.fromABI(decoder)
+                const result_type = decoder.readString()
+                action_results.push({name, result_type})
+            }
+        }
         return new ABI({
             version,
             types,
@@ -137,6 +149,7 @@ export class ABI implements ABISerializableObject {
             tables,
             ricardian_clauses,
             variants,
+            action_results,
         })
     }
 
@@ -191,6 +204,11 @@ export class ABI implements ABISerializableObject {
             for (const type of variant.types) {
                 encoder.writeString(type)
             }
+        }
+        encoder.writeVaruint32(this.action_results.length)
+        for (const result of this.action_results) {
+            Name.from(result.name).toABI(encoder)
+            encoder.writeString(result.result_type)
         }
     }
 
@@ -272,7 +290,8 @@ export class ABI implements ABISerializableObject {
             this.actions.length != o.actions.length ||
             this.tables.length != o.tables.length ||
             this.ricardian_clauses.length != o.ricardian_clauses.length ||
-            this.variants.length != o.variants.length
+            this.variants.length != o.variants.length ||
+            this.action_results.length != o.action_results.length
         ) {
             return false
         }
@@ -290,6 +309,7 @@ export class ABI implements ABISerializableObject {
             error_messages: [],
             abi_extensions: [],
             variants: this.variants,
+            action_results: this.action_results,
         }
     }
 }
@@ -336,6 +356,11 @@ export namespace ABI {
         actions: Action[]
         tables: Table[]
         ricardian_clauses: Clause[]
+        action_results: ActionResult[]
+    }
+    export interface ActionResult {
+        name: NameType
+        result_type: string
     }
     export class ResolvedType {
         name: string
