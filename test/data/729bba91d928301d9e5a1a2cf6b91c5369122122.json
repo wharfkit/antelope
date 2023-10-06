@@ -1,0 +1,62 @@
+{
+    "api": "https://jungle4.api.eosnation.io",
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "445",
+        "content-type": "application/json",
+        "date": "Fri, 06 Oct 2023 18:22:28 GMT",
+        "server": "nginx/1.24.0"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "corecorecore",
+        "abi": {
+            "version": "eosio::abi/1.2",
+            "types": [],
+            "structs": [
+                {
+                    "name": "Result",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "test",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "eos_account",
+                            "type": "name"
+                        }
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "name": "test",
+                    "type": "test",
+                    "ricardian_contract": ""
+                }
+            ],
+            "tables": [],
+            "ricardian_clauses": [],
+            "error_messages": [],
+            "abi_extensions": [],
+            "variants": [],
+            "action_results": [
+                {
+                    "name": "test",
+                    "result_type": "Result"
+                }
+            ]
+        }
+    },
+    "text": "{\"account_name\":\"corecorecore\",\"abi\":{\"version\":\"eosio::abi/1.2\",\"types\":[],\"structs\":[{\"name\":\"Result\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint32\"}]},{\"name\":\"test\",\"base\":\"\",\"fields\":[{\"name\":\"eos_account\",\"type\":\"name\"}]}],\"actions\":[{\"name\":\"test\",\"type\":\"test\",\"ricardian_contract\":\"\"}],\"tables\":[],\"ricardian_clauses\":[],\"error_messages\":[],\"abi_extensions\":[],\"variants\":[],\"action_results\":[{\"name\":\"test\",\"result_type\":\"Result\"}]}}"
+}

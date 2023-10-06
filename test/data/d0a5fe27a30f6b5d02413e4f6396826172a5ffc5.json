@@ -1,0 +1,181 @@
+{
+    "api": "https://jungle4.api.eosnation.io",
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "3552",
+        "content-type": "application/json",
+        "date": "Fri, 06 Oct 2023 18:23:12 GMT",
+        "server": "nginx/1.24.0"
+    },
+    "status": 202,
+    "json": {
+        "transaction_id": "b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684",
+        "processed": {
+            "id": "b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684",
+            "block_num": 101720383,
+            "block_time": "2023-10-06T18:23:12.500",
+            "producer_block_id": null,
+            "receipt": {
+                "status": "executed",
+                "cpu_usage_us": 351,
+                "net_usage_words": 19
+            },
+            "elapsed": 351,
+            "net_usage": 152,
+            "scheduled": false,
+            "action_traces": [
+                {
+                    "action_ordinal": 1,
+                    "creator_action_ordinal": 0,
+                    "closest_unnotified_ancestor_action_ordinal": 0,
+                    "receipt": {
+                        "receiver": "eosio.token",
+                        "act_digest": "364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd",
+                        "global_sequence": 134833896,
+                        "recv_sequence": 4823138,
+                        "auth_sequence": [
+                            [
+                                "corecorecore",
+                                1167
+                            ]
+                        ],
+                        "code_sequence": 2,
+                        "abi_sequence": 2
+                    },
+                    "receiver": "eosio.token",
+                    "act": {
+                        "account": "eosio.token",
+                        "name": "transfer",
+                        "authorization": [
+                            {
+                                "actor": "corecorecore",
+                                "permission": "active"
+                            }
+                        ],
+                        "data": {
+                            "from": "corecorecore",
+                            "to": "teamgreymass",
+                            "quantity": "0.0042 EOS",
+                            "memo": "chain send_transaction2 (default)"
+                        },
+                        "hex_data": "a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429"
+                    },
+                    "context_free": false,
+                    "elapsed": 197,
+                    "console": "",
+                    "trx_id": "b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684",
+                    "block_num": 101720383,
+                    "block_time": "2023-10-06T18:23:12.500",
+                    "producer_block_id": null,
+                    "account_ram_deltas": [],
+                    "except": null,
+                    "error_code": null,
+                    "return_value_hex_data": ""
+                },
+                {
+                    "action_ordinal": 2,
+                    "creator_action_ordinal": 1,
+                    "closest_unnotified_ancestor_action_ordinal": 1,
+                    "receipt": {
+                        "receiver": "corecorecore",
+                        "act_digest": "364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd",
+                        "global_sequence": 134833897,
+                        "recv_sequence": 382,
+                        "auth_sequence": [
+                            [
+                                "corecorecore",
+                                1168
+                            ]
+                        ],
+                        "code_sequence": 2,
+                        "abi_sequence": 2
+                    },
+                    "receiver": "corecorecore",
+                    "act": {
+                        "account": "eosio.token",
+                        "name": "transfer",
+                        "authorization": [
+                            {
+                                "actor": "corecorecore",
+                                "permission": "active"
+                            }
+                        ],
+                        "data": {
+                            "from": "corecorecore",
+                            "to": "teamgreymass",
+                            "quantity": "0.0042 EOS",
+                            "memo": "chain send_transaction2 (default)"
+                        },
+                        "hex_data": "a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429"
+                    },
+                    "context_free": false,
+                    "elapsed": 2,
+                    "console": "",
+                    "trx_id": "b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684",
+                    "block_num": 101720383,
+                    "block_time": "2023-10-06T18:23:12.500",
+                    "producer_block_id": null,
+                    "account_ram_deltas": [],
+                    "except": null,
+                    "error_code": null,
+                    "return_value_hex_data": ""
+                },
+                {
+                    "action_ordinal": 3,
+                    "creator_action_ordinal": 1,
+                    "closest_unnotified_ancestor_action_ordinal": 1,
+                    "receipt": {
+                        "receiver": "teamgreymass",
+                        "act_digest": "364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd",
+                        "global_sequence": 134833898,
+                        "recv_sequence": 920,
+                        "auth_sequence": [
+                            [
+                                "corecorecore",
+                                1169
+                            ]
+                        ],
+                        "code_sequence": 2,
+                        "abi_sequence": 2
+                    },
+                    "receiver": "teamgreymass",
+                    "act": {
+                        "account": "eosio.token",
+                        "name": "transfer",
+                        "authorization": [
+                            {
+                                "actor": "corecorecore",
+                                "permission": "active"
+                            }
+                        ],
+                        "data": {
+                            "from": "corecorecore",
+                            "to": "teamgreymass",
+                            "quantity": "0.0042 EOS",
+                            "memo": "chain send_transaction2 (default)"
+                        },
+                        "hex_data": "a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429"
+                    },
+                    "context_free": false,
+                    "elapsed": 4,
+                    "console": "",
+                    "trx_id": "b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684",
+                    "block_num": 101720383,
+                    "block_time": "2023-10-06T18:23:12.500",
+                    "producer_block_id": null,
+                    "account_ram_deltas": [],
+                    "except": null,
+                    "error_code": null,
+                    "return_value_hex_data": ""
+                }
+            ],
+            "account_ram_delta": null,
+            "except": null,
+            "error_code": null
+        }
+    },
+    "text": "{\"transaction_id\":\"b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684\",\"processed\":{\"id\":\"b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684\",\"block_num\":101720383,\"block_time\":\"2023-10-06T18:23:12.500\",\"producer_block_id\":null,\"receipt\":{\"status\":\"executed\",\"cpu_usage_us\":351,\"net_usage_words\":19},\"elapsed\":351,\"net_usage\":152,\"scheduled\":false,\"action_traces\":[{\"action_ordinal\":1,\"creator_action_ordinal\":0,\"closest_unnotified_ancestor_action_ordinal\":0,\"receipt\":{\"receiver\":\"eosio.token\",\"act_digest\":\"364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd\",\"global_sequence\":134833896,\"recv_sequence\":4823138,\"auth_sequence\":[[\"corecorecore\",1167]],\"code_sequence\":2,\"abi_sequence\":2},\"receiver\":\"eosio.token\",\"act\":{\"account\":\"eosio.token\",\"name\":\"transfer\",\"authorization\":[{\"actor\":\"corecorecore\",\"permission\":\"active\"}],\"data\":{\"from\":\"corecorecore\",\"to\":\"teamgreymass\",\"quantity\":\"0.0042 EOS\",\"memo\":\"chain send_transaction2 (default)\"},\"hex_data\":\"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429\"},\"context_free\":false,\"elapsed\":197,\"console\":\"\",\"trx_id\":\"b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684\",\"block_num\":101720383,\"block_time\":\"2023-10-06T18:23:12.500\",\"producer_block_id\":null,\"account_ram_deltas\":[],\"except\":null,\"error_code\":null,\"return_value_hex_data\":\"\"},{\"action_ordinal\":2,\"creator_action_ordinal\":1,\"closest_unnotified_ancestor_action_ordinal\":1,\"receipt\":{\"receiver\":\"corecorecore\",\"act_digest\":\"364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd\",\"global_sequence\":134833897,\"recv_sequence\":382,\"auth_sequence\":[[\"corecorecore\",1168]],\"code_sequence\":2,\"abi_sequence\":2},\"receiver\":\"corecorecore\",\"act\":{\"account\":\"eosio.token\",\"name\":\"transfer\",\"authorization\":[{\"actor\":\"corecorecore\",\"permission\":\"active\"}],\"data\":{\"from\":\"corecorecore\",\"to\":\"teamgreymass\",\"quantity\":\"0.0042 EOS\",\"memo\":\"chain send_transaction2 (default)\"},\"hex_data\":\"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429\"},\"context_free\":false,\"elapsed\":2,\"console\":\"\",\"trx_id\":\"b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684\",\"block_num\":101720383,\"block_time\":\"2023-10-06T18:23:12.500\",\"producer_block_id\":null,\"account_ram_deltas\":[],\"except\":null,\"error_code\":null,\"return_value_hex_data\":\"\"},{\"action_ordinal\":3,\"creator_action_ordinal\":1,\"closest_unnotified_ancestor_action_ordinal\":1,\"receipt\":{\"receiver\":\"teamgreymass\",\"act_digest\":\"364b0a1cbc154deb653c1f17cf9af26de639ef4f78307f00d7214409375c84bd\",\"global_sequence\":134833898,\"recv_sequence\":920,\"auth_sequence\":[[\"corecorecore\",1169]],\"code_sequence\":2,\"abi_sequence\":2},\"receiver\":\"teamgreymass\",\"act\":{\"account\":\"eosio.token\",\"name\":\"transfer\",\"authorization\":[{\"actor\":\"corecorecore\",\"permission\":\"active\"}],\"data\":{\"from\":\"corecorecore\",\"to\":\"teamgreymass\",\"quantity\":\"0.0042 EOS\",\"memo\":\"chain send_transaction2 (default)\"},\"hex_data\":\"a02e45ea52a42e4580b1915e5d268dca2a0000000000000004454f530000000021636861696e2073656e645f7472616e73616374696f6e32202864656661756c7429\"},\"context_free\":false,\"elapsed\":4,\"console\":\"\",\"trx_id\":\"b202761d0bbd1600b96d2f5fd50f04f4e0b4e7217424304a512e58dc24093684\",\"block_num\":101720383,\"block_time\":\"2023-10-06T18:23:12.500\",\"producer_block_id\":null,\"account_ram_deltas\":[],\"except\":null,\"error_code\":null,\"return_value_hex_data\":\"\"}],\"account_ram_delta\":null,\"except\":null,\"error_code\":null}}"
+}
