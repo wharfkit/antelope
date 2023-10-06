@@ -2,6 +2,7 @@ import {assert} from 'chai'
 
 import {MockProvider} from './utils/mock-provider'
 import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
+import fetch from 'node-fetch'
 
 import {
     ABI,
@@ -16,6 +17,7 @@ import {
     Bytes,
     Checksum256,
     CompressionType,
+    FetchProvider,
     Float64,
     Name,
     PackedTransaction,
@@ -762,5 +764,98 @@ suite('api v1', function () {
             '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
         )
         assert.equal(res.state, 'UNKNOWN')
+    })
+
+    test('chain set_abi w/ action results', async function () {
+        const raw = {
+            ____comment: 'This file was generated with eosio-abigen. DO NOT EDIT ',
+            version: 'eosio::abi/1.2',
+            types: [],
+            structs: [
+                {
+                    name: 'Result',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'id',
+                            type: 'uint32',
+                        },
+                    ],
+                },
+                {
+                    name: 'test',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'eos_account',
+                            type: 'name',
+                        },
+                    ],
+                },
+            ],
+            actions: [
+                {
+                    name: 'test',
+                    type: 'test',
+                    ricardian_contract: '',
+                },
+            ],
+            tables: [],
+            ricardian_clauses: [],
+            variants: [],
+            action_results: [
+                {
+                    name: 'test',
+                    result_type: 'Result',
+                },
+            ],
+        }
+        const info = await jungle4.v1.chain.get_info()
+        const header = info.getTransactionHeader()
+        const untypedAction: AnyAction = {
+            authorization: [
+                {
+                    actor: 'corecorecore',
+                    permission: 'active',
+                },
+            ],
+            account: 'eosio',
+            name: 'setabi',
+            data: {
+                abi: Serializer.encode({object: ABI.from(raw)}),
+                account: 'corecorecore',
+            },
+        }
+        const {abi} = await jungle4.v1.chain.get_abi(untypedAction.account)
+        if (!abi) {
+            throw new Error(`No ABI for ${untypedAction.account}`)
+        }
+        const action = Action.from(untypedAction, abi)
+        const transaction = Transaction.from({
+            ...header,
+            actions: [action],
+        })
+        const privateKey = PrivateKey.from('5JW71y3njNNVf9fiGaufq8Up5XiGk68jZ5tYhKpy69yyU9cr7n9')
+        const signature = privateKey.signDigest(transaction.signingDigest(info.chain_id))
+        const signedTransaction = SignedTransaction.from({
+            ...transaction,
+            signatures: [signature],
+        })
+        const result = await jungle4.v1.chain.push_transaction(signedTransaction)
+        assert.equal(result.transaction_id, transaction.id.hexString)
+
+        const returned1 = await jungle4.v1.chain.get_abi('corecorecore')
+        if (returned1 && returned1.abi) {
+            const abi1 = ABI.from(returned1.abi)
+            assert.instanceOf(abi1, ABI)
+            assert.equal(abi1.action_results.length, 1)
+        }
+
+        const returned2 = await jungle4.v1.chain.get_raw_abi('corecorecore')
+        if (returned2 && returned2.abi) {
+            const abi1 = ABI.from(returned2.abi)
+            assert.instanceOf(abi1, ABI)
+            assert.equal(abi1.action_results.length, 1)
+        }
     })
 })
