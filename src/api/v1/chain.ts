@@ -67,11 +67,11 @@ export class ChainAPI {
         })
     }
 
-    async get_account(accountName: NameType) {
+    async get_account(accountName: NameType, responseType = AccountObject) {
         return this.client.call({
             path: '/v1/chain/get_account',
             params: {account_name: Name.from(accountName)},
-            responseType: AccountObject,
+            responseType: responseType,
         })
     }
 
