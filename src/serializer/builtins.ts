@@ -10,6 +10,7 @@ import {
     Checksum256,
     Checksum512,
     ExtendedAsset,
+    ExtendedSymbol,
     Float128,
     Float32,
     Float64,
@@ -74,6 +75,10 @@ export interface BuiltinTypes {
     'extended_asset?'?: ExtendedAsset
     'extended_asset[]': ExtendedAsset[]
     'extended_asset[]?'?: ExtendedAsset[]
+    extended_symbol: ExtendedSymbol
+    'extended_symbol?'?: ExtendedSymbol
+    'extended_symbol[]': ExtendedSymbol[]
+    'extended_symbol[]?'?: ExtendedSymbol[]
     bytes: Bytes
     'bytes?'?: Bytes
     'bytes[]': Bytes[]
@@ -199,6 +204,7 @@ function getBuiltins(): ABISerializableConstructor[] {
         Checksum256,
         Checksum512,
         ExtendedAsset,
+        ExtendedSymbol,
         Float128,
         Float32,
         Float64,

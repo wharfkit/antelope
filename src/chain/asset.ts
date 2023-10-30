@@ -290,6 +290,46 @@ export class ExtendedAsset implements ABISerializableObject {
     }
 }
 
+export type ExtendedSymbolType = ExtendedSymbol | {sym: Asset.SymbolType; contract: NameType}
+export class ExtendedSymbol implements ABISerializableObject {
+    static abiName = 'extended_symbol'
+
+    static from(value: ExtendedSymbolType) {
+        if (isInstanceOf(value, ExtendedSymbol)) {
+            return value
+        }
+        return new this(Asset.Symbol.from(value.sym), Name.from(value.contract))
+    }
+
+    static fromABI(decoder: ABIDecoder) {
+        return new ExtendedSymbol(Asset.Symbol.fromABI(decoder), Name.fromABI(decoder))
+    }
+
+    sym: Asset.Symbol
+    contract: Name
+
+    constructor(sym: Asset.Symbol, contract: Name) {
+        this.sym = sym
+        this.contract = contract
+    }
+
+    equals(other: ExtendedSymbolType) {
+        return this.sym.equals(other.sym) && this.contract.equals(other.contract)
+    }
+
+    toABI(encoder: ABIEncoder) {
+        this.sym.toABI(encoder)
+        this.contract.toABI(encoder)
+    }
+
+    toJSON() {
+        return {
+            sym: this.sym,
+            contract: this.contract,
+        }
+    }
+}
+
 function toSymbolPrecision(rawSymbol: UInt64) {
     return rawSymbol.value.and(UInt64.from(0xff).value).toNumber()
 }

@@ -54,6 +54,7 @@
                 {"name": "symbol_code", "type": "symbol_code"},
                 {"name": "asset", "type": "asset"},
                 {"name": "extended_asset", "type": "extended_asset"},
+                {"name": "extended_symbol", "type": "extended_symbol"},
                 {"name": "alias1", "type": "alias1"},
                 {"name": "alias2", "type": "alias2"},
                 {"name": "alias3", "type": "alias3"},

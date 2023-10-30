@@ -818,6 +818,10 @@ suite('serializer', function () {
                 quantity: '3.1415926 PI',
                 contract: 'pi.token',
             },
+            extended_symbol: {
+                sym: '7,PI',
+                contract: 'pi.token',
+            },
             alias1: true,
             alias2: true,
             alias3: {
@@ -846,7 +850,8 @@ suite('serializer', function () {
                 'ffffffffff000223e0ae8aacb41b06dc74af1a56b2eb69133f07f7f75bd1d5e53316bff195edf400205150a67288c3b393' +
                 'fdba9061b05019c54b12bdac295fc83bebad7cd63c7bb67d5cb8cc220564da006240a58419f64d06a5c6e1fc62889816a6' +
                 'c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750' +
-                '49000000000000000053419a81ab0101010001020101000568656c6c6f0105776f726c6400'
+                '49000000000000000053419a81ab075049000000000000000053419a81ab0101010001020101000568656c6c6f0105776f' +
+                '726c6400'
         )
         const decoded = Serializer.decode({data, type: 'all_types', abi})
         assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)
