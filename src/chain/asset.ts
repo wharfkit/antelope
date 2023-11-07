@@ -116,7 +116,6 @@ export namespace Asset {
     export type SymbolType = Symbol | UInt64 | string
     export class Symbol implements ABISerializableObject {
         static abiName = 'symbol'
-        static symbolNamePattern = /^[A-Z]{0,7}$/
         static maxPrecision = 18
 
         static from(value: SymbolType) {
@@ -153,7 +152,7 @@ export namespace Asset {
             if (toSymbolPrecision(value) > Symbol.maxPrecision) {
                 throw new Error('Invalid asset symbol, precision too large')
             }
-            if (!Symbol.symbolNamePattern.test(toSymbolName(value))) {
+            if (!SymbolCode.pattern.test(toSymbolName(value))) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
@@ -207,6 +206,7 @@ export namespace Asset {
     export type SymbolCodeType = SymbolCode | UInt64 | string | number
     export class SymbolCode implements ABISerializableObject {
         static abiName = 'symbol_code'
+        static pattern = /^[A-Z]{0,7}$/
 
         static from(value: SymbolCodeType) {
             if (isInstanceOf(value, SymbolCode)) {
@@ -229,6 +229,9 @@ export namespace Asset {
         value: UInt64
 
         constructor(value: UInt64) {
+            if (!SymbolCode.pattern.test(toSymbolName(value))) {
+                throw new Error('Invalid asset symbol, name must be uppercase A-Z')
+            }
             this.value = value
         }
 
