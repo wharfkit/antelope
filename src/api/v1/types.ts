@@ -235,7 +235,7 @@ export class TrxVariant implements ABISerializableObject {
         if (this.extra.packed_trx) {
             switch (this.extra.compression) {
                 case 'zlib': {
-                    const inflated = pako.inflate(Buffer.from(this.extra.packed_trx, 'hex'))
+                    const inflated = pako.inflate(Uint8Array.from(this.extra.packed_trx))
                     return Serializer.decode({data: inflated, type: Transaction})
                 }
                 case 'none': {
