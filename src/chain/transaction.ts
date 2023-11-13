@@ -241,8 +241,8 @@ export class PackedTransaction extends Struct {
         switch (compression) {
             case CompressionType.zlib: {
                 // compress data
-                packed_trx = pako.deflate(Buffer.from(packed_trx.array))
-                packed_context_free_data = pako.deflate(Buffer.from(packed_context_free_data.array))
+                packed_trx = pako.deflate(packed_trx.array)
+                packed_context_free_data = pako.deflate(packed_context_free_data.array)
                 break
             }
             case CompressionType.none: {
@@ -265,7 +265,7 @@ export class PackedTransaction extends Struct {
             }
             // zlib compressed
             case CompressionType.zlib: {
-                const inflated = pako.inflate(Buffer.from(this.packed_trx.array))
+                const inflated = pako.inflate(this.packed_trx.array)
                 return abiDecode({data: inflated, type: Transaction})
             }
             default: {
