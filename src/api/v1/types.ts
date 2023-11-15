@@ -57,6 +57,8 @@ export class AccountResourceLimit extends Struct {
     @Struct.field('int64') declare used: Int64
     @Struct.field('int64') declare available: Int64
     @Struct.field('int64') declare max: Int64
+    @Struct.field('time_point', {optional: true}) declare last_usage_update_time: TimePoint
+    @Struct.field('int64', {optional: true}) declare current_used: Int64
 }
 
 @Struct.type('account_total_resources')
@@ -152,6 +154,8 @@ export class AccountObject extends Struct {
     @Struct.field('int64') declare cpu_weight: Int64
     @Struct.field(AccountResourceLimit) declare net_limit: AccountResourceLimit
     @Struct.field(AccountResourceLimit) declare cpu_limit: AccountResourceLimit
+    @Struct.field(AccountResourceLimit, {optional: true})
+    declare subjective_cpu_bill_limit: AccountResourceLimit
     @Struct.field('uint64') declare ram_usage: UInt64
     @Struct.field(AccountPermission, {array: true}) declare permissions: AccountPermission[]
     @Struct.field(AccountTotalResources, {optional: true})
