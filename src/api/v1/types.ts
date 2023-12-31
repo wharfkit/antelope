@@ -297,6 +297,22 @@ export class GetBlockResponse extends Struct {
     @Struct.field('uint32') declare ref_block_prefix: UInt32
 }
 
+@Struct.type('get_block_response')
+export class GetBlockInfoResponse extends Struct {
+    @Struct.field('uint32') declare block_num: UInt32
+    @Struct.field('uint32') declare ref_block_num: UInt16
+    @Struct.field(BlockId) declare id: BlockId
+    @Struct.field('time_point') declare timestamp: TimePoint
+    @Struct.field('name') declare producer: Name
+    @Struct.field('uint16') declare confirmed: UInt16
+    @Struct.field(BlockId) declare previous: BlockId
+    @Struct.field('checksum256') declare transaction_mroot: Checksum256
+    @Struct.field('checksum256') declare action_mroot: Checksum256
+    @Struct.field('uint32') declare schedule_version: UInt32
+    @Struct.field('signature') declare producer_signature: Signature
+    @Struct.field('uint32') declare ref_block_prefix: UInt32
+}
+
 @Struct.type('active_schedule_producer_authority')
 export class ActiveScheduleProducerAuthority extends Struct {
     @Struct.field('name') declare producer_name: Name

@@ -25,6 +25,7 @@ import {
     GetAbiResponse,
     GetAccountsByAuthorizersParams,
     GetBlockHeaderStateResponse,
+    GetBlockInfoResponse,
     GetBlockResponse,
     GetInfoResponse,
     GetProducerScheduleResponse,
@@ -104,6 +105,14 @@ export class ChainAPI {
             path: '/v1/chain/get_block_header_state',
             params: {block_num_or_id},
             responseType: GetBlockHeaderStateResponse,
+        })
+    }
+
+    async get_block_info(block_num: UInt32Type) {
+        return this.client.call({
+            path: '/v1/chain/get_block_info',
+            params: {block_num},
+            responseType: GetBlockInfoResponse,
         })
     }
 
