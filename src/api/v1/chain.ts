@@ -27,6 +27,8 @@ import {
     GetBlockHeaderStateResponse,
     GetBlockInfoResponse,
     GetBlockResponse,
+    GetCurrencyStatsItemResponse,
+    GetCurrencyStatsResponse,
     GetInfoResponse,
     GetProducerScheduleResponse,
     GetProtocolFeaturesParams,
@@ -129,6 +131,25 @@ export class ChainAPI {
             params,
             responseType: 'asset[]',
         })
+    }
+
+    async get_currency_stats(
+        contract: NameType,
+        symbol: string
+    ): Promise<GetCurrencyStatsResponse> {
+        const params: any = {
+            code: Name.from(contract),
+            symbol,
+        }
+        const response: GetCurrencyStatsResponse = await this.client.call({
+            path: '/v1/chain/get_currency_stats',
+            params,
+        })
+        const result: GetCurrencyStatsResponse = {}
+        Object.keys(response).forEach(
+            (r) => (result[r] = GetCurrencyStatsItemResponse.from(response[r]))
+        )
+        return result
     }
 
     async get_info() {

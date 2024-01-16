@@ -362,6 +362,13 @@ suite('api v1', function () {
         assert.equal(balances[0].value, 100360.068)
     })
 
+    test('chain get_currency_stats', async function () {
+        const stats = await jungle4.v1.chain.get_currency_stats('eosio.token', 'EOS')
+        assert.instanceOf(stats.EOS.supply, Asset)
+        assert.instanceOf(stats.EOS.max_supply, Asset)
+        assert.instanceOf(stats.EOS.issuer, Name)
+    })
+
     test('chain get_info', async function () {
         const info = await jungle.v1.chain.get_info()
         assert.equal(

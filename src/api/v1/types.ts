@@ -641,6 +641,17 @@ export class GetControlledAccountsResponse extends Struct {
     @Struct.field('name', {array: true}) declare controlled_accounts: Name[]
 }
 
+export interface GetCurrencyStatsResponse {
+    [key: string]: GetCurrencyStatsItemResponse
+}
+
+@Struct.type('get_currency_stats_item_response')
+export class GetCurrencyStatsItemResponse extends Struct {
+    @Struct.field('asset') declare supply: Asset
+    @Struct.field('asset') declare max_supply: Asset
+    @Struct.field('name') declare issuer: Name
+}
+
 @Struct.type('get_transaction_status_response')
 export class GetTransactionStatusResponse extends Struct {
     @Struct.field('string') declare state: string
