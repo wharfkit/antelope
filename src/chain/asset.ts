@@ -126,8 +126,11 @@ export namespace Asset {
                 return new Symbol(value)
             }
             const parts = value.split(',')
-            if (parts.length !== 2) {
+            if (parts.length !== 2 && value !== '0,') {
                 throw new Error('Invalid symbol string')
+            }
+            if (value === '0,') {
+                parts.push("")
             }
             const precision = Number.parseInt(parts[0])
             return Symbol.fromParts(parts[1], precision)
