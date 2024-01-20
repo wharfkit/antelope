@@ -155,7 +155,7 @@ export namespace Asset {
             if (toSymbolPrecision(value) > Symbol.maxPrecision) {
                 throw new Error('Invalid asset symbol, precision too large')
             }
-            if (value !== UInt64.from(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
+            if (!value.equals(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
@@ -232,7 +232,7 @@ export namespace Asset {
         value: UInt64
 
         constructor(value: UInt64) {
-            if (value !== UInt64.from(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
+            if (!value.equals(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
