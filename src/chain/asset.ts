@@ -126,8 +126,11 @@ export namespace Asset {
                 return new Symbol(value)
             }
             const parts = value.split(',')
-            if (parts.length !== 2) {
+            if (parts.length !== 2 && value !== '0,') {
                 throw new Error('Invalid symbol string')
+            }
+            if (value === '0,') {
+                parts.push("")
             }
             const precision = Number.parseInt(parts[0])
             return Symbol.fromParts(parts[1], precision)
@@ -152,7 +155,7 @@ export namespace Asset {
             if (toSymbolPrecision(value) > Symbol.maxPrecision) {
                 throw new Error('Invalid asset symbol, precision too large')
             }
-            if (!SymbolCode.pattern.test(toSymbolName(value))) {
+            if (value !== UInt64.from(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
@@ -229,7 +232,7 @@ export namespace Asset {
         value: UInt64
 
         constructor(value: UInt64) {
-            if (!SymbolCode.pattern.test(toSymbolName(value))) {
+            if (value !== UInt64.from(0) && !SymbolCode.pattern.test(toSymbolName(value))) {
                 throw new Error('Invalid asset symbol, name must be uppercase A-Z')
             }
             this.value = value
