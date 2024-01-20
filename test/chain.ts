@@ -55,11 +55,14 @@ suite('chain', function () {
         assert.equal(symbol.precision, '10')
         assert.equal(Asset.Symbol.from(symbol.value).toString(), symbol.toString())
 
+        assert.throws(() => Asset.Symbol.from('0,0'))
+
         const nft_symbol = Asset.Symbol.from(Asset.Symbol.from('0,'))
         assert.equal(nft_symbol.name, '')
-        assert.equal(nft_symbol.precision, '0')
-        assert.equal(Asset.Symbol.from(nft_symbol.value).toString(), nft_symbol.toString())
+        assert.equal(nft_symbol.precision, 0)
         assert.equal(nft_symbol.value, 0)
+        assert.isTrue(nft_symbol.code.value.equals(0))
+        assert.equal(Asset.Symbol.from(nft_symbol).toString(), nft_symbol.toString())
 
         // test null asset
         asset = Asset.from('0 ')
