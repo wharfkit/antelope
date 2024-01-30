@@ -52,9 +52,16 @@ export class FetchProvider implements APIProvider {
 
     async call(args: {path: string; params?: unknown; method?: APIMethods}) {
         const url = this.url + args.path
+
+        const reqBody = args.params !== undefined ? JSON.stringify(args.params) : undefined
+        const reqHeaders = {}
+        if (reqBody) {
+            reqHeaders['Content-Type'] = 'application/json'
+        }
         const response = await this.fetch(url, {
             method: args.method || 'POST',
-            body: args.params !== undefined ? JSON.stringify(args.params) : undefined,
+            body: reqBody,
+            headers: reqHeaders,
         })
         const text = await response.text()
         let json: any
