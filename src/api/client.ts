@@ -118,19 +118,28 @@ export class APIClient {
         method?: APIMethods
         path: string
         params?: unknown
+        headers?: Record<string, string>
         responseType: T
     }): Promise<InstanceType<T>>
     async call<T extends keyof BuiltinTypes>(args: {
         method?: APIMethods
         path: string
         params?: unknown
+        headers?: Record<string, string>
         responseType: T
     }): Promise<BuiltinTypes[T]>
-    async call<T = unknown>(args: {method?: APIMethods; path: string; params?: unknown}): Promise<T>
+    async call<T = unknown>(args: {
+        method?: APIMethods
+        path: string
+        params?: unknown
+        headers?: Record<string, string>
+    }): Promise<T>
+
     async call(args: {
         method?: APIMethods
         path: string
         params?: unknown
+        headers?: Record<string, string>
         responseType?: ABISerializableType
     }) {
         const response = await this.provider.call(args)
