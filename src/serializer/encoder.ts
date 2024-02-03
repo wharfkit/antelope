@@ -179,7 +179,11 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
             if (type.isExtension) {
                 return
             }
-            throw new Error(`Found ${value} for non-optional type: ${type.typeName}`)
+            throw new Error(
+                `Found ${value} for non-optional type: ${type.typeName} (${ctx.codingPath
+                    .map((path) => path.field)
+                    .join('.')})`
+            )
         }
         if (abiType && abiType.toABI) {
             // type explicitly handles encoding

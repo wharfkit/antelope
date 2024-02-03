@@ -245,7 +245,11 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
                 return null
             }
         }
-        throw new Error(`Unexpectedly encountered ${value} for non-optional`)
+        throw new Error(
+            `Unexpectedly encountered ${value} for non-optional (${ctx.codingPath
+                .map((path) => path.field)
+                .join('.')})`
+        )
     } else if (type.isArray) {
         if (!Array.isArray(value)) {
             throw new Error('Expected array')
