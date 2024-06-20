@@ -80,12 +80,7 @@ export class Asset implements ABISerializableObject {
         this.units = this.symbol.convertFloat(newValue)
     }
 
-    toABI(encoder: ABIEncoder) {
-        this.units.toABI(encoder)
-        this.symbol.toABI(encoder)
-    }
-
-    toString() {
+    get quantity(): string {
         const digits = this.units.toString().split('')
         let negative = false
         if (digits[0] === '-') {
@@ -103,7 +98,16 @@ export class Asset implements ABISerializableObject {
         if (negative) {
             rv = '-' + rv
         }
-        return rv + ' ' + this.symbol.name
+        return rv
+    }
+
+    toABI(encoder: ABIEncoder) {
+        this.units.toABI(encoder)
+        this.symbol.toABI(encoder)
+    }
+
+    toString() {
+        return this.quantity + ' ' + this.symbol.name
     }
 
     toJSON() {
