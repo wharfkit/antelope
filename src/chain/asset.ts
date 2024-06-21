@@ -62,6 +62,26 @@ export class Asset implements ABISerializableObject {
         return new this(Int64.from(0), Asset.Symbol.abiDefault())
     }
 
+    static formatUnits(units: Int64Type, precision: number) {
+        const digits = Int64.from(units).toString().split('')
+        let negative = false
+        if (digits[0] === '-') {
+            negative = true
+            digits.shift()
+        }
+        while (digits.length <= precision) {
+            digits.unshift('0')
+        }
+        if (precision > 0) {
+            digits.splice(digits.length - precision, 0, '.')
+        }
+        let rv = digits.join('')
+        if (negative) {
+            rv = '-' + rv
+        }
+        return rv
+    }
+
     constructor(units: Int64, symbol: Asset.Symbol) {
         this.units = units
         this.symbol = symbol
@@ -81,24 +101,7 @@ export class Asset implements ABISerializableObject {
     }
 
     get quantity(): string {
-        const digits = this.units.toString().split('')
-        let negative = false
-        if (digits[0] === '-') {
-            negative = true
-            digits.shift()
-        }
-        const p = this.symbol.precision
-        while (digits.length <= p) {
-            digits.unshift('0')
-        }
-        if (p > 0) {
-            digits.splice(digits.length - p, 0, '.')
-        }
-        let rv = digits.join('')
-        if (negative) {
-            rv = '-' + rv
-        }
-        return rv
+        return Asset.formatUnits(this.units, this.symbol.precision)
     }
 
     toABI(encoder: ABIEncoder) {
