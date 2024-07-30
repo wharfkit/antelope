@@ -189,7 +189,7 @@ suite('serializer', function () {
         const decoded = Serializer.decode({data: encoded, type: Test})
         assert.equal(
             JSON.stringify(decoded),
-            '{"foo":"bar","things":["a","b","c"],"keys":null,"other":{"doeet":true}}'
+            '{"foo":"bar","things":["a","b","c"],"other":{"doeet":true}}'
         )
     })
 
@@ -769,7 +769,6 @@ suite('serializer', function () {
                 things: ['do_you_even', 2],
                 self: {
                     things: ['do_you_even', '-170141183460469231731687303715884105727'],
-                    self: null,
                 },
             },
         })
@@ -912,7 +911,6 @@ suite('serializer', function () {
         assert.deepEqual(JSON.parse(JSON.stringify(decoded)), {
             foo: 'hello',
             bar: [1, 'two', false],
-            baz: null,
             account: 'foobar1234',
         })
         const abi = Serializer.synthesize(MyStruct)
@@ -1137,7 +1135,7 @@ suite('serializer', function () {
         assert.equal(res1.asset.toString(), '0.0000 SYS')
         assert.equal(res1.superInt.toNumber(), 42)
         assert.equal(res1.jazz.value, 42)
-        assert.strictEqual(res1.maybeJazz, null)
+        assert.notProperty(res1, 'maybeJazz')
         assert.strictEqual(res1.dumbBool, null)
         assert.strictEqual(res1.bool, false)
         const res2 = Serializer.decode({
@@ -1181,7 +1179,6 @@ suite('serializer', function () {
             strictExtensions: true,
         }) as any
         assert.strictEqual(res5.bool, true)
-
         abi.structs[1].fields[1].type = 'many_extensions$'
         assert.throws(() => {
             Serializer.decode({
@@ -1191,6 +1188,38 @@ suite('serializer', function () {
                 strictExtensions: true,
             })
         }, /Circular type reference/)
+    })
+
+    test('optional shouldnt return null', function () {
+        @Struct.type('permission_level')
+        class permission_level extends Struct {
+            @Struct.field(Name)
+            actor!: Name
+            @Struct.field(Name)
+            permission!: Name
+        }
+
+        @Struct.type('approve')
+        class approve extends Struct {
+            @Struct.field(Name)
+            proposer!: Name
+            @Struct.field(Name)
+            proposal_name!: Name
+            @Struct.field(permission_level)
+            level!: permission_level
+            @Struct.field(Checksum256, {optional: true})
+            proposal_hash?: Checksum256
+        }
+        const res1 = Serializer.decode({
+            object: {
+                proposer: 'foo',
+                proposal_name: 'bar',
+                level: {actor: 'foo', permission: 'bar'},
+            },
+            type: approve,
+            strictExtensions: true,
+        })
+        assert.notProperty(Serializer.objectify(res1), 'proposal_hash')
     })
 
     test('action_results', function () {
