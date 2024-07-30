@@ -1136,7 +1136,7 @@ suite('serializer', function () {
         assert.equal(res1.superInt.toNumber(), 42)
         assert.equal(res1.jazz.value, 42)
         assert.notProperty(res1, 'maybeJazz')
-        assert.strictEqual(res1.dumbBool, null)
+        assert.notProperty(res1, 'dumbBool')
         assert.strictEqual(res1.bool, false)
         const res2 = Serializer.decode({
             object: {name: 'foo'},
