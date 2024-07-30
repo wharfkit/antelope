@@ -7,6 +7,7 @@ import {
 import {abiDecode, Resolved} from '../serializer/decoder'
 import {abiEncode} from '../serializer/encoder'
 import {isInstanceOf} from '../utils'
+import {ABI} from './abi'
 
 export interface StructConstructor extends ABISerializableConstructor {
     new <T extends Struct>(...args: any[]): T
@@ -49,8 +50,12 @@ export class Struct implements ABISerializableObject {
     constructor(object: any) {
         const self = this.constructor as typeof Struct
         for (const field of self.structFields) {
+            const isOptional =
+                typeof field.type === 'string'
+                    ? new ABI.ResolvedType(String(field.type)).isOptional
+                    : field.optional
             const value = object[field.name]
-            if (field.optional && !value) continue
+            if (isOptional && !value) continue
             this[field.name] = value
         }
     }
