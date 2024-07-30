@@ -106,6 +106,26 @@ export class Int implements ABISerializableObject {
         })
     }
 
+    /** Compare `lhs` to `rhs` and return true if `lhs` is greater than `rhs`. */
+    static gt(lhs: Int, rhs: Int) {
+        return lhs.value.gt(rhs.value)
+    }
+
+    /** Compare `lhs` to `rhs` and return true if `lhs` is less than `rhs`. */
+    static lt(lhs: Int, rhs: Int) {
+        return lhs.value.lt(rhs.value)
+    }
+
+    /** Compare `lhs` to `rhs` and return true if `lhs` is greater than or equal to `rhs`. */
+    static gte(lhs: Int, rhs: Int) {
+        return lhs.value.gte(rhs.value)
+    }
+
+    /** Compare `lhs` to `rhs` and return true if `lhs` is less than or equal to `rhs`. */
+    static lte(lhs: Int, rhs: Int) {
+        return lhs.value.lte(rhs.value)
+    }
+
     /**
      * Can be used to implement custom operator.
      * @internal
@@ -304,6 +324,26 @@ export class Int implements ABISerializableObject {
                 break
         }
         return this.operator(by, op)
+    }
+
+    /** Greater than comparision operator */
+    gt(other: Int) {
+        return Int.gt(this, other)
+    }
+
+    /** Less than comparision operator */
+    lt(other: Int) {
+        return Int.lt(this, other)
+    }
+
+    /** Greater than or equal comparision operator */
+    gte(other: Int) {
+        return Int.gte(this, other)
+    }
+
+    /** Less than or equal comparision operator */
+    lte(other: Int) {
+        return Int.lte(this, other)
     }
 
     /**

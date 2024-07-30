@@ -135,6 +135,36 @@ suite('integer', function () {
         }, /Division by zero/)
     })
 
+    test('greater than', function () {
+        assert.isTrue(Int8.from(10).gt(Int8.from(5)))
+        assert.isTrue(Int64.from(10).gt(Int8.from(5)))
+        assert.isTrue(Int8.from(10).gt(Int64.from(5)))
+    })
+
+    test('less than', function () {
+        assert.isTrue(Int8.from(5).lt(Int8.from(10)))
+        assert.isTrue(Int64.from(5).lt(Int8.from(10)))
+        assert.isTrue(Int8.from(5).lt(Int64.from(10)))
+    })
+
+    test('greater than or equal', function () {
+        assert.isTrue(Int8.from(10).gte(Int8.from(5)))
+        assert.isTrue(Int64.from(10).gte(Int8.from(5)))
+        assert.isTrue(Int8.from(10).gte(Int64.from(5)))
+        assert.isTrue(Int8.from(10).gte(Int8.from(10)))
+        assert.isTrue(Int64.from(10).gte(Int8.from(10)))
+        assert.isTrue(Int8.from(10).gte(Int64.from(10)))
+    })
+
+    test('less than or equal', function () {
+        assert.isTrue(Int8.from(5).lte(Int8.from(10)))
+        assert.isTrue(Int64.from(5).lte(Int8.from(10)))
+        assert.isTrue(Int8.from(5).lte(Int64.from(10)))
+        assert.isTrue(Int8.from(10).lte(Int8.from(10)))
+        assert.isTrue(Int64.from(10).lte(Int8.from(10)))
+        assert.isTrue(Int8.from(10).lte(Int64.from(10)))
+    })
+
     test('to primitive', function () {
         const smallValue = UInt64.from('1459536')
         assert.equal(String(smallValue), '1459536')
