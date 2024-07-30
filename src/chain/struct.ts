@@ -49,7 +49,9 @@ export class Struct implements ABISerializableObject {
     constructor(object: any) {
         const self = this.constructor as typeof Struct
         for (const field of self.structFields) {
-            this[field.name] = object[field.name]
+            const value = object[field.name]
+            if (field.optional && !value) continue
+            this[field.name] = value
         }
     }
 
@@ -76,6 +78,7 @@ export class Struct implements ABISerializableObject {
         const self = this.constructor as typeof Struct
         const rv: any = {}
         for (const field of self.structFields) {
+            if (field.optional && !this[field.name]) continue
             rv[field.name] = this[field.name]
         }
         return rv
