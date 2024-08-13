@@ -26,17 +26,25 @@ export interface FetchProviderOptions {
      * You can use the node-fetch package in Node.js.
      */
     fetch?: Fetch
+    /**
+     * Headers that will be applied to every request
+     * */
+    headers?: Record<string, string>
 }
 
 /** Default provider that uses the Fetch API to call a single node. */
 export class FetchProvider implements APIProvider {
     readonly url: string
     readonly fetch: Fetch
+    readonly headers: Record<string, string> = {}
 
     constructor(url: string, options: FetchProviderOptions = {}) {
         url = url.trim()
         if (url.endsWith('/')) url = url.slice(0, -1)
         this.url = url
+        if (options.headers) {
+            this.headers = options.headers
+        }
         if (!options.fetch) {
             if (typeof window !== 'undefined' && window.fetch) {
                 this.fetch = window.fetch.bind(window)
@@ -59,6 +67,7 @@ export class FetchProvider implements APIProvider {
         const url = this.url + args.path
         const reqBody = args.params !== undefined ? JSON.stringify(args.params) : undefined
         const reqHeaders = {
+            ...this.headers,
             ...args.headers,
         }
         const response = await this.fetch(url, {

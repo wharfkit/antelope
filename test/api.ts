@@ -82,6 +82,18 @@ suite('api v1', function () {
         assert.equal(postresponse.status, 200)
     })
 
+    test('FetchProvider headers', async function () {
+        const test = new APIClient({
+            provider: new MockProvider('https://wax.greymass.com', {
+                reqHeaders: {'X-Test': 'true'},
+            }),
+        })
+        const defaultresponse = await test.provider.call({
+            path: '/v1/chain/get_info',
+        })
+        assert.equal(defaultresponse.status, 200)
+    })
+
     test('chain get_abi', async function () {
         const response = await jungle4.v1.chain.get_abi('eosio.token')
         assert.equal(response.account_name, 'eosio.token')

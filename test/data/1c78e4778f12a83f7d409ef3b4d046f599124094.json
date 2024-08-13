@@ -1,0 +1,39 @@
+{
+    "api": "https://wax.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "979",
+        "content-type": "application/json",
+        "date": "Tue, 13 Aug 2024 16:01:33 GMT",
+        "host": "wax.greymass.com",
+        "server": "nginx",
+        "x-cached": "EXPIRED"
+    },
+    "status": 200,
+    "json": {
+        "server_version": "7aa24ce9",
+        "chain_id": "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4",
+        "head_block_num": 324182164,
+        "last_irreversible_block_num": 324181832,
+        "last_irreversible_block_id": "13529f480edc6cc69b01b72572bfb614e1e121a14ef536e712e2fa00f9c0c74c",
+        "head_block_id": "1352a094ee9232526f60b42f0d9819ca25e337a083b8f6d9752940e22afbfd23",
+        "head_block_time": "2024-08-13T16:01:33.500",
+        "head_block_producer": "guild.nefty",
+        "virtual_block_cpu_limit": 230457,
+        "virtual_block_net_limit": 1048576000,
+        "block_cpu_limit": 200000,
+        "block_net_limit": 1048576,
+        "server_version_string": "v5.0.0wax01",
+        "fork_db_head_block_num": 324182164,
+        "fork_db_head_block_id": "1352a094ee9232526f60b42f0d9819ca25e337a083b8f6d9752940e22afbfd23",
+        "server_full_version_string": "v5.0.0wax01-7aa24ce9d98c744564840e23833bdbf7ec00af33",
+        "total_cpu_weight": "46438068615642343",
+        "total_net_weight": "123948965555668578",
+        "earliest_available_block_num": 324008658,
+        "last_irreversible_block_time": "2024-08-13T15:58:47.500"
+    },
+    "text": "{\"server_version\":\"7aa24ce9\",\"chain_id\":\"1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4\",\"head_block_num\":324182164,\"last_irreversible_block_num\":324181832,\"last_irreversible_block_id\":\"13529f480edc6cc69b01b72572bfb614e1e121a14ef536e712e2fa00f9c0c74c\",\"head_block_id\":\"1352a094ee9232526f60b42f0d9819ca25e337a083b8f6d9752940e22afbfd23\",\"head_block_time\":\"2024-08-13T16:01:33.500\",\"head_block_producer\":\"guild.nefty\",\"virtual_block_cpu_limit\":230457,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v5.0.0wax01\",\"fork_db_head_block_num\":324182164,\"fork_db_head_block_id\":\"1352a094ee9232526f60b42f0d9819ca25e337a083b8f6d9752940e22afbfd23\",\"server_full_version_string\":\"v5.0.0wax01-7aa24ce9d98c744564840e23833bdbf7ec00af33\",\"total_cpu_weight\":\"46438068615642343\",\"total_net_weight\":\"123948965555668578\",\"earliest_available_block_num\":324008658,\"last_irreversible_block_time\":\"2024-08-13T15:58:47.500\"}"
+}

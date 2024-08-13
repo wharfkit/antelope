@@ -9,9 +9,9 @@ const writeFile = promisify(_writeFile)
 import {APIMethods, APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 
 export class MockProvider implements APIProvider {
-    recordProvider = new FetchProvider(this.api, {fetch})
+    recordProvider = new FetchProvider(this.api, {fetch, headers: this.reqHeaders})
 
-    constructor(private api: string = 'https://jungle4.greymass.com') {}
+    constructor(private api: string = 'https://jungle4.greymass.com', private reqHeaders = {}) {}
 
     getFilename(path: string, params?: unknown) {
         const digest = Checksum160.hash(
