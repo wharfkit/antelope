@@ -162,6 +162,11 @@ suite('api v1', function () {
         assert.equal(abi.version, 'eosio::abi/1.2')
     })
 
+    test('chain get_code', async function () {
+        const response = await jungle4.v1.chain.get_code('eosio.token')
+        assert.instanceOf(response, API.v1.GetCodeResponse)
+    })
+
     test('chain get_account', async function () {
         const account = await jungle.v1.chain.get_account('teamgreymass')
         assert.equal(String(account.account_name), 'teamgreymass')

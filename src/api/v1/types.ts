@@ -636,6 +636,15 @@ export class GetKeyAccountsResponse extends Struct {
     @Struct.field('name', {array: true}) declare account_names: Name[]
 }
 
+@Struct.type('get_code_response')
+export class GetCodeResponse extends Struct {
+    @Struct.field(ABI) declare abi: ABI.Def
+    @Struct.field('name') declare account_name: Name
+    @Struct.field('checksum256') declare code_hash: Checksum256
+    @Struct.field('string') declare wast: string
+    @Struct.field('string') declare wasm: string
+}
+
 @Struct.type('get_controlled_accounts_response')
 export class GetControlledAccountsResponse extends Struct {
     @Struct.field('name', {array: true}) declare controlled_accounts: Name[]

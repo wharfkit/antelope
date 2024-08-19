@@ -27,6 +27,7 @@ import {
     GetBlockHeaderStateResponse,
     GetBlockInfoResponse,
     GetBlockResponse,
+    GetCodeResponse,
     GetCurrencyStatsItemResponse,
     GetCurrencyStatsResponse,
     GetInfoResponse,
@@ -59,6 +60,14 @@ export class ChainAPI {
         return this.client.call<GetAbiResponse>({
             path: '/v1/chain/get_abi',
             params: {account_name: Name.from(accountName)},
+        })
+    }
+
+    async get_code(accountName: NameType) {
+        return this.client.call({
+            path: '/v1/chain/get_code',
+            params: {account_name: Name.from(accountName)},
+            responseType: GetCodeResponse,
         })
     }
 
