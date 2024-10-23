@@ -124,7 +124,7 @@ export class BlockHeader extends Struct {
     @Struct.field(BlockId) declare action_mroot: BlockId
     @Struct.field('uint32') declare schedule_version: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
-    @Struct.field(HeaderExtension, {array: true}) declare header_extensions: HeaderExtension[]
+    @Struct.field('any', {array: true}) declare header_extensions: any[]
 
     get blockNum(): UInt32 {
         return this.previous.blockNum.adding(1)

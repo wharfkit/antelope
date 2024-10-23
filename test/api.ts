@@ -53,6 +53,10 @@ const wax = new APIClient({
     provider: new MockProvider('https://wax.greymass.com'),
 })
 
+const telos = new APIClient({
+    provider: new MockProvider('https://telos.greymass.com'),
+})
+
 @Struct.type('transfer')
 class Transfer extends Struct {
     @Struct.field('name') from!: Name
@@ -328,6 +332,17 @@ suite('api v1', function () {
     test('chain get_block_header_state', async function () {
         const header = await eos.v1.chain.get_block_header_state(323978187)
         assert.equal(Number(header.block_num), 323978187)
+    })
+
+    test('chain get_block_header_state (header extensions)', async function () {
+        const header = await eos.v1.chain.get_block_header_state(400838396)
+        assert.equal(Number(header.block_num), 400838396)
+
+        const header2 = await wax.v1.chain.get_block_header_state(336356138)
+        assert.equal(Number(header2.block_num), 336356138)
+
+        const header3 = await telos.v1.chain.get_block_header_state(369358506)
+        assert.equal(Number(header3.block_num), 369358506)
     })
 
     test('chain get_block', async function () {

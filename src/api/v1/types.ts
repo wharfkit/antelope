@@ -286,7 +286,7 @@ export class GetBlockResponse extends Struct {
     @Struct.field('checksum256') declare action_mroot: Checksum256
     @Struct.field('uint32') declare schedule_version: UInt32
     @Struct.field(NewProducers, {optional: true}) new_producers?: NewProducers
-    @Struct.field('header_extension', {optional: true}) header_extensions?: HeaderExtension[]
+    @Struct.field('any', {optional: true}) header_extensions?: any[]
     @Struct.field('any', {optional: true}) new_protocol_features?: any
     @Struct.field('signature') declare producer_signature: Signature
     @Struct.field(GetBlockResponseTransactionReceipt, {array: true})
@@ -341,8 +341,7 @@ export class BlockStateHeader extends Struct {
     @Struct.field('checksum256') declare transaction_mroot: Checksum256
     @Struct.field('checksum256') declare action_mroot: Checksum256
     @Struct.field('uint32') declare schedule_version: UInt32
-    @Struct.field(HeaderExtension, {array: true, optional: true})
-    header_extensions?: HeaderExtension[]
+    @Struct.field('any', {array: true, optional: true}) declare header_extensions?: any[]
     @Struct.field('signature') declare producer_signature: Signature
 }
 
@@ -361,7 +360,7 @@ export class GetBlockHeaderStateResponse extends Struct {
     @Struct.field('any') declare valid_block_signing_authority: any
     @Struct.field('any') declare confirm_count: any
     @Struct.field('any') declare pending_schedule: any
-    @Struct.field('any') declare activated_protocol_features: any
+    @Struct.field('any', {optional: true}) declare activated_protocol_features?: any
     @Struct.field('any') declare additional_signatures: any
 }
 

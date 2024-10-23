@@ -1,0 +1,751 @@
+{
+    "api": "https://telos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "8230",
+        "content-type": "application/json",
+        "date": "Wed, 23 Oct 2024 03:48:19 GMT",
+        "host": "telos.greymass.com",
+        "server": "nginx"
+    },
+    "status": 200,
+    "json": {
+        "block_num": 369358506,
+        "dpos_proposed_irreversible_blocknum": 369358347,
+        "dpos_irreversible_blocknum": 369358179,
+        "active_schedule": {
+            "version": 6212,
+            "producers": [
+                {
+                    "producer_name": "bigironbptex",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS712mhzh3AGc3sEm1uENjVMr3XxBRSL6yq3oZfv522KDXjtS7rK",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "ledgerwisete",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS77CkBFzx12ZY6KW2s32WH2KwPGeSKa54gFM25HiFvHR3YCtoa8",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "eosiodetroit",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS85K67qSueCLQCcv7kgoXZR44rgDqYiZUJzyV4HULWhPMa3UU7L",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "telosunlimit",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS6eULtNmR8SpczkD1NQ8ufWwhh4W5mgPDNtUQwhTNFbqHMioZMc",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "caleosblocks",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5dE2h1zymNHqu9UFYj57F5qv8E3ghjSLxNSVoRjMCWeGZB4F6T",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "teamgreymass",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5K3Wt4b8yDijdrQ5Hcbonrb5V2EQv7YHN29TZejnnCmWZSN9AP",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "kainosblkpro",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5EdaJGc9YqXhwdwf2SipjBuiCEBYY2r8S8odcEDexidrGSBbJk",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "infinitybloc",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS7rkeZxB5Ex45tsYTtmoWogzZAnZCDSW1gFaja7xcUT7s17zSnV",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "votetelosusa",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5D2Xfg39dfiXYs84FvvEccLD23d1PPmkv8SoU3EgYCjhRtWbzb",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "teloscentral",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS78ZkoSt2tKz9xmeNL2u99vnNvDspNGWPXriRFkobagHCA2RsgW",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "bp.boid",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS6iMAq5SZVrkZimCJoAixWKy5uPRZ4bmcs7U9CzC96XwvsLcTBd",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "bp.yknot",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS7vjN5aHuRjg5q8kfWLsFGcZu2s8tnAAPq84pLPQiAz5uav9aHL",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "telosgreenbp",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS71Jn2wt32tEru3xSaFjeMES2gXiXgGarmDeuotVUtM5Puf23b2",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "swapsicledex",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5JCkTHVvVJCafH9UVe9m7GJKXdxCn2pZwjgnC19PnYfyxkE9vj",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "telosmadrid1",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS8LSnCvd5CaN6sa5wbsFtJ2ZyPfyvXDcP5jBhxvnn33xAracDh8",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "projectblanc",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5qQFFnshotPsHsBE81ouZSdpkwGwyZ6cHWH5Jr8sjfiJXcX8kk",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "teleologytls",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "PUB_R1_8WLW5zVDm9Nzgd1oJZsFxFAWbmpobgXCJvAZRm9CsxN7ExHqFz",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "teloskiwinzz",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS7uNGYhXGvLzmeQzyrRbd3MVfCKRkoCQnkyJgyUmQ25DsC2PF7u",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "eosphereiobp",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5fNhSCnuesLTDz61gMGqeZHrANx3mujc4Es7BaVyqarWVuUNza",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "persiantelos",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS7rGBxBAGkbAKd7BWuKNQ1LXVHuEHZcVKsRj2fYtCjqZtNYW1VU",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "producer_name": "vairosean123",
+                    "authority": [
+                        0,
+                        {
+                            "threshold": 1,
+                            "keys": [
+                                {
+                                    "key": "EOS5x2Kne3ZWeDPjAcxjrCt4nRmPiUB912jdpDbitzYz3cgrmYFpB",
+                                    "weight": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "blockroot_merkle": {
+            "_active_nodes": [
+                "1603f6a9fd5379e902f4cbce964b088aa44bc42001301b7da2c4fac64070356e",
+                "4ceb8e42f7261d8cd94ebe2830efb3e6c848b92c7cd88814e5b26de3048b7e1b",
+                "bca0a8cec7f980a1961047581acf74e50131e935f14bfbcbd47ee5b18dc571c7",
+                "0607c3536219c1e84a59bd617f942620dee2f17857988187dc92a44098b466f5",
+                "5a3194cfb0f12ad84a2fd42232068546a37a9e99ef4c00d8b8577fedd982b5de",
+                "537150729dc4e678b63e5dad7bc33800adbf5d583a971c8c7dac104fa8a62c98",
+                "25d909fca662275686b7ecfcd2d70b2034eec91e98a915d985601dcb9c4163b2",
+                "b332d43b16f0aff233808e7acd6b4402be7aa01c0e2c41dc4ad155ea205d8688",
+                "14076c660a53dac7631f47a122abcedf6ca002b9d5e92e92deb7f8c4fbdcf61d",
+                "c012818cbc5f570c06e63061c21902dc3051b1b946ffbb1d4c2fa31364607b5b",
+                "50a09b43c8f1fca4f43a17ef5977bbfb03c71df56f13074653a41df8239e4ab3",
+                "cd5c646126c8d37db202a42e1159808058f4e1b3e46d604730f59fb085bdd790",
+                "50fbbea2ce3f23804e94129ceaab4312e5d960c19fb70d8e3e03ec529060c812",
+                "8f51e7c7aea65f91d624a72be236f408e2afc2321b58da3962c069d4c67a648c",
+                "6153591b7e28b23cdedc0a4a19e6a54c41ed23c2356d5a939e78e159debdafd3",
+                "a7570402c625d8500e3e308a39181f7b4f934f0256c776e66adb7adce18b526a"
+            ],
+            "_node_count": 369358505
+        },
+        "producer_to_last_produced": [
+            [
+                "bigironbptex",
+                369358419
+            ],
+            [
+                "bp.boid",
+                369358287
+            ],
+            [
+                "bp.yknot",
+                369358299
+            ],
+            [
+                "caleosblocks",
+                369358467
+            ],
+            [
+                "eosiodetroit",
+                369358443
+            ],
+            [
+                "eosphereiobp",
+                369358383
+            ],
+            [
+                "infinitybloc",
+                369358503
+            ],
+            [
+                "kainosblkpro",
+                369358491
+            ],
+            [
+                "ledgerwisete",
+                369358431
+            ],
+            [
+                "persiantelos",
+                369358395
+            ],
+            [
+                "projectblanc",
+                369358347
+            ],
+            [
+                "swapsicledex",
+                369358323
+            ],
+            [
+                "teamgreymass",
+                369358479
+            ],
+            [
+                "teleologytls",
+                369358359
+            ],
+            [
+                "teloscentral",
+                369358275
+            ],
+            [
+                "telosgreenbp",
+                369358311
+            ],
+            [
+                "teloskiwinzz",
+                369358371
+            ],
+            [
+                "telosmadrid1",
+                369358335
+            ],
+            [
+                "telosunlimit",
+                369358455
+            ],
+            [
+                "vairosean123",
+                369358407
+            ],
+            [
+                "votetelosusa",
+                369358506
+            ]
+        ],
+        "producer_to_last_implied_irb": [
+            [
+                "bigironbptex",
+                369358251
+            ],
+            [
+                "bp.boid",
+                369358119
+            ],
+            [
+                "bp.yknot",
+                369358131
+            ],
+            [
+                "caleosblocks",
+                369358299
+            ],
+            [
+                "eosiodetroit",
+                369358275
+            ],
+            [
+                "eosphereiobp",
+                369358215
+            ],
+            [
+                "infinitybloc",
+                369358335
+            ],
+            [
+                "kainosblkpro",
+                369358323
+            ],
+            [
+                "ledgerwisete",
+                369358263
+            ],
+            [
+                "persiantelos",
+                369358227
+            ],
+            [
+                "projectblanc",
+                369358179
+            ],
+            [
+                "swapsicledex",
+                369358155
+            ],
+            [
+                "teamgreymass",
+                369358311
+            ],
+            [
+                "teleologytls",
+                369358191
+            ],
+            [
+                "teloscentral",
+                369358107
+            ],
+            [
+                "telosgreenbp",
+                369358143
+            ],
+            [
+                "teloskiwinzz",
+                369358203
+            ],
+            [
+                "telosmadrid1",
+                369358167
+            ],
+            [
+                "telosunlimit",
+                369358287
+            ],
+            [
+                "vairosean123",
+                369358239
+            ],
+            [
+                "votetelosusa",
+                369358347
+            ]
+        ],
+        "valid_block_signing_authority": [
+            0,
+            {
+                "threshold": 1,
+                "keys": [
+                    {
+                        "key": "EOS5D2Xfg39dfiXYs84FvvEccLD23d1PPmkv8SoU3EgYCjhRtWbzb",
+                        "weight": 1
+                    }
+                ]
+            }
+        ],
+        "confirm_count": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            13,
+            14,
+            14,
+            14
+        ],
+        "id": "1603f6aa25ea55144513f298014c6f5a3cf1d642c221bf8c3adf0981b2837780",
+        "header": {
+            "timestamp": "2024-10-23T03:47:55.000",
+            "producer": "votetelosusa",
+            "confirmed": 0,
+            "previous": "1603f6a9fd5379e902f4cbce964b088aa44bc42001301b7da2c4fac64070356e",
+            "transaction_mroot": "0000000000000000000000000000000000000000000000000000000000000000",
+            "action_mroot": "12276ff214cef1b78426f63f9e0d6256204119a077d7df4bc4032a0d6eef1508",
+            "schedule_version": 6212,
+            "header_extensions": [],
+            "producer_signature": "SIG_K1_KhsUn9mLLs93SEL2aV4ps7F5fZG765ZczDNBh6PAcTW5L3RzTMSb1Unnz5dGbB9t4Kpm2YshGcHQbsCZ6UB11JaeQ1Bpt9"
+        },
+        "pending_schedule": {
+            "schedule_lib_num": 369350452,
+            "schedule_hash": "2c561d0eb30c1029fbd4b2e33f6c590de2e4b07420516db3139846cca7ac3893",
+            "schedule": {
+                "version": 6212,
+                "producers": []
+            }
+        },
+        "activated_protocol_features": {
+            "protocol_features": [
+                "0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd",
+                "1a99a59d87e06e09ec5b028a9cbb7749b4a5ad8819004365d02dc4379a8b7241",
+                "2652f5f96006294109b3dd0bbde63693f55324af452b799ee137a81a905eed25",
+                "299dcb6af692324b899b39f16d5a530a33062804e41f09dc97e9f156b4476707",
+                "35c2186cc36f7bb4aeaf4487b36e57039ccf45a9136aa856a5d569ecca55ef2b",
+                "4a90c00d55454dc5b059055ca213579c6ea856967712a56017487886a4d4cc0f",
+                "4e7bf348da00a945489b2a681749eb56f5de00b900014e137ddae39f48f69d67",
+                "4fca8bd82bbd181e714e283f83e1b45d95ca5af40fb89ad3977b653c448f78c2",
+                "5443fcf88330c586bc0e5f3dee10e7f63c76c00249c87fe4fbf7f38c082006b4",
+                "68dcaa34c0517d19666e6b33add67351d8c5f69e999ca1e37931bc410a297428",
+                "6bcb40a24e49c26d0a60513b6aeb8551d264e4717f306b81a37a5afb3b47cedc",
+                "8ba52fe7a3956c5cd3a656a3174b931d3bb2abb45578befc59f283ecd816a405",
+                "ad9e3d8f650687709fd68f4b90b41f7d825a365b02c23a636cef88ac2ac00c43",
+                "bcd2a26394b36614fd4894241d3c451ab0f6fd110958c3423073621a70826e99",
+                "c3a6138c5061cf291310887c0b5c71fcaffeab90d5deb50d3b9e687cead45071",
+                "d528b9f6e9693f45ed277af93474fd473ce7d831dae2180cca35d907bd10cb40",
+                "e0fb64b1085cc5538970158d05a009c24e276fb94e1a0bf6a528b48fbc4ff526",
+                "ef43112c6543b88db2283a2e077278c315ae2c84719a8b25f25cc88565fbea99",
+                "f0af56d2c5a48d60a4a5b5c903edfb7db3a736a94ed589d0b797df33ff9d3e1d"
+            ]
+        },
+        "additional_signatures": []
+    },
+    "text": "{\"block_num\":369358506,\"dpos_proposed_irreversible_blocknum\":369358347,\"dpos_irreversible_blocknum\":369358179,\"active_schedule\":{\"version\":6212,\"producers\":[{\"producer_name\":\"bigironbptex\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS712mhzh3AGc3sEm1uENjVMr3XxBRSL6yq3oZfv522KDXjtS7rK\",\"weight\":1}]}]},{\"producer_name\":\"ledgerwisete\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS77CkBFzx12ZY6KW2s32WH2KwPGeSKa54gFM25HiFvHR3YCtoa8\",\"weight\":1}]}]},{\"producer_name\":\"eosiodetroit\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS85K67qSueCLQCcv7kgoXZR44rgDqYiZUJzyV4HULWhPMa3UU7L\",\"weight\":1}]}]},{\"producer_name\":\"telosunlimit\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS6eULtNmR8SpczkD1NQ8ufWwhh4W5mgPDNtUQwhTNFbqHMioZMc\",\"weight\":1}]}]},{\"producer_name\":\"caleosblocks\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5dE2h1zymNHqu9UFYj57F5qv8E3ghjSLxNSVoRjMCWeGZB4F6T\",\"weight\":1}]}]},{\"producer_name\":\"teamgreymass\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5K3Wt4b8yDijdrQ5Hcbonrb5V2EQv7YHN29TZejnnCmWZSN9AP\",\"weight\":1}]}]},{\"producer_name\":\"kainosblkpro\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5EdaJGc9YqXhwdwf2SipjBuiCEBYY2r8S8odcEDexidrGSBbJk\",\"weight\":1}]}]},{\"producer_name\":\"infinitybloc\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS7rkeZxB5Ex45tsYTtmoWogzZAnZCDSW1gFaja7xcUT7s17zSnV\",\"weight\":1}]}]},{\"producer_name\":\"votetelosusa\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5D2Xfg39dfiXYs84FvvEccLD23d1PPmkv8SoU3EgYCjhRtWbzb\",\"weight\":1}]}]},{\"producer_name\":\"teloscentral\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS78ZkoSt2tKz9xmeNL2u99vnNvDspNGWPXriRFkobagHCA2RsgW\",\"weight\":1}]}]},{\"producer_name\":\"bp.boid\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS6iMAq5SZVrkZimCJoAixWKy5uPRZ4bmcs7U9CzC96XwvsLcTBd\",\"weight\":1}]}]},{\"producer_name\":\"bp.yknot\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS7vjN5aHuRjg5q8kfWLsFGcZu2s8tnAAPq84pLPQiAz5uav9aHL\",\"weight\":1}]}]},{\"producer_name\":\"telosgreenbp\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS71Jn2wt32tEru3xSaFjeMES2gXiXgGarmDeuotVUtM5Puf23b2\",\"weight\":1}]}]},{\"producer_name\":\"swapsicledex\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5JCkTHVvVJCafH9UVe9m7GJKXdxCn2pZwjgnC19PnYfyxkE9vj\",\"weight\":1}]}]},{\"producer_name\":\"telosmadrid1\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS8LSnCvd5CaN6sa5wbsFtJ2ZyPfyvXDcP5jBhxvnn33xAracDh8\",\"weight\":1}]}]},{\"producer_name\":\"projectblanc\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5qQFFnshotPsHsBE81ouZSdpkwGwyZ6cHWH5Jr8sjfiJXcX8kk\",\"weight\":1}]}]},{\"producer_name\":\"teleologytls\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"PUB_R1_8WLW5zVDm9Nzgd1oJZsFxFAWbmpobgXCJvAZRm9CsxN7ExHqFz\",\"weight\":1}]}]},{\"producer_name\":\"teloskiwinzz\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS7uNGYhXGvLzmeQzyrRbd3MVfCKRkoCQnkyJgyUmQ25DsC2PF7u\",\"weight\":1}]}]},{\"producer_name\":\"eosphereiobp\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5fNhSCnuesLTDz61gMGqeZHrANx3mujc4Es7BaVyqarWVuUNza\",\"weight\":1}]}]},{\"producer_name\":\"persiantelos\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS7rGBxBAGkbAKd7BWuKNQ1LXVHuEHZcVKsRj2fYtCjqZtNYW1VU\",\"weight\":1}]}]},{\"producer_name\":\"vairosean123\",\"authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5x2Kne3ZWeDPjAcxjrCt4nRmPiUB912jdpDbitzYz3cgrmYFpB\",\"weight\":1}]}]}]},\"blockroot_merkle\":{\"_active_nodes\":[\"1603f6a9fd5379e902f4cbce964b088aa44bc42001301b7da2c4fac64070356e\",\"4ceb8e42f7261d8cd94ebe2830efb3e6c848b92c7cd88814e5b26de3048b7e1b\",\"bca0a8cec7f980a1961047581acf74e50131e935f14bfbcbd47ee5b18dc571c7\",\"0607c3536219c1e84a59bd617f942620dee2f17857988187dc92a44098b466f5\",\"5a3194cfb0f12ad84a2fd42232068546a37a9e99ef4c00d8b8577fedd982b5de\",\"537150729dc4e678b63e5dad7bc33800adbf5d583a971c8c7dac104fa8a62c98\",\"25d909fca662275686b7ecfcd2d70b2034eec91e98a915d985601dcb9c4163b2\",\"b332d43b16f0aff233808e7acd6b4402be7aa01c0e2c41dc4ad155ea205d8688\",\"14076c660a53dac7631f47a122abcedf6ca002b9d5e92e92deb7f8c4fbdcf61d\",\"c012818cbc5f570c06e63061c21902dc3051b1b946ffbb1d4c2fa31364607b5b\",\"50a09b43c8f1fca4f43a17ef5977bbfb03c71df56f13074653a41df8239e4ab3\",\"cd5c646126c8d37db202a42e1159808058f4e1b3e46d604730f59fb085bdd790\",\"50fbbea2ce3f23804e94129ceaab4312e5d960c19fb70d8e3e03ec529060c812\",\"8f51e7c7aea65f91d624a72be236f408e2afc2321b58da3962c069d4c67a648c\",\"6153591b7e28b23cdedc0a4a19e6a54c41ed23c2356d5a939e78e159debdafd3\",\"a7570402c625d8500e3e308a39181f7b4f934f0256c776e66adb7adce18b526a\"],\"_node_count\":369358505},\"producer_to_last_produced\":[[\"bigironbptex\",369358419],[\"bp.boid\",369358287],[\"bp.yknot\",369358299],[\"caleosblocks\",369358467],[\"eosiodetroit\",369358443],[\"eosphereiobp\",369358383],[\"infinitybloc\",369358503],[\"kainosblkpro\",369358491],[\"ledgerwisete\",369358431],[\"persiantelos\",369358395],[\"projectblanc\",369358347],[\"swapsicledex\",369358323],[\"teamgreymass\",369358479],[\"teleologytls\",369358359],[\"teloscentral\",369358275],[\"telosgreenbp\",369358311],[\"teloskiwinzz\",369358371],[\"telosmadrid1\",369358335],[\"telosunlimit\",369358455],[\"vairosean123\",369358407],[\"votetelosusa\",369358506]],\"producer_to_last_implied_irb\":[[\"bigironbptex\",369358251],[\"bp.boid\",369358119],[\"bp.yknot\",369358131],[\"caleosblocks\",369358299],[\"eosiodetroit\",369358275],[\"eosphereiobp\",369358215],[\"infinitybloc\",369358335],[\"kainosblkpro\",369358323],[\"ledgerwisete\",369358263],[\"persiantelos\",369358227],[\"projectblanc\",369358179],[\"swapsicledex\",369358155],[\"teamgreymass\",369358311],[\"teleologytls\",369358191],[\"teloscentral\",369358107],[\"telosgreenbp\",369358143],[\"teloskiwinzz\",369358203],[\"telosmadrid1\",369358167],[\"telosunlimit\",369358287],[\"vairosean123\",369358239],[\"votetelosusa\",369358347]],\"valid_block_signing_authority\":[0,{\"threshold\":1,\"keys\":[{\"key\":\"EOS5D2Xfg39dfiXYs84FvvEccLD23d1PPmkv8SoU3EgYCjhRtWbzb\",\"weight\":1}]}],\"confirm_count\":[1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12,12,12,12,12,12,12,12,12,13,13,13,13,13,13,13,13,13,13,13,13,14,14,14],\"id\":\"1603f6aa25ea55144513f298014c6f5a3cf1d642c221bf8c3adf0981b2837780\",\"header\":{\"timestamp\":\"2024-10-23T03:47:55.000\",\"producer\":\"votetelosusa\",\"confirmed\":0,\"previous\":\"1603f6a9fd5379e902f4cbce964b088aa44bc42001301b7da2c4fac64070356e\",\"transaction_mroot\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"action_mroot\":\"12276ff214cef1b78426f63f9e0d6256204119a077d7df4bc4032a0d6eef1508\",\"schedule_version\":6212,\"header_extensions\":[],\"producer_signature\":\"SIG_K1_KhsUn9mLLs93SEL2aV4ps7F5fZG765ZczDNBh6PAcTW5L3RzTMSb1Unnz5dGbB9t4Kpm2YshGcHQbsCZ6UB11JaeQ1Bpt9\"},\"pending_schedule\":{\"schedule_lib_num\":369350452,\"schedule_hash\":\"2c561d0eb30c1029fbd4b2e33f6c590de2e4b07420516db3139846cca7ac3893\",\"schedule\":{\"version\":6212,\"producers\":[]}},\"activated_protocol_features\":{\"protocol_features\":[\"0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd\",\"1a99a59d87e06e09ec5b028a9cbb7749b4a5ad8819004365d02dc4379a8b7241\",\"2652f5f96006294109b3dd0bbde63693f55324af452b799ee137a81a905eed25\",\"299dcb6af692324b899b39f16d5a530a33062804e41f09dc97e9f156b4476707\",\"35c2186cc36f7bb4aeaf4487b36e57039ccf45a9136aa856a5d569ecca55ef2b\",\"4a90c00d55454dc5b059055ca213579c6ea856967712a56017487886a4d4cc0f\",\"4e7bf348da00a945489b2a681749eb56f5de00b900014e137ddae39f48f69d67\",\"4fca8bd82bbd181e714e283f83e1b45d95ca5af40fb89ad3977b653c448f78c2\",\"5443fcf88330c586bc0e5f3dee10e7f63c76c00249c87fe4fbf7f38c082006b4\",\"68dcaa34c0517d19666e6b33add67351d8c5f69e999ca1e37931bc410a297428\",\"6bcb40a24e49c26d0a60513b6aeb8551d264e4717f306b81a37a5afb3b47cedc\",\"8ba52fe7a3956c5cd3a656a3174b931d3bb2abb45578befc59f283ecd816a405\",\"ad9e3d8f650687709fd68f4b90b41f7d825a365b02c23a636cef88ac2ac00c43\",\"bcd2a26394b36614fd4894241d3c451ab0f6fd110958c3423073621a70826e99\",\"c3a6138c5061cf291310887c0b5c71fcaffeab90d5deb50d3b9e687cead45071\",\"d528b9f6e9693f45ed277af93474fd473ce7d831dae2180cca35d907bd10cb40\",\"e0fb64b1085cc5538970158d05a009c24e276fb94e1a0bf6a528b48fbc4ff526\",\"ef43112c6543b88db2283a2e077278c315ae2c84719a8b25f25cc88565fbea99\",\"f0af56d2c5a48d60a4a5b5c903edfb7db3a736a94ed589d0b797df33ff9d3e1d\"]},\"additional_signatures\":[]}"
+}

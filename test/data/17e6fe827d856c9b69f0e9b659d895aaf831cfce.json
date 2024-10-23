@@ -1,0 +1,67 @@
+{
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "1176",
+        "content-type": "application/json",
+        "date": "Wed, 23 Oct 2024 03:20:50 GMT",
+        "host": "eos.greymass.com",
+        "server": "nginx",
+        "x-cached": "MISS"
+    },
+    "status": 200,
+    "json": {
+        "block_num": 400838396,
+        "dpos_proposed_irreversible_blocknum": 0,
+        "dpos_irreversible_blocknum": 0,
+        "active_schedule": {
+            "version": 0,
+            "producers": []
+        },
+        "blockroot_merkle": {
+            "_active_nodes": [],
+            "_node_count": 0
+        },
+        "producer_to_last_produced": [],
+        "producer_to_last_implied_irb": [],
+        "valid_block_signing_authority": [
+            0,
+            {
+                "threshold": 0,
+                "keys": []
+            }
+        ],
+        "confirm_count": [],
+        "id": "17e44efcfcd9cb439ab93de5f1e4328c4d02382281da17f0478f6f2810ee4789",
+        "header": {
+            "timestamp": "2024-10-23T03:17:45.000",
+            "producer": "atticlabeosb",
+            "confirmed": 0,
+            "previous": "17e44efb304a3d81378887b7f1e9cff1b4c2f7a065f5368b337a69bed5f57add",
+            "transaction_mroot": "f196c51b021c50ea09b482e09e00ab1ecf7207535c13089d20b003455faaca98",
+            "action_mroot": "8bf47442736dc9d7ac73580d5f936a8fc0f6d09580687d305cd1cd4c564a1159",
+            "schedule_version": 2147483648,
+            "header_extensions": [
+                [
+                    2,
+                    "fb4ee417010000"
+                ]
+            ],
+            "producer_signature": "SIG_K1_K3JYzkSiRLkWmWcbsELQJkaFnZHNVqegvrqgZjwpF45StmRUquUz4wjpSuxZC9Pv6uHrSzr1mpdXuA4MhXAM368FDC1kZp"
+        },
+        "pending_schedule": {
+            "schedule_lib_num": 0,
+            "schedule_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "schedule": {
+                "version": 0,
+                "producers": []
+            }
+        },
+        "activated_protocol_features": null,
+        "additional_signatures": []
+    },
+    "text": "{\"block_num\":400838396,\"dpos_proposed_irreversible_blocknum\":0,\"dpos_irreversible_blocknum\":0,\"active_schedule\":{\"version\":0,\"producers\":[]},\"blockroot_merkle\":{\"_active_nodes\":[],\"_node_count\":0},\"producer_to_last_produced\":[],\"producer_to_last_implied_irb\":[],\"valid_block_signing_authority\":[0,{\"threshold\":0,\"keys\":[]}],\"confirm_count\":[],\"id\":\"17e44efcfcd9cb439ab93de5f1e4328c4d02382281da17f0478f6f2810ee4789\",\"header\":{\"timestamp\":\"2024-10-23T03:17:45.000\",\"producer\":\"atticlabeosb\",\"confirmed\":0,\"previous\":\"17e44efb304a3d81378887b7f1e9cff1b4c2f7a065f5368b337a69bed5f57add\",\"transaction_mroot\":\"f196c51b021c50ea09b482e09e00ab1ecf7207535c13089d20b003455faaca98\",\"action_mroot\":\"8bf47442736dc9d7ac73580d5f936a8fc0f6d09580687d305cd1cd4c564a1159\",\"schedule_version\":2147483648,\"header_extensions\":[[2,\"fb4ee417010000\"]],\"producer_signature\":\"SIG_K1_K3JYzkSiRLkWmWcbsELQJkaFnZHNVqegvrqgZjwpF45StmRUquUz4wjpSuxZC9Pv6uHrSzr1mpdXuA4MhXAM368FDC1kZp\"},\"pending_schedule\":{\"schedule_lib_num\":0,\"schedule_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"schedule\":{\"version\":0,\"producers\":[]}},\"activated_protocol_features\":null,\"additional_signatures\":[]}"
+}
