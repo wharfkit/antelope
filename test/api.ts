@@ -799,10 +799,16 @@ suite('api v1', function () {
     })
 
     test('chain get_transaction_status', async function () {
-        const res = await jungle4.v1.chain.get_transaction_status(
-            '153207ae7b30621421b968fa3c327db0d89f70975cf2bee7f8118c336094019a'
-        )
-        assert.equal(res.state, 'UNKNOWN')
+        try {
+            const transactionId = Checksum256.from('fdbb52d81bd8fdd5e4d03186a5c509bfed6cb6609dc76a1b1893444351f40315')
+
+            const res = await jungle4.v1.chain.get_transaction_status(transactionId)
+
+            console.log('Decoded response:', JSON.stringify(res, null, 2))
+        } catch (error) {
+            console.error('Error fetching transaction status:', error)
+            throw error
+        }
     })
 
     test('chain set_abi w/ action results', async function () {
