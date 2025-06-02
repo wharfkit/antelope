@@ -73,7 +73,7 @@ export class PublicKey implements ABISerializableObject {
      * This is suitable for cryptographic operations like verification.
      */
     getCompressedKeyBytes(): Uint8Array {
-        return this.data.array.subarray(0, 33)
+        return this.type === KeyType.WA ? this.data.array.subarray(0, 33) : this.data.array
     }
 
     equals(other: PublicKeyType) {
