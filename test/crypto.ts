@@ -196,4 +196,32 @@ suite('crypto', function () {
             PrivateKey.fromString(String(k))
         })
     })
+
+    test('invalid private key (zero key)', function () {
+        const zeroBytes = new Uint8Array(32) // all zero
+        // PVT_K1_111111111111111111111111111111112omJse
+        let keyStr = 'PVT_K1_' + Base58.encodeRipemd160Check(zeroBytes, 'K1')
+        try {
+            PrivateKey.from(keyStr)
+            assert.fail()
+        } catch (error) {
+            assert.ok(error instanceof Error, 'Error should be an instance of Error')
+            assert.ok(
+                error.message.includes('All-zero private key is not allowed'),
+                'Error message should indicate all-zero private key'
+            )
+        }
+        //PVT_R1_111111111111111111111111111111117FF8iA
+        keyStr = 'PVT_R1_' + Base58.encodeRipemd160Check(zeroBytes, 'R1');
+        try {
+            PrivateKey.from(keyStr)
+            assert.fail()
+        } catch (error) {
+            assert.ok(error instanceof Error, 'Error should be an instance of Error')
+            assert.ok(
+                error.message.includes('All-zero private key is not allowed'),
+                'Error message should indicate all-zero private key'
+            )
+        }
+    })
 })

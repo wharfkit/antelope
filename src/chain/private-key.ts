@@ -39,6 +39,9 @@ export class PrivateKey {
     static fromString(string: string, ignoreChecksumError = false) {
         try {
             const {type, data} = decodeKey(string)
+            if (this.isAllZero(data)) {
+                throw new Error('Invalid private key: All-zero private key is not allowed')
+            }
             return new this(type, data)
         } catch (error: any) {
             error.message = `Invalid private key (${error.message})`
@@ -53,6 +56,9 @@ export class PrivateKey {
                     data.dropFirst()
                 }
                 data.zeropad(32, true)
+                if (this.isAllZero(data)) {
+                    throw new Error('Invalid private key: All-zero private key is not allowed')
+                }
                 return new this(type, data)
             }
             throw error
@@ -64,7 +70,19 @@ export class PrivateKey {
      * @throws If a secure random source isn't available.
      */
     static generate(type: KeyType | string) {
-        return new PrivateKey(KeyType.from(type), new Bytes(generate(type)))
+        const keyType = KeyType.from(type)
+        const maxRetries = 3
+        let attempts = 0
+        let data: Bytes
+
+        do {
+            if (attempts >= maxRetries) {
+                throw new Error('Failed to generate valid private key: Maximum retries exceeded')
+            }
+            data = new Bytes(generate(keyType))
+            attempts++
+        } while (this.isAllZero(data))
+        return new PrivateKey(keyType, data)
     }
 
     /** @internal */
@@ -120,6 +138,10 @@ export class PrivateKey {
             throw new Error('Unable to generate WIF for non-k1 key')
         }
         return Base58.encodeCheck(Bytes.from([0x80]).appending(this.data))
+    }
+
+    static isAllZero(data: Bytes): boolean {
+        return data.array.every((byte) => byte === 0)
     }
 
     /**
