@@ -68,6 +68,14 @@ export class PublicKey implements ABISerializableObject {
         this.data = data
     }
 
+    /**
+     * Returns the core 33-byte compressed public key data as a Uint8Array.
+     * This is suitable for cryptographic operations like verification.
+     */
+    getCompressedKeyBytes(): Uint8Array {
+        return this.type === KeyType.WA ? this.data.array.subarray(0, 33) : this.data.array
+    }
+
     equals(other: PublicKeyType) {
         const otherKey = PublicKey.from(other)
         return this.type === otherKey.type && this.data.equals(otherKey.data)

@@ -99,7 +99,7 @@ export class Signature implements ABISerializableObject {
     /** Verify this signature with given message digest and public key. */
     verifyDigest(digest: Checksum256Type, publicKey: PublicKey) {
         digest = Checksum256.from(digest)
-        return verify(this.data.array, digest.array, publicKey.data.array, this.type)
+        return verify(this.data.array, digest.array, publicKey.getCompressedKeyBytes(), this.type)
     }
 
     /** Verify this signature with given message and public key. */

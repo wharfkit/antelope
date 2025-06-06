@@ -13,6 +13,8 @@ export function getCurve(type: string): ec {
             rv = curves[type] = new ec('secp256k1')
         } else if (type === 'R1') {
             rv = curves[type] = new ec('p256')
+        } else if (type === 'WA') {
+            rv = curves[type] = new ec('p256')
         } else {
             throw new Error(`Unknown curve type: ${type}`)
         }
