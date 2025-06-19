@@ -28,6 +28,8 @@ export interface ABITypeModifiers {
     optional?: boolean
     /** Type is an array, defaults to false. */
     array?: boolean
+    /** Type has a fixed array size, defaults to undefined */
+    size?: number
     /** Type is a binary extension, defaults to false. */
     extension?: boolean
 }
@@ -93,7 +95,11 @@ export function synthesizeABI(type: ABISerializableConstructor) {
             typeName = t.type
         }
         if (t.array === true) {
-            typeName += '[]'
+            if (t.size) {
+                typeName += `[${t.size}]`
+            } else {
+                typeName += '[]'
+            }
         }
         if (t.optional === true) {
             typeName += '?'
@@ -147,7 +153,11 @@ export function synthesizeABI(type: ABISerializableConstructor) {
 export function abiTypeString(type: ABITypeDescriptor) {
     let typeName = typeof type.type === 'string' ? type.type : type.type.abiName
     if (type.array === true) {
-        typeName += '[]'
+        if (type.size) {
+            typeName += `[${type.size}]`
+        } else {
+            typeName += '[]'
+        }
     }
     if (type.optional === true) {
         typeName += '?'
