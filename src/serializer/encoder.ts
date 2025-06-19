@@ -159,7 +159,9 @@ export function encodeAny(value: any, type: ABI.ResolvedType, ctx: EncodingConte
             throw new Error(`Expected array for: ${type.typeName}`)
         }
         const len = value.length
-        ctx.encoder.writeVaruint32(len)
+        if (!type.size) {
+            ctx.encoder.writeVaruint32(len)
+        }
         for (let i = 0; i < len; i++) {
             ctx.codingPath.push({field: i, type})
             encodeInner(value[i])

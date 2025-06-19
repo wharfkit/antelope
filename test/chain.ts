@@ -756,4 +756,113 @@ suite('chain', function () {
         })
         assert.instanceOf(compressedSuccess.getTransaction(), Transaction)
     })
+
+    test('fixed size array', function () {
+        const data = {
+            version: 'eosio::abi/1.2',
+            types: [],
+            structs: [
+                {
+                    name: 'basic',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'input',
+                            type: 'int32',
+                        },
+                    ],
+                },
+                {
+                    name: 'array',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'input',
+                            type: 'int32[]',
+                        },
+                    ],
+                },
+                {
+                    name: 'fixed',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'input',
+                            type: 'int32[4]',
+                        },
+                    ],
+                },
+            ],
+            actions: [
+                {
+                    name: 'basic',
+                    type: 'basic',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'array',
+                    type: 'array',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'fixed',
+                    type: 'fixed',
+                    ricardian_contract: '',
+                },
+            ],
+            tables: [],
+            ricardian_clauses: [],
+            error_messages: [],
+            abi_extensions: [],
+            variants: [],
+            action_results: [
+                {
+                    name: 'basic',
+                    result_type: 'int32',
+                },
+                {
+                    name: 'array',
+                    result_type: 'int32[]',
+                },
+                {
+                    name: 'fixed',
+                    result_type: 'int32[4]',
+                },
+            ],
+        }
+
+        const abi = ABI.from(data)
+        assert.isTrue(abi.equals(data))
+        assert.equal(abi.structs[0].fields[0].type, 'int32')
+        assert.equal(abi.structs[1].fields[0].type, 'int32[]')
+        assert.equal(abi.structs[2].fields[0].type, 'int32[4]')
+        assert.equal(abi.action_results[0].result_type, 'int32')
+        assert.equal(abi.action_results[1].result_type, 'int32[]')
+        assert.equal(abi.action_results[2].result_type, 'int32[4]')
+
+        const encoded = Serializer.encode({object: abi})
+        const decoded = Serializer.decode({data: encoded, type: ABI})
+        assert.isTrue(decoded.equals(data))
+        assert.equal(decoded.structs[0].fields[0].type, 'int32')
+        assert.equal(decoded.structs[1].fields[0].type, 'int32[]')
+        assert.equal(decoded.structs[2].fields[0].type, 'int32[4]')
+        assert.equal(decoded.action_results[0].result_type, 'int32')
+        assert.equal(decoded.action_results[1].result_type, 'int32[]')
+        assert.equal(decoded.action_results[2].result_type, 'int32[4]')
+
+        assert.equal(
+            '01000000',
+            Serializer.encode({object: {input: 1}, abi, type: 'basic'}).hexString
+        )
+
+        assert.equal(
+            '0401000000020000000300000004000000',
+            Serializer.encode({object: {input: [1, 2, 3, 4]}, abi, type: 'array'}).hexString
+        )
+
+        assert.equal(
+            '01000000020000000300000004000000',
+            Serializer.encode({object: {input: [1, 2, 3, 4]}, abi, type: 'fixed'}).hexString
+        )
+    })
 })

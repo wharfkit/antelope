@@ -1,7 +1,7 @@
 SRC_FILES := $(shell find src -name '*.ts')
 TEST_FILES := $(wildcard test/*.ts)
 BIN := ./node_modules/.bin
-MOCHA_OPTS := -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts
+MOCHA_OPTS := -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts --no-experimental-strip-types
 
 lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.mjs
 	@${BIN}/rollup -c && touch lib

@@ -373,6 +373,7 @@ export namespace ABI {
         fields?: {name: string; type: ResolvedType}[]
         variant?: ResolvedType[]
         ref?: ResolvedType
+        size?: number // Fixed Size Array
 
         constructor(fullName: string, id = 0) {
             let name = fullName
@@ -388,12 +389,20 @@ export namespace ABI {
             } else {
                 this.isOptional = false
             }
+            this.isArray = false
             if (name.endsWith('[]')) {
                 name = name.slice(0, -2)
                 this.isArray = true
-            } else {
-                this.isArray = false
             }
+
+            const fixedMatch = name.match(/(.*)\[(\d+)\]/)
+            if (fixedMatch) {
+                const [, fixedName, fixedSize] = fixedMatch
+                name = fixedName
+                this.isArray = true
+                this.size = Number(fixedSize)
+            }
+
             this.id = id
             this.name = name
         }
@@ -404,7 +413,11 @@ export namespace ABI {
         get typeName(): string {
             let rv = this.name
             if (this.isArray) {
-                rv += '[]'
+                if (this.size) {
+                    rv += `[${this.size}]`
+                } else {
+                    rv += '[]'
+                }
             }
             if (this.isOptional) {
                 rv += '?'
