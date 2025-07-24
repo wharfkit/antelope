@@ -64,6 +64,11 @@ export class Action extends Struct {
             let type: string | undefined
             if (abi) {
                 type = ABI.from(abi).getActionType(object.name)
+                if (!type) {
+                    throw new Error(
+                        `The action "${object.name}" does not exist on the ABI provided.`
+                    )
+                }
             } else if (!data.constructor || data.constructor.abiName === undefined) {
                 throw new Error(
                     'Missing ABI definition when creating action with untyped action data'

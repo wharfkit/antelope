@@ -865,4 +865,18 @@ suite('chain', function () {
             Serializer.encode({object: {input: [1, 2, 3, 4]}, abi, type: 'fixed'}).hexString
         )
     })
+
+    test('action does not exist in ABI', function () {
+        assert.throws(() =>
+            Action.from(
+                {
+                    account: 'foo',
+                    name: 'bar',
+                    authorization: [{actor: 'foo', permission: 'bar'}],
+                    data: {},
+                },
+                {}
+            )
+        )
+    })
 })
