@@ -668,6 +668,7 @@ suite('serializer', function () {
             tables: [],
             ricardian_clauses: [],
             action_results: [],
+            calls: [],
         })
     })
 
@@ -1086,7 +1087,7 @@ suite('serializer', function () {
         const data = Serializer.encode({object: abi})
         assert.equal(
             data.hexString,
-            '0e656f73696f3a3a6162692f312e310101620161010161000101660161000100000000000000c80369363401016b010369363401610103666f6f036261720000010176020161016200'
+            '0e656f73696f3a3a6162692f312e310101620161010161000101660161000100000000000000c80369363401016b010369363401610103666f6f03626172000001017602016101620000'
         )
         const decoded = Serializer.objectify(Serializer.decode({data, type: ABI}))
         assert.deepEqual(abi.types, decoded.types)
@@ -1273,5 +1274,326 @@ suite('serializer', function () {
         assert.lengthOf(decoded.action_results, 1)
         assert.isTrue(Name.from(decoded.action_results[0].name).equals('test'))
         assert.equal(decoded.action_results[0].result_type, 'Result')
+    })
+
+    test('calls', function () {
+        const raw = {
+            ____comment: 'This file was generated with eosio-abigen. DO NOT EDIT ',
+            version: 'eosio::abi/1.3',
+            types: [],
+            structs: [
+                {
+                    name: 'Account',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'owner',
+                            type: 'name',
+                        },
+                        {
+                            name: 'balance',
+                            type: 'asset',
+                        },
+                    ],
+                },
+                {
+                    name: 'Allowance',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'owner',
+                            type: 'name',
+                        },
+                        {
+                            name: 'spender',
+                            type: 'name',
+                        },
+                        {
+                            name: 'quantity',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'key',
+                            type: 'uint128',
+                        },
+                    ],
+                },
+                {
+                    name: 'Token',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'supply',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'name',
+                            type: 'string',
+                        },
+                    ],
+                },
+                {
+                    name: 'allowance',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'owner',
+                            type: 'name',
+                        },
+                        {
+                            name: 'spender',
+                            type: 'name',
+                        },
+                    ],
+                },
+                {
+                    name: 'balanceof',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'account',
+                            type: 'name',
+                        },
+                    ],
+                },
+                {
+                    name: 'getname',
+                    base: '',
+                    fields: [],
+                },
+                {
+                    name: 'getsymbol',
+                    base: '',
+                    fields: [],
+                },
+                {
+                    name: 'init',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'supply',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'name',
+                            type: 'string',
+                        },
+                    ],
+                },
+                {
+                    name: 'setallowance',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'owner',
+                            type: 'name',
+                        },
+                        {
+                            name: 'spender',
+                            type: 'name',
+                        },
+                        {
+                            name: 'quantity',
+                            type: 'asset',
+                        },
+                    ],
+                },
+                {
+                    name: 'totalsupply',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'account',
+                            type: 'name',
+                        },
+                    ],
+                },
+                {
+                    name: 'transfer',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'from',
+                            type: 'name',
+                        },
+                        {
+                            name: 'to',
+                            type: 'name',
+                        },
+                        {
+                            name: 'quantity',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'memo',
+                            type: 'string',
+                        },
+                    ],
+                },
+                {
+                    name: 'transferfrom',
+                    base: '',
+                    fields: [
+                        {
+                            name: 'from',
+                            type: 'name',
+                        },
+                        {
+                            name: 'to',
+                            type: 'name',
+                        },
+                        {
+                            name: 'quantity',
+                            type: 'asset',
+                        },
+                        {
+                            name: 'memo',
+                            type: 'string',
+                        },
+                    ],
+                },
+            ],
+            actions: [
+                {
+                    name: 'allowance',
+                    type: 'allowance',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'balanceof',
+                    type: 'balanceof',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'getname',
+                    type: 'getname',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'getsymbol',
+                    type: 'getsymbol',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'init',
+                    type: 'init',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'setallowance',
+                    type: 'setallowance',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'totalsupply',
+                    type: 'totalsupply',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'transfer',
+                    type: 'transfer',
+                    ricardian_contract: '',
+                },
+                {
+                    name: 'transferfrom',
+                    type: 'transferfrom',
+                    ricardian_contract: '',
+                },
+            ],
+            tables: [
+                {
+                    name: 'accounts',
+                    type: 'Account',
+                    index_type: 'i64',
+                    key_names: [],
+                    key_types: [],
+                },
+                {
+                    name: 'allowances',
+                    type: 'Allowance',
+                    index_type: 'i64',
+                    key_names: [],
+                    key_types: [],
+                },
+                {
+                    name: 'token',
+                    type: 'Token',
+                    index_type: 'i64',
+                    key_names: [],
+                    key_types: [],
+                },
+            ],
+            ricardian_clauses: [],
+            variants: [],
+            action_results: [
+                {
+                    name: 'allowance',
+                    result_type: 'asset',
+                },
+                {
+                    name: 'balanceof',
+                    result_type: 'asset',
+                },
+                {
+                    name: 'getname',
+                    result_type: 'string',
+                },
+                {
+                    name: 'getsymbol',
+                    result_type: 'symbol',
+                },
+                {
+                    name: 'totalsupply',
+                    result_type: 'asset',
+                },
+            ],
+            calls: [
+                {
+                    name: 'allowance',
+                    type: 'allowance',
+                    id: 249881365962022907,
+                    result_type: 'asset',
+                },
+                {
+                    name: 'balanceof',
+                    type: 'balanceof',
+                    id: 249882303009262080,
+                    result_type: 'asset',
+                },
+                {
+                    name: 'getname',
+                    type: 'getname',
+                    id: 229466957163974,
+                    result_type: 'string',
+                },
+                {
+                    name: 'getsymbol',
+                    type: 'getsymbol',
+                    id: 249889516575707259,
+                    result_type: 'symbol',
+                },
+                {
+                    name: 'totalsupply',
+                    type: 'totalsupply',
+                    id: 13895640377000271446,
+                    result_type: 'asset',
+                },
+                {
+                    name: 'transferfrom',
+                    type: 'transferfrom',
+                    id: 15838006154959782046,
+                    result_type: '',
+                },
+            ],
+        }
+        const abi = ABI.from(raw)
+        const encoded = Serializer.encode({object: abi})
+        const decoded = Serializer.decode({data: encoded, type: ABI})
+        assert.isTrue(abi.equals(decoded))
+        assert.lengthOf(decoded.calls, 6)
+        assert.equal(decoded.calls[0].name, 'allowance')
+        assert.equal(decoded.calls[0].type, 'allowance')
+        assert.equal(decoded.calls[0].id, 249881365962022907)
+        assert.equal(decoded.calls[0].result_type, 'asset')
     })
 })

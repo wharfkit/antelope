@@ -848,6 +848,7 @@ suite('api v1', function () {
                     result_type: 'Result',
                 },
             ],
+            calls: [],
         }
         const info = await jungle4.v1.chain.get_info()
         const header = info.getTransactionHeader()

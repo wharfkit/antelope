@@ -3,7 +3,7 @@ import type {ABISerializableObject} from '../serializer/serializable'
 import {abiDecode, ABIDecoder} from '../serializer/decoder'
 import {abiEncode, ABIEncoder} from '../serializer/encoder'
 
-import {Blob, Name, NameType} from '../'
+import {Blob, Name, NameType, UInt64, UInt64Type} from '../'
 
 export type ABIDef = string | Partial<ABI.Def> | ABI | Blob
 
@@ -26,6 +26,8 @@ export class ABI implements ABISerializableObject {
     ricardian_clauses: ABI.Clause[]
     /// Action Results
     action_results: ABI.ActionResult[]
+    /// Sync Calls
+    calls: ABI.Call[]
 
     constructor(args: Partial<ABI.Def>) {
         this.version = args.version || ABI.version
@@ -36,6 +38,7 @@ export class ABI implements ABISerializableObject {
         this.tables = args.tables || []
         this.ricardian_clauses = args.ricardian_clauses || []
         this.action_results = args.action_results || []
+        this.calls = args.calls || []
     }
 
     static from(value: ABIDef) {
@@ -141,6 +144,17 @@ export class ABI implements ABISerializableObject {
                 action_results.push({name, result_type})
             }
         }
+        const calls: ABI.Call[] = []
+        if (decoder.canRead()) {
+            const numCalls = decoder.readVaruint32()
+            for (let i = 0; i < numCalls; i++) {
+                const name = decoder.readString()
+                const type = decoder.readString()
+                const id = UInt64.fromABI(decoder)
+                const result_type = decoder.readString()
+                calls.push({name, type, id, result_type})
+            }
+        }
         return new ABI({
             version,
             types,
@@ -150,6 +164,7 @@ export class ABI implements ABISerializableObject {
             ricardian_clauses,
             variants,
             action_results,
+            calls,
         })
     }
 
@@ -209,6 +224,13 @@ export class ABI implements ABISerializableObject {
         for (const result of this.action_results) {
             Name.from(result.name).toABI(encoder)
             encoder.writeString(result.result_type)
+        }
+        encoder.writeVaruint32(this.calls.length)
+        for (const call of this.calls) {
+            encoder.writeString(call.name)
+            encoder.writeString(call.type)
+            UInt64.from(String(call.id)).toABI(encoder)
+            encoder.writeString(call.result_type)
         }
     }
 
@@ -291,7 +313,8 @@ export class ABI implements ABISerializableObject {
             this.tables.length != o.tables.length ||
             this.ricardian_clauses.length != o.ricardian_clauses.length ||
             this.variants.length != o.variants.length ||
-            this.action_results.length != o.action_results.length
+            this.action_results.length != o.action_results.length ||
+            this.calls.length != o.calls.length
         ) {
             return false
         }
@@ -310,6 +333,7 @@ export class ABI implements ABISerializableObject {
             abi_extensions: [],
             variants: this.variants,
             action_results: this.action_results,
+            calls: this.calls,
         }
     }
 }
@@ -357,9 +381,16 @@ export namespace ABI {
         tables: Table[]
         ricardian_clauses: Clause[]
         action_results: ActionResult[]
+        calls: Call[]
     }
     export interface ActionResult {
         name: NameType
+        result_type: string
+    }
+    export interface Call {
+        name: string
+        type: string
+        id: UInt64Type
         result_type: string
     }
     export class ResolvedType {
