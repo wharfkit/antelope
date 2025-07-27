@@ -663,6 +663,10 @@ export class GetCurrencyStatsItemResponse extends Struct {
 @Struct.type('get_transaction_status_response')
 export class GetTransactionStatusResponse extends Struct {
     @Struct.field('string') declare state: string
+    @Struct.field('uint32') declare block_number: UInt32
+    @Struct.field(BlockId) declare block_id: BlockId
+    @Struct.field('time_point') declare block_timestamp: TimePoint
+    @Struct.field('time_point') declare expiration: TimePoint
     @Struct.field('uint32') declare head_number: UInt32
     @Struct.field(BlockId) declare head_id: BlockId
     @Struct.field('time_point') declare head_timestamp: TimePoint
