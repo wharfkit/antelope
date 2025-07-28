@@ -177,6 +177,19 @@ suite('integer', function () {
             assert.ok(Number(bigValue))
         }, /Number can only safely store up to 53 bits/)
     })
+
+    test('zero', function () {
+        assert.isTrue(Int8.from(0).equals(Int8.zero))
+        assert.isTrue(Int16.from(0).equals(Int16.zero))
+        assert.isTrue(Int32.from(0).equals(Int32.zero))
+        assert.isTrue(Int64.from(0).equals(Int64.zero))
+        assert.isTrue(Int128.from(0).equals(Int128.zero))
+        assert.isTrue(UInt8.from(0).equals(UInt8.zero))
+        assert.isTrue(UInt16.from(0).equals(UInt16.zero))
+        assert.isTrue(UInt32.from(0).equals(UInt32.zero))
+        assert.isTrue(UInt64.from(0).equals(UInt64.zero))
+        assert.isTrue(UInt128.from(0).equals(UInt128.zero))
+    })
 })
 
 function assertInt(actual: Int, expected: number | string) {

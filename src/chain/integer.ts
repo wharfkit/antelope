@@ -50,6 +50,11 @@ export class Int implements ABISerializableObject {
         return this.isSigned ? this.max.ineg().isubn(1) : new BN(0)
     }
 
+    /** Return a zero value of this type */
+    static get zero() {
+        return this.from(0)
+    }
+
     /** Add `lhs` to `rhs` and return the resulting value. */
     static add(lhs: Int, rhs: Int, overflow: OverflowBehavior = 'truncate'): Int {
         return Int.operator(lhs, rhs, overflow, (a, b) => a.add(b))
