@@ -1,0 +1,37 @@
+{
+    "api": "https://jungle4.api.eosnation.io",
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "966",
+        "content-type": "application/json",
+        "date": "Fri, 20 Feb 2026 18:42:11 GMT",
+        "server": "nginx/1.28.2"
+    },
+    "status": 200,
+    "json": {
+        "server_version": "42b514a1",
+        "chain_id": "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d",
+        "head_block_num": 251509646,
+        "last_irreversible_block_num": 251509644,
+        "last_irreversible_block_id": "0efdbb8c537db74dea9eb0ba6bceafc4f0f1879b2d462aeda58619d54e2ce8da",
+        "head_block_id": "0efdbb8efd8f422850484a14cbf4cfb90e37e99a10e4aa3fa7f010721432cdfc",
+        "head_block_time": "2026-02-20T18:42:11.500",
+        "head_block_producer": "gorillapower",
+        "virtual_block_cpu_limit": 200000000,
+        "virtual_block_net_limit": 1048576000,
+        "block_cpu_limit": 200000,
+        "block_net_limit": 1048576,
+        "server_version_string": "v1.2.1",
+        "fork_db_head_block_num": 251509646,
+        "fork_db_head_block_id": "0efdbb8efd8f422850484a14cbf4cfb90e37e99a10e4aa3fa7f010721432cdfc",
+        "server_full_version_string": "v1.2.1-42b514a1566f46a3c652e5025911b295214d3ce4-dirty",
+        "total_cpu_weight": "120571940060499",
+        "total_net_weight": "117540133617123",
+        "earliest_available_block_num": 1,
+        "last_irreversible_block_time": "2026-02-20T18:42:10.500"
+    },
+    "text": "{\"server_version\":\"42b514a1\",\"chain_id\":\"73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d\",\"head_block_num\":251509646,\"last_irreversible_block_num\":251509644,\"last_irreversible_block_id\":\"0efdbb8c537db74dea9eb0ba6bceafc4f0f1879b2d462aeda58619d54e2ce8da\",\"head_block_id\":\"0efdbb8efd8f422850484a14cbf4cfb90e37e99a10e4aa3fa7f010721432cdfc\",\"head_block_time\":\"2026-02-20T18:42:11.500\",\"head_block_producer\":\"gorillapower\",\"virtual_block_cpu_limit\":200000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":200000,\"block_net_limit\":1048576,\"server_version_string\":\"v1.2.1\",\"fork_db_head_block_num\":251509646,\"fork_db_head_block_id\":\"0efdbb8efd8f422850484a14cbf4cfb90e37e99a10e4aa3fa7f010721432cdfc\",\"server_full_version_string\":\"v1.2.1-42b514a1566f46a3c652e5025911b295214d3ce4-dirty\",\"total_cpu_weight\":\"120571940060499\",\"total_net_weight\":\"117540133617123\",\"earliest_available_block_num\":1,\"last_irreversible_block_time\":\"2026-02-20T18:42:10.500\"}"
+}

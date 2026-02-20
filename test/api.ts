@@ -618,6 +618,41 @@ suite('api v1', function () {
         assert.equal(result.transaction_id, transaction.id.hexString)
     })
 
+    test('chain send_transaction2 (failure detection)', async function () {
+        const provider = jungle4.provider as MockProvider
+        provider.setContext(this.test!.title)
+        const info = await jungle4.v1.chain.get_info()
+        const header = info.getTransactionHeader(90)
+        const transfer = Transfer.from({
+            from: 'corecorecore',
+            to: 'nonexistent1',
+            quantity: '0.0001 EOS',
+            memo: 'this should fail',
+        })
+        const action = Action.from({
+            authorization: [{actor: 'corecorecore', permission: 'active'}],
+            account: 'eosio.token',
+            name: 'transfer',
+            data: transfer,
+        })
+        const transaction = Transaction.from({...header, actions: [action]})
+        const signedTransaction = await signMockTransaction(transaction, info)
+        try {
+            await jungle4.v1.chain.send_transaction2(signedTransaction)
+            assert.fail('should have thrown')
+        } catch (error) {
+            assert.equal(error instanceof APIError, true)
+            const apiError = error as APIError
+            assert.equal(apiError.name, 'eosio_assert_message_exception')
+            assert.equal(apiError.code, 3050003)
+            assert.isAbove(apiError.details.length, 0)
+            assert.isDefined(apiError.response.json.processed)
+            assert.isDefined(apiError.response.json.processed.except)
+        } finally {
+            provider.setContext('')
+        }
+    })
+
     test('chain get_table_rows (untyped)', async function () {
         const res = await eos.v1.chain.get_table_rows({
             code: 'eosio.token',

@@ -476,8 +476,10 @@ export interface SendTransaction2Response {
         id: string
         block_num: number
         block_time: string
-        receipt: {status: string; cpu_usage_us: number; net_usage_words: number}
+        receipt: {status: string; cpu_usage_us: number; net_usage_words: number} | null
         elapsed: number
+        except?: SendTransactionResponseException
+        error_code?: string
         net_usage: number
         scheduled: boolean
         action_traces: any[]
