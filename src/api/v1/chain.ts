@@ -1,4 +1,5 @@
-import {APIClient} from '../client'
+import {APIClient, APIError} from '../client'
+import {APIResponse} from '../provider'
 
 import {
     BlockIdType,
@@ -46,12 +47,21 @@ import {
     SendTransaction2Options,
     SendTransaction2Response,
     SendTransactionResponse,
+    SendTransactionResponseExceptionStack,
     TableIndexType,
     TableIndexTypes,
 } from './types'
 
 import {ABISerializableConstructor, ABISerializableType, Serializer} from '../../serializer'
 import {isInstanceOf} from '../../utils'
+
+function resolveStackFormat(entry: SendTransactionResponseExceptionStack): string {
+    if (!entry.format) return ''
+    if (!entry.data) return entry.format
+    return entry.format.replace(/\$\{(\w+)\}/g, (_, key) =>
+        entry.data[key] !== undefined ? String(entry.data[key]) : `\${${key}}`
+    )
+}
 
 export class ChainAPI {
     constructor(private client: APIClient) {}
@@ -227,7 +237,7 @@ export class ChainAPI {
         if (!isInstanceOf(tx, PackedTransaction)) {
             tx = PackedTransaction.fromSigned(SignedTransaction.from(tx))
         }
-        return this.client.call<SendTransaction2Response>({
+        const response = await this.client.call<SendTransaction2Response>({
             path: '/v1/chain/send_transaction2',
             params: {
                 return_failure_trace: true,
@@ -237,6 +247,30 @@ export class ChainAPI {
                 ...options,
             },
         })
+        if (response && response.processed && response.processed.except) {
+            const except = response.processed.except
+            const synthesized: APIResponse = {
+                status: 202,
+                headers: {},
+                text: JSON.stringify(response),
+                json: {
+                    ...response,
+                    error: {
+                        code: except.code || 0,
+                        name: except.name || 'transaction_exception',
+                        what: except.message || 'Transaction failed',
+                        details: (except.stack || []).map((s) => ({
+                            message: resolveStackFormat(s) || '',
+                            file: (s.context && s.context.file) || '',
+                            line_number: (s.context && s.context.line) || 0,
+                            method: (s.context && s.context.method) || '',
+                        })),
+                    },
+                },
+            }
+            throw new APIError('/v1/chain/send_transaction2', synthesized)
+        }
+        return response
     }
 
     async get_table_rows<Index extends TableIndexType = Name>(

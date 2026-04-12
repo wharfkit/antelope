@@ -1,0 +1,146 @@
+{
+    "api": "https://jungle4.api.eosnation.io",
+    "headers": {
+        "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
+        "access-control-allow-origin": "*",
+        "connection": "close",
+        "content-length": "2586",
+        "content-type": "application/json",
+        "date": "Fri, 20 Feb 2026 18:42:11 GMT",
+        "server": "nginx/1.28.2"
+    },
+    "status": 202,
+    "json": {
+        "transaction_id": "21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185",
+        "processed": {
+            "id": "21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185",
+            "block_num": 251509647,
+            "block_time": "2026-02-20T18:42:12.000",
+            "producer_block_id": null,
+            "receipt": null,
+            "elapsed": 214,
+            "net_usage": 135,
+            "scheduled": false,
+            "action_traces": [
+                {
+                    "action_ordinal": 1,
+                    "creator_action_ordinal": 0,
+                    "closest_unnotified_ancestor_action_ordinal": 0,
+                    "receipt": null,
+                    "receiver": "eosio.token",
+                    "act": {
+                        "account": "eosio.token",
+                        "name": "transfer",
+                        "authorization": [
+                            {
+                                "actor": "corecorecore",
+                                "permission": "active"
+                            }
+                        ],
+                        "data": {
+                            "from": "corecorecore",
+                            "to": "nonexistent1",
+                            "quantity": "0.0001 EOS",
+                            "memo": "this should fail"
+                        },
+                        "hex_data": "a02e45ea52a42e4510f25419bbae269d010000000000000004454f530000000010746869732073686f756c64206661696c"
+                    },
+                    "context_free": false,
+                    "elapsed": 74,
+                    "console": "",
+                    "trx_id": "21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185",
+                    "block_num": 251509647,
+                    "block_time": "2026-02-20T18:42:12.000",
+                    "producer_block_id": null,
+                    "account_ram_deltas": [],
+                    "except": {
+                        "code": 3050003,
+                        "name": "eosio_assert_message_exception",
+                        "message": "eosio_assert_message assertion failure",
+                        "stack": [
+                            {
+                                "context": {
+                                    "level": "error",
+                                    "file": "cf_system.cpp",
+                                    "line": 14,
+                                    "method": "eosio_assert",
+                                    "hostname": "",
+                                    "thread_name": "nodeos",
+                                    "timestamp": "2026-02-20T18:42:11.892"
+                                },
+                                "format": "assertion failure with message: ${s}",
+                                "data": {
+                                    "s": "to account does not exist"
+                                }
+                            },
+                            {
+                                "context": {
+                                    "level": "warn",
+                                    "file": "apply_context.cpp",
+                                    "line": 134,
+                                    "method": "exec_one",
+                                    "hostname": "",
+                                    "thread_name": "nodeos",
+                                    "timestamp": "2026-02-20T18:42:11.892"
+                                },
+                                "format": "${receiver} <= ${account}::${action} pending console output: ${console}",
+                                "data": {
+                                    "console": "",
+                                    "account": "eosio.token",
+                                    "action": "transfer",
+                                    "receiver": "eosio.token"
+                                }
+                            }
+                        ]
+                    },
+                    "error_code": "10000000000000000000",
+                    "return_value_hex_data": ""
+                }
+            ],
+            "account_ram_delta": null,
+            "except": {
+                "code": 3050003,
+                "name": "eosio_assert_message_exception",
+                "message": "eosio_assert_message assertion failure",
+                "stack": [
+                    {
+                        "context": {
+                            "level": "error",
+                            "file": "cf_system.cpp",
+                            "line": 14,
+                            "method": "eosio_assert",
+                            "hostname": "",
+                            "thread_name": "nodeos",
+                            "timestamp": "2026-02-20T18:42:11.892"
+                        },
+                        "format": "assertion failure with message: ${s}",
+                        "data": {
+                            "s": "to account does not exist"
+                        }
+                    },
+                    {
+                        "context": {
+                            "level": "warn",
+                            "file": "apply_context.cpp",
+                            "line": 134,
+                            "method": "exec_one",
+                            "hostname": "",
+                            "thread_name": "nodeos",
+                            "timestamp": "2026-02-20T18:42:11.892"
+                        },
+                        "format": "${receiver} <= ${account}::${action} pending console output: ${console}",
+                        "data": {
+                            "console": "",
+                            "account": "eosio.token",
+                            "action": "transfer",
+                            "receiver": "eosio.token"
+                        }
+                    }
+                ]
+            },
+            "error_code": "10000000000000000000"
+        }
+    },
+    "text": "{\"transaction_id\":\"21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185\",\"processed\":{\"id\":\"21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185\",\"block_num\":251509647,\"block_time\":\"2026-02-20T18:42:12.000\",\"producer_block_id\":null,\"receipt\":null,\"elapsed\":214,\"net_usage\":135,\"scheduled\":false,\"action_traces\":[{\"action_ordinal\":1,\"creator_action_ordinal\":0,\"closest_unnotified_ancestor_action_ordinal\":0,\"receipt\":null,\"receiver\":\"eosio.token\",\"act\":{\"account\":\"eosio.token\",\"name\":\"transfer\",\"authorization\":[{\"actor\":\"corecorecore\",\"permission\":\"active\"}],\"data\":{\"from\":\"corecorecore\",\"to\":\"nonexistent1\",\"quantity\":\"0.0001 EOS\",\"memo\":\"this should fail\"},\"hex_data\":\"a02e45ea52a42e4510f25419bbae269d010000000000000004454f530000000010746869732073686f756c64206661696c\"},\"context_free\":false,\"elapsed\":74,\"console\":\"\",\"trx_id\":\"21a37ffb8f996491a77953426e8da621b8b01c06cce5a80bbe8464408bae0185\",\"block_num\":251509647,\"block_time\":\"2026-02-20T18:42:12.000\",\"producer_block_id\":null,\"account_ram_deltas\":[],\"except\":{\"code\":3050003,\"name\":\"eosio_assert_message_exception\",\"message\":\"eosio_assert_message assertion failure\",\"stack\":[{\"context\":{\"level\":\"error\",\"file\":\"cf_system.cpp\",\"line\":14,\"method\":\"eosio_assert\",\"hostname\":\"\",\"thread_name\":\"nodeos\",\"timestamp\":\"2026-02-20T18:42:11.892\"},\"format\":\"assertion failure with message: ${s}\",\"data\":{\"s\":\"to account does not exist\"}},{\"context\":{\"level\":\"warn\",\"file\":\"apply_context.cpp\",\"line\":134,\"method\":\"exec_one\",\"hostname\":\"\",\"thread_name\":\"nodeos\",\"timestamp\":\"2026-02-20T18:42:11.892\"},\"format\":\"${receiver} <= ${account}::${action} pending console output: ${console}\",\"data\":{\"console\":\"\",\"account\":\"eosio.token\",\"action\":\"transfer\",\"receiver\":\"eosio.token\"}}]},\"error_code\":\"10000000000000000000\",\"return_value_hex_data\":\"\"}],\"account_ram_delta\":null,\"except\":{\"code\":3050003,\"name\":\"eosio_assert_message_exception\",\"message\":\"eosio_assert_message assertion failure\",\"stack\":[{\"context\":{\"level\":\"error\",\"file\":\"cf_system.cpp\",\"line\":14,\"method\":\"eosio_assert\",\"hostname\":\"\",\"thread_name\":\"nodeos\",\"timestamp\":\"2026-02-20T18:42:11.892\"},\"format\":\"assertion failure with message: ${s}\",\"data\":{\"s\":\"to account does not exist\"}},{\"context\":{\"level\":\"warn\",\"file\":\"apply_context.cpp\",\"line\":134,\"method\":\"exec_one\",\"hostname\":\"\",\"thread_name\":\"nodeos\",\"timestamp\":\"2026-02-20T18:42:11.892\"},\"format\":\"${receiver} <= ${account}::${action} pending console output: ${console}\",\"data\":{\"console\":\"\",\"account\":\"eosio.token\",\"action\":\"transfer\",\"receiver\":\"eosio.token\"}}]},\"error_code\":\"10000000000000000000\"}}"
+}
