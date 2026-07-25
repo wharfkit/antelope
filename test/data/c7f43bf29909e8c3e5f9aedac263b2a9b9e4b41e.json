@@ -1,0 +1,109 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a20df3b05f68c782-SJC",
+        "connection": "close",
+        "content-length": "1961",
+        "content-type": "application/json",
+        "date": "Sat, 25 Jul 2026 20:35:35 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lvE6nXT5tBGCol1HO1NRaT88ed4vL3NnnT1miVoZ1MRghQPGRKbupFsMxEht3lB9KReibDlo%2FI51kSjQoS48tvD8KhNXN57UfN8jh%2BzEAqLNAbXN7YDKnMNjuZqnI9k%2BqErJAre2\"}]}",
+        "server": "cloudflare"
+    },
+    "status": 202,
+    "json": {
+        "transaction_id": "c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888",
+        "processed": {
+            "id": "c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888",
+            "block_num": 278082138,
+            "block_time": "2026-07-25T20:35:35.500",
+            "producer_block_id": null,
+            "receipt": {
+                "status": "executed",
+                "cpu_usage_us": 142,
+                "net_usage_words": 30
+            },
+            "elapsed": 142,
+            "net_usage": 240,
+            "scheduled": false,
+            "action_traces": [
+                {
+                    "action_ordinal": 1,
+                    "creator_action_ordinal": 0,
+                    "closest_unnotified_ancestor_action_ordinal": 0,
+                    "receipt": {
+                        "receiver": "eosio",
+                        "act_digest": "3cd348178163df75a211c1210617ca7fbd166cd6a478f5fd17a7a5f396e84d69",
+                        "global_sequence": 360758846,
+                        "recv_sequence": 278671327,
+                        "auth_sequence": [
+                            [
+                                "corecorecore",
+                                1260
+                            ]
+                        ],
+                        "code_sequence": 14,
+                        "abi_sequence": 15
+                    },
+                    "receiver": "eosio",
+                    "act": {
+                        "account": "eosio",
+                        "name": "updateauth",
+                        "authorization": [
+                            {
+                                "actor": "corecorecore",
+                                "permission": "active"
+                            }
+                        ],
+                        "data": {
+                            "account": "corecorecore",
+                            "permission": "sortproof",
+                            "parent": "active",
+                            "auth": {
+                                "threshold": 1,
+                                "keys": [
+                                    {
+                                        "key": "PUB_WA_9EgZ4NdyTxraccNd6SHSqfGNdqDGPC2Der6AvnzBJQtTHRgRxf8DZZjf2V4azLnC2YUnWgYDizuLTAWt7bHB",
+                                        "weight": 1
+                                    },
+                                    {
+                                        "key": "PUB_WA_2CSuysB2uR6ewLaqXNxzT2ugL3TqnKUTELtyDB9SiFxnRj3FF4H9KyPmRVBQuwSfejbDe2jGfdqnPta4v3VR3G1maz",
+                                        "weight": 1
+                                    }
+                                ],
+                                "accounts": [],
+                                "waits": []
+                            }
+                        },
+                        "hex_data": "a02e45ea52a42e4500005894de9a2fc500000000a8ed32320100000002020262b63eb9636a134469d07c37810aa1c68cc0d45c3aef76a7b496efd1ae04a82701176a756e676c65342e616e63686f7277616c6c65742e696f0100020312f8240bc40b20a1ebf31e3be9ab1c5d81b4fbacd41ad6b121b21a2c002b59fa011b6a756e676c65342d6163636f756e742e756e69636f76652e636f6d01000000"
+                    },
+                    "context_free": false,
+                    "elapsed": 49,
+                    "console": "",
+                    "trx_id": "c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888",
+                    "block_num": 278082138,
+                    "block_time": "2026-07-25T20:35:35.500",
+                    "producer_block_id": null,
+                    "account_ram_deltas": [
+                        {
+                            "account": "corecorecore",
+                            "delta": 56
+                        }
+                    ],
+                    "except": null,
+                    "error_code": null,
+                    "return_value_hex_data": "",
+                    "inline_traces": []
+                }
+            ],
+            "account_ram_delta": null,
+            "except": null,
+            "error_code": null
+        }
+    },
+    "text": "{\"transaction_id\":\"c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888\",\"processed\":{\"id\":\"c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888\",\"block_num\":278082138,\"block_time\":\"2026-07-25T20:35:35.500\",\"producer_block_id\":null,\"receipt\":{\"status\":\"executed\",\"cpu_usage_us\":142,\"net_usage_words\":30},\"elapsed\":142,\"net_usage\":240,\"scheduled\":false,\"action_traces\":[{\"action_ordinal\":1,\"creator_action_ordinal\":0,\"closest_unnotified_ancestor_action_ordinal\":0,\"receipt\":{\"receiver\":\"eosio\",\"act_digest\":\"3cd348178163df75a211c1210617ca7fbd166cd6a478f5fd17a7a5f396e84d69\",\"global_sequence\":360758846,\"recv_sequence\":278671327,\"auth_sequence\":[[\"corecorecore\",1260]],\"code_sequence\":14,\"abi_sequence\":15},\"receiver\":\"eosio\",\"act\":{\"account\":\"eosio\",\"name\":\"updateauth\",\"authorization\":[{\"actor\":\"corecorecore\",\"permission\":\"active\"}],\"data\":{\"account\":\"corecorecore\",\"permission\":\"sortproof\",\"parent\":\"active\",\"auth\":{\"threshold\":1,\"keys\":[{\"key\":\"PUB_WA_9EgZ4NdyTxraccNd6SHSqfGNdqDGPC2Der6AvnzBJQtTHRgRxf8DZZjf2V4azLnC2YUnWgYDizuLTAWt7bHB\",\"weight\":1},{\"key\":\"PUB_WA_2CSuysB2uR6ewLaqXNxzT2ugL3TqnKUTELtyDB9SiFxnRj3FF4H9KyPmRVBQuwSfejbDe2jGfdqnPta4v3VR3G1maz\",\"weight\":1}],\"accounts\":[],\"waits\":[]}},\"hex_data\":\"a02e45ea52a42e4500005894de9a2fc500000000a8ed32320100000002020262b63eb9636a134469d07c37810aa1c68cc0d45c3aef76a7b496efd1ae04a82701176a756e676c65342e616e63686f7277616c6c65742e696f0100020312f8240bc40b20a1ebf31e3be9ab1c5d81b4fbacd41ad6b121b21a2c002b59fa011b6a756e676c65342d6163636f756e742e756e69636f76652e636f6d01000000\"},\"context_free\":false,\"elapsed\":49,\"console\":\"\",\"trx_id\":\"c5b22bb4b930895a816ad2f04dcb9754ce25ae4f44b2acd95cafcd1c393fe888\",\"block_num\":278082138,\"block_time\":\"2026-07-25T20:35:35.500\",\"producer_block_id\":null,\"account_ram_deltas\":[{\"account\":\"corecorecore\",\"delta\":56}],\"except\":null,\"error_code\":null,\"return_value_hex_data\":\"\",\"inline_traces\":[]}],\"account_ram_delta\":null,\"except\":null,\"error_code\":null}}"
+}

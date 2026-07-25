@@ -705,6 +705,56 @@ suite('chain', function () {
         assert.instanceOf(decoded.data.quantity, Asset)
     })
 
+    test('authority sorts mixed K1 and WA keys', function () {
+        // Reported in wharfkit/antelope#8, where localeCompare returns the wrong order.
+        const auth = Authority.from({
+            threshold: 1,
+            keys: [
+                'EOS5fMyAUopVJv88Wb4szbLH2ds65jiNCjv1XWRRyvrfR6oEBdZXk',
+                'PUB_WA_323xpHU17pKZ6VsygcdXxq7cgosxSyRU5KGevyjUNtw4m9Y63EzPs3SEVpsf7rjeVLa7',
+                'PUB_WA_4B6ZbE2hxTvcrndvS8758EjGqRMQqVoV4vBTGgvqi27HNw8xyQz6viKrGLNLcaiRmhmbuyu584Hf',
+                'PUB_WA_4vD5irsd1GdmTEhea5G8QideW3NqU8F5zgPLyD3wKDE7MUPAwo5nELCEbJEELDafLeV4Uz7djSFJ',
+                'PUB_WA_5Q6G5dqajZDkqDbgEUG7a7qMpe94P6LegYdf7h8yL9efjhC6ERWuFsJM1ueygEmXzaELBokrUeH8',
+                'PUB_WA_6wUAAJXLFc3edKhGb5DdWb3WmoLxLwFSspdiEYHvT6DN2X7zo6opCfv6TcAifvxRQdVYwcr84zMS',
+            ].map((key) => ({key, weight: 1})),
+        })
+        assert.deepEqual(
+            auth.keys.map((kw) => String(kw.key)),
+            [
+                'PUB_K1_5fMyAUopVJv88Wb4szbLH2ds65jiNCjv1XWRRyvrfR6oDcpM7y',
+                'PUB_WA_4B6ZbE2hxTvcrndvS8758EjGqRMQqVoV4vBTGgvqi27HNw8xyQz6viKrGLNLcaiRmhmbuyu584Hf',
+                'PUB_WA_4vD5irsd1GdmTEhea5G8QideW3NqU8F5zgPLyD3wKDE7MUPAwo5nELCEbJEELDafLeV4Uz7djSFJ',
+                'PUB_WA_5Q6G5dqajZDkqDbgEUG7a7qMpe94P6LegYdf7h8yL9efjhC6ERWuFsJM1ueygEmXzaELBokrUeH8',
+                'PUB_WA_323xpHU17pKZ6VsygcdXxq7cgosxSyRU5KGevyjUNtw4m9Y63EzPs3SEVpsf7rjeVLa7',
+                'PUB_WA_6wUAAJXLFc3edKhGb5DdWb3WmoLxLwFSspdiEYHvT6DN2X7zo6opCfv6TcAifvxRQdVYwcr84zMS',
+            ]
+        )
+    })
+
+    test('authority sorts accounts and waits', function () {
+        const auth = Authority.from({
+            threshold: 1,
+            accounts: [
+                {permission: {actor: 'zzz', permission: 'active'}, weight: 1},
+                {permission: {actor: 'aaa', permission: 'zzz'}, weight: 1},
+                {permission: {actor: 'aaa', permission: 'active'}, weight: 1},
+            ],
+            waits: [
+                {wait_sec: 3600, weight: 1},
+                {wait_sec: 60, weight: 1},
+                {wait_sec: 86400, weight: 1},
+            ],
+        })
+        assert.deepEqual(
+            auth.accounts.map((a) => String(a.permission)),
+            ['aaa@active', 'aaa@zzz', 'zzz@active']
+        )
+        assert.deepEqual(
+            auth.waits.map((w) => Number(w.wait_sec)),
+            [60, 3600, 86400]
+        )
+    })
+
     test('authority', function () {
         const auth = Authority.from({
             threshold: 21,

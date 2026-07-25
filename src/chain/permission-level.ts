@@ -28,6 +28,13 @@ export class PermissionLevel extends Struct {
         return this.actor.equals(otherPerm.actor) && this.permission.equals(otherPerm.permission)
     }
 
+    /** Compare with another permission level by actor, then permission. */
+    compare(other: PermissionLevelType | string): number {
+        const otherPerm = PermissionLevel.from(other)
+        const actor = this.actor.compare(otherPerm.actor)
+        return actor !== 0 ? actor : this.permission.compare(otherPerm.permission)
+    }
+
     toString() {
         return `${this.actor}@${this.permission}`
     }
