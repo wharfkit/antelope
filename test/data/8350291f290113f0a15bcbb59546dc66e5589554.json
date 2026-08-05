@@ -4,19 +4,18 @@
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
         "content-length": "95",
         "content-type": "application/json",
-        "date": "Tue, 16 Jan 2024 18:17:07 GMT",
-        "server": "nginx/1.24.0"
+        "date": "Wed, 05 Aug 2026 19:53:28 GMT",
+        "server": "nginx/1.30.4"
     },
     "status": 200,
     "json": {
         "EOS": {
-            "supply": "18653020423.8890 EOS",
+            "supply": "21135907701.8179 EOS",
             "max_supply": "100000000000.0000 EOS",
             "issuer": "eosio"
         }
     },
-    "text": "{\"EOS\":{\"supply\":\"18653020423.8890 EOS\",\"max_supply\":\"100000000000.0000 EOS\",\"issuer\":\"eosio\"}}"
+    "text": "{\"EOS\":{\"supply\":\"21135907701.8179 EOS\",\"max_supply\":\"100000000000.0000 EOS\",\"issuer\":\"eosio\"}}"
 }

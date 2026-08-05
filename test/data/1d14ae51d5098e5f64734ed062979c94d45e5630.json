@@ -1,0 +1,35 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26859274db4c0d8-LHR",
+        "content-length": "433",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:53:29 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FeNYq0JrdTkwSk7rGhBE%2BEeVRZIwCBe64%2Buynj0Xy6q%2BvLJsgcKcnKATSCuLno1bN4jEhIfcqJAjADrsJao9A6q1KQwYI5Eu5jsaFqHV%2Brn%2FpZq4WwU7RTiv8IHWpFTzCNIE0Err\"}]}",
+        "server": "cloudflare"
+    },
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3080004,
+            "name": "tx_cpu_usage_exceeded",
+            "what": "Transaction exceeded the current CPU usage limit imposed on the transaction",
+            "details": [
+                {
+                    "message": "billed CPU time (139 us) is greater than the maximum billable CPU time for the transaction (14 us) reached account cpu limit 14us",
+                    "file": "transaction_context.cpp",
+                    "line_number": 612,
+                    "method": "validate_account_cpu_usage"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3080004,\"name\":\"tx_cpu_usage_exceeded\",\"what\":\"Transaction exceeded the current CPU usage limit imposed on the transaction\",\"details\":[{\"message\":\"billed CPU time (139 us) is greater than the maximum billable CPU time for the transaction (14 us) reached account cpu limit 14us\",\"file\":\"transaction_context.cpp\",\"line_number\":612,\"method\":\"validate_account_cpu_usage\"}]}}"
+}

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import {join as joinPath} from 'path'
 import {promisify} from 'util'
 import {readFile as _readFile, writeFile as _writeFile} from 'fs'
@@ -9,10 +8,15 @@ const writeFile = promisify(_writeFile)
 import {APIMethods, APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 
 export class MockProvider implements APIProvider {
-    recordProvider = new FetchProvider(this.api, {fetch, headers: this.reqHeaders})
+    recordProvider: FetchProvider
     private context: string = ''
 
-    constructor(private api: string = 'https://jungle4.greymass.com', private reqHeaders = {}) {}
+    constructor(
+        private api: string = 'https://jungle4.greymass.com',
+        private reqHeaders = {}
+    ) {
+        this.recordProvider = new FetchProvider(this.api, {headers: this.reqHeaders})
+    }
 
     setContext(name: string) {
         this.context = name
@@ -20,7 +24,10 @@ export class MockProvider implements APIProvider {
 
     getFilename(path: string, params?: unknown) {
         const digest = Checksum160.hash(
-            Bytes.from(this.api + path + this.context + (params ? JSON.stringify(params) : ''), 'utf8')
+            Bytes.from(
+                this.api + path + this.context + (params ? JSON.stringify(params) : ''),
+                'utf8'
+            )
         ).hexString
         return joinPath(__dirname, '../data', digest + '.json')
     }

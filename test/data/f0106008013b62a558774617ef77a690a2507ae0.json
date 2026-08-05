@@ -4,21 +4,24 @@
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "154",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a2685934eb8e001b-LHR",
+        "content-encoding": "br",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:58 GMT",
+        "date": "Wed, 05 Aug 2026 19:53:31 GMT",
         "host": "eos.greymass.com",
-        "server": "nginx",
-        "x-cached": "MISS"
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6Cetm%2FEfO60JlZuMjHXmtcFz8E8uP7CQlqXAg4wdIIDW2m83R%2FuRFgg9bMYoTE405%2BKgqDxh1eorh6I6bTchOfJJNvmruXWmQSizVVod7aTfJRef7XApHZd%2B6gkGBRwCGlw%3D\"}]}",
+        "server": "cloudflare",
+        "x-cached": "EXPIRED"
     },
     "status": 200,
     "json": {
         "rows": [
             {
                 "data": {
-                    "supply": "1163425144.7960 EOS",
-                    "max_supply": "10000000000.0000 EOS",
+                    "supply": "2100000000.0000 EOS",
+                    "max_supply": "2100000000.0000 EOS",
                     "issuer": "eosio"
                 },
                 "payer": "eosio.token"
@@ -27,5 +30,5 @@
         "more": false,
         "next_key": ""
     },
-    "text": "{\"rows\":[{\"data\":{\"supply\":\"1163425144.7960 EOS\",\"max_supply\":\"10000000000.0000 EOS\",\"issuer\":\"eosio\"},\"payer\":\"eosio.token\"}],\"more\":false,\"next_key\":\"\"}"
+    "text": "{\"rows\":[{\"data\":{\"supply\":\"2100000000.0000 EOS\",\"max_supply\":\"2100000000.0000 EOS\",\"issuer\":\"eosio\"},\"payer\":\"eosio.token\"}],\"more\":false,\"next_key\":\"\"}"
 }

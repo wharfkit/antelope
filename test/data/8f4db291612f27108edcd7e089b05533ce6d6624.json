@@ -4,23 +4,22 @@
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "465",
+        "content-length": "468",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:50:04 GMT",
-        "server": "nginx/1.24.0"
+        "date": "Wed, 05 Aug 2026 19:53:34 GMT",
+        "server": "nginx/1.30.4"
     },
     "status": 200,
     "json": {
         "state": "UNKNOWN",
-        "head_number": 90841456,
-        "head_id": "056a217065a468da24de7d0724c7f62fb97961852e5dbc70228a555b706d001f",
-        "head_timestamp": "2023-08-04T18:50:04.500",
-        "irreversible_number": 90841122,
-        "irreversible_id": "056a20227ecac1a288de07ae6ec484f12d18c624a08025024c74b35f0eedccdc",
-        "irreversible_timestamp": "2023-08-04T18:47:17.500",
-        "earliest_tracked_block_id": "0569cd2cffd2b1e82e14c7813523e559167642571807b560f679815fe2053fd5",
-        "earliest_tracked_block_number": 90819884
+        "head_number": 279977022,
+        "head_id": "10b01c3ebcb39cb7df9ab3ba6be0aa2a60d98c9611e242eb5a946579980c6b61",
+        "head_timestamp": "2026-08-05T19:53:35.000",
+        "irreversible_number": 279977020,
+        "irreversible_id": "10b01c3c4f99a4b038f69fc22f4a3956584d38891939136358908462d2dcdccc",
+        "irreversible_timestamp": "2026-08-05T19:53:34.000",
+        "earliest_tracked_block_id": "10affe56a86f2cc1bff4c3ee042df6b5cba044a6e7de47a6c5f7ad219414f5de",
+        "earliest_tracked_block_number": 279969366
     },
-    "text": "{\"state\":\"UNKNOWN\",\"head_number\":90841456,\"head_id\":\"056a217065a468da24de7d0724c7f62fb97961852e5dbc70228a555b706d001f\",\"head_timestamp\":\"2023-08-04T18:50:04.500\",\"irreversible_number\":90841122,\"irreversible_id\":\"056a20227ecac1a288de07ae6ec484f12d18c624a08025024c74b35f0eedccdc\",\"irreversible_timestamp\":\"2023-08-04T18:47:17.500\",\"earliest_tracked_block_id\":\"0569cd2cffd2b1e82e14c7813523e559167642571807b560f679815fe2053fd5\",\"earliest_tracked_block_number\":90819884}"
+    "text": "{\"state\":\"UNKNOWN\",\"head_number\":279977022,\"head_id\":\"10b01c3ebcb39cb7df9ab3ba6be0aa2a60d98c9611e242eb5a946579980c6b61\",\"head_timestamp\":\"2026-08-05T19:53:35.000\",\"irreversible_number\":279977020,\"irreversible_id\":\"10b01c3c4f99a4b038f69fc22f4a3956584d38891939136358908462d2dcdccc\",\"irreversible_timestamp\":\"2026-08-05T19:53:34.000\",\"earliest_tracked_block_id\":\"10affe56a86f2cc1bff4c3ee042df6b5cba044a6e7de47a6c5f7ad219414f5de\",\"earliest_tracked_block_number\":279969366}"
 }

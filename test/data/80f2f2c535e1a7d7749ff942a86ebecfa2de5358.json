@@ -4,34 +4,41 @@
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "1408",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26858db48be71bd-LHR",
+        "content-encoding": "br",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:31 GMT",
+        "date": "Wed, 05 Aug 2026 19:53:17 GMT",
         "host": "jungle4.greymass.com",
-        "server": "nginx/1.18.0 (Ubuntu)"
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xPCkZwIHlNU3v3ILHE3PbqCDRedgAr%2Fj2sQ66R5vplT59jhGP5vT9AQvOkf8i0NiPG%2FgS6JsuMnEp9RFQknoYF0VUo097bONyqn1k2f4SVGSw6d5sq8N34MAAed68oDsNmiBSf4i\"}]}",
+        "server": "cloudflare"
     },
     "status": 200,
     "json": {
         "account_name": "teamgreymass",
-        "head_block_num": 90841391,
-        "head_block_time": "2023-08-04T18:49:32.000",
+        "head_block_num": 279976987,
+        "head_block_time": "2026-08-05T19:53:17.500",
         "privileged": false,
         "last_code_update": "1970-01-01T00:00:00.000",
         "created": "2022-03-09T18:59:11.000",
-        "core_liquid_balance": "10.6359 EOS",
-        "ram_quota": 5495,
+        "core_liquid_balance": "42.6646 EOS",
+        "ram_quota": 10615,
         "net_weight": 10000,
         "cpu_weight": 10000,
         "net_limit": {
             "used": 0,
-            "available": 15416,
-            "max": 15416
+            "available": 15415,
+            "max": 15415,
+            "last_usage_update_time": "2022-03-09T18:59:11.000",
+            "current_used": 0
         },
         "cpu_limit": {
             "used": 0,
-            "available": 2865,
-            "max": 2865
+            "available": 2,
+            "max": 2,
+            "last_usage_update_time": "2022-03-09T18:59:11.000",
+            "current_used": 0
         },
         "ram_usage": 3446,
         "permissions": [
@@ -72,7 +79,7 @@
             "owner": "teamgreymass",
             "net_weight": "1.0000 EOS",
             "cpu_weight": "1.0000 EOS",
-            "ram_bytes": 4095
+            "ram_bytes": 9215
         },
         "self_delegated_bandwidth": {
             "from": "teamgreymass",
@@ -97,9 +104,11 @@
         "subjective_cpu_bill_limit": {
             "used": 0,
             "available": 0,
-            "max": 0
+            "max": 0,
+            "last_usage_update_time": "2000-01-01T00:00:00.000",
+            "current_used": 0
         },
         "eosio_any_linked_actions": []
     },
-    "text": "{\"account_name\":\"teamgreymass\",\"head_block_num\":90841391,\"head_block_time\":\"2023-08-04T18:49:32.000\",\"privileged\":false,\"last_code_update\":\"1970-01-01T00:00:00.000\",\"created\":\"2022-03-09T18:59:11.000\",\"core_liquid_balance\":\"10.6359 EOS\",\"ram_quota\":5495,\"net_weight\":10000,\"cpu_weight\":10000,\"net_limit\":{\"used\":0,\"available\":15416,\"max\":15416},\"cpu_limit\":{\"used\":0,\"available\":2865,\"max\":2865},\"ram_usage\":3446,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS5w2WYgoiFT41Ad3Ax1ZkD47D4qriGaRXRsXmkFuC1hKwjbrXe3\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS5w2WYgoiFT41Ad3Ax1ZkD47D4qriGaRXRsXmkFuC1hKwjbrXe3\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]}],\"total_resources\":{\"owner\":\"teamgreymass\",\"net_weight\":\"1.0000 EOS\",\"cpu_weight\":\"1.0000 EOS\",\"ram_bytes\":4095},\"self_delegated_bandwidth\":{\"from\":\"teamgreymass\",\"to\":\"teamgreymass\",\"net_weight\":\"1.0000 EOS\",\"cpu_weight\":\"1.0000 EOS\"},\"refund_request\":null,\"voter_info\":{\"owner\":\"teamgreymass\",\"proxy\":\"\",\"producers\":[],\"staked\":20000,\"last_vote_weight\":\"0.00000000000000000\",\"proxied_vote_weight\":\"0.00000000000000000\",\"is_proxy\":0,\"flags1\":0,\"reserved2\":0,\"reserved3\":\"0 \"},\"rex_info\":null,\"subjective_cpu_bill_limit\":{\"used\":0,\"available\":0,\"max\":0},\"eosio_any_linked_actions\":[]}"
+    "text": "{\"account_name\":\"teamgreymass\",\"head_block_num\":279976987,\"head_block_time\":\"2026-08-05T19:53:17.500\",\"privileged\":false,\"last_code_update\":\"1970-01-01T00:00:00.000\",\"created\":\"2022-03-09T18:59:11.000\",\"core_liquid_balance\":\"42.6646 EOS\",\"ram_quota\":10615,\"net_weight\":10000,\"cpu_weight\":10000,\"net_limit\":{\"used\":0,\"available\":15415,\"max\":15415,\"last_usage_update_time\":\"2022-03-09T18:59:11.000\",\"current_used\":0},\"cpu_limit\":{\"used\":0,\"available\":2,\"max\":2,\"last_usage_update_time\":\"2022-03-09T18:59:11.000\",\"current_used\":0},\"ram_usage\":3446,\"permissions\":[{\"perm_name\":\"active\",\"parent\":\"owner\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS5w2WYgoiFT41Ad3Ax1ZkD47D4qriGaRXRsXmkFuC1hKwjbrXe3\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]},{\"perm_name\":\"owner\",\"parent\":\"\",\"required_auth\":{\"threshold\":1,\"keys\":[{\"key\":\"EOS5w2WYgoiFT41Ad3Ax1ZkD47D4qriGaRXRsXmkFuC1hKwjbrXe3\",\"weight\":1}],\"accounts\":[],\"waits\":[]},\"linked_actions\":[]}],\"total_resources\":{\"owner\":\"teamgreymass\",\"net_weight\":\"1.0000 EOS\",\"cpu_weight\":\"1.0000 EOS\",\"ram_bytes\":9215},\"self_delegated_bandwidth\":{\"from\":\"teamgreymass\",\"to\":\"teamgreymass\",\"net_weight\":\"1.0000 EOS\",\"cpu_weight\":\"1.0000 EOS\"},\"refund_request\":null,\"voter_info\":{\"owner\":\"teamgreymass\",\"proxy\":\"\",\"producers\":[],\"staked\":20000,\"last_vote_weight\":\"0.00000000000000000\",\"proxied_vote_weight\":\"0.00000000000000000\",\"is_proxy\":0,\"flags1\":0,\"reserved2\":0,\"reserved3\":\"0 \"},\"rex_info\":null,\"subjective_cpu_bill_limit\":{\"used\":0,\"available\":0,\"max\":0,\"last_usage_update_time\":\"2000-01-01T00:00:00.000\",\"current_used\":0},\"eosio_any_linked_actions\":[]}"
 }

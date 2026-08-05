@@ -4,13 +4,16 @@
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "1102",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26859343dc5c0d8-LHR",
+        "content-encoding": "br",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:56 GMT",
+        "date": "Wed, 05 Aug 2026 19:53:31 GMT",
         "host": "jungle4.greymass.com",
-        "server": "nginx/1.18.0 (Ubuntu)",
-        "x-cached": "MISS"
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YfFpRorrGuIBtLFkYebHDjkZYkGF%2BUy1teU5Ll1J%2F%2FQKt6miAdD4HaISVrix1m0lMbZ9UZJDD3bRhdUtsnJLTyIhBnPXlFq2VX4qQlcx0Zb4GnrHffRNSEtdYFDS9Z8QWKR6FK3J\"}]}",
+        "server": "cloudflare",
+        "x-cached": "EXPIRED"
     },
     "status": 200,
     "json": {
@@ -30,9 +33,9 @@
                     "decay_secs": 86400,
                     "min_price": "1000.0000 EOS",
                     "max_price": "150000.0000 EOS",
-                    "utilization": "456144151395",
-                    "adjusted_utilization": "436344151395",
-                    "utilization_timestamp": "2023-08-04T12:03:38"
+                    "utilization": "279432761501",
+                    "adjusted_utilization": "312003193146",
+                    "utilization_timestamp": "2026-08-05T15:16:07"
                 },
                 "cpu": {
                     "version": 0,
@@ -47,9 +50,9 @@
                     "decay_secs": 86400,
                     "min_price": "2500.0000 EOS",
                     "max_price": "75000.0000 EOS",
-                    "utilization": "524350588234",
-                    "adjusted_utilization": "680790202778",
-                    "utilization_timestamp": "2023-08-04T12:03:38"
+                    "utilization": "3050617790579",
+                    "adjusted_utilization": "3826529869892",
+                    "utilization_timestamp": "2026-08-05T15:16:07"
                 },
                 "powerup_days": 1,
                 "min_powerup_fee": "0.1000 EOS"
@@ -58,5 +61,5 @@
         "more": false,
         "next_key": ""
     },
-    "text": "{\"rows\":[{\"version\":0,\"net\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"1000.0000 EOS\",\"max_price\":\"150000.0000 EOS\",\"utilization\":\"456144151395\",\"adjusted_utilization\":\"436344151395\",\"utilization_timestamp\":\"2023-08-04T12:03:38\"},\"cpu\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"2500.0000 EOS\",\"max_price\":\"75000.0000 EOS\",\"utilization\":\"524350588234\",\"adjusted_utilization\":\"680790202778\",\"utilization_timestamp\":\"2023-08-04T12:03:38\"},\"powerup_days\":1,\"min_powerup_fee\":\"0.1000 EOS\"}],\"more\":false,\"next_key\":\"\"}"
+    "text": "{\"rows\":[{\"version\":0,\"net\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"1000.0000 EOS\",\"max_price\":\"150000.0000 EOS\",\"utilization\":\"279432761501\",\"adjusted_utilization\":\"312003193146\",\"utilization_timestamp\":\"2026-08-05T15:16:07\"},\"cpu\":{\"version\":0,\"weight\":\"99000000000000\",\"weight_ratio\":\"10000000000000\",\"assumed_stake_weight\":\"1000000000000\",\"initial_weight_ratio\":\"10000000000000\",\"target_weight_ratio\":\"10000000000000\",\"initial_timestamp\":\"2022-02-22T23:46:37\",\"target_timestamp\":\"2022-02-22T23:46:37\",\"exponent\":\"2.00000000000000000\",\"decay_secs\":86400,\"min_price\":\"2500.0000 EOS\",\"max_price\":\"75000.0000 EOS\",\"utilization\":\"3050617790579\",\"adjusted_utilization\":\"3826529869892\",\"utilization_timestamp\":\"2026-08-05T15:16:07\"},\"powerup_days\":1,\"min_powerup_fee\":\"0.1000 EOS\"}],\"more\":false,\"next_key\":\"\"}"
 }

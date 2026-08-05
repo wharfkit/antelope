@@ -28,10 +28,10 @@ export interface P2PProvider {
 
 export class SimpleEnvelopeP2PProvider {
     static maxReadLength = 8 * 1024 * 1024
-    private declare nextProvider: P2PProvider
-    private declare dataHandlers: Array<P2PDataHandler>
-    private declare errorHandlers: Array<P2PErrorHandler>
-    private declare remainingData: Uint8Array
+    declare private nextProvider: P2PProvider
+    declare private dataHandlers: Array<P2PDataHandler>
+    declare private errorHandlers: Array<P2PErrorHandler>
+    declare private remainingData: Uint8Array
 
     constructor(nextProvider: P2PProvider) {
         this.nextProvider = nextProvider
