@@ -95,9 +95,8 @@ export class Authority extends Struct {
      * Sorts the authority weights in place, should be called before including the authority in a `updateauth` action or it might be rejected.
      */
     sort() {
-        // This hack satisfies the constraints that authority weights, see: https://github.com/wharfkit/antelope/issues/8
-        this.keys.sort((a, b) => String(a.key).localeCompare(String(b.key)))
-        this.accounts.sort((a, b) => String(a.permission).localeCompare(String(b.permission)))
-        this.waits.sort((a, b) => String(a.wait_sec).localeCompare(String(b.wait_sec)))
+        this.keys.sort((a, b) => a.key.compare(b.key))
+        this.accounts.sort((a, b) => a.permission.compare(b.permission))
+        this.waits.sort((a, b) => a.wait_sec.value.cmp(b.wait_sec.value))
     }
 }
