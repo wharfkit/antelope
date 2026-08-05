@@ -1,5 +1,5 @@
+import {randomBytes} from '@noble/hashes/utils.js'
 import {ABISerializableObject} from './serializer/serializable'
-import rand from 'brorand'
 
 export function arrayEquals(a: ArrayLike<number>, b: ArrayLike<number>) {
     const len = a.length
@@ -75,7 +75,7 @@ export function hexToArray(hex: string) {
 
 /** Generate N random bytes, throws if a secure random source isn't available. */
 export function secureRandom(length: number): Uint8Array {
-    return rand(length)
+    return randomBytes(length)
 }
 
 /** Used in isInstanceOf checks so we don't spam with warnings. */

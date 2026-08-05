@@ -13,5 +13,9 @@ export function verify(
     const curve = getCurve(type)
     const r = signature.subarray(1, 33)
     const s = signature.subarray(33, 33 + 32)
-    return curve.verify(message, {r, s}, pubkey as any)
+    return curve.verify(new Uint8Array([...r, ...s]), message, pubkey, {
+        prehash: false,
+        format: 'compact',
+        lowS: false,
+    })
 }

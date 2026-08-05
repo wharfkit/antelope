@@ -2,7 +2,6 @@ import {assert} from 'chai'
 
 import {MockProvider} from './utils/mock-provider'
 import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
-import fetch from 'node-fetch'
 
 import {
     ABI,
@@ -17,7 +16,6 @@ import {
     Bytes,
     Checksum256,
     CompressionType,
-    FetchProvider,
     Float64,
     Name,
     PackedTransaction,
