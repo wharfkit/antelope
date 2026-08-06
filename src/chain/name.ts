@@ -56,6 +56,11 @@ export class Name implements ABISerializableObject {
         return this.value.equals(Name.from(other).value)
     }
 
+    /** Compare with another name by underlying uint64 value. */
+    compare(other: NameType): number {
+        return this.value.value.cmp(Name.from(other).value.value)
+    }
+
     /** Return string representation of this name. */
     toString() {
         return nameToString(this.value)

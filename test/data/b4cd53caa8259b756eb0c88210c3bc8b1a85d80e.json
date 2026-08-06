@@ -1,0 +1,42 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a20df3a8baadce78-SJC",
+        "connection": "close",
+        "content-length": "618",
+        "content-type": "application/json",
+        "date": "Sat, 25 Jul 2026 20:35:34 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=XvuYVFrf2jG46T6%2FVlR9TJChYmQS3ZI2BevV23LATeTq0vfBZdBYqKiAR4EJz9RMS%2FoT3wjoB%2BLF2sFNsndTQ%2B1sbEn877fCllB%2Bbo1F9eZEMHW4UKPQqu9sMBCMdn6UqeHXNUMt\"}]}",
+        "server": "cloudflare"
+    },
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3050000,
+            "name": "action_validate_exception",
+            "what": "Action validate exception",
+            "details": [
+                {
+                    "message": "Invalid authority: {\"threshold\":1,\"keys\":[{\"key\":\"EOS5wBCjBSLvTm44r6cFBvHVYDcq9syfS7oTh6X8YSPst6mt6FmCc\",\"weight\":1},{\"key\":\"EOS5ZexUstSEjwgcZWfziD6zC6xqvDzYkoMH4bf2MjuyJdnc8uhQe\",\"weight\":1}],\"accounts\":[],\"waits\":[]}",
+                    "file": "eosio_contract.cpp",
+                    "line_number": 268,
+                    "method": "apply_eosio_updateauth"
+                },
+                {
+                    "message": "eosio <= eosio::updateauth pending console output: ",
+                    "file": "apply_context.cpp",
+                    "line_number": 134,
+                    "method": "exec_one"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3050000,\"name\":\"action_validate_exception\",\"what\":\"Action validate exception\",\"details\":[{\"message\":\"Invalid authority: {\\\"threshold\\\":1,\\\"keys\\\":[{\\\"key\\\":\\\"EOS5wBCjBSLvTm44r6cFBvHVYDcq9syfS7oTh6X8YSPst6mt6FmCc\\\",\\\"weight\\\":1},{\\\"key\\\":\\\"EOS5ZexUstSEjwgcZWfziD6zC6xqvDzYkoMH4bf2MjuyJdnc8uhQe\\\",\\\"weight\\\":1}],\\\"accounts\\\":[],\\\"waits\\\":[]}\",\"file\":\"eosio_contract.cpp\",\"line_number\":268,\"method\":\"apply_eosio_updateauth\"},{\"message\":\"eosio <= eosio::updateauth pending console output: \",\"file\":\"apply_context.cpp\",\"line_number\":134,\"method\":\"exec_one\"}]}}"
+}

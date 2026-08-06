@@ -81,6 +81,20 @@ export class PublicKey implements ABISerializableObject {
         return this.type === otherKey.type && this.data.equals(otherKey.data)
     }
 
+    /** Compare with another key using the ordering nodeos enforces on authority keys. */
+    compare(other: PublicKeyType): number {
+        const otherKey = PublicKey.from(other)
+        const type = KeyType.indexFor(this.type)
+        const otherType = KeyType.indexFor(otherKey.type)
+        if (type !== otherType) {
+            return type < otherType ? -1 : 1
+        }
+        if (this.type === KeyType.WA) {
+            return compareWebAuthn(this.data.array, otherKey.data.array)
+        }
+        return compareBytes(this.data.array, otherKey.data.array)
+    }
+
     /**
      * Return Antelope/EOSIO legacy (`EOS<base58data>`) formatted key.
      * @throws If the key type isn't `K1`
@@ -107,4 +121,35 @@ export class PublicKey implements ABISerializableObject {
     toJSON() {
         return this.toString()
     }
+}
+
+function compareBytes(a: Uint8Array, b: Uint8Array): number {
+    const length = Math.min(a.length, b.length)
+    for (let i = 0; i < length; i++) {
+        if (a[i] !== b[i]) {
+            return a[i] < b[i] ? -1 : 1
+        }
+    }
+    if (a.length === b.length) {
+        return 0
+    }
+    return a.length < b.length ? -1 : 1
+}
+
+function compareWebAuthn(a: Uint8Array, b: Uint8Array): number {
+    // fc compares (key, user presence, rpid) as a tuple, the rpid as a string.
+    const prefix = compareBytes(a.subarray(0, 34), b.subarray(0, 34))
+    if (prefix !== 0) {
+        return prefix
+    }
+    return compareBytes(readRpid(a), readRpid(b))
+}
+
+function readRpid(data: Uint8Array): Uint8Array {
+    // Skip the varuint32 that length-prefixes the rpid on the wire.
+    let offset = 34
+    while (data[offset] & 0x80) {
+        offset++
+    }
+    return data.subarray(offset + 1)
 }
