@@ -14,6 +14,8 @@ import {
     Checksum160,
     Checksum256,
     Checksum512,
+    Float32,
+    Float64,
     Int32,
     Int64,
     Name,
@@ -147,6 +149,21 @@ suite('chain', function () {
         const string4 = 'vu/6zg==='
         const blob4 = Blob.from(string4)
         assert.isTrue(Bytes.from(blob4.array).equals(expected))
+    })
+
+    test('float', function () {
+        // float32 decodes to the stored 32-bit value widened to a double, matching nodeos
+        const small = Serializer.decode({data: '2d740139', type: Float32})
+        assert.equal(small.value, 0.0001234567753272131)
+        assert.equal(String(small), '0.0001234567753272131')
+        assert.equal(JSON.stringify(small), '"0.0001234567753272131"')
+        assert.equal(Float32.from(small.toString()).value, small.value)
+        const pi = Float32.from(3.1415925)
+        assert.equal(String(pi), '3.1415925')
+        assert.equal(String(Serializer.decode({data: Serializer.encode({object: pi}), type: Float32})), '3.141592502593994')
+        const d = Float64.from(0.1 + 0.2)
+        assert.equal(String(d), '0.30000000000000004')
+        assert.equal(Float64.from(d.toString()).value, d.value)
     })
 
     test('bytes', function () {

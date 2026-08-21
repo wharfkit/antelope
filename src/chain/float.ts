@@ -72,10 +72,6 @@ export type Float32Type = Float32 | FloatType
 export class Float32 extends Float {
     static abiName = 'float32'
     static byteWidth = 4
-
-    toString() {
-        return this.value.toFixed(7)
-    }
 }
 
 export type Float64Type = Float64 | FloatType
