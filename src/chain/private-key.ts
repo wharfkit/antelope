@@ -113,10 +113,16 @@ export class PrivateKey {
 
     /**
      * Derive the shared secret between this private key and given public key.
+     * The `legacy` option replicates the divergent pre-2.0 x-coordinate derivation.
      * @throws If the key type isn't R1 or K1.
      */
-    sharedSecret(publicKey: PublicKey) {
-        const shared = sharedSecret(this.data.array, publicKey.data.array, this.type)
+    sharedSecret(publicKey: PublicKey, options?: {legacy?: boolean}) {
+        const shared = sharedSecret(
+            this.data.array,
+            publicKey.data.array,
+            this.type,
+            options && options.legacy
+        )
         return Checksum512.hash(shared)
     }
 
