@@ -149,6 +149,15 @@ suite('api v1', function () {
             )
         )
         assert.instanceOf(response.abi_hash, Checksum256)
+        assert.equal(
+            response.abi_hash,
+            '4ddeabf8085f6a6045ec75a100d93b21f6979668d2f7ade18812a5698c6613ce'
+        )
+        assert.isTrue(
+            response.abi_hash.equals(
+                '4ddeabf8085f6a6045ec75a100d93b21f6979668d2f7ade18812a5698c6613ce'
+            )
+        )
         assert.instanceOf(response.abi, Blob)
         const abi = ABI.from(response.abi)
         assert.instanceOf(abi, ABI)
@@ -217,9 +226,14 @@ suite('api v1', function () {
         const response = await jungle4.v1.chain.get_accounts_by_authorizers({
             keys: ['PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'],
         })
-        assert.isAbove(response.accounts.length, 0)
-        assert.isTrue(response.accounts[0].account_name instanceof Name)
-        assert.isTrue(response.accounts[0].permission_name instanceof Name)
+        assert.lengthOf(response.accounts, 99)
+        assert.isTrue(response.accounts[0].account_name.equals('testtestasdf'))
+        assert.isTrue(response.accounts[0].permission_name.equals('owner'))
+        assert.isTrue(
+            response.accounts[0].authorizing_key.equals(
+                'PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'
+            )
+        )
         assert.isTrue(response.accounts[0].weight.equals(1))
         assert.isTrue(response.accounts[0].threshold.equals(1))
     })
@@ -228,7 +242,7 @@ suite('api v1', function () {
         const response = await jungle4.v1.chain.get_accounts_by_authorizers({
             accounts: ['eosio.prods'],
         })
-        assert.isAbove(response.accounts.length, 0)
+        assert.lengthOf(response.accounts, 8)
         assert.isTrue(response.accounts[0].account_name.equals('eosio'))
         assert.isTrue(response.accounts[0].permission_name.equals('active'))
         assert.isTrue(response.accounts[0].authorizing_account.actor.equals('eosio.prods'))
@@ -662,7 +676,9 @@ suite('api v1', function () {
             lower_bound: res1.next_key,
         })
         assert.equal(res2.rows[0].account instanceof Name, true)
-        assert.equal(res2.rows[1].account instanceof Name, true)
+        assert.equal(String(res2.rows[0].account), 'atomichub')
+        assert.equal(String(res2.next_key), 'boid')
+        assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.02566).toFixed(6))
     })
 
     test('chain get_table_rows (empty scope)', async function () {
@@ -755,8 +771,18 @@ suite('api v1', function () {
             assert.equal(error instanceof APIError, true)
             const apiError = error as APIError
             assert.equal(apiError.response.status, 400)
+            assert.equal(apiError.name, 'account_query_exception')
             assert.equal(apiError.code, 3060002)
             assert.equal(error.response.headers['access-control-allow-origin'], '*')
+            assert.deepEqual(apiError.details, [
+                {
+                    message:
+                        'unable to retrieve account info (unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1))',
+                    file: 'chain_plugin.cpp',
+                    line_number: 2579,
+                    method: 'get_account',
+                },
+            ])
         }
     })
 
