@@ -4,29 +4,32 @@
         "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "483",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a268593a3bf3c0d8-LHR",
+        "content-length": "538",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:50:00 GMT",
-        "server": "nginx/1.18.0 (Ubuntu)"
+        "date": "Wed, 05 Aug 2026 19:53:32 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HewyTQjz5GleewxF%2BuIYAAi517ZRVR13XAVy1EPu6jm1Beo2rUhE%2BNxb8Gr69A%2BawIFfht9dQE8rSTtes88wBSgzuWFlncPCRK6SsvkQbnyf0NmAgI68FlGm0pxshoKwY261mZ3A\"}]}",
+        "server": "cloudflare"
     },
-    "status": 500,
+    "status": 400,
     "json": {
-        "code": 500,
-        "message": "Internal Service Error",
+        "code": 400,
+        "message": "Account lookup",
         "error": {
-            "code": 0,
-            "name": "exception",
-            "what": "unspecified",
+            "code": 3060002,
+            "name": "account_query_exception",
+            "what": "Account Query Exception",
             "details": [
                 {
-                    "message": "unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)",
-                    "file": "http_plugin.cpp",
-                    "line_number": 954,
-                    "method": "handle_exception"
+                    "message": "unable to retrieve account info (unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1))",
+                    "file": "chain_plugin.cpp",
+                    "line_number": 2579,
+                    "method": "get_account"
                 }
             ]
         }
     },
-    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":0,\"name\":\"exception\",\"what\":\"unspecified\",\"details\":[{\"message\":\"unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)\",\"file\":\"http_plugin.cpp\",\"line_number\":954,\"method\":\"handle_exception\"}]}}"
+    "text": "{\"code\":400,\"message\":\"Account lookup\",\"error\":{\"code\":3060002,\"name\":\"account_query_exception\",\"what\":\"Account Query Exception\",\"details\":[{\"message\":\"unable to retrieve account info (unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1))\",\"file\":\"chain_plugin.cpp\",\"line_number\":2579,\"method\":\"get_account\"}]}}"
 }

@@ -1,36 +1,36 @@
 {
-    "status": 200,
-    "json": {
-        "controlled_accounts": [
-            "eosforumrcpp",
-            "eosforumrcpp"
-        ],
-        "controlled_auths": [
-            "active",
-            "active"
-        ],
-        "permissions": [
-            "active",
-            "owner"
-        ],
-        "prev_controlled_accounts": [
-            "cc32dninewp1",
-            "cc32dninewp1",
-            "eosforumrcpp",
-            "eosforumrcpp"
-        ],
-        "prev_controlled_auths": [
-            "active",
-            "active",
-            "active",
-            "active"
-        ],
-        "prev_permissions": [
-            "active",
-            "owner",
-            "active",
-            "active"
-        ]
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a268355d5d5cef56-LHR",
+        "content-encoding": "br",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:29:03 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EH1xwrGGTwWimw5P4xu2JEvv2%2FrvHwESePHIl%2FdzkqOgvGKpFqBHsgwOQ44ZwX%2BhKXFDmAdYzEUCpOCy%2BoKeNR8jd0GzTqDG%2BNE%2FNix2kr605nTggm%2Bcw3FHYBJUm2RKBgg%3D\"}]}",
+        "server": "cloudflare",
+        "x-cached": "MISS"
     },
-    "text": "{\n  \"controlled_accounts\": [\n    \"eosforumrcpp\",\n    \"eosforumrcpp\"\n  ],\n  \"controlled_auths\": [\n    \"active\",\n    \"active\"\n  ],\n  \"permissions\": [\n    \"active\",\n    \"owner\"\n  ],\n  \"prev_controlled_accounts\": [\n    \"cc32dninewp1\",\n    \"cc32dninewp1\",\n    \"eosforumrcpp\",\n    \"eosforumrcpp\"\n  ],\n  \"prev_controlled_auths\": [\n    \"active\",\n    \"active\",\n    \"active\",\n    \"active\"\n  ],\n  \"prev_permissions\": [\n    \"active\",\n    \"owner\",\n    \"active\",\n    \"active\"\n  ]\n}"
+    "status": 404,
+    "json": {
+        "code": 404,
+        "message": "Not Found",
+        "error": {
+            "code": 0,
+            "name": "exception",
+            "what": "unspecified",
+            "details": [
+                {
+                    "message": "Unknown Endpoint",
+                    "file": "beast_http_session.hpp",
+                    "line_number": 186,
+                    "method": "handle_request"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":404,\"message\":\"Not Found\",\"error\":{\"code\":0,\"name\":\"exception\",\"what\":\"unspecified\",\"details\":[{\"message\":\"Unknown Endpoint\",\"file\":\"beast_http_session.hpp\",\"line_number\":186,\"method\":\"handle_request\"}]}}"
 }

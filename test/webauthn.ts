@@ -1,17 +1,13 @@
 import {assert} from 'chai'
-import ecPackage from 'elliptic'
-const {ec: EC} = ecPackage
+import {p256} from '@noble/curves/nist.js'
 
 import {ABIEncoder, Bytes, Checksum256, KeyType, PrivateKey, PublicKey, Signature} from '$lib'
 
 suite('WebAuthn (WA) Key Support', function () {
     this.slow(300)
 
-    const p256 = new EC('p256')
-    const testKeyPair = p256.genKeyPair()
-    const testPubPoint = testKeyPair.getPublic()
-    const testCompressedPubKeyHex = testPubPoint.encodeCompressed('hex')
-    const testCompressedPubKeyBytes = Bytes.from(testCompressedPubKeyHex, 'hex').array
+    const testPrivKey = p256.utils.randomSecretKey()
+    const testCompressedPubKeyBytes = p256.getPublicKey(testPrivKey, true)
 
     const userPresenceByte = 0x01
     const hostname = 'example.com'
@@ -28,11 +24,14 @@ suite('WebAuthn (WA) Key Support', function () {
 
     const messageToSign = Bytes.from('test message for WA keys', 'utf8')
     const messageDigest = Checksum256.hash(messageToSign)
-    const sigFromElliptic = testKeyPair.sign(messageDigest.array, {canonical: true})
-
-    const rBytes = Bytes.from(sigFromElliptic.r.toArray('be', 32)).array
-    const sBytes = Bytes.from(sigFromElliptic.s.toArray('be', 32)).array
-    const recid = sigFromElliptic.recoveryParam!
+    const sig = p256.sign(messageDigest.array, testPrivKey, {
+        prehash: false,
+        format: 'recovered',
+        lowS: true,
+    })
+    const rBytes = sig.subarray(1, 33)
+    const sBytes = sig.subarray(33, 65)
+    const recid = sig[0]
 
     const mockAuthData = Bytes.from(
         'mockAuthenticatorData012345678901234567890123456789',
@@ -110,9 +109,8 @@ suite('WebAuthn (WA) Key Support', function () {
             'WA signature should not verify with incorrect digest'
         )
 
-        const anotherKeyPair = p256.genKeyPair()
-        const differentCompressedPubKeyHex = anotherKeyPair.getPublic().encodeCompressed('hex')
-        const differentCompressedPubKeyBytes = Bytes.from(differentCompressedPubKeyHex, 'hex').array
+        const differentPrivKey = p256.utils.randomSecretKey()
+        const differentCompressedPubKeyBytes = p256.getPublicKey(differentPrivKey, true)
 
         const differentWAPublicKeyData = new Uint8Array(33 + 1 + hostnameBytes.length)
         differentWAPublicKeyData.set(differentCompressedPubKeyBytes, 0)

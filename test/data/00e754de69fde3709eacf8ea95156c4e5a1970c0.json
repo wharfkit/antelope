@@ -1,0 +1,442 @@
+{
+    "api": "https://wax.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26859193adcfea9-LHR",
+        "content-encoding": "br",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:53:27 GMT",
+        "host": "wax.greymass.com",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=weKYQS%2FJewby6Vsnczx4T1YFE0R9b24cd5FJ5shjoVp1yqEl897wOsniXBa53RI7yBYxgBlVNa6Frwg0FPfsBgOYDnFJbkGIsTakxCPevoQbIJY9eETm9YVhdLgTWCM2e8c%3D\"}]}",
+        "server": "cloudflare",
+        "x-cached": "EXPIRED"
+    },
+    "status": 200,
+    "json": {
+        "timestamp": "2026-08-05T19:46:05.500",
+        "producer": "eosiodetroit",
+        "confirmed": 0,
+        "previous": "1ac25ace9c4bad582b55acfb3d39cd8e096e418159a6237083e6ef149184677b",
+        "transaction_mroot": "00abfdc1f11c971e033edcb4122f7ba936bc8ec0340187a6658f72f81085254e",
+        "action_mroot": "fffc1417acd42f007882167ae403afd0d4f842d2826f40d78ed36dc8ef079b78",
+        "schedule_version": 929,
+        "new_producers": null,
+        "producer_signature": "SIG_K1_K4oFVGoasg5e8awBYgrjZHLGH17Fzi9onpLXbk9KkgFmHrr4X2jjsVBy5DZ69yX2KMsFmRpw7MnGYy2Ua6FQE4eb47AMiQ",
+        "transactions": [
+            {
+                "status": "executed",
+                "cpu_usage_us": 522,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "5acf5b014a5faa4df22033529b8c2635c143b8ae0f15f5e121991f17cd83e9d4",
+                    "signatures": [
+                        "SIG_K1_KZxjQtSvkGx6ds6cjf7UguEFtnj34jQtBj5WUyL7FbWrzcHpPmWVjAszzmeeqUMKuTS4pu1bSqjGbHk9byyJLXYprtV1RK"
+                    ],
+                    "compression": "zlib",
+                    "packed_context_free_data": "789c63000000010001",
+                    "context_free_data": [],
+                    "packed_trx": "789c015300acff5593736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f464004328a1000000000a8ed323211106f464004328a1008f3dd93f385a1103700eccd1801",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:47:33",
+                        "ref_block_num": 23103,
+                        "ref_block_prefix": 3717633283,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "ctrl",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "2253412.ctrl",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "2253412.ctrl",
+                                    "nonce": "f3dd93f385a11037"
+                                },
+                                "hex_data": "106f464004328a1008f3dd93f385a11037"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 455,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "fd1dcbac156fc5ed6d1a13d713db35984ff3152985fc1bd3c7b3ffd584fd57ef",
+                    "signatures": [
+                        "SIG_K1_K5MrSQbdZedXXJeGYjn1rPrZdJJs2grTniibUU9ogCH7i3CS85PVz5y4kUz2uDZFrMdo4FKWLJrcRxUxvBNNhxqxfvhjg2",
+                        "SIG_K1_KZit4UDGk7DJGPe6RRcpfqshUNsceUPZxKNVBjsSprXxg9TBBu5TJv2KiNJNQM7DscNUcwR99c58c9ne1HRvhcbLqurcjv"
+                    ],
+                    "compression": "none",
+                    "packed_context_free_data": "",
+                    "context_free_data": [],
+                    "packed_trx": "1b93736acd5aaaf61418000000000130a9cbe6aaa416900000000000a0a693022088104257a4927900000000a8ed3232301b7a5529ff2c4c00000000a8ed323211301b7a5529ff2c4c08e20c45d05d6b716800",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:46:35",
+                        "ref_block_num": 23245,
+                        "ref_block_prefix": 404027050,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "jadecpu22242",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "dkqjyeepjchn",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "dkqjyeepjchn",
+                                    "nonce": "e20c45d05d6b7168"
+                                },
+                                "hex_data": "301b7a5529ff2c4c08e20c45d05d6b7168"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 1054,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "e3e8b1e6ea708203338fa1ea0ba6c2adf0096f937a927e3eb7edbb9dc185af89",
+                    "signatures": [
+                        "SIG_K1_JuRfFcnZxYNGc8WgKArFSyf3YtdVV31obLdohpzAN2hcFQJ3a5dYgSQk2uU1UkVJb47u3cfa6C8gs6jZPT4eBfZfkxa4f7",
+                        "SIG_K1_K7KxW81P2owFdcnP5hJzZCwdZUJMv3FrqGaAnsL3FDBEhTQKcmP4rdoNR4MT8kNWkHQYpGMVFpQCuJJPCvYh6h49XmVxBB"
+                    ],
+                    "compression": "none",
+                    "packed_context_free_data": "",
+                    "context_free_data": [],
+                    "packed_trx": "a993736abd5acc086f2f000000000190e2a51c5f25af59000000005c67aaba0220c434cd38364dab00000000a8ed323270239ba619c7689b00000000a8ed32321070239ba619c7689bd85995150001000000",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:48:57",
+                        "ref_block_num": 23229,
+                        "ref_block_prefix": 795805900,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "farmersworld",
+                                "name": "repair",
+                                "authorization": [
+                                    {
+                                        "actor": "phangiahan22",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "nhogiahanglr",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "asset_owner": "nhogiahanglr",
+                                    "asset_id": "1099873737176"
+                                },
+                                "hex_data": "70239ba619c7689bd859951500010000"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 403,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "36cf7596f7d59cdb9bd1a391e68f12f6f6500729ff6e5469415a95d59f67f64b",
+                    "signatures": [
+                        "SIG_K1_K3aa8JynaiPMZS69u7WcmwHqFmBmhhNtpE4qjnzmtdAmZzCDUKL7GnoghhKwRefzkgjDnwnqda91s7TRDtS3q6Z6tBHutp"
+                    ],
+                    "compression": "zlib",
+                    "packed_context_free_data": "789c63000000010001",
+                    "context_free_data": [],
+                    "packed_trx": "789c015300acff5693736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f46208c30440800000000a8ed323211106f46208c30440808fead158b8f4e240500ea2316c0",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:47:34",
+                        "ref_block_num": 23103,
+                        "ref_block_prefix": 3717633283,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "ctrl",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "1123131.ctrl",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "1123131.ctrl",
+                                    "nonce": "fead158b8f4e2405"
+                                },
+                                "hex_data": "106f46208c30440808fead158b8f4e2405"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 1157,
+                "net_usage_words": 16,
+                "trx": {
+                    "id": "352815f6cdc6fafa99f44c8b55bcbaf0954bc2467f798ba637505852ead63a9f",
+                    "signatures": [
+                        "SIG_K1_JzNJWinVYa45LSoBGqhhGymTiZpHQW6igPgWeUn2b3rrrrC31HBpgopVkVBhKnd8VYvPyWSWDGN7vGcMtzB69o7HFGUKpE"
+                    ],
+                    "compression": "none",
+                    "packed_context_free_data": "",
+                    "context_free_data": [],
+                    "packed_trx": "5593736ac95ae63583e7000000000190e2a51c5f25af590000000000e94c4402e0a0fc8ad23dde9e00000000a8ed3232404d126290b0af5000000000a8ed323210404d126290b0af505b4467170001000000",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:47:33",
+                        "ref_block_num": 23241,
+                        "ref_block_prefix": 3884135910,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "farmersworld",
+                                "name": "claim",
+                                "authorization": [
+                                    {
+                                        "actor": "nvj3vooezmki",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "e2rv14322dao",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "owner": "e2rv14322dao",
+                                    "asset_id": "1099904271451"
+                                },
+                                "hex_data": "404d126290b0af505b44671700010000"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 415,
+                "net_usage_words": 24,
+                "trx": {
+                    "id": "e05c1364f36733678f1f4e3afcaf13a24c8e87b5660400ff84168720f7dd8331",
+                    "signatures": [
+                        "SIG_K1_KZ98QrGpHNiHfMLk55PYCfczvpWnk5nF7onAxaeZCYJGsE7K7yn1UPZ4oxcRXfqpNPksqgq5xq7CdG9TtBSHSfYuSVoYUJ"
+                    ],
+                    "compression": "none",
+                    "packed_context_free_data": "",
+                    "context_free_data": [],
+                    "packed_trx": "1393736abd5acc086f2f0000000001000000534183afe1000000572d3ccdcd01208f49536197a39600000000a8ed323262208f49536197a39600c0a5281a500dc7289d300000000000044c4f4f5400000041737761706578616374696e23313331322c313332302c32236d756c746973656e6461626d23302e32303032353033302057415840656f73696f2e746f6b656e233000",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:46:27",
+                        "ref_block_num": 23229,
+                        "ref_block_prefix": 795805900,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "warsaken",
+                                "name": "transfer",
+                                "authorization": [
+                                    {
+                                        "actor": "multisendabm",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "from": "multisendabm",
+                                    "to": "swap.alcor",
+                                    "quantity": "318.5960 LOOT",
+                                    "memo": "swapexactin#1312,1320,2#multisendabm#0.20025030 WAX@eosio.token#0"
+                                },
+                                "hex_data": "208f49536197a39600c0a5281a500dc7289d300000000000044c4f4f5400000041737761706578616374696e23313331322c313332302c32236d756c746973656e6461626d23302e32303032353033302057415840656f73696f2e746f6b656e2330"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 429,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "33fc07da29caa2c46044b60d4530a0372d690fdd3fa3d24cffb2c056c92494d5",
+                    "signatures": [
+                        "SIG_K1_K7N4zoELb6nB1H5DrfGDzLtSfp95H5aihSKhkN7ZUSMk8v34Pbj82SA6YKL5itnXq5HPVnGKRve4xKMe6YiPWNEqnxS6Z4",
+                        "SIG_K1_KbFsd2JVQzZKrfwXS919dZrnEuZ38bDcqWZHuwjkgF2uu9Qm9bLbyZUvrzyCZ2WN1r12CmsJw8HVu5GPYkAhKZaoRggM4S"
+                    ],
+                    "compression": "none",
+                    "packed_context_free_data": "",
+                    "context_free_data": [],
+                    "packed_trx": "1b93736acd5aaaf61418000000000130a9cbe6aaa416900000000000a0a693023088104257a4927900000000a8ed323280f195e847e6263b00000000a8ed32321180f195e847e6263b08574b029d85ba34fb00",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:46:35",
+                        "ref_block_num": 23245,
+                        "ref_block_prefix": 404027050,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "jadecpu22243",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "bgniglzcmrss",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "bgniglzcmrss",
+                                    "nonce": "574b029d85ba34fb"
+                                },
+                                "hex_data": "80f195e847e6263b08574b029d85ba34fb"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 469,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "3134ba257f66d72b9e8c723912c71bb8cb4dd4cbb7f04a2a7f82a912d36733a9",
+                    "signatures": [
+                        "SIG_K1_Kf3GAmJyZqoWbiWut4Ufu6LBX1ArV94Ty5mGi1tatfQgTdQEVnACnqQ4HbLAxgM1Jq4ayuTrna5eDNKmAdrPQV35GsUHbr"
+                    ],
+                    "compression": "zlib",
+                    "packed_context_free_data": "789c63000000010001",
+                    "context_free_data": [],
+                    "packed_trx": "789c015300acff5693736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f46a084228a1000000000a8ed323211106f46a084228a1008e66cc735bde4d57d0010991a20",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:47:34",
+                        "ref_block_num": 23103,
+                        "ref_block_prefix": 3717633283,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "ctrl",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "2252515.ctrl",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "2252515.ctrl",
+                                    "nonce": "e66cc735bde4d57d"
+                                },
+                                "hex_data": "106f46a084228a1008e66cc735bde4d57d"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "status": "executed",
+                "cpu_usage_us": 335,
+                "net_usage_words": 18,
+                "trx": {
+                    "id": "a0492903232e4746420e26d41ee8d15867c3e6e36b81f39b698bcec2942b190b",
+                    "signatures": [
+                        "SIG_K1_K1bXFvY3rEsrRhD5kC2Br1Fh4E6JQ4dG8KbJ1f29LDqCVGae1bJVmL1igG31XRi2K2AmquQSig36ESXdgurShRLfaTKsXA"
+                    ],
+                    "compression": "zlib",
+                    "packed_context_free_data": "789c63000000010001",
+                    "context_free_data": [],
+                    "packed_trx": "789c015300acff5593736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f462010418a1000000000a8ed323211106f462010418a1008696f2007c895cc1200dda0166e",
+                    "transaction": {
+                        "expiration": "2026-08-05T19:47:33",
+                        "ref_block_num": 23103,
+                        "ref_block_prefix": 3717633283,
+                        "max_net_usage_words": 0,
+                        "max_cpu_usage_ms": 0,
+                        "delay_sec": 0,
+                        "context_free_actions": [],
+                        "actions": [
+                            {
+                                "account": "m.federation",
+                                "name": "mine",
+                                "authorization": [
+                                    {
+                                        "actor": "ctrl",
+                                        "permission": "active"
+                                    },
+                                    {
+                                        "actor": "2254241.ctrl",
+                                        "permission": "active"
+                                    }
+                                ],
+                                "data": {
+                                    "miner": "2254241.ctrl",
+                                    "nonce": "696f2007c895cc12"
+                                },
+                                "hex_data": "106f462010418a1008696f2007c895cc12"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "id": "1ac25acfc22fde2ec92897a81daad27e8b0a699693898da7b1504c16e004bccc",
+        "block_num": 448944847,
+        "ref_block_prefix": 2828478665
+    },
+    "text": "{\"timestamp\":\"2026-08-05T19:46:05.500\",\"producer\":\"eosiodetroit\",\"confirmed\":0,\"previous\":\"1ac25ace9c4bad582b55acfb3d39cd8e096e418159a6237083e6ef149184677b\",\"transaction_mroot\":\"00abfdc1f11c971e033edcb4122f7ba936bc8ec0340187a6658f72f81085254e\",\"action_mroot\":\"fffc1417acd42f007882167ae403afd0d4f842d2826f40d78ed36dc8ef079b78\",\"schedule_version\":929,\"new_producers\":null,\"producer_signature\":\"SIG_K1_K4oFVGoasg5e8awBYgrjZHLGH17Fzi9onpLXbk9KkgFmHrr4X2jjsVBy5DZ69yX2KMsFmRpw7MnGYy2Ua6FQE4eb47AMiQ\",\"transactions\":[{\"status\":\"executed\",\"cpu_usage_us\":522,\"net_usage_words\":18,\"trx\":{\"id\":\"5acf5b014a5faa4df22033529b8c2635c143b8ae0f15f5e121991f17cd83e9d4\",\"signatures\":[\"SIG_K1_KZxjQtSvkGx6ds6cjf7UguEFtnj34jQtBj5WUyL7FbWrzcHpPmWVjAszzmeeqUMKuTS4pu1bSqjGbHk9byyJLXYprtV1RK\"],\"compression\":\"zlib\",\"packed_context_free_data\":\"789c63000000010001\",\"context_free_data\":[],\"packed_trx\":\"789c015300acff5593736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f464004328a1000000000a8ed323211106f464004328a1008f3dd93f385a1103700eccd1801\",\"transaction\":{\"expiration\":\"2026-08-05T19:47:33\",\"ref_block_num\":23103,\"ref_block_prefix\":3717633283,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"ctrl\",\"permission\":\"active\"},{\"actor\":\"2253412.ctrl\",\"permission\":\"active\"}],\"data\":{\"miner\":\"2253412.ctrl\",\"nonce\":\"f3dd93f385a11037\"},\"hex_data\":\"106f464004328a1008f3dd93f385a11037\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":455,\"net_usage_words\":18,\"trx\":{\"id\":\"fd1dcbac156fc5ed6d1a13d713db35984ff3152985fc1bd3c7b3ffd584fd57ef\",\"signatures\":[\"SIG_K1_K5MrSQbdZedXXJeGYjn1rPrZdJJs2grTniibUU9ogCH7i3CS85PVz5y4kUz2uDZFrMdo4FKWLJrcRxUxvBNNhxqxfvhjg2\",\"SIG_K1_KZit4UDGk7DJGPe6RRcpfqshUNsceUPZxKNVBjsSprXxg9TBBu5TJv2KiNJNQM7DscNUcwR99c58c9ne1HRvhcbLqurcjv\"],\"compression\":\"none\",\"packed_context_free_data\":\"\",\"context_free_data\":[],\"packed_trx\":\"1b93736acd5aaaf61418000000000130a9cbe6aaa416900000000000a0a693022088104257a4927900000000a8ed3232301b7a5529ff2c4c00000000a8ed323211301b7a5529ff2c4c08e20c45d05d6b716800\",\"transaction\":{\"expiration\":\"2026-08-05T19:46:35\",\"ref_block_num\":23245,\"ref_block_prefix\":404027050,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"jadecpu22242\",\"permission\":\"active\"},{\"actor\":\"dkqjyeepjchn\",\"permission\":\"active\"}],\"data\":{\"miner\":\"dkqjyeepjchn\",\"nonce\":\"e20c45d05d6b7168\"},\"hex_data\":\"301b7a5529ff2c4c08e20c45d05d6b7168\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":1054,\"net_usage_words\":18,\"trx\":{\"id\":\"e3e8b1e6ea708203338fa1ea0ba6c2adf0096f937a927e3eb7edbb9dc185af89\",\"signatures\":[\"SIG_K1_JuRfFcnZxYNGc8WgKArFSyf3YtdVV31obLdohpzAN2hcFQJ3a5dYgSQk2uU1UkVJb47u3cfa6C8gs6jZPT4eBfZfkxa4f7\",\"SIG_K1_K7KxW81P2owFdcnP5hJzZCwdZUJMv3FrqGaAnsL3FDBEhTQKcmP4rdoNR4MT8kNWkHQYpGMVFpQCuJJPCvYh6h49XmVxBB\"],\"compression\":\"none\",\"packed_context_free_data\":\"\",\"context_free_data\":[],\"packed_trx\":\"a993736abd5acc086f2f000000000190e2a51c5f25af59000000005c67aaba0220c434cd38364dab00000000a8ed323270239ba619c7689b00000000a8ed32321070239ba619c7689bd85995150001000000\",\"transaction\":{\"expiration\":\"2026-08-05T19:48:57\",\"ref_block_num\":23229,\"ref_block_prefix\":795805900,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"farmersworld\",\"name\":\"repair\",\"authorization\":[{\"actor\":\"phangiahan22\",\"permission\":\"active\"},{\"actor\":\"nhogiahanglr\",\"permission\":\"active\"}],\"data\":{\"asset_owner\":\"nhogiahanglr\",\"asset_id\":\"1099873737176\"},\"hex_data\":\"70239ba619c7689bd859951500010000\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":403,\"net_usage_words\":18,\"trx\":{\"id\":\"36cf7596f7d59cdb9bd1a391e68f12f6f6500729ff6e5469415a95d59f67f64b\",\"signatures\":[\"SIG_K1_K3aa8JynaiPMZS69u7WcmwHqFmBmhhNtpE4qjnzmtdAmZzCDUKL7GnoghhKwRefzkgjDnwnqda91s7TRDtS3q6Z6tBHutp\"],\"compression\":\"zlib\",\"packed_context_free_data\":\"789c63000000010001\",\"context_free_data\":[],\"packed_trx\":\"789c015300acff5693736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f46208c30440800000000a8ed323211106f46208c30440808fead158b8f4e240500ea2316c0\",\"transaction\":{\"expiration\":\"2026-08-05T19:47:34\",\"ref_block_num\":23103,\"ref_block_prefix\":3717633283,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"ctrl\",\"permission\":\"active\"},{\"actor\":\"1123131.ctrl\",\"permission\":\"active\"}],\"data\":{\"miner\":\"1123131.ctrl\",\"nonce\":\"fead158b8f4e2405\"},\"hex_data\":\"106f46208c30440808fead158b8f4e2405\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":1157,\"net_usage_words\":16,\"trx\":{\"id\":\"352815f6cdc6fafa99f44c8b55bcbaf0954bc2467f798ba637505852ead63a9f\",\"signatures\":[\"SIG_K1_JzNJWinVYa45LSoBGqhhGymTiZpHQW6igPgWeUn2b3rrrrC31HBpgopVkVBhKnd8VYvPyWSWDGN7vGcMtzB69o7HFGUKpE\"],\"compression\":\"none\",\"packed_context_free_data\":\"\",\"context_free_data\":[],\"packed_trx\":\"5593736ac95ae63583e7000000000190e2a51c5f25af590000000000e94c4402e0a0fc8ad23dde9e00000000a8ed3232404d126290b0af5000000000a8ed323210404d126290b0af505b4467170001000000\",\"transaction\":{\"expiration\":\"2026-08-05T19:47:33\",\"ref_block_num\":23241,\"ref_block_prefix\":3884135910,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"farmersworld\",\"name\":\"claim\",\"authorization\":[{\"actor\":\"nvj3vooezmki\",\"permission\":\"active\"},{\"actor\":\"e2rv14322dao\",\"permission\":\"active\"}],\"data\":{\"owner\":\"e2rv14322dao\",\"asset_id\":\"1099904271451\"},\"hex_data\":\"404d126290b0af505b44671700010000\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":415,\"net_usage_words\":24,\"trx\":{\"id\":\"e05c1364f36733678f1f4e3afcaf13a24c8e87b5660400ff84168720f7dd8331\",\"signatures\":[\"SIG_K1_KZ98QrGpHNiHfMLk55PYCfczvpWnk5nF7onAxaeZCYJGsE7K7yn1UPZ4oxcRXfqpNPksqgq5xq7CdG9TtBSHSfYuSVoYUJ\"],\"compression\":\"none\",\"packed_context_free_data\":\"\",\"context_free_data\":[],\"packed_trx\":\"1393736abd5acc086f2f0000000001000000534183afe1000000572d3ccdcd01208f49536197a39600000000a8ed323262208f49536197a39600c0a5281a500dc7289d300000000000044c4f4f5400000041737761706578616374696e23313331322c313332302c32236d756c746973656e6461626d23302e32303032353033302057415840656f73696f2e746f6b656e233000\",\"transaction\":{\"expiration\":\"2026-08-05T19:46:27\",\"ref_block_num\":23229,\"ref_block_prefix\":795805900,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"warsaken\",\"name\":\"transfer\",\"authorization\":[{\"actor\":\"multisendabm\",\"permission\":\"active\"}],\"data\":{\"from\":\"multisendabm\",\"to\":\"swap.alcor\",\"quantity\":\"318.5960 LOOT\",\"memo\":\"swapexactin#1312,1320,2#multisendabm#0.20025030 WAX@eosio.token#0\"},\"hex_data\":\"208f49536197a39600c0a5281a500dc7289d300000000000044c4f4f5400000041737761706578616374696e23313331322c313332302c32236d756c746973656e6461626d23302e32303032353033302057415840656f73696f2e746f6b656e2330\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":429,\"net_usage_words\":18,\"trx\":{\"id\":\"33fc07da29caa2c46044b60d4530a0372d690fdd3fa3d24cffb2c056c92494d5\",\"signatures\":[\"SIG_K1_K7N4zoELb6nB1H5DrfGDzLtSfp95H5aihSKhkN7ZUSMk8v34Pbj82SA6YKL5itnXq5HPVnGKRve4xKMe6YiPWNEqnxS6Z4\",\"SIG_K1_KbFsd2JVQzZKrfwXS919dZrnEuZ38bDcqWZHuwjkgF2uu9Qm9bLbyZUvrzyCZ2WN1r12CmsJw8HVu5GPYkAhKZaoRggM4S\"],\"compression\":\"none\",\"packed_context_free_data\":\"\",\"context_free_data\":[],\"packed_trx\":\"1b93736acd5aaaf61418000000000130a9cbe6aaa416900000000000a0a693023088104257a4927900000000a8ed323280f195e847e6263b00000000a8ed32321180f195e847e6263b08574b029d85ba34fb00\",\"transaction\":{\"expiration\":\"2026-08-05T19:46:35\",\"ref_block_num\":23245,\"ref_block_prefix\":404027050,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"jadecpu22243\",\"permission\":\"active\"},{\"actor\":\"bgniglzcmrss\",\"permission\":\"active\"}],\"data\":{\"miner\":\"bgniglzcmrss\",\"nonce\":\"574b029d85ba34fb\"},\"hex_data\":\"80f195e847e6263b08574b029d85ba34fb\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":469,\"net_usage_words\":18,\"trx\":{\"id\":\"3134ba257f66d72b9e8c723912c71bb8cb4dd4cbb7f04a2a7f82a912d36733a9\",\"signatures\":[\"SIG_K1_Kf3GAmJyZqoWbiWut4Ufu6LBX1ArV94Ty5mGi1tatfQgTdQEVnACnqQ4HbLAxgM1Jq4ayuTrna5eDNKmAdrPQV35GsUHbr\"],\"compression\":\"zlib\",\"packed_context_free_data\":\"789c63000000010001\",\"context_free_data\":[],\"packed_trx\":\"789c015300acff5693736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f46a084228a1000000000a8ed323211106f46a084228a1008e66cc735bde4d57d0010991a20\",\"transaction\":{\"expiration\":\"2026-08-05T19:47:34\",\"ref_block_num\":23103,\"ref_block_prefix\":3717633283,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"ctrl\",\"permission\":\"active\"},{\"actor\":\"2252515.ctrl\",\"permission\":\"active\"}],\"data\":{\"miner\":\"2252515.ctrl\",\"nonce\":\"e66cc735bde4d57d\"},\"hex_data\":\"106f46a084228a1008e66cc735bde4d57d\"}]}}},{\"status\":\"executed\",\"cpu_usage_us\":335,\"net_usage_words\":18,\"trx\":{\"id\":\"a0492903232e4746420e26d41ee8d15867c3e6e36b81f39b698bcec2942b190b\",\"signatures\":[\"SIG_K1_K1bXFvY3rEsrRhD5kC2Br1Fh4E6JQ4dG8KbJ1f29LDqCVGae1bJVmL1igG31XRi2K2AmquQSig36ESXdgurShRLfaTKsXA\"],\"compression\":\"zlib\",\"packed_context_free_data\":\"789c63000000010001\",\"context_free_data\":[],\"packed_trx\":\"789c015300acff5593736a3f5a039596dd000000000130a9cbe6aaa416900000000000a0a693020000000000106f4600000000a8ed3232106f462010418a1000000000a8ed323211106f462010418a1008696f2007c895cc1200dda0166e\",\"transaction\":{\"expiration\":\"2026-08-05T19:47:33\",\"ref_block_num\":23103,\"ref_block_prefix\":3717633283,\"max_net_usage_words\":0,\"max_cpu_usage_ms\":0,\"delay_sec\":0,\"context_free_actions\":[],\"actions\":[{\"account\":\"m.federation\",\"name\":\"mine\",\"authorization\":[{\"actor\":\"ctrl\",\"permission\":\"active\"},{\"actor\":\"2254241.ctrl\",\"permission\":\"active\"}],\"data\":{\"miner\":\"2254241.ctrl\",\"nonce\":\"696f2007c895cc12\"},\"hex_data\":\"106f462010418a1008696f2007c895cc12\"}]}}}],\"id\":\"1ac25acfc22fde2ec92897a81daad27e8b0a699693898da7b1504c16e004bccc\",\"block_num\":448944847,\"ref_block_prefix\":2828478665}"
+}

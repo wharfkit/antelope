@@ -1,4 +1,5 @@
-import {ripemd160, sha256} from 'hash.js'
+import {ripemd160} from '@noble/hashes/legacy.js'
+import {sha256} from '@noble/hashes/sha2.js'
 import {arrayEquals} from './utils'
 import {Bytes, BytesType} from './chain'
 
@@ -160,17 +161,16 @@ export namespace Base58 {
 
     /** @internal */
     function ripemd160Checksum(data: Uint8Array, suffix?: string) {
-        const hash = ripemd160().update(data)
-        if (suffix) {
-            hash.update(suffix)
-        }
-        return new Uint8Array(hash.digest().slice(0, 4))
+        const input = suffix
+            ? new Uint8Array([...data, ...new TextEncoder().encode(suffix)])
+            : data
+        return ripemd160(input).slice(0, 4)
     }
 
     /** @internal */
     function dsha256Checksum(data: Uint8Array) {
-        const round1 = sha256().update(data).digest()
-        const round2 = sha256().update(round1).digest()
-        return new Uint8Array(round2.slice(0, 4))
+        const round1 = sha256(data)
+        const round2 = sha256(round1)
+        return round2.slice(0, 4)
     }
 }

@@ -4,27 +4,27 @@
         "access-control-allow-headers": "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range",
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
+        "connection": "keep-alive",
         "content-length": "608",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:42 GMT",
+        "date": "Wed, 05 Aug 2026 19:53:28 GMT",
         "server": "nginx/1.14.0 (Ubuntu)"
     },
     "status": 200,
     "json": {
         "server_version": "88d4b2db",
         "chain_id": "cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112",
-        "head_block_num": 272964808,
-        "last_irreversible_block_num": 272964482,
-        "last_irreversible_block_id": "10451b8275f50488f5e2b81efb32521fb2cec45f764a4317433732402a3b1f39",
-        "head_block_id": "10451cc8c6551c3ebc18eda569e24ae7e9779dadd6c8c71891e915c8f0bb9a3a",
-        "head_block_time": "2023-08-04T18:49:42.500",
-        "head_block_producer": "beos.prodf",
+        "head_block_num": 459720540,
+        "last_irreversible_block_num": 459720206,
+        "last_irreversible_block_id": "1b66c60e49fb48f2908d23bdef615a2e71ed75f6db0712ce2bfb0059f1b04da9",
+        "head_block_id": "1b66c75c3494d36fae3433cbb956715ff33ebcb22d7e768dfb35ff0abe07a0e1",
+        "head_block_time": "2026-08-05T19:53:28.500",
+        "head_block_producer": "beos.prodh",
         "virtual_block_cpu_limit": 400000000,
         "virtual_block_net_limit": 1048576000,
         "block_cpu_limit": 399900,
         "block_net_limit": 1048576,
         "server_version_string": "BEOS-JURISDICTION-RELEASE"
     },
-    "text": "{\"server_version\":\"88d4b2db\",\"chain_id\":\"cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112\",\"head_block_num\":272964808,\"last_irreversible_block_num\":272964482,\"last_irreversible_block_id\":\"10451b8275f50488f5e2b81efb32521fb2cec45f764a4317433732402a3b1f39\",\"head_block_id\":\"10451cc8c6551c3ebc18eda569e24ae7e9779dadd6c8c71891e915c8f0bb9a3a\",\"head_block_time\":\"2023-08-04T18:49:42.500\",\"head_block_producer\":\"beos.prodf\",\"virtual_block_cpu_limit\":400000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":399900,\"block_net_limit\":1048576,\"server_version_string\":\"BEOS-JURISDICTION-RELEASE\"}"
+    "text": "{\"server_version\":\"88d4b2db\",\"chain_id\":\"cbef47b0b26d2b8407ec6a6f91284100ec32d288a39d4b4bbd49655f7c484112\",\"head_block_num\":459720540,\"last_irreversible_block_num\":459720206,\"last_irreversible_block_id\":\"1b66c60e49fb48f2908d23bdef615a2e71ed75f6db0712ce2bfb0059f1b04da9\",\"head_block_id\":\"1b66c75c3494d36fae3433cbb956715ff33ebcb22d7e768dfb35ff0abe07a0e1\",\"head_block_time\":\"2026-08-05T19:53:28.500\",\"head_block_producer\":\"beos.prodh\",\"virtual_block_cpu_limit\":400000000,\"virtual_block_net_limit\":1048576000,\"block_cpu_limit\":399900,\"block_net_limit\":1048576,\"server_version_string\":\"BEOS-JURISDICTION-RELEASE\"}"
 }

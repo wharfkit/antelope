@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import {URL} from 'url'
+import {fileURLToPath} from 'url'
 
 import dts from 'rollup-plugin-dts'
 import typescript from '@rollup/plugin-typescript'
 
 // eslint-disable-next-line es-x/no-import-meta
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')))
 
 const license = fs.readFileSync('LICENSE').toString('utf-8').trim()

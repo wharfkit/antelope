@@ -6,7 +6,5 @@ import {getCurve} from './curves'
  */
 export function getPublic(privkey: Uint8Array, type: string) {
     const curve = getCurve(type)
-    const key = curve.keyFromPrivate(privkey)
-    const point = key.getPublic()
-    return new Uint8Array(point.encodeCompressed())
+    return curve.getPublicKey(privkey, true)
 }

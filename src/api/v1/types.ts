@@ -1,4 +1,4 @@
-import pako from 'pako'
+import {inflate} from 'pako'
 import {
     ABI,
     AnyAction,
@@ -233,13 +233,16 @@ export class TrxVariant implements ABISerializableObject {
         return new this(id, extra)
     }
 
-    constructor(readonly id: Checksum256, readonly extra: Record<string, any>) {}
+    constructor(
+        readonly id: Checksum256,
+        readonly extra: Record<string, any>
+    ) {}
 
     get transaction(): Transaction | undefined {
         if (this.extra.packed_trx) {
             switch (this.extra.compression) {
                 case 'zlib': {
-                    const inflated = pako.inflate(Bytes.from(this.extra.packed_trx, 'hex').array)
+                    const inflated = inflate(Bytes.from(this.extra.packed_trx, 'hex').array)
                     return Serializer.decode({data: inflated, type: Transaction})
                 }
                 case 'none': {
@@ -537,14 +540,18 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
     show_payer?: boolean
 }
 
-export interface GetTableRowsParamsKeyed<Index = TableIndexType, Key = keyof TableIndexTypes>
-    extends GetTableRowsParams<Index> {
+export interface GetTableRowsParamsKeyed<
+    Index = TableIndexType,
+    Key = keyof TableIndexTypes,
+> extends GetTableRowsParams<Index> {
     /** Index key type, determined automatically when passing a typed `upper_bound` or `lower_bound`. */
     key_type: Key
 }
 
-export interface GetTableRowsParamsTyped<Index = TableIndexType | string, Row = ABISerializableType>
-    extends GetTableRowsParams<Index> {
+export interface GetTableRowsParamsTyped<
+    Index = TableIndexType | string,
+    Row = ABISerializableType,
+> extends GetTableRowsParams<Index> {
     /** Result type for each row. */
     type: Row
 }
