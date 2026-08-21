@@ -10,6 +10,7 @@ import {APIMethods, APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 export class MockProvider implements APIProvider {
     recordProvider: FetchProvider
     private context: string = ''
+    private recorded = new Set<string>()
 
     constructor(
         private api: string = 'https://jungle4.greymass.com',
@@ -45,13 +46,18 @@ export class MockProvider implements APIProvider {
 
     async call(args: {path: string; params?: unknown; method?: APIMethods}) {
         const filename = this.getFilename(args.path, args.params)
-        if (process.env['MOCK_RECORD'] !== 'overwrite') {
+        const mode = process.env['MOCK_RECORD']
+        // overwrite fetches each unique request once per run; overwrite-always refetches every call
+        const skipExisting =
+            mode === 'overwrite-always' || (mode === 'overwrite' && !this.recorded.has(filename))
+        if (!skipExisting) {
             const existing = await this.getExisting(filename)
             if (existing) {
                 return existing
             }
         }
-        if (process.env['MOCK_RECORD']) {
+        if (mode) {
+            this.recorded.add(filename)
             const response = await this.recordProvider.call(args)
             const json = JSON.stringify(
                 {
