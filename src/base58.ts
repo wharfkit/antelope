@@ -161,9 +161,7 @@ export namespace Base58 {
 
     /** @internal */
     function ripemd160Checksum(data: Uint8Array, suffix?: string) {
-        const input = suffix
-            ? new Uint8Array([...data, ...new TextEncoder().encode(suffix)])
-            : data
+        const input = suffix ? new Uint8Array([...data, ...new TextEncoder().encode(suffix)]) : data
         return ripemd160(input).slice(0, 4)
     }
 

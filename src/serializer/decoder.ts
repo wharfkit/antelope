@@ -391,7 +391,10 @@ export class ABIDecoder {
     /** User declared metadata, can be used to pass info to instances when decoding.  */
     metadata: Record<string, any> = {}
 
-    constructor(private array: Uint8Array, textDecoder?: TextDecoder) {
+    constructor(
+        private array: Uint8Array,
+        textDecoder?: TextDecoder
+    ) {
         this.textDecoder = textDecoder || new TextDecoder('utf-8', {fatal: true})
         this.data = new DataView(array.buffer, array.byteOffset, array.byteLength)
     }

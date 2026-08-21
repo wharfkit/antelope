@@ -4,11 +4,7 @@ import {ABIEncoder} from './encoder'
 
 /** A self-describing object that can be ABI encoded and decoded. */
 export type ABISerializable =
-    | ABISerializableObject
-    | string
-    | boolean
-    | ABISerializable[]
-    | {[key: string]: ABISerializable}
+    ABISerializableObject | string | boolean | ABISerializable[] | {[key: string]: ABISerializable}
 
 /** Type describing an ABI type, either a string (e.g. `uint32[]`) or a ABI type class. */
 export type ABISerializableType = string | ABISerializableConstructor | ABITypeDescriptor

@@ -281,7 +281,7 @@ export class ChainAPI {
     ): Promise<GetTableRowsResponse<TableIndexTypes[Key]>>
     async get_table_rows<
         Row extends ABISerializableConstructor,
-        Index extends TableIndexType = Name
+        Index extends TableIndexType = Name,
     >(
         params: GetTableRowsParamsTyped<Index, Row>
     ): Promise<GetTableRowsResponse<Index, InstanceType<Row>>>
