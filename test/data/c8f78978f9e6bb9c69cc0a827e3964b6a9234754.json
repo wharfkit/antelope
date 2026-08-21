@@ -1,0 +1,37 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a2ed7d3c28abf555-SJC",
+        "connection": "keep-alive",
+        "content-length": "348",
+        "content-type": "application/json",
+        "date": "Fri, 21 Aug 2026 23:41:33 GMT",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EodMiS1bK3DXtBlPG1qWFOttgQ6%2B0zPaiIl2012ds%2BENlpQ%2B%2FB6QjbTZtOEF772NOiZ0xW6y%2FWYqbvXzJQhKf1Qj6mf%2FIFI07G6r1zpOiobqCXRoj%2B9sPJgtLtAdvCTqIBozq9d8\"}]}",
+        "server": "cloudflare",
+        "x-cached": "MISS"
+    },
+    "status": 500,
+    "json": {
+        "code": 500,
+        "message": "Internal Service Error",
+        "error": {
+            "code": 3060003,
+            "name": "contract_table_query_exception",
+            "what": "Contract Table Query Exception",
+            "details": [
+                {
+                    "message": "Converted lower_bound string 'nan' to NaN which is not a permitted value for the key type",
+                    "file": "chain_plugin.cpp",
+                    "line_number": 1485,
+                    "method": "convert_to_type<double>"
+                }
+            ]
+        }
+    },
+    "text": "{\"code\":500,\"message\":\"Internal Service Error\",\"error\":{\"code\":3060003,\"name\":\"contract_table_query_exception\",\"what\":\"Contract Table Query Exception\",\"details\":[{\"message\":\"Converted lower_bound string 'nan' to NaN which is not a permitted value for the key type\",\"file\":\"chain_plugin.cpp\",\"line_number\":1485,\"method\":\"convert_to_type<double>\"}]}}"
+}

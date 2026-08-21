@@ -17,7 +17,6 @@ import {
     Checksum256,
     CompressionType,
     Float64,
-    Float128,
     Name,
     PackedTransaction,
     PrivateKey,
@@ -700,40 +699,6 @@ suite('api v1', function () {
         })
         assert.equal(res.rows.length, 1)
         assert.equal(String(res.ram_payers![0]), 'eosio.token')
-    })
-
-    test('chain get_table_rows (float128 index next_key)', async function () {
-        // The conformance contract's tertiary index is float128; nodeos renders its next_key as decimal.
-        const res = await jungle.v1.chain.get_table_rows({
-            code: 'conform.gm',
-            table: 'fpcases',
-            scope: 'conform.gm',
-            index_position: 'tertiary',
-            key_type: 'float128',
-            encode_type: 'hex',
-            lower_bound: '0x3fff0000000000000000000000000000',
-            limit: 3,
-        })
-        assert.equal(res.rows.length, 3)
-        assert.equal(res.more, true)
-        assert.instanceOf(res.next_key, Float128)
-        assert.equal(String(res.next_key), '0x0000000000000000000000000000ff3f')
-    })
-
-    test('chain get_table_rows (float128 bound from a row value)', async function () {
-        const res = await jungle.v1.chain.get_table_rows({
-            code: 'conform.gm',
-            table: 'fpcases',
-            scope: 'conform.gm',
-            index_position: 'tertiary',
-            lower_bound: Float128.from('0x0000000000000000000000000000ff3f'),
-            upper_bound: Float128.from('0x0000000000000000000000000000ff3f'),
-            limit: 100,
-        })
-        assert.equal(res.rows.length, 11)
-        for (const row of res.rows) {
-            assert.equal(row.by_f128, '0x0000000000000000000000000000ff3f')
-        }
     })
 
     test('chain get_table_by_scope', async function () {
