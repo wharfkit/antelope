@@ -14,6 +14,12 @@ Avaiable on npm: https://www.npmjs.com/package/@wharfkit/antelope
 npm install @wharfkit/antelope
 ```
 
+Version 2.x requires Node.js 20.19 or later (or a bundler that consumes ES modules) and a JavaScript environment with BigInt and WebCrypto support. Projects on older Node.js versions should continue using the 1.x releases:
+
+```
+npm install @wharfkit/antelope@1
+```
+
 ## API Documentation
 
 https://wharfkit.github.io/antelope/
@@ -50,7 +56,7 @@ grep="bug-report" make test
 Or running `mocha` directly from the installed `./node_modules` folder:
 
 ```bash
-TS_NODE_PROJECT='./test/tsconfig.json' ./node_modules/.bin/mocha -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts test/*.ts --grep="bug-report"
+TSX_TSCONFIG_PATH='./test/tsconfig.json' ./node_modules/.bin/mocha -u tdd --require tsx --extension ts test/*.ts --grep="bug-report"
 ```
 
 Once your test is failing and successfully shows the issue occurring, please submit a pull request to this repository. Feel free to include any additional details in the body of the pull request that might help us understand the situation.
