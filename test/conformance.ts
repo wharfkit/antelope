@@ -8,9 +8,22 @@ import {
     caseFieldTypes,
     maskedCase,
     parseFloatText,
+    recompute,
 } from './utils/conformance'
 
-import {ABI, Action, APIClient, Float128, Serializer, Transaction, UInt64} from '$lib'
+import {
+    ABI,
+    Action,
+    APIClient,
+    Float128,
+    Float32,
+    Float64,
+    Int128,
+    Int64,
+    Serializer,
+    Transaction,
+    UInt64,
+} from '$lib'
 
 type Row = Record<string, any>
 
@@ -21,6 +34,9 @@ const FQ_START = 1804
 const ACTION_COUNT = 100
 const PAGE_SIZE = 500
 const BATCH_SIZE = 25
+const RECOMPUTED_ROWS = 1898
+const NAN_RESULT_ROWS = 74
+const POSITIVE_NAN_ROWS = 40
 
 const EXPECTED = {
     binary: 0,
@@ -117,7 +133,10 @@ suite('conformance', function () {
                 .map(([name]) => name)
         )
 
-        const action = Action.from({account: ACCOUNT, name: 'version', authorization: [], data: {}}, abi)
+        const action = Action.from(
+            {account: ACCOUNT, name: 'version', authorization: [], data: {}},
+            abi
+        )
         const [hex] = await sendReadOnly([action])
         const version: Row = Serializer.decode({data: hex, type: 'version_row', abi})
         assert.equal(Number(version.grid_size), GRID_SIZE)
@@ -206,6 +225,55 @@ suite('conformance', function () {
                 assert.equal(returned[i], expected, where(batch[i]))
             }
         }
+    })
+
+    test('math parity: every fs and fd row recomputes in JavaScript', function () {
+        let recomputed = 0
+        let nanRows = 0
+        let positiveNanRows = 0
+        const mismatches: string[] = []
+        for (const row of decodedRows) {
+            const result = recompute(row)
+            if (!result) continue
+            recomputed++
+            const stored = row[result.field]
+            if (result.field === 'rb') {
+                if (result.value !== stored)
+                    mismatches.push(`${where(row)} rb=${stored} js=${result.value}`)
+                continue
+            }
+            const type =
+                result.field === 'r32'
+                    ? Float32
+                    : result.field === 'r64'
+                      ? Float64
+                      : result.field === 'ri'
+                        ? Int64
+                        : Int128
+            const expected = Serializer.encode({object: stored}).hexString
+            const actual = Serializer.encode({object: type.from(result.value as any)}).hexString
+            if (actual === expected) continue
+            // A JS number carries no NaN payload, so a propagated positive NaN encodes as the default.
+            if (
+                typeof result.value === 'number' &&
+                Number.isNaN(result.value) &&
+                Number.isNaN(stored.value)
+            ) {
+                positiveNanRows++
+                continue
+            }
+            mismatches.push(
+                `${where(row)} ${result.field}: chain=${expected} js=${actual} (${String(result.value)})`
+            )
+        }
+        for (const row of decodedRows) {
+            const result = recompute(row)
+            if (result && typeof result.value === 'number' && Number.isNaN(result.value)) nanRows++
+        }
+        assert.deepEqual(mismatches, [], `${mismatches.length} rows differ`)
+        assert.equal(recomputed, RECOMPUTED_ROWS)
+        assert.equal(nanRows, NAN_RESULT_ROWS)
+        assert.equal(positiveNanRows, POSITIVE_NAN_ROWS)
     })
 
     test('index: float64 secondary over [1, 2]', async function () {
