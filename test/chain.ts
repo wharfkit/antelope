@@ -16,6 +16,7 @@ import {
     Checksum512,
     Float32,
     Float64,
+    Float128,
     Int32,
     Int64,
     Name,
@@ -164,6 +165,192 @@ suite('chain', function () {
         const d = Float64.from(0.1 + 0.2)
         assert.equal(String(d), '0.30000000000000004')
         assert.equal(Float64.from(d.toString()).value, d.value)
+    })
+
+    test('float from accepts the infinity and nan spellings nodeos emits', function () {
+        assert.equal(Float64.from('inf').value, Infinity)
+        assert.equal(Float64.from('+inf').value, Infinity)
+        assert.equal(Float64.from('infinity').value, Infinity)
+        assert.equal(Float64.from('-inf').value, -Infinity)
+        assert.equal(Float64.from('-infinity').value, -Infinity)
+        assert.isNaN(Float64.from('nan').value)
+        assert.equal(Float32.from('inf').value, Infinity)
+        assert.equal(Float32.from('-inf').value, -Infinity)
+        assert.isNaN(Float32.from('nan').value)
+    })
+
+    test('float from still parses ordinary numeric text', function () {
+        assert.equal(Float64.from('1.5').value, 1.5)
+        assert.equal(Float64.from('-0.25').value, -0.25)
+        assert.equal(Float64.from('Infinity').value, Infinity)
+    })
+
+    test('float keeps the sign of negative zero in text', function () {
+        assert.equal(String(Float64.from(-0)), '-0')
+        assert.equal(String(Float32.from(-0)), '-0')
+        assert.equal(JSON.stringify(Float64.from(-0)), '"-0"')
+        assert.equal(String(Serializer.decode({data: '0000000000000080', type: Float64})), '-0')
+        assert.equal(String(Float64.from(0)), '0')
+    })
+
+    test('float renders infinity and nan the way nodeos does', function () {
+        assert.equal(String(Float64.from(Infinity)), 'inf')
+        assert.equal(String(Float64.from(-Infinity)), '-inf')
+        assert.equal(String(Float64.from('nan')), 'nan')
+        assert.equal(String(Float32.from(Infinity)), 'inf')
+        assert.equal(JSON.stringify(Float64.from(-Infinity)), '"-inf"')
+        assert.equal(Float64.from(String(Float64.from(Infinity))).value, Infinity)
+        assert.equal(Float64.from(String(Float64.from(-Infinity))).value, -Infinity)
+    })
+
+    test('float from a negative nan word carries the sign into bytes and text', function () {
+        assert.equal(Serializer.encode({object: Float32.from('-nan')}).hexString, '0000c0ff')
+        assert.equal(Serializer.encode({object: Float64.from('-nan')}).hexString, '000000000000f8ff')
+        assert.equal(String(Float32.from('-nan')), '-nan')
+        assert.equal(Serializer.encode({object: Float32.from('nan')}).hexString, '0000c07f')
+        assert.equal(String(Float32.from('nan')), 'nan')
+    })
+
+    test('float renders a decoded negative nan with its sign', function () {
+        assert.equal(String(Serializer.decode({data: '0000c0ff', type: Float32})), '-nan')
+        assert.equal(String(Serializer.decode({data: '0000c07f', type: Float32})), 'nan')
+        assert.equal(String(Serializer.decode({data: '000000000000f8ff', type: Float64})), '-nan')
+    })
+
+    test('float32 keeps the decoded bytes when the engine canonicalizes NaN', function () {
+        const f = Serializer.decode({data: '0000c0ff', type: Float32}) as Float32
+        f.value = NaN
+        assert.equal(Serializer.encode({object: f}).hexString, '0000c0ff')
+    })
+
+    test('float64 keeps the decoded bytes when the engine canonicalizes NaN', function () {
+        const f = Serializer.decode({data: '000000000000f8ff', type: Float64}) as Float64
+        f.value = NaN
+        assert.equal(Serializer.encode({object: f}).hexString, '000000000000f8ff')
+    })
+
+    test('float assigning a real number discards the decoded bytes', function () {
+        const f = Serializer.decode({data: '0000c0ff', type: Float32}) as Float32
+        f.value = 1.5
+        assert.equal(Serializer.encode({object: f}).hexString, '0000c03f')
+    })
+
+    test('float NaN built from a number encodes as the chain default NaN', function () {
+        assert.equal(Serializer.encode({object: Float32.from(NaN)}).hexString, '0000c0ff')
+        assert.equal(Serializer.encode({object: Float64.from(NaN)}).hexString, '000000000000f8ff')
+        assert.equal(Serializer.encode({object: Float64.from(0 / 0)}).hexString, '000000000000f8ff')
+        assert.equal(String(Float64.from(NaN)), '-nan')
+    })
+
+    // Bit patterns below are read from the conformance contract at conform.gm, op fdtofq.
+    test('float128 from double', function () {
+        const bits = (value: number) => String(Float128.fromDouble(value))
+        assert.equal(bits(0), '0x00000000000000000000000000000000')
+        assert.equal(bits(-0), '0x00000000000000000000000000000080')
+        assert.equal(bits(1), '0x0000000000000000000000000000ff3f')
+        assert.equal(bits(-1), '0x0000000000000000000000000000ffbf')
+        assert.equal(bits(2), '0x00000000000000000000000000000040')
+        assert.equal(bits(0.5), '0x0000000000000000000000000000fe3f')
+        assert.equal(bits(0.1), '0x00000000000000a0999999999999fb3f')
+        assert.equal(bits(Infinity), '0x0000000000000000000000000000ff7f')
+        assert.equal(bits(-Infinity), '0x0000000000000000000000000000ffff')
+    })
+
+    test('float128 from double widens subnormal doubles', function () {
+        assert.equal(
+            String(Float128.fromDouble(Number.MIN_VALUE)),
+            '0x0000000000000000000000000000cd3b'
+        )
+    })
+
+    test('float128 from nodeos decimal text', function () {
+        assert.equal(
+            String(Float128.fromDecimal('1.00000000000000000')),
+            '0x0000000000000000000000000000ff3f'
+        )
+        assert.equal(
+            String(Float128.fromDecimal('-1.00000000000000000')),
+            '0x0000000000000000000000000000ffbf'
+        )
+        assert.equal(String(Float128.fromDecimal('0.5')), '0x0000000000000000000000000000fe3f')
+        assert.equal(String(Float128.fromDecimal('inf')), '0x0000000000000000000000000000ff7f')
+        assert.equal(String(Float128.fromDecimal('-inf')), '0x0000000000000000000000000000ffff')
+    })
+
+    test('float128 from keeps hex spellings on the hex path', function () {
+        assert.equal(
+            String(Float128.from('0x0000000000000000000000000000ff3f')),
+            '0x0000000000000000000000000000ff3f'
+        )
+        assert.equal(
+            String(Float128.from('0000000000000000000000000000ff3f')),
+            '0x0000000000000000000000000000ff3f'
+        )
+        assert.equal(
+            String(Float128.from(Float128.fromDouble(1))),
+            '0x0000000000000000000000000000ff3f'
+        )
+    })
+
+    test('float128 from routes nodeos decimal text to the decimal path', function () {
+        assert.equal(
+            String(Float128.from('1.00000000000000000')),
+            '0x0000000000000000000000000000ff3f'
+        )
+        assert.equal(
+            String(Float128.from('-1.00000000000000000')),
+            '0x0000000000000000000000000000ffbf'
+        )
+        assert.equal(String(Float128.from('inf')), '0x0000000000000000000000000000ff7f')
+        assert.equal(String(Float128.from('-inf')), '0x0000000000000000000000000000ffff')
+    })
+
+    test('float128 from still rejects a malformed hex string', function () {
+        assert.throws(() => Float128.from('1234'))
+        assert.throws(() => Float128.from('0xbeef'))
+        assert.throws(() => Float128.from('nonsense'))
+    })
+
+    test('float128 from rejects decimal text nodeos would not emit', function () {
+        assert.throws(() => Float128.from('1.1'))
+        assert.throws(() => Float128.from('0.5'))
+        assert.throws(() => Float128.from('1.0000000000000000'))
+        assert.throws(() => Float128.from('1.000000000000000000'))
+    })
+
+    test('float128 fromDecimal accepts every spelling nodeos emits', function () {
+        const bits = (text: string) => String(Float128.fromDecimal(text))
+        assert.equal(bits('inf'), '0x0000000000000000000000000000ff7f')
+        assert.equal(bits('+inf'), '0x0000000000000000000000000000ff7f')
+        assert.equal(bits('infinity'), '0x0000000000000000000000000000ff7f')
+        assert.equal(bits('+infinity'), '0x0000000000000000000000000000ff7f')
+        assert.equal(bits('-inf'), '0x0000000000000000000000000000ffff')
+        assert.equal(bits('-infinity'), '0x0000000000000000000000000000ffff')
+    })
+
+    test('float128 fromDecimal rejects words that merely end in nan', function () {
+        assert.throws(() => Float128.fromDecimal('xnan'))
+        assert.throws(() => Float128.fromDecimal('banan'))
+        assert.throws(() => Float128.fromDecimal(''))
+    })
+
+    test('float128 bound hex is the byte reverse of the row spelling', function () {
+        // nodeos reads a bound as a big-endian integer, the reverse of the row rendering.
+        assert.equal(Float128.fromDouble(1).toBoundHex(), '0x3fff0000000000000000000000000000')
+        assert.equal(Float128.fromDouble(-1).toBoundHex(), '0xbfff0000000000000000000000000000')
+        assert.equal(Float128.fromDouble(0).toBoundHex(), '0x00000000000000000000000000000000')
+        assert.equal(Float128.fromDouble(0.1).toBoundHex(), '0x3ffb999999999999a000000000000000')
+        assert.equal(
+            Float128.from('0x0000000000000000000000000000ff3f').toBoundHex(),
+            '0x3fff0000000000000000000000000000'
+        )
+    })
+
+    test('float128 NaN keeps the sign the text carries', function () {
+        assert.equal(String(Float128.fromDouble(NaN)), '0x0000000000000000000000000080ff7f')
+        assert.equal(String(Float128.fromDecimal('nan')), '0x0000000000000000000000000080ff7f')
+        assert.equal(String(Float128.fromDecimal('-nan')), '0x0000000000000000000000000080ffff')
+        assert.equal(String(Float128.from('-nan')), '0x0000000000000000000000000080ffff')
     })
 
     test('bytes', function () {

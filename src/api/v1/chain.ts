@@ -305,6 +305,10 @@ export class ChainAPI {
                 key_type = 'sha256'
             } else if (isInstanceOf(someBound, Checksum160)) {
                 key_type = 'ripemd160'
+            } else if (isInstanceOf(someBound, Float128)) {
+                key_type = 'float128'
+            } else if (isInstanceOf(someBound, Float64)) {
+                key_type = 'float64'
             }
         }
         if (!key_type) {
@@ -315,14 +319,21 @@ export class ChainAPI {
             // if we know the row type don't ask the node to perform abi decoding
             json = type === undefined
         }
-        let upper_bound = params.upper_bound
-        if (upper_bound && typeof upper_bound !== 'string') {
-            upper_bound = String(upper_bound)
+        let encode_type = params.encode_type
+        if (
+            !encode_type &&
+            (isInstanceOf(params.lower_bound, Float128) ||
+                isInstanceOf(params.upper_bound, Float128))
+        ) {
+            encode_type = 'hex'
         }
-        let lower_bound = params.lower_bound
-        if (lower_bound && typeof lower_bound !== 'string') {
-            lower_bound = String(lower_bound)
+        const boundString = (bound: any) => {
+            if (!bound) return bound
+            if (isInstanceOf(bound, Float128) && encode_type === 'hex') return bound.toBoundHex()
+            return String(bound)
         }
+        const upper_bound = boundString(params.upper_bound)
+        const lower_bound = boundString(params.lower_bound)
         let scope = params.scope
         if (typeof scope === 'undefined') {
             scope = String(Name.from(params.code))
@@ -339,6 +350,7 @@ export class ChainAPI {
                 limit: params.limit !== undefined ? UInt32.from(params.limit) : undefined,
                 scope,
                 key_type,
+                encode_type,
                 json,
                 upper_bound,
                 lower_bound,

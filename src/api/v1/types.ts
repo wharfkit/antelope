@@ -500,7 +500,8 @@ export interface TableIndexTypes {
     sha256: Checksum256
 }
 
-export type TableIndexType = Name | UInt64 | UInt128 | Float64 | Checksum256 | Checksum160
+export type TableIndexType =
+    Name | UInt64 | UInt128 | Float64 | Float128 | Checksum256 | Checksum160
 
 export interface GetTableRowsParams<Index = TableIndexType | string> {
     /** The name of the smart contract that controls the provided table. */
@@ -529,6 +530,8 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
         | 'eighth'
         | 'ninth'
         | 'tenth'
+    /** How bounds are encoded, defaults to `dec`; a `Float128` bound sets `hex` and byte-reverses. */
+    encode_type?: 'dec' | 'hex'
     /**
      * Whether node should try to decode row data using code abi.
      * Determined automatically based the `type` param if omitted.
