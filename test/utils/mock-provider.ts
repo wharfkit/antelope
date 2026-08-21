@@ -1,6 +1,6 @@
 import {join as joinPath} from 'path'
 import {promisify} from 'util'
-import {readFile as _readFile, writeFile as _writeFile} from 'fs'
+import {appendFileSync, readFile as _readFile, writeFile as _writeFile} from 'fs'
 
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
@@ -46,6 +46,9 @@ export class MockProvider implements APIProvider {
 
     async call(args: {path: string; params?: unknown; method?: APIMethods}) {
         const filename = this.getFilename(args.path, args.params)
+        if (process.env['MOCK_LOG']) {
+            appendFileSync(process.env['MOCK_LOG'], filename + '\n')
+        }
         const mode = process.env['MOCK_RECORD']
         // overwrite fetches each unique request once per run; overwrite-always refetches every call
         const skipExisting =

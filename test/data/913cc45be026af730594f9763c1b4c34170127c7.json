@@ -5,14 +5,16 @@
         "access-control-allow-methods": "GET, POST, OPTIONS",
         "access-control-allow-origin": "*",
         "cf-cache-status": "DYNAMIC",
-        "cf-ray": "a26859268beac0d8-LHR",
+        "cf-ray": "a2eb72c2e8512302-SJC",
+        "connection": "keep-alive",
         "content-encoding": "br",
         "content-type": "application/json",
-        "date": "Wed, 05 Aug 2026 19:53:29 GMT",
+        "date": "Fri, 21 Aug 2026 17:44:53 GMT",
         "host": "jungle4.greymass.com",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9H4AaruLGAKnDLm6jcVHSlBy%2FQ7y2ZeQBuV2pLI6FYdq4V61h5iDi0ReyySg0Rhay7U37wDr9x4ZZ0XAYlV6cYdzlTQv6Ku7ag5DAPfk2BchldWFUB2cPnrSsEvxflDHrDez90vY\"}]}",
-        "server": "cloudflare"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EdzmDOYkyWXXL2E9N6cNGlRJ1d35Y2qnwjNPpaP5o9XkUNvr8lGO3q0tXBJJRCCkScf3oPgL1Hy3Wzoy1E%2BcDLGReMib2RX92ONt6kgwtKD95IiypDP1w3jOXTfxdFROxrD239VL\"}]}",
+        "server": "cloudflare",
+        "transfer-encoding": "chunked"
     },
     "status": 200,
     "json": {

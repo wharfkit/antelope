@@ -40,6 +40,16 @@ test/browser.html: lib $(TEST_FILES) test/rollup.config.mjs node_modules
 browser-test: test/browser.html
 	@open test/browser.html
 
+.PHONY: mock-prune
+mock-prune: lib node_modules
+	@MOCK_LOG=$$(mktemp); \
+		${MOCHA_ENV} MOCK_LOG=$$MOCK_LOG ${BIN}/mocha ${MOCHA_OPTS} test/*.ts >/dev/null || \
+			(echo "Suite not passing, refusing to prune" && exit 1); \
+		for f in test/data/*.json; do \
+			grep -q $$(basename $$f) $$MOCK_LOG || rm -v $$f; \
+		done; \
+		rm -f $$MOCK_LOG
+
 node_modules:
 	yarn install --non-interactive --frozen-lockfile --ignore-scripts
 

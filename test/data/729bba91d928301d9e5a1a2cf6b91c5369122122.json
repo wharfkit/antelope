@@ -4,11 +4,11 @@
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
+        "connection": "keep-alive",
         "content-length": "445",
         "content-type": "application/json",
-        "date": "Fri, 06 Oct 2023 18:22:28 GMT",
-        "server": "nginx/1.24.0"
+        "date": "Fri, 21 Aug 2026 17:44:56 GMT",
+        "server": "nginx/1.30.4"
     },
     "status": 200,
     "json": {
