@@ -430,7 +430,6 @@ export namespace ABI {
 
         /** All fields including base struct(s), undefined if not a struct type. */
         get allFields() {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
             let current: ResolvedType | undefined = this
             const rv: {name: string; type: ResolvedType}[] = []
             const seen = new Set<string>()

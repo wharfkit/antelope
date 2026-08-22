@@ -1,0 +1,31 @@
+{
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26859372911001b-LHR",
+        "content-encoding": "br",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:53:32 GMT",
+        "host": "eos.greymass.com",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2S%2Bd6sAOnoqPGfg07wAslU56vS6q4%2FM0Z%2BMS1%2FCC8yRHv4kNIdU2L%2BvgPPH%2BMB2Av3kxqqvIDGJ1nf%2FUHVFv7RS%2BXDZTyFCuaNCueGPaOtHwB5WGDOq91HhCwl9IYLr6jq0%3D\"}]}",
+        "server": "cloudflare"
+    },
+    "status": 200,
+    "json": {
+        "rows": [
+            {
+                "code": "eosio.token",
+                "scope": "...........j",
+                "table": "accounts",
+                "payer": "ens.n",
+                "count": 1
+            }
+        ],
+        "more": ""
+    },
+    "text": "{\"rows\":[{\"code\":\"eosio.token\",\"scope\":\"...........j\",\"table\":\"accounts\",\"payer\":\"ens.n\",\"count\":1}],\"more\":\"\"}"
+}

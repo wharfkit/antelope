@@ -1,0 +1,2215 @@
+{
+    "api": "https://jungle4.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a2ed7cb94fccf555-SJC",
+        "connection": "keep-alive",
+        "content-encoding": "gzip",
+        "content-type": "application/json",
+        "date": "Fri, 21 Aug 2026 23:41:12 GMT",
+        "host": "jungle4.greymass.com",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=e9cgCv6mXP5%2Bb6Up%2B7IsSsyRoBz2wwPq%2FSIY30Uiwwe0HFf1UN0n2vGX8lqtiYFbWa4y3Oe%2BoXPSkAI8Ayg6jP%2BSj%2BBpuODrS4Wg%2FyjzazeKmc0aLZcxUhWWWxz8D%2FQTlrjcowZi\"}]}",
+        "server": "cloudflare",
+        "transfer-encoding": "chunked",
+        "vary": "accept-encoding"
+    },
+    "status": 200,
+    "json": {
+        "account_name": "conform.gm",
+        "abi": {
+            "version": "eosio::abi/1.2",
+            "types": [],
+            "structs": [
+                {
+                    "name": "amttofd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "units",
+                            "type": "int64"
+                        },
+                        {
+                            "name": "precision",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdabs",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdadd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdceil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdcopysign",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fddiv",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdecho",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdeq",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfloor",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromis",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromix",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromus",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdfromux",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdge",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdgt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdle",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdlt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdmax",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdmin",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdmul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdne",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdnearest",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdneg",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdround",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdsqrt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdsub",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtoamt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "v",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "precision",
+                            "type": "uint8"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtofq",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtofs",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtoil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtois",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtoix",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtoul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtous",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtoux",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fdtrunc",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fp_case",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        },
+                        {
+                            "name": "op",
+                            "type": "name"
+                        },
+                        {
+                            "name": "label",
+                            "type": "string"
+                        },
+                        {
+                            "name": "a32",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b32",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "r32",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "a64",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "b64",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "r64",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "a128",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b128",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "r128",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "ri",
+                            "type": "int64"
+                        },
+                        {
+                            "name": "ax",
+                            "type": "int128"
+                        },
+                        {
+                            "name": "rx",
+                            "type": "int128"
+                        },
+                        {
+                            "name": "rb",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "by_f64",
+                            "type": "float64"
+                        },
+                        {
+                            "name": "by_f128",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fpcase",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "id",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqadd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqdiv",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqecho",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqeq",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqfromil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqfromis",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqfromul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqfromus",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqge",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqgt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqle",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqlt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqmul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqne",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqneg",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqsub",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtofd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtofs",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtoil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtois",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtoix",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtoul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtous",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqtoux",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fqunord",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float128"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float128"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsabs",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsadd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsceil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fscopysign",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsdiv",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsecho",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fseq",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsfloor",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsfromil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsfromis",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "int32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsfromul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsfromus",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsge",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsgt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsle",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fslt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsmax",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsmin",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsmul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsne",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsnearest",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsneg",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fsround",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fssqrt",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fssub",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        },
+                        {
+                            "name": "b",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstofd",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstofq",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstoil",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstois",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstoix",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstoul",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstous",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstoux",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "fstrunc",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "a",
+                            "type": "float32"
+                        }
+                    ]
+                },
+                {
+                    "name": "seed",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "from",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "to",
+                            "type": "uint32"
+                        }
+                    ]
+                },
+                {
+                    "name": "version",
+                    "base": "",
+                    "fields": []
+                },
+                {
+                    "name": "version_row",
+                    "base": "",
+                    "fields": [
+                        {
+                            "name": "contract_version",
+                            "type": "string"
+                        },
+                        {
+                            "name": "cdt_version",
+                            "type": "string"
+                        },
+                        {
+                            "name": "grid_size",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "fq_start",
+                            "type": "uint32"
+                        },
+                        {
+                            "name": "seeded_at",
+                            "type": "time_point"
+                        }
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "name": "amttofd",
+                    "type": "amttofd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Scaled Units To Double'\nsummary: 'Read-only: divides units by ten to the power of precision and returns the float64 quotient, filling r64. This is the inverse of fdtoamt.'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdabs",
+                    "type": "fdabs",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Absolute Value'\nsummary: 'Read-only: returns the magnitude of a as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdadd",
+                    "type": "fdadd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Add'\nsummary: 'Read-only: returns a + b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdceil",
+                    "type": "fdceil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Ceiling'\nsummary: 'Read-only: rounds a toward positive infinity as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdcopysign",
+                    "type": "fdcopysign",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Copy Sign'\nsummary: 'Read-only: returns a carrying the sign of b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fddiv",
+                    "type": "fddiv",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Divide'\nsummary: 'Read-only: returns a / b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdecho",
+                    "type": "fdecho",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Echo'\nsummary: 'Read-only: returns a unchanged as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdeq",
+                    "type": "fdeq",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Equal'\nsummary: 'Read-only: returns whether a equals b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfloor",
+                    "type": "fdfloor",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Floor'\nsummary: 'Read-only: rounds a toward negative infinity as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromil",
+                    "type": "fdfromil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From Int64'\nsummary: 'Read-only: converts the int64 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromis",
+                    "type": "fdfromis",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From Int32'\nsummary: 'Read-only: converts the int32 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromix",
+                    "type": "fdfromix",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From Int128'\nsummary: 'Read-only: converts the int128 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromul",
+                    "type": "fdfromul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From UInt64'\nsummary: 'Read-only: converts the uint64 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromus",
+                    "type": "fdfromus",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From UInt32'\nsummary: 'Read-only: converts the uint32 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdfromux",
+                    "type": "fdfromux",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double From UInt128'\nsummary: 'Read-only: converts the uint128 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdge",
+                    "type": "fdge",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Greater Than Or Equal'\nsummary: 'Read-only: returns whether a >= b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdgt",
+                    "type": "fdgt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Greater Than'\nsummary: 'Read-only: returns whether a > b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdle",
+                    "type": "fdle",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Less Than Or Equal'\nsummary: 'Read-only: returns whether a <= b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdlt",
+                    "type": "fdlt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Less Than'\nsummary: 'Read-only: returns whether a < b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdmax",
+                    "type": "fdmax",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Maximum'\nsummary: 'Read-only: returns the larger of a and b as float64, filling r64. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdmin",
+                    "type": "fdmin",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Minimum'\nsummary: 'Read-only: returns the smaller of a and b as float64, filling r64. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdmul",
+                    "type": "fdmul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Multiply'\nsummary: 'Read-only: returns a * b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdne",
+                    "type": "fdne",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Not Equal'\nsummary: 'Read-only: returns whether a differs from b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdnearest",
+                    "type": "fdnearest",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Round To Nearest Even'\nsummary: 'Read-only: rounds a to the nearest integral float64 with ties resolved to even, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdneg",
+                    "type": "fdneg",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Negate'\nsummary: 'Read-only: returns a with its sign bit flipped as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdround",
+                    "type": "fdround",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Round Half Away From Zero'\nsummary: 'Read-only: rounds a to the nearest integral float64 with ties resolved away from zero, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdsqrt",
+                    "type": "fdsqrt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Square Root'\nsummary: 'Read-only: returns the square root of a as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdsub",
+                    "type": "fdsub",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Subtract'\nsummary: 'Read-only: returns a - b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtoamt",
+                    "type": "fdtoamt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Scaled Units'\nsummary: 'Read-only: scales v by ten to the power of precision, filling ri with the truncated integer and r64 with the value rounded half away from zero. This is the asset amount conversion an SDK performs when it turns a decimal string into integer units.'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtofq",
+                    "type": "fdtofq",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Quad'\nsummary: 'Read-only: converts a from float64 to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtofs",
+                    "type": "fdtofs",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Single'\nsummary: 'Read-only: converts a from float64 to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtoil",
+                    "type": "fdtoil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Int64'\nsummary: 'Read-only: truncates a from float64 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtois",
+                    "type": "fdtois",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Int32'\nsummary: 'Read-only: truncates a from float64 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtoix",
+                    "type": "fdtoix",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To Int128'\nsummary: 'Read-only: truncates a from float64 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtoul",
+                    "type": "fdtoul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To UInt64'\nsummary: 'Read-only: truncates a from float64 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtous",
+                    "type": "fdtous",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To UInt32'\nsummary: 'Read-only: truncates a from float64 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtoux",
+                    "type": "fdtoux",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double To UInt128'\nsummary: 'Read-only: truncates a from float64 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fdtrunc",
+                    "type": "fdtrunc",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Double Truncate'\nsummary: 'Read-only: rounds a toward zero as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fpcase",
+                    "type": "fpcase",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Read Case'\nsummary: 'Read-only: returns the stored fp_case row carrying the given id, and aborts when that id has not been seeded.'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqadd",
+                    "type": "fqadd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Add'\nsummary: 'Read-only: returns a + b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqdiv",
+                    "type": "fqdiv",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Divide'\nsummary: 'Read-only: returns a / b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqecho",
+                    "type": "fqecho",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Echo'\nsummary: 'Read-only: returns a unchanged as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqeq",
+                    "type": "fqeq",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Equal'\nsummary: 'Read-only: returns whether a equals b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqfromil",
+                    "type": "fqfromil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad From Int64'\nsummary: 'Read-only: converts the int64 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqfromis",
+                    "type": "fqfromis",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad From Int32'\nsummary: 'Read-only: converts the int32 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqfromul",
+                    "type": "fqfromul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad From UInt64'\nsummary: 'Read-only: converts the uint64 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqfromus",
+                    "type": "fqfromus",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad From UInt32'\nsummary: 'Read-only: converts the uint32 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqge",
+                    "type": "fqge",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Greater Than Or Equal'\nsummary: 'Read-only: returns whether a >= b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqgt",
+                    "type": "fqgt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Greater Than'\nsummary: 'Read-only: returns whether a > b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqle",
+                    "type": "fqle",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Less Than Or Equal'\nsummary: 'Read-only: returns whether a <= b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqlt",
+                    "type": "fqlt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Less Than'\nsummary: 'Read-only: returns whether a < b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqmul",
+                    "type": "fqmul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Multiply'\nsummary: 'Read-only: returns a * b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqne",
+                    "type": "fqne",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Not Equal'\nsummary: 'Read-only: returns whether a differs from b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqneg",
+                    "type": "fqneg",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Negate'\nsummary: 'Read-only: returns a with its sign bit flipped as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqsub",
+                    "type": "fqsub",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Subtract'\nsummary: 'Read-only: returns a - b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtofd",
+                    "type": "fqtofd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To Double'\nsummary: 'Read-only: converts a from float128 to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtofs",
+                    "type": "fqtofs",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To Single'\nsummary: 'Read-only: converts a from float128 to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtoil",
+                    "type": "fqtoil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To Int64'\nsummary: 'Read-only: truncates a from float128 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtois",
+                    "type": "fqtois",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To Int32'\nsummary: 'Read-only: truncates a from float128 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtoix",
+                    "type": "fqtoix",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To Int128'\nsummary: 'Read-only: truncates a from float128 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtoul",
+                    "type": "fqtoul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To UInt64'\nsummary: 'Read-only: truncates a from float128 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtous",
+                    "type": "fqtous",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To UInt32'\nsummary: 'Read-only: truncates a from float128 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqtoux",
+                    "type": "fqtoux",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad To UInt128'\nsummary: 'Read-only: truncates a from float128 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fqunord",
+                    "type": "fqunord",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Quad Unordered'\nsummary: 'Read-only: returns whether the float128 pair a and b is unordered, which holds when either operand is NaN, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsabs",
+                    "type": "fsabs",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Absolute Value'\nsummary: 'Read-only: returns the magnitude of a as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsadd",
+                    "type": "fsadd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Add'\nsummary: 'Read-only: returns a + b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsceil",
+                    "type": "fsceil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Ceiling'\nsummary: 'Read-only: rounds a toward positive infinity as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fscopysign",
+                    "type": "fscopysign",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Copy Sign'\nsummary: 'Read-only: returns a carrying the sign of b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsdiv",
+                    "type": "fsdiv",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Divide'\nsummary: 'Read-only: returns a / b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsecho",
+                    "type": "fsecho",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Echo'\nsummary: 'Read-only: returns a unchanged as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fseq",
+                    "type": "fseq",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Equal'\nsummary: 'Read-only: returns whether a equals b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsfloor",
+                    "type": "fsfloor",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Floor'\nsummary: 'Read-only: rounds a toward negative infinity as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsfromil",
+                    "type": "fsfromil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single From Int64'\nsummary: 'Read-only: converts the int64 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsfromis",
+                    "type": "fsfromis",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single From Int32'\nsummary: 'Read-only: converts the int32 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsfromul",
+                    "type": "fsfromul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single From UInt64'\nsummary: 'Read-only: converts the uint64 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsfromus",
+                    "type": "fsfromus",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single From UInt32'\nsummary: 'Read-only: converts the uint32 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsge",
+                    "type": "fsge",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Greater Than Or Equal'\nsummary: 'Read-only: returns whether a >= b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsgt",
+                    "type": "fsgt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Greater Than'\nsummary: 'Read-only: returns whether a > b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsle",
+                    "type": "fsle",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Less Than Or Equal'\nsummary: 'Read-only: returns whether a <= b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fslt",
+                    "type": "fslt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Less Than'\nsummary: 'Read-only: returns whether a < b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsmax",
+                    "type": "fsmax",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Maximum'\nsummary: 'Read-only: returns the larger of a and b as float32, filling r32. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsmin",
+                    "type": "fsmin",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Minimum'\nsummary: 'Read-only: returns the smaller of a and b as float32, filling r32. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsmul",
+                    "type": "fsmul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Multiply'\nsummary: 'Read-only: returns a * b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsne",
+                    "type": "fsne",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Not Equal'\nsummary: 'Read-only: returns whether a differs from b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsnearest",
+                    "type": "fsnearest",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Round To Nearest Even'\nsummary: 'Read-only: rounds a to the nearest integral float32 with ties resolved to even, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsneg",
+                    "type": "fsneg",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Negate'\nsummary: 'Read-only: returns a with its sign bit flipped as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fsround",
+                    "type": "fsround",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Round Half Away From Zero'\nsummary: 'Read-only: rounds a to the nearest integral float32 with ties resolved away from zero, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fssqrt",
+                    "type": "fssqrt",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Square Root'\nsummary: 'Read-only: returns the square root of a as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fssub",
+                    "type": "fssub",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Subtract'\nsummary: 'Read-only: returns a - b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstofd",
+                    "type": "fstofd",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To Double'\nsummary: 'Read-only: converts a from float32 to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstofq",
+                    "type": "fstofq",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To Quad'\nsummary: 'Read-only: converts a from float32 to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstoil",
+                    "type": "fstoil",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To Int64'\nsummary: 'Read-only: truncates a from float32 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstois",
+                    "type": "fstois",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To Int32'\nsummary: 'Read-only: truncates a from float32 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstoix",
+                    "type": "fstoix",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To Int128'\nsummary: 'Read-only: truncates a from float32 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstoul",
+                    "type": "fstoul",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To UInt64'\nsummary: 'Read-only: truncates a from float32 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstous",
+                    "type": "fstous",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To UInt32'\nsummary: 'Read-only: truncates a from float32 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstoux",
+                    "type": "fstoux",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single To UInt128'\nsummary: 'Read-only: truncates a from float32 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "fstrunc",
+                    "type": "fstrunc",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Single Truncate'\nsummary: 'Read-only: rounds a toward zero as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "seed",
+                    "type": "seed",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Seed Case Grid'\nsummary: 'Computes each case in the id range [from, to) on chain and stores it, then refreshes the version row. Requires the authority of the contract account.'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                },
+                {
+                    "name": "version",
+                    "type": "version",
+                    "ricardian_contract": "---\n\nspec_version: \"0.2.0\"\ntitle: 'Contract Version'\nsummary: 'Read-only: returns the contract version, the CDT version that built the wasm, the grid size, fq_start, and the time the grid was last seeded to completion.'\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\n\n---"
+                }
+            ],
+            "tables": [
+                {
+                    "name": "fpcases",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "fp_case"
+                },
+                {
+                    "name": "version",
+                    "index_type": "i64",
+                    "key_names": [],
+                    "key_types": [],
+                    "type": "version_row"
+                }
+            ],
+            "ricardian_clauses": [
+                {
+                    "id": "conformance",
+                    "body": "Reference contract for SDK conformance testing. Read-only actions compute floating point results on-chain and return them; the seed action stores the canonical case grid."
+                }
+            ],
+            "error_messages": [],
+            "abi_extensions": [],
+            "variants": [],
+            "action_results": [
+                {
+                    "name": "amttofd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdabs",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdadd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdceil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdcopysign",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fddiv",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdecho",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdeq",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfloor",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromis",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromix",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromus",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdfromux",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdge",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdgt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdle",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdlt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdmax",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdmin",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdmul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdne",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdnearest",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdneg",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdround",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdsqrt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdsub",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtoamt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtofq",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtofs",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtoil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtois",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtoix",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtoul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtous",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtoux",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fdtrunc",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fpcase",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqadd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqdiv",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqecho",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqeq",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqfromil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqfromis",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqfromul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqfromus",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqge",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqgt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqle",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqlt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqmul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqne",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqneg",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqsub",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtofd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtofs",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtoil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtois",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtoix",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtoul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtous",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqtoux",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fqunord",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsabs",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsadd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsceil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fscopysign",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsdiv",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsecho",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fseq",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsfloor",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsfromil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsfromis",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsfromul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsfromus",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsge",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsgt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsle",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fslt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsmax",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsmin",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsmul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsne",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsnearest",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsneg",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fsround",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fssqrt",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fssub",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstofd",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstofq",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstoil",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstois",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstoix",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstoul",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstous",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstoux",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "fstrunc",
+                    "result_type": "fp_case"
+                },
+                {
+                    "name": "version",
+                    "result_type": "version_row"
+                }
+            ]
+        }
+    },
+    "text": "{\"account_name\":\"conform.gm\",\"abi\":{\"version\":\"eosio::abi/1.2\",\"types\":[],\"structs\":[{\"name\":\"amttofd\",\"base\":\"\",\"fields\":[{\"name\":\"units\",\"type\":\"int64\"},{\"name\":\"precision\",\"type\":\"uint8\"}]},{\"name\":\"fdabs\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdadd\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdceil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdcopysign\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fddiv\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdecho\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdeq\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdfloor\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdfromil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int64\"}]},{\"name\":\"fdfromis\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int32\"}]},{\"name\":\"fdfromix\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int128\"}]},{\"name\":\"fdfromul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint64\"}]},{\"name\":\"fdfromus\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint32\"}]},{\"name\":\"fdfromux\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint128\"}]},{\"name\":\"fdge\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdgt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdle\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdlt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdmax\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdmin\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdmul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdne\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdnearest\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdneg\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdround\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdsqrt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdsub\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"},{\"name\":\"b\",\"type\":\"float64\"}]},{\"name\":\"fdtoamt\",\"base\":\"\",\"fields\":[{\"name\":\"v\",\"type\":\"float64\"},{\"name\":\"precision\",\"type\":\"uint8\"}]},{\"name\":\"fdtofq\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtofs\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtoil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtois\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtoix\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtoul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtous\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtoux\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fdtrunc\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float64\"}]},{\"name\":\"fp_case\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"},{\"name\":\"op\",\"type\":\"name\"},{\"name\":\"label\",\"type\":\"string\"},{\"name\":\"a32\",\"type\":\"float32\"},{\"name\":\"b32\",\"type\":\"float32\"},{\"name\":\"r32\",\"type\":\"float32\"},{\"name\":\"a64\",\"type\":\"float64\"},{\"name\":\"b64\",\"type\":\"float64\"},{\"name\":\"r64\",\"type\":\"float64\"},{\"name\":\"a128\",\"type\":\"float128\"},{\"name\":\"b128\",\"type\":\"float128\"},{\"name\":\"r128\",\"type\":\"float128\"},{\"name\":\"ri\",\"type\":\"int64\"},{\"name\":\"ax\",\"type\":\"int128\"},{\"name\":\"rx\",\"type\":\"int128\"},{\"name\":\"rb\",\"type\":\"bool\"},{\"name\":\"by_f64\",\"type\":\"float64\"},{\"name\":\"by_f128\",\"type\":\"float128\"}]},{\"name\":\"fpcase\",\"base\":\"\",\"fields\":[{\"name\":\"id\",\"type\":\"uint64\"}]},{\"name\":\"fqadd\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqdiv\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqecho\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqeq\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqfromil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int64\"}]},{\"name\":\"fqfromis\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int32\"}]},{\"name\":\"fqfromul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint64\"}]},{\"name\":\"fqfromus\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint32\"}]},{\"name\":\"fqge\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqgt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqle\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqlt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqmul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqne\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqneg\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqsub\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fqtofd\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtofs\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtoil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtois\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtoix\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtoul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtous\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqtoux\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"}]},{\"name\":\"fqunord\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float128\"},{\"name\":\"b\",\"type\":\"float128\"}]},{\"name\":\"fsabs\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fsadd\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsceil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fscopysign\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsdiv\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsecho\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fseq\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsfloor\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fsfromil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int64\"}]},{\"name\":\"fsfromis\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"int32\"}]},{\"name\":\"fsfromul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint64\"}]},{\"name\":\"fsfromus\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"uint32\"}]},{\"name\":\"fsge\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsgt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsle\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fslt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsmax\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsmin\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsmul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsne\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fsnearest\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fsneg\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fsround\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fssqrt\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fssub\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"},{\"name\":\"b\",\"type\":\"float32\"}]},{\"name\":\"fstofd\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstofq\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstoil\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstois\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstoix\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstoul\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstous\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstoux\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"fstrunc\",\"base\":\"\",\"fields\":[{\"name\":\"a\",\"type\":\"float32\"}]},{\"name\":\"seed\",\"base\":\"\",\"fields\":[{\"name\":\"from\",\"type\":\"uint32\"},{\"name\":\"to\",\"type\":\"uint32\"}]},{\"name\":\"version\",\"base\":\"\",\"fields\":[]},{\"name\":\"version_row\",\"base\":\"\",\"fields\":[{\"name\":\"contract_version\",\"type\":\"string\"},{\"name\":\"cdt_version\",\"type\":\"string\"},{\"name\":\"grid_size\",\"type\":\"uint32\"},{\"name\":\"fq_start\",\"type\":\"uint32\"},{\"name\":\"seeded_at\",\"type\":\"time_point\"}]}],\"actions\":[{\"name\":\"amttofd\",\"type\":\"amttofd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Scaled Units To Double'\\nsummary: 'Read-only: divides units by ten to the power of precision and returns the float64 quotient, filling r64. This is the inverse of fdtoamt.'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdabs\",\"type\":\"fdabs\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Absolute Value'\\nsummary: 'Read-only: returns the magnitude of a as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdadd\",\"type\":\"fdadd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Add'\\nsummary: 'Read-only: returns a + b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdceil\",\"type\":\"fdceil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Ceiling'\\nsummary: 'Read-only: rounds a toward positive infinity as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdcopysign\",\"type\":\"fdcopysign\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Copy Sign'\\nsummary: 'Read-only: returns a carrying the sign of b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fddiv\",\"type\":\"fddiv\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Divide'\\nsummary: 'Read-only: returns a / b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdecho\",\"type\":\"fdecho\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Echo'\\nsummary: 'Read-only: returns a unchanged as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdeq\",\"type\":\"fdeq\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Equal'\\nsummary: 'Read-only: returns whether a equals b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfloor\",\"type\":\"fdfloor\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Floor'\\nsummary: 'Read-only: rounds a toward negative infinity as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromil\",\"type\":\"fdfromil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From Int64'\\nsummary: 'Read-only: converts the int64 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromis\",\"type\":\"fdfromis\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From Int32'\\nsummary: 'Read-only: converts the int32 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromix\",\"type\":\"fdfromix\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From Int128'\\nsummary: 'Read-only: converts the int128 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromul\",\"type\":\"fdfromul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From UInt64'\\nsummary: 'Read-only: converts the uint64 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromus\",\"type\":\"fdfromus\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From UInt32'\\nsummary: 'Read-only: converts the uint32 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdfromux\",\"type\":\"fdfromux\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double From UInt128'\\nsummary: 'Read-only: converts the uint128 operand a to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdge\",\"type\":\"fdge\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Greater Than Or Equal'\\nsummary: 'Read-only: returns whether a >= b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdgt\",\"type\":\"fdgt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Greater Than'\\nsummary: 'Read-only: returns whether a > b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdle\",\"type\":\"fdle\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Less Than Or Equal'\\nsummary: 'Read-only: returns whether a <= b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdlt\",\"type\":\"fdlt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Less Than'\\nsummary: 'Read-only: returns whether a < b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdmax\",\"type\":\"fdmax\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Maximum'\\nsummary: 'Read-only: returns the larger of a and b as float64, filling r64. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdmin\",\"type\":\"fdmin\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Minimum'\\nsummary: 'Read-only: returns the smaller of a and b as float64, filling r64. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdmul\",\"type\":\"fdmul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Multiply'\\nsummary: 'Read-only: returns a * b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdne\",\"type\":\"fdne\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Not Equal'\\nsummary: 'Read-only: returns whether a differs from b as float64, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdnearest\",\"type\":\"fdnearest\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Round To Nearest Even'\\nsummary: 'Read-only: rounds a to the nearest integral float64 with ties resolved to even, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdneg\",\"type\":\"fdneg\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Negate'\\nsummary: 'Read-only: returns a with its sign bit flipped as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdround\",\"type\":\"fdround\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Round Half Away From Zero'\\nsummary: 'Read-only: rounds a to the nearest integral float64 with ties resolved away from zero, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdsqrt\",\"type\":\"fdsqrt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Square Root'\\nsummary: 'Read-only: returns the square root of a as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdsub\",\"type\":\"fdsub\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Subtract'\\nsummary: 'Read-only: returns a - b as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtoamt\",\"type\":\"fdtoamt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Scaled Units'\\nsummary: 'Read-only: scales v by ten to the power of precision, filling ri with the truncated integer and r64 with the value rounded half away from zero. This is the asset amount conversion an SDK performs when it turns a decimal string into integer units.'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtofq\",\"type\":\"fdtofq\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Quad'\\nsummary: 'Read-only: converts a from float64 to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtofs\",\"type\":\"fdtofs\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Single'\\nsummary: 'Read-only: converts a from float64 to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtoil\",\"type\":\"fdtoil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Int64'\\nsummary: 'Read-only: truncates a from float64 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtois\",\"type\":\"fdtois\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Int32'\\nsummary: 'Read-only: truncates a from float64 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtoix\",\"type\":\"fdtoix\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To Int128'\\nsummary: 'Read-only: truncates a from float64 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtoul\",\"type\":\"fdtoul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To UInt64'\\nsummary: 'Read-only: truncates a from float64 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtous\",\"type\":\"fdtous\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To UInt32'\\nsummary: 'Read-only: truncates a from float64 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtoux\",\"type\":\"fdtoux\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double To UInt128'\\nsummary: 'Read-only: truncates a from float64 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fdtrunc\",\"type\":\"fdtrunc\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Double Truncate'\\nsummary: 'Read-only: rounds a toward zero as float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fpcase\",\"type\":\"fpcase\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Read Case'\\nsummary: 'Read-only: returns the stored fp_case row carrying the given id, and aborts when that id has not been seeded.'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqadd\",\"type\":\"fqadd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Add'\\nsummary: 'Read-only: returns a + b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqdiv\",\"type\":\"fqdiv\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Divide'\\nsummary: 'Read-only: returns a / b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqecho\",\"type\":\"fqecho\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Echo'\\nsummary: 'Read-only: returns a unchanged as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqeq\",\"type\":\"fqeq\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Equal'\\nsummary: 'Read-only: returns whether a equals b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqfromil\",\"type\":\"fqfromil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad From Int64'\\nsummary: 'Read-only: converts the int64 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqfromis\",\"type\":\"fqfromis\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad From Int32'\\nsummary: 'Read-only: converts the int32 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqfromul\",\"type\":\"fqfromul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad From UInt64'\\nsummary: 'Read-only: converts the uint64 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqfromus\",\"type\":\"fqfromus\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad From UInt32'\\nsummary: 'Read-only: converts the uint32 operand a to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqge\",\"type\":\"fqge\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Greater Than Or Equal'\\nsummary: 'Read-only: returns whether a >= b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqgt\",\"type\":\"fqgt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Greater Than'\\nsummary: 'Read-only: returns whether a > b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqle\",\"type\":\"fqle\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Less Than Or Equal'\\nsummary: 'Read-only: returns whether a <= b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqlt\",\"type\":\"fqlt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Less Than'\\nsummary: 'Read-only: returns whether a < b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqmul\",\"type\":\"fqmul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Multiply'\\nsummary: 'Read-only: returns a * b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqne\",\"type\":\"fqne\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Not Equal'\\nsummary: 'Read-only: returns whether a differs from b as float128, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqneg\",\"type\":\"fqneg\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Negate'\\nsummary: 'Read-only: returns a with its sign bit flipped as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqsub\",\"type\":\"fqsub\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Subtract'\\nsummary: 'Read-only: returns a - b as float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtofd\",\"type\":\"fqtofd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To Double'\\nsummary: 'Read-only: converts a from float128 to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtofs\",\"type\":\"fqtofs\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To Single'\\nsummary: 'Read-only: converts a from float128 to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtoil\",\"type\":\"fqtoil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To Int64'\\nsummary: 'Read-only: truncates a from float128 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtois\",\"type\":\"fqtois\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To Int32'\\nsummary: 'Read-only: truncates a from float128 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtoix\",\"type\":\"fqtoix\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To Int128'\\nsummary: 'Read-only: truncates a from float128 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtoul\",\"type\":\"fqtoul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To UInt64'\\nsummary: 'Read-only: truncates a from float128 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtous\",\"type\":\"fqtous\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To UInt32'\\nsummary: 'Read-only: truncates a from float128 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqtoux\",\"type\":\"fqtoux\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad To UInt128'\\nsummary: 'Read-only: truncates a from float128 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fqunord\",\"type\":\"fqunord\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Quad Unordered'\\nsummary: 'Read-only: returns whether the float128 pair a and b is unordered, which holds when either operand is NaN, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsabs\",\"type\":\"fsabs\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Absolute Value'\\nsummary: 'Read-only: returns the magnitude of a as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsadd\",\"type\":\"fsadd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Add'\\nsummary: 'Read-only: returns a + b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsceil\",\"type\":\"fsceil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Ceiling'\\nsummary: 'Read-only: rounds a toward positive infinity as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fscopysign\",\"type\":\"fscopysign\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Copy Sign'\\nsummary: 'Read-only: returns a carrying the sign of b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsdiv\",\"type\":\"fsdiv\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Divide'\\nsummary: 'Read-only: returns a / b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsecho\",\"type\":\"fsecho\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Echo'\\nsummary: 'Read-only: returns a unchanged as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fseq\",\"type\":\"fseq\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Equal'\\nsummary: 'Read-only: returns whether a equals b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsfloor\",\"type\":\"fsfloor\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Floor'\\nsummary: 'Read-only: rounds a toward negative infinity as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsfromil\",\"type\":\"fsfromil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single From Int64'\\nsummary: 'Read-only: converts the int64 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsfromis\",\"type\":\"fsfromis\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single From Int32'\\nsummary: 'Read-only: converts the int32 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsfromul\",\"type\":\"fsfromul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single From UInt64'\\nsummary: 'Read-only: converts the uint64 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsfromus\",\"type\":\"fsfromus\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single From UInt32'\\nsummary: 'Read-only: converts the uint32 operand a to float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsge\",\"type\":\"fsge\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Greater Than Or Equal'\\nsummary: 'Read-only: returns whether a >= b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsgt\",\"type\":\"fsgt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Greater Than'\\nsummary: 'Read-only: returns whether a > b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsle\",\"type\":\"fsle\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Less Than Or Equal'\\nsummary: 'Read-only: returns whether a <= b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fslt\",\"type\":\"fslt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Less Than'\\nsummary: 'Read-only: returns whether a < b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsmax\",\"type\":\"fsmax\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Maximum'\\nsummary: 'Read-only: returns the larger of a and b as float32, filling r32. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsmin\",\"type\":\"fsmin\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Minimum'\\nsummary: 'Read-only: returns the smaller of a and b as float32, filling r32. A NaN operand propagates, and -0.0 orders below +0.0. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsmul\",\"type\":\"fsmul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Multiply'\\nsummary: 'Read-only: returns a * b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsne\",\"type\":\"fsne\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Not Equal'\\nsummary: 'Read-only: returns whether a differs from b as float32, filling rb. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsnearest\",\"type\":\"fsnearest\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Round To Nearest Even'\\nsummary: 'Read-only: rounds a to the nearest integral float32 with ties resolved to even, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsneg\",\"type\":\"fsneg\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Negate'\\nsummary: 'Read-only: returns a with its sign bit flipped as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fsround\",\"type\":\"fsround\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Round Half Away From Zero'\\nsummary: 'Read-only: rounds a to the nearest integral float32 with ties resolved away from zero, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fssqrt\",\"type\":\"fssqrt\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Square Root'\\nsummary: 'Read-only: returns the square root of a as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fssub\",\"type\":\"fssub\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Subtract'\\nsummary: 'Read-only: returns a - b as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstofd\",\"type\":\"fstofd\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To Double'\\nsummary: 'Read-only: converts a from float32 to float64, filling r64. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstofq\",\"type\":\"fstofq\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To Quad'\\nsummary: 'Read-only: converts a from float32 to float128, filling r128. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstoil\",\"type\":\"fstoil\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To Int64'\\nsummary: 'Read-only: truncates a from float32 to int64, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstois\",\"type\":\"fstois\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To Int32'\\nsummary: 'Read-only: truncates a from float32 to int32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstoix\",\"type\":\"fstoix\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To Int128'\\nsummary: 'Read-only: truncates a from float32 to int128, filling rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstoul\",\"type\":\"fstoul\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To UInt64'\\nsummary: 'Read-only: truncates a from float32 to uint64, storing the resulting bit pattern in the signed field ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstous\",\"type\":\"fstous\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To UInt32'\\nsummary: 'Read-only: truncates a from float32 to uint32, filling ri. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstoux\",\"type\":\"fstoux\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single To UInt128'\\nsummary: 'Read-only: truncates a from float32 to uint128, storing the resulting bit pattern in the signed field rx. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"fstrunc\",\"type\":\"fstrunc\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Single Truncate'\\nsummary: 'Read-only: rounds a toward zero as float32, filling r32. Action names are <width><op>; width is fs (float32), fd (float64), fq (float128); integer widths are is/us (32), il/ul (64), ix/ux (128).'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"seed\",\"type\":\"seed\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Seed Case Grid'\\nsummary: 'Computes each case in the id range [from, to) on chain and stores it, then refreshes the version row. Requires the authority of the contract account.'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"},{\"name\":\"version\",\"type\":\"version\",\"ricardian_contract\":\"---\\n\\nspec_version: \\\"0.2.0\\\"\\ntitle: 'Contract Version'\\nsummary: 'Read-only: returns the contract version, the CDT version that built the wasm, the grid size, fq_start, and the time the grid was last seeded to completion.'\\nicon: https://avatars.githubusercontent.com/u/147292861?s=400&u=3b1af66e90dd851f4d7c096ed6a2fbb4b9e190da\\n\\n---\"}],\"tables\":[{\"name\":\"fpcases\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"fp_case\"},{\"name\":\"version\",\"index_type\":\"i64\",\"key_names\":[],\"key_types\":[],\"type\":\"version_row\"}],\"ricardian_clauses\":[{\"id\":\"conformance\",\"body\":\"Reference contract for SDK conformance testing. Read-only actions compute floating point results on-chain and return them; the seed action stores the canonical case grid.\"}],\"error_messages\":[],\"abi_extensions\":[],\"variants\":[],\"action_results\":[{\"name\":\"amttofd\",\"result_type\":\"fp_case\"},{\"name\":\"fdabs\",\"result_type\":\"fp_case\"},{\"name\":\"fdadd\",\"result_type\":\"fp_case\"},{\"name\":\"fdceil\",\"result_type\":\"fp_case\"},{\"name\":\"fdcopysign\",\"result_type\":\"fp_case\"},{\"name\":\"fddiv\",\"result_type\":\"fp_case\"},{\"name\":\"fdecho\",\"result_type\":\"fp_case\"},{\"name\":\"fdeq\",\"result_type\":\"fp_case\"},{\"name\":\"fdfloor\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromil\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromis\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromix\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromul\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromus\",\"result_type\":\"fp_case\"},{\"name\":\"fdfromux\",\"result_type\":\"fp_case\"},{\"name\":\"fdge\",\"result_type\":\"fp_case\"},{\"name\":\"fdgt\",\"result_type\":\"fp_case\"},{\"name\":\"fdle\",\"result_type\":\"fp_case\"},{\"name\":\"fdlt\",\"result_type\":\"fp_case\"},{\"name\":\"fdmax\",\"result_type\":\"fp_case\"},{\"name\":\"fdmin\",\"result_type\":\"fp_case\"},{\"name\":\"fdmul\",\"result_type\":\"fp_case\"},{\"name\":\"fdne\",\"result_type\":\"fp_case\"},{\"name\":\"fdnearest\",\"result_type\":\"fp_case\"},{\"name\":\"fdneg\",\"result_type\":\"fp_case\"},{\"name\":\"fdround\",\"result_type\":\"fp_case\"},{\"name\":\"fdsqrt\",\"result_type\":\"fp_case\"},{\"name\":\"fdsub\",\"result_type\":\"fp_case\"},{\"name\":\"fdtoamt\",\"result_type\":\"fp_case\"},{\"name\":\"fdtofq\",\"result_type\":\"fp_case\"},{\"name\":\"fdtofs\",\"result_type\":\"fp_case\"},{\"name\":\"fdtoil\",\"result_type\":\"fp_case\"},{\"name\":\"fdtois\",\"result_type\":\"fp_case\"},{\"name\":\"fdtoix\",\"result_type\":\"fp_case\"},{\"name\":\"fdtoul\",\"result_type\":\"fp_case\"},{\"name\":\"fdtous\",\"result_type\":\"fp_case\"},{\"name\":\"fdtoux\",\"result_type\":\"fp_case\"},{\"name\":\"fdtrunc\",\"result_type\":\"fp_case\"},{\"name\":\"fpcase\",\"result_type\":\"fp_case\"},{\"name\":\"fqadd\",\"result_type\":\"fp_case\"},{\"name\":\"fqdiv\",\"result_type\":\"fp_case\"},{\"name\":\"fqecho\",\"result_type\":\"fp_case\"},{\"name\":\"fqeq\",\"result_type\":\"fp_case\"},{\"name\":\"fqfromil\",\"result_type\":\"fp_case\"},{\"name\":\"fqfromis\",\"result_type\":\"fp_case\"},{\"name\":\"fqfromul\",\"result_type\":\"fp_case\"},{\"name\":\"fqfromus\",\"result_type\":\"fp_case\"},{\"name\":\"fqge\",\"result_type\":\"fp_case\"},{\"name\":\"fqgt\",\"result_type\":\"fp_case\"},{\"name\":\"fqle\",\"result_type\":\"fp_case\"},{\"name\":\"fqlt\",\"result_type\":\"fp_case\"},{\"name\":\"fqmul\",\"result_type\":\"fp_case\"},{\"name\":\"fqne\",\"result_type\":\"fp_case\"},{\"name\":\"fqneg\",\"result_type\":\"fp_case\"},{\"name\":\"fqsub\",\"result_type\":\"fp_case\"},{\"name\":\"fqtofd\",\"result_type\":\"fp_case\"},{\"name\":\"fqtofs\",\"result_type\":\"fp_case\"},{\"name\":\"fqtoil\",\"result_type\":\"fp_case\"},{\"name\":\"fqtois\",\"result_type\":\"fp_case\"},{\"name\":\"fqtoix\",\"result_type\":\"fp_case\"},{\"name\":\"fqtoul\",\"result_type\":\"fp_case\"},{\"name\":\"fqtous\",\"result_type\":\"fp_case\"},{\"name\":\"fqtoux\",\"result_type\":\"fp_case\"},{\"name\":\"fqunord\",\"result_type\":\"fp_case\"},{\"name\":\"fsabs\",\"result_type\":\"fp_case\"},{\"name\":\"fsadd\",\"result_type\":\"fp_case\"},{\"name\":\"fsceil\",\"result_type\":\"fp_case\"},{\"name\":\"fscopysign\",\"result_type\":\"fp_case\"},{\"name\":\"fsdiv\",\"result_type\":\"fp_case\"},{\"name\":\"fsecho\",\"result_type\":\"fp_case\"},{\"name\":\"fseq\",\"result_type\":\"fp_case\"},{\"name\":\"fsfloor\",\"result_type\":\"fp_case\"},{\"name\":\"fsfromil\",\"result_type\":\"fp_case\"},{\"name\":\"fsfromis\",\"result_type\":\"fp_case\"},{\"name\":\"fsfromul\",\"result_type\":\"fp_case\"},{\"name\":\"fsfromus\",\"result_type\":\"fp_case\"},{\"name\":\"fsge\",\"result_type\":\"fp_case\"},{\"name\":\"fsgt\",\"result_type\":\"fp_case\"},{\"name\":\"fsle\",\"result_type\":\"fp_case\"},{\"name\":\"fslt\",\"result_type\":\"fp_case\"},{\"name\":\"fsmax\",\"result_type\":\"fp_case\"},{\"name\":\"fsmin\",\"result_type\":\"fp_case\"},{\"name\":\"fsmul\",\"result_type\":\"fp_case\"},{\"name\":\"fsne\",\"result_type\":\"fp_case\"},{\"name\":\"fsnearest\",\"result_type\":\"fp_case\"},{\"name\":\"fsneg\",\"result_type\":\"fp_case\"},{\"name\":\"fsround\",\"result_type\":\"fp_case\"},{\"name\":\"fssqrt\",\"result_type\":\"fp_case\"},{\"name\":\"fssub\",\"result_type\":\"fp_case\"},{\"name\":\"fstofd\",\"result_type\":\"fp_case\"},{\"name\":\"fstofq\",\"result_type\":\"fp_case\"},{\"name\":\"fstoil\",\"result_type\":\"fp_case\"},{\"name\":\"fstois\",\"result_type\":\"fp_case\"},{\"name\":\"fstoix\",\"result_type\":\"fp_case\"},{\"name\":\"fstoul\",\"result_type\":\"fp_case\"},{\"name\":\"fstous\",\"result_type\":\"fp_case\"},{\"name\":\"fstoux\",\"result_type\":\"fp_case\"},{\"name\":\"fstrunc\",\"result_type\":\"fp_case\"},{\"name\":\"version\",\"result_type\":\"version_row\"}]}}"
+}

@@ -1,7 +1,6 @@
-import fetch from 'node-fetch'
 import {join as joinPath} from 'path'
 import {promisify} from 'util'
-import {readFile as _readFile, writeFile as _writeFile} from 'fs'
+import {appendFileSync, readFile as _readFile, writeFile as _writeFile} from 'fs'
 
 const readFile = promisify(_readFile)
 const writeFile = promisify(_writeFile)
@@ -9,10 +8,16 @@ const writeFile = promisify(_writeFile)
 import {APIMethods, APIProvider, Bytes, Checksum160, FetchProvider} from '$lib'
 
 export class MockProvider implements APIProvider {
-    recordProvider = new FetchProvider(this.api, {fetch, headers: this.reqHeaders})
+    recordProvider: FetchProvider
     private context: string = ''
+    private recorded = new Set<string>()
 
-    constructor(private api: string = 'https://jungle4.greymass.com', private reqHeaders = {}) {}
+    constructor(
+        private api: string = 'https://jungle4.greymass.com',
+        private reqHeaders = {}
+    ) {
+        this.recordProvider = new FetchProvider(this.api, {headers: this.reqHeaders})
+    }
 
     setContext(name: string) {
         this.context = name
@@ -20,7 +25,10 @@ export class MockProvider implements APIProvider {
 
     getFilename(path: string, params?: unknown) {
         const digest = Checksum160.hash(
-            Bytes.from(this.api + path + this.context + (params ? JSON.stringify(params) : ''), 'utf8')
+            Bytes.from(
+                this.api + path + this.context + (params ? JSON.stringify(params) : ''),
+                'utf8'
+            )
         ).hexString
         return joinPath(__dirname, '../data', digest + '.json')
     }
@@ -38,13 +46,21 @@ export class MockProvider implements APIProvider {
 
     async call(args: {path: string; params?: unknown; method?: APIMethods}) {
         const filename = this.getFilename(args.path, args.params)
-        if (process.env['MOCK_RECORD'] !== 'overwrite') {
+        if (process.env['MOCK_LOG']) {
+            appendFileSync(process.env['MOCK_LOG'], filename + '\n')
+        }
+        const mode = process.env['MOCK_RECORD']
+        // overwrite fetches each unique request once per run; overwrite-always refetches every call
+        const skipExisting =
+            mode === 'overwrite-always' || (mode === 'overwrite' && !this.recorded.has(filename))
+        if (!skipExisting) {
             const existing = await this.getExisting(filename)
             if (existing) {
                 return existing
             }
         }
-        if (process.env['MOCK_RECORD']) {
+        if (mode) {
+            this.recorded.add(filename)
             const response = await this.recordProvider.call(args)
             const json = JSON.stringify(
                 {

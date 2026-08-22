@@ -9,6 +9,7 @@
         "module": "esnext",
         "moduleResolution": "node",
         "noImplicitAny": false,
+        "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "useUnknownInCatchVariables": false,

@@ -23,7 +23,7 @@ export interface APIProvider {
 export interface FetchProviderOptions {
     /**
      * Fetch instance, must be provided in non-browser environments.
-     * You can use the node-fetch package in Node.js.
+     * Node.js 18+ includes a built-in fetch implementation.
      */
     fetch?: Fetch
     /**
@@ -46,10 +46,10 @@ export class FetchProvider implements APIProvider {
             this.headers = options.headers
         }
         if (!options.fetch) {
-            if (typeof window !== 'undefined' && window.fetch) {
+            if (typeof globalThis !== 'undefined' && globalThis.fetch) {
+                this.fetch = globalThis.fetch.bind(globalThis)
+            } else if (typeof window !== 'undefined' && window.fetch) {
                 this.fetch = window.fetch.bind(window)
-            } else if (typeof global !== 'undefined' && global.fetch) {
-                this.fetch = global.fetch.bind(global)
             } else {
                 throw new Error('Missing fetch')
             }

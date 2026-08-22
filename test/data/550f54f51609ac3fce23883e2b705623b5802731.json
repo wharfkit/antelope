@@ -1,0 +1,70 @@
+{
+    "api": "https://eos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a26858ffce34001b-LHR",
+        "content-encoding": "br",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:53:24 GMT",
+        "host": "eos.greymass.com",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lKBWBVMlrwv0Qej6raMqJ30jvv2KY4Lv9UWn0g2ECxlhoueOpUwjDY7tohqii%2BsErSWwjkPH%2FukAxx4h1WhOLw%2FtY9XJklc0qHZHCllWEkQTUxrew%2FiNB%2BumrscLOIHvIds%3D\"}]}",
+        "server": "cloudflare",
+        "x-cached": "EXPIRED"
+    },
+    "status": 200,
+    "json": {
+        "block_num": 513297640,
+        "dpos_proposed_irreversible_blocknum": 0,
+        "dpos_irreversible_blocknum": 0,
+        "active_schedule": {
+            "version": 0,
+            "producers": []
+        },
+        "blockroot_merkle": {
+            "_active_nodes": [],
+            "_node_count": 0
+        },
+        "producer_to_last_produced": [],
+        "producer_to_last_implied_irb": [],
+        "valid_block_signing_authority": [
+            0,
+            {
+                "threshold": 0,
+                "keys": []
+            }
+        ],
+        "confirm_count": [],
+        "id": "1e984ce890700fed208cfb58e34d7a7a6b8b772e5f30de5e2f3c658ca2d8ef13",
+        "header": {
+            "timestamp": "2026-08-05T19:42:57.000",
+            "producer": "bp.1dex",
+            "confirmed": 0,
+            "previous": "1e984ce70f4ac45c21403f3509579c643a6aa576fd58471e3d8209ad5bf6aaba",
+            "transaction_mroot": "a17b08fe4fcd8733a5c48bb08c8b5b2f70004c57c4cc08d8bc403530ea9a4596",
+            "action_mroot": "6f95279fce0568508d3c927e80c83b232d41960d41e5f3696ac3c8a3d41504c0",
+            "schedule_version": 2147483648,
+            "header_extensions": [
+                [
+                    2,
+                    "e74c981e010000"
+                ]
+            ],
+            "producer_signature": "SIG_K1_K5WD29j455ARwb79NQDUcUrkLLAMHofGNGUBgUndA8pDbTn82rUzXVyre9eiaBEeCJZYGVc8D2dWwam2LixdAVdsH5iP5v"
+        },
+        "pending_schedule": {
+            "schedule_lib_num": 0,
+            "schedule_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "schedule": {
+                "version": 0,
+                "producers": []
+            }
+        },
+        "activated_protocol_features": null,
+        "additional_signatures": []
+    },
+    "text": "{\"block_num\":513297640,\"dpos_proposed_irreversible_blocknum\":0,\"dpos_irreversible_blocknum\":0,\"active_schedule\":{\"version\":0,\"producers\":[]},\"blockroot_merkle\":{\"_active_nodes\":[],\"_node_count\":0},\"producer_to_last_produced\":[],\"producer_to_last_implied_irb\":[],\"valid_block_signing_authority\":[0,{\"threshold\":0,\"keys\":[]}],\"confirm_count\":[],\"id\":\"1e984ce890700fed208cfb58e34d7a7a6b8b772e5f30de5e2f3c658ca2d8ef13\",\"header\":{\"timestamp\":\"2026-08-05T19:42:57.000\",\"producer\":\"bp.1dex\",\"confirmed\":0,\"previous\":\"1e984ce70f4ac45c21403f3509579c643a6aa576fd58471e3d8209ad5bf6aaba\",\"transaction_mroot\":\"a17b08fe4fcd8733a5c48bb08c8b5b2f70004c57c4cc08d8bc403530ea9a4596\",\"action_mroot\":\"6f95279fce0568508d3c927e80c83b232d41960d41e5f3696ac3c8a3d41504c0\",\"schedule_version\":2147483648,\"header_extensions\":[[2,\"e74c981e010000\"]],\"producer_signature\":\"SIG_K1_K5WD29j455ARwb79NQDUcUrkLLAMHofGNGUBgUndA8pDbTn82rUzXVyre9eiaBEeCJZYGVc8D2dWwam2LixdAVdsH5iP5v\"},\"pending_schedule\":{\"schedule_lib_num\":0,\"schedule_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"schedule\":{\"version\":0,\"producers\":[]}},\"activated_protocol_features\":null,\"additional_signatures\":[]}"
+}

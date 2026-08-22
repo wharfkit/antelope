@@ -1,4 +1,5 @@
-import {ripemd160, sha256, sha512} from 'hash.js'
+import {ripemd160} from '@noble/hashes/legacy.js'
+import {sha256, sha512} from '@noble/hashes/sha2.js'
 
 import {ABIDecoder} from '../serializer/decoder'
 import {ABIEncoder} from '../serializer/encoder'
@@ -85,8 +86,7 @@ export class Checksum256 extends Checksum {
     }
 
     static hash(data: BytesType): Checksum256 {
-        const digest = new Uint8Array(sha256().update(Bytes.from(data).array).digest())
-        return new Checksum256(digest)
+        return new Checksum256(sha256(Bytes.from(data).array))
     }
 }
 
@@ -100,8 +100,7 @@ export class Checksum512 extends Checksum {
     }
 
     static hash(data: BytesType): Checksum512 {
-        const digest = new Uint8Array(sha512().update(Bytes.from(data).array).digest())
-        return new Checksum512(digest)
+        return new Checksum512(sha512(Bytes.from(data).array))
     }
 }
 
@@ -115,7 +114,6 @@ export class Checksum160 extends Checksum {
     }
 
     static hash(data: BytesType): Checksum160 {
-        const digest = new Uint8Array(ripemd160().update(Bytes.from(data).array).digest())
-        return new Checksum160(digest)
+        return new Checksum160(ripemd160(Bytes.from(data).array))
     }
 }

@@ -14,6 +14,9 @@ export function recover(signature: Uint8Array, message: Uint8Array, type: string
     const recid = signature[0] - 31
     const r = signature.subarray(1, 33)
     const s = signature.subarray(33, 33 + 32)
-    const point = curve.recoverPubKey(message, {r, s}, recid)
-    return new Uint8Array(point.encodeCompressed())
+    const recoveredSig = new Uint8Array(65)
+    recoveredSig[0] = recid
+    recoveredSig.set(r, 1)
+    recoveredSig.set(s, 33)
+    return curve.recoverPublicKey(recoveredSig, message, {prehash: false})
 }

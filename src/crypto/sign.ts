@@ -1,4 +1,3 @@
-import {ec} from 'elliptic'
 import {getCurve} from './curves'
 
 /**
@@ -7,23 +6,33 @@ import {getCurve} from './curves'
  */
 export function sign(secret: Uint8Array, message: Uint8Array, type: string) {
     const curve = getCurve(type)
-    const key = curve.keyFromPrivate(secret)
-    let sig: ec.Signature
+    let recid: number
     let r: Uint8Array
     let s: Uint8Array
     if (type === 'K1') {
         let attempt = 1
         do {
-            sig = key.sign(message, {canonical: true, pers: [attempt++]})
-            r = sig.r.toArrayLike(Uint8Array as any, 'be', 32)
-            s = sig.s.toArrayLike(Uint8Array as any, 'be', 32)
+            const sig = curve.sign(message, secret, {
+                prehash: false,
+                format: 'recovered',
+                lowS: true,
+                extraEntropy: new Uint8Array([attempt++]),
+            })
+            recid = sig[0]
+            r = sig.subarray(1, 33)
+            s = sig.subarray(33, 65)
         } while (!isCanonical(r, s))
     } else {
-        sig = key.sign(message, {canonical: true})
-        r = sig.r.toArrayLike(Uint8Array as any, 'be', 32)
-        s = sig.s.toArrayLike(Uint8Array as any, 'be', 32)
+        const sig = curve.sign(message, secret, {
+            prehash: false,
+            format: 'recovered',
+            lowS: true,
+        })
+        recid = sig[0]
+        r = sig.subarray(1, 33)
+        s = sig.subarray(33, 65)
     }
-    return {type, r, s, recid: sig.recoveryParam || 0}
+    return {type, r, s, recid: recid || 0}
 }
 
 /**

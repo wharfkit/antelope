@@ -1,0 +1,69 @@
+{
+    "api": "https://telos.greymass.com",
+    "headers": {
+        "access-control-allow-headers": "X-Requested-With,Accept,Content-Type,Origin",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "access-control-allow-origin": "*",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a268590679c86558-LHR",
+        "content-encoding": "br",
+        "content-type": "application/json",
+        "date": "Wed, 05 Aug 2026 19:53:24 GMT",
+        "host": "telos.greymass.com",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MbZY60ODpIIa4%2FJyRzqTXY05pzgatgWvlw9EVHN%2FlGSorQNd8Yf1kpGvzaSrPBLSfgaY7TEtLK0TKFLqiFUs4OK6YsAD5Ri5nbSZbHtHu5Mx2xbd%2BR3FzMrVdypRvRs1DXR7xw%3D%3D\"}]}",
+        "server": "cloudflare"
+    },
+    "status": 200,
+    "json": {
+        "block_num": 481882845,
+        "dpos_proposed_irreversible_blocknum": 0,
+        "dpos_irreversible_blocknum": 0,
+        "active_schedule": {
+            "version": 0,
+            "producers": []
+        },
+        "blockroot_merkle": {
+            "_active_nodes": [],
+            "_node_count": 0
+        },
+        "producer_to_last_produced": [],
+        "producer_to_last_implied_irb": [],
+        "valid_block_signing_authority": [
+            0,
+            {
+                "threshold": 0,
+                "keys": []
+            }
+        ],
+        "confirm_count": [],
+        "id": "1cb8f2dd18430609754b566cc8a188f6015e78791a55188f2014f0046a0d792a",
+        "header": {
+            "timestamp": "2026-08-05T19:42:57.000",
+            "producer": "cryptolions1",
+            "confirmed": 0,
+            "previous": "1cb8f2dcaf8b972f988784da0fbb34f9663c097127d5cc25849b6a04a61748ba",
+            "transaction_mroot": "0000000000000000000000000000000000000000000000000000000000000000",
+            "action_mroot": "131a5c2032a0d8d90f232bb36263399afe6c64a607acf3740db187bc2dbd0f2d",
+            "schedule_version": 2147483648,
+            "header_extensions": [
+                [
+                    2,
+                    "dcf2b81c010000"
+                ]
+            ],
+            "producer_signature": "SIG_K1_K7MeZ7SKnpPmxjZcxMweFok5oCaiYue78yJMK711B51mzSt8BTaFDABfsqX3XxrzFKi3CFNV9fH8zJdrbdbomUuNanjeYG"
+        },
+        "pending_schedule": {
+            "schedule_lib_num": 0,
+            "schedule_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "schedule": {
+                "version": 0,
+                "producers": []
+            }
+        },
+        "activated_protocol_features": null,
+        "additional_signatures": []
+    },
+    "text": "{\"block_num\":481882845,\"dpos_proposed_irreversible_blocknum\":0,\"dpos_irreversible_blocknum\":0,\"active_schedule\":{\"version\":0,\"producers\":[]},\"blockroot_merkle\":{\"_active_nodes\":[],\"_node_count\":0},\"producer_to_last_produced\":[],\"producer_to_last_implied_irb\":[],\"valid_block_signing_authority\":[0,{\"threshold\":0,\"keys\":[]}],\"confirm_count\":[],\"id\":\"1cb8f2dd18430609754b566cc8a188f6015e78791a55188f2014f0046a0d792a\",\"header\":{\"timestamp\":\"2026-08-05T19:42:57.000\",\"producer\":\"cryptolions1\",\"confirmed\":0,\"previous\":\"1cb8f2dcaf8b972f988784da0fbb34f9663c097127d5cc25849b6a04a61748ba\",\"transaction_mroot\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"action_mroot\":\"131a5c2032a0d8d90f232bb36263399afe6c64a607acf3740db187bc2dbd0f2d\",\"schedule_version\":2147483648,\"header_extensions\":[[2,\"dcf2b81c010000\"]],\"producer_signature\":\"SIG_K1_K7MeZ7SKnpPmxjZcxMweFok5oCaiYue78yJMK711B51mzSt8BTaFDABfsqX3XxrzFKi3CFNV9fH8zJdrbdbomUuNanjeYG\"},\"pending_schedule\":{\"schedule_lib_num\":0,\"schedule_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"schedule\":{\"version\":0,\"producers\":[]}},\"activated_protocol_features\":null,\"additional_signatures\":[]}"
+}

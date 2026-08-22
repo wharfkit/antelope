@@ -1,4 +1,4 @@
-import pako from 'pako'
+import {inflate} from 'pako'
 import {
     ABI,
     AnyAction,
@@ -233,13 +233,16 @@ export class TrxVariant implements ABISerializableObject {
         return new this(id, extra)
     }
 
-    constructor(readonly id: Checksum256, readonly extra: Record<string, any>) {}
+    constructor(
+        readonly id: Checksum256,
+        readonly extra: Record<string, any>
+    ) {}
 
     get transaction(): Transaction | undefined {
         if (this.extra.packed_trx) {
             switch (this.extra.compression) {
                 case 'zlib': {
-                    const inflated = pako.inflate(Bytes.from(this.extra.packed_trx, 'hex').array)
+                    const inflated = inflate(Bytes.from(this.extra.packed_trx, 'hex').array)
                     return Serializer.decode({data: inflated, type: Transaction})
                 }
                 case 'none': {
@@ -497,7 +500,8 @@ export interface TableIndexTypes {
     sha256: Checksum256
 }
 
-export type TableIndexType = Name | UInt64 | UInt128 | Float64 | Checksum256 | Checksum160
+export type TableIndexType =
+    Name | UInt64 | UInt128 | Float64 | Float128 | Checksum256 | Checksum160
 
 export interface GetTableRowsParams<Index = TableIndexType | string> {
     /** The name of the smart contract that controls the provided table. */
@@ -526,6 +530,8 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
         | 'eighth'
         | 'ninth'
         | 'tenth'
+    /** How bounds are encoded, defaults to `dec`; a `Float128` bound sets `hex` and byte-reverses. */
+    encode_type?: 'dec' | 'hex'
     /**
      * Whether node should try to decode row data using code abi.
      * Determined automatically based the `type` param if omitted.
@@ -537,14 +543,18 @@ export interface GetTableRowsParams<Index = TableIndexType | string> {
     show_payer?: boolean
 }
 
-export interface GetTableRowsParamsKeyed<Index = TableIndexType, Key = keyof TableIndexTypes>
-    extends GetTableRowsParams<Index> {
+export interface GetTableRowsParamsKeyed<
+    Index = TableIndexType,
+    Key = keyof TableIndexTypes,
+> extends GetTableRowsParams<Index> {
     /** Index key type, determined automatically when passing a typed `upper_bound` or `lower_bound`. */
     key_type: Key
 }
 
-export interface GetTableRowsParamsTyped<Index = TableIndexType | string, Row = ABISerializableType>
-    extends GetTableRowsParams<Index> {
+export interface GetTableRowsParamsTyped<
+    Index = TableIndexType | string,
+    Row = ABISerializableType,
+> extends GetTableRowsParams<Index> {
     /** Result type for each row. */
     type: Row
 }

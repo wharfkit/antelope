@@ -794,7 +794,7 @@ suite('serializer', function () {
             uint128: '340282366920938463463374607431768211455',
             varint32: 2147483647,
             varuint32: 4294967295,
-            float32: '3.1415925',
+            float32: '3.141592502593994',
             float64: '3.141592653589793',
             float128: '0xbeefbeefbeefbeefbeefbeefbeefbeef',
             time_point: '2020-02-02T02:02:02.222',

@@ -4,11 +4,10 @@
         "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept",
         "access-control-allow-methods": "GET, POST, HEAD, OPTIONS",
         "access-control-allow-origin": "*",
-        "connection": "close",
-        "content-length": "2059",
+        "content-length": "15433",
         "content-type": "application/json",
-        "date": "Fri, 04 Aug 2023 18:49:34 GMT",
-        "server": "nginx/1.24.0"
+        "date": "Wed, 05 Aug 2026 19:53:17 GMT",
+        "server": "nginx/1.30.4"
     },
     "status": 200,
     "json": {
@@ -103,8 +102,610 @@
                 "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
                 "weight": 1,
                 "threshold": 1
+            },
+            {
+                "account_name": "bank.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "bank.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "drops",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "oracle.drops",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "test.drops",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "test.drops",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "epoch.drops",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "shipload.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "platform.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "npc1.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "npc2.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "npc3.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "rentals.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "lightaccount",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "unicove.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "accounts.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "giftram.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "giftram.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "test.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "foo.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "foo2.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "foo3.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "delphihelper",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "tokens.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "unicove2.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "unicove3.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contract1.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contract2.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contract3.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contract4.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contract5.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "contracta.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "fixed.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "registry.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "mockrecv.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testuser.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testramusage",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testramusage",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testramuses2",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testramuses2",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "openvaccount",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "jxvdrkk1e.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "jxvdrkk1e.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "iibe44yiv.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "iibe44yiv.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "dmmvxkdww.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "dmmvxkdww.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "1yapgtptt.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "1yapgtptt.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "gqhobxqbh.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "uf1gep4zx.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "uf1gep4zx.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "2uxltzh2s.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "2uxltzh2s.gm",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testtest511b",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testtest511b",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testtest511c",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "testtest511c",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "sentiment.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "agent.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "msg.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "allowlist.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "blocklist.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "tokengate.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "chat.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "forum.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "aaron.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "hextest.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "basetest.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "keyhost.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "lightacct.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "faucet.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "providertst1",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "blog.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "shipload",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "shipload",
+                "permission_name": "active",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "probe.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "probe2.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "eon.shipload",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "nex.shipload",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "api.shipload",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "atomic.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "msg.shipload",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "announce.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "gift.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
+            },
+            {
+                "account_name": "powerbot.gm",
+                "permission_name": "owner",
+                "authorizing_key": "EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX",
+                "weight": 1,
+                "threshold": 1
             }
         ]
     },
-    "text": "{\"accounts\":[{\"account_name\":\"testtestasdf\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdf\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"corecorecore\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"2jhxuljzx.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"toctba3dk.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"1xqjktypf.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"nnrjzvbx5.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"ug5idhlks.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"llwnxbisj.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1}]}"
+    "text": "{\"accounts\":[{\"account_name\":\"testtestasdf\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdf\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtestasdd\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"corecorecore\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"2jhxuljzx.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"toctba3dk.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"1xqjktypf.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"nnrjzvbx5.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"ug5idhlks.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"llwnxbisj.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"zwadpa1ix.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"bank.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"bank.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"drops\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"oracle.drops\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"test.drops\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"test.drops\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"epoch.drops\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"shipload.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"platform.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"npc1.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"npc2.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"npc3.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"rentals.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"lightaccount\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"unicove.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"accounts.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"giftram.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"giftram.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"test.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"foo.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"foo2.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"foo3.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"delphihelper\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"tokens.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"unicove2.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"unicove3.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contract1.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contract2.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contract3.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contract4.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contract5.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"contracta.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"fixed.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"registry.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"mockrecv.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testuser.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testramusage\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testramusage\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testramuses2\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testramuses2\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"openvaccount\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"jxvdrkk1e.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"jxvdrkk1e.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"iibe44yiv.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"iibe44yiv.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"dmmvxkdww.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"dmmvxkdww.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"1yapgtptt.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"1yapgtptt.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"gqhobxqbh.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"uf1gep4zx.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"uf1gep4zx.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"2uxltzh2s.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"2uxltzh2s.gm\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtest511b\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtest511b\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtest511c\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"testtest511c\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"sentiment.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"agent.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"msg.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"allowlist.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"blocklist.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"tokengate.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"chat.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"forum.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"aaron.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"hextest.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"basetest.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"keyhost.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"lightacct.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"faucet.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"providertst1\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"blog.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"shipload\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"shipload\",\"permission_name\":\"active\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"probe.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"probe2.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"eon.shipload\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"nex.shipload\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"api.shipload\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"atomic.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"msg.shipload\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"announce.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"gift.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1},{\"account_name\":\"powerbot.gm\",\"permission_name\":\"owner\",\"authorizing_key\":\"EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX\",\"weight\":1,\"threshold\":1}]}"
 }

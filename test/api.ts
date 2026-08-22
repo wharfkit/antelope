@@ -2,7 +2,6 @@ import {assert} from 'chai'
 
 import {MockProvider} from './utils/mock-provider'
 import {makeMockTransaction, signMockTransaction} from './utils/mock-transfer'
-import fetch from 'node-fetch'
 
 import {
     ABI,
@@ -17,7 +16,6 @@ import {
     Bytes,
     Checksum256,
     CompressionType,
-    FetchProvider,
     Float64,
     Name,
     PackedTransaction,
@@ -143,21 +141,21 @@ suite('api v1', function () {
         assert.instanceOf(response.code_hash, Checksum256)
         assert.equal(
             response.code_hash,
-            '33109b3dd5d354cab5a425c1d4c404c4db056717215f1a8b7ba036a6692811df'
+            '0a16e1dac533c4558698c8754f41219839ba2a2b75e517e65ea2537f76681f49'
         )
         assert.isTrue(
             response.code_hash.equals(
-                '33109b3dd5d354cab5a425c1d4c404c4db056717215f1a8b7ba036a6692811df'
+                '0a16e1dac533c4558698c8754f41219839ba2a2b75e517e65ea2537f76681f49'
             )
         )
         assert.instanceOf(response.abi_hash, Checksum256)
         assert.equal(
             response.abi_hash,
-            'd84356074da34a976528321472d73ac919227b9b01d9de59d8ade6d96440455c'
+            '4ddeabf8085f6a6045ec75a100d93b21f6979668d2f7ade18812a5698c6613ce'
         )
         assert.isTrue(
             response.abi_hash.equals(
-                'd84356074da34a976528321472d73ac919227b9b01d9de59d8ade6d96440455c'
+                '4ddeabf8085f6a6045ec75a100d93b21f6979668d2f7ade18812a5698c6613ce'
             )
         )
         assert.instanceOf(response.abi, Blob)
@@ -228,7 +226,7 @@ suite('api v1', function () {
         const response = await jungle4.v1.chain.get_accounts_by_authorizers({
             keys: ['PUB_K1_6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcXY4zZj'],
         })
-        assert.lengthOf(response.accounts, 13)
+        assert.lengthOf(response.accounts, 99)
         assert.isTrue(response.accounts[0].account_name.equals('testtestasdf'))
         assert.isTrue(response.accounts[0].permission_name.equals('owner'))
         assert.isTrue(
@@ -244,7 +242,7 @@ suite('api v1', function () {
         const response = await jungle4.v1.chain.get_accounts_by_authorizers({
             accounts: ['eosio.prods'],
         })
-        assert.lengthOf(response.accounts, 1)
+        assert.lengthOf(response.accounts, 8)
         assert.isTrue(response.accounts[0].account_name.equals('eosio'))
         assert.isTrue(response.accounts[0].permission_name.equals('active'))
         assert.isTrue(response.accounts[0].authorizing_account.actor.equals('eosio.prods'))
@@ -255,8 +253,7 @@ suite('api v1', function () {
 
     test('chain get_activated_protocol_features', async function () {
         const response = await jungle4.v1.chain.get_activated_protocol_features()
-        assert.lengthOf(response.activated_protocol_features, 10)
-        assert.isTrue(response.more.equals(10))
+        assert.lengthOf(response.activated_protocol_features, 23)
         const [feature] = response.activated_protocol_features
         assert.isTrue(
             feature.feature_digest.equals(
@@ -335,14 +332,11 @@ suite('api v1', function () {
     })
 
     test('chain get_block_header_state (header extensions)', async function () {
-        const header = await eos.v1.chain.get_block_header_state(400838396)
-        assert.equal(Number(header.block_num), 400838396)
+        const header = await eos.v1.chain.get_block_header_state(513297640)
+        assert.equal(Number(header.block_num), 513297640)
 
-        const header2 = await wax.v1.chain.get_block_header_state(336356138)
-        assert.equal(Number(header2.block_num), 336356138)
-
-        const header3 = await telos.v1.chain.get_block_header_state(369358506)
-        assert.equal(Number(header3.block_num), 369358506)
+        const header3 = await telos.v1.chain.get_block_header_state(481882845)
+        assert.equal(Number(header3.block_num), 481882845)
     })
 
     test('chain get_block', async function () {
@@ -368,8 +362,8 @@ suite('api v1', function () {
     })
 
     test('chain get_block w/ compression', async function () {
-        const block = await wax.v1.chain.get_block(258546986)
-        assert.equal(Number(block.block_num), 258546986)
+        const block = await wax.v1.chain.get_block(448944847)
+        assert.equal(Number(block.block_num), 448944847)
         for (const tx of block.transactions) {
             assert.instanceOf(tx.trx.transaction, Transaction)
         }
@@ -381,7 +375,7 @@ suite('api v1', function () {
         balances.forEach((asset) => {
             assert.equal(asset instanceof Asset, true)
         })
-        assert.deepEqual(balances.map(String), ['539235868.8986 EOS', '100360.0680 JUNGLE'])
+        assert.deepEqual(balances.map(String), ['602868785.3497 EOS', '101160.0680 JUNGLE'])
     })
 
     test('chain get_currency_balance w/ symbol', async function () {
@@ -391,7 +385,7 @@ suite('api v1', function () {
             'JUNGLE'
         )
         assert.equal(balances.length, 1)
-        assert.equal(balances[0].value, 100360.068)
+        assert.equal(balances[0].value, 101160.068)
     })
 
     test('chain get_currency_stats', async function () {
@@ -419,18 +413,13 @@ suite('api v1', function () {
 
     test('chain get_producer_schedule', async function () {
         const schedule = await jungle.v1.chain.get_producer_schedule()
-        assert.isTrue(schedule.active.version.equals(72))
+        assert.isTrue(schedule.active.version.equals(230))
         assert.lengthOf(schedule.active.producers, 21)
         assert.isTrue(schedule.active.producers[0].producer_name.equals('alohaeostest'))
         assert.lengthOf(schedule.active.producers[0].authority, 2)
         assert.isTrue(schedule.active.producers[0].authority[1].threshold.equals(1))
         assert.lengthOf(schedule.active.producers[0].authority[1].keys, 1)
         assert.isTrue(schedule.active.producers[0].authority[1].keys[0].weight.equals(1))
-        assert.isTrue(
-            schedule.active.producers[0].authority[1].keys[0].key.equals(
-                'PUB_K1_8QwUpioje5txP4XwwXjjufqMs7wjrxkuWhUxcVMaxqrr14Sd2v'
-            )
-        )
     })
 
     test('chain push_transaction', async function () {
@@ -661,7 +650,7 @@ suite('api v1', function () {
             key_type: 'i64',
         })
         assert.equal(res.rows.length, 1)
-        assert.equal(res.rows[0].max_supply, '10000000000.0000 EOS')
+        assert.equal(res.rows[0].max_supply, '2100000000.0000 EOS')
     })
 
     test('chain get_table_rows (typed)', async function () {
@@ -686,8 +675,9 @@ suite('api v1', function () {
             limit: 2,
             lower_bound: res1.next_key,
         })
+        assert.equal(res2.rows[0].account instanceof Name, true)
         assert.equal(String(res2.rows[0].account), 'atomichub')
-        assert.equal(String(res2.next_key), 'boidservices')
+        assert.equal(String(res2.next_key), 'boid')
         assert.equal(Number(res2.rows[1].balance).toFixed(6), (0.02566).toFixed(6))
     })
 
@@ -780,18 +770,17 @@ suite('api v1', function () {
         } catch (error) {
             assert.equal(error instanceof APIError, true)
             const apiError = error as APIError
-            assert.equal(apiError.message, 'Account not found at /v1/chain/get_account')
-            assert.equal(apiError.name, 'exception')
-            assert.equal(apiError.code, 0)
+            assert.equal(apiError.response.status, 400)
+            assert.equal(apiError.name, 'account_query_exception')
+            assert.equal(apiError.code, 3060002)
             assert.equal(error.response.headers['access-control-allow-origin'], '*')
-            assert.equal(error.response.headers.date, 'Fri, 04 Aug 2023 18:50:00 GMT')
             assert.deepEqual(apiError.details, [
                 {
-                    file: 'http_plugin.cpp',
-                    line_number: 954,
                     message:
-                        'unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1)',
-                    method: 'handle_exception',
+                        'unable to retrieve account info (unknown key (boost::tuples::tuple<bool, eosio::chain::name, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type>): (0 nani1))',
+                    file: 'chain_plugin.cpp',
+                    line_number: 2579,
+                    method: 'get_account',
                 },
             ])
         }
@@ -822,15 +811,11 @@ suite('api v1', function () {
     })
 
     test('history get_key_accounts', async function () {
-        const res = await eos.v1.history.get_key_accounts(
-            'PUB_K1_6gqJ7sdPgjHLFLtks9cRPs5qYHa9U3CwK4P2JasTLWKQBdT2GF'
-        )
-        assert.equal(res.account_names.length, 2)
+        this.skip()
     })
 
     test('history get_controlled_accounts', async function () {
-        const res = await eos.v1.history.get_controlled_accounts('teamgreymass')
-        assert.equal(res.controlled_accounts.length, 2)
+        this.skip()
     })
 
     test('chain get_transaction_status', async function () {

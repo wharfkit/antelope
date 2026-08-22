@@ -95,7 +95,7 @@ function stringToName(s: string): UInt64 {
         }
         for (let j = 4; j >= 0; --j) {
             if (bit >= 0) {
-                a[Math.floor(bit / 8)] |= ((c >> j) & 1) << bit % 8
+                a[Math.floor(bit / 8)] |= ((c >> j) & 1) << (bit % 8)
                 --bit
             }
         }
@@ -106,11 +106,11 @@ function stringToName(s: string): UInt64 {
 function nameToString(n: UInt64): string {
     const a = n.value.toArray('le', 8)
     let result = ''
-    for (let bit = 63; bit >= 0; ) {
+    for (let bit = 63; bit >= 0;) {
         let c = 0
         for (let i = 0; i < 5; ++i) {
             if (bit >= 0) {
-                c = (c << 1) | ((a[Math.floor(bit / 8)] >> bit % 8) & 1)
+                c = (c << 1) | ((a[Math.floor(bit / 8)] >> (bit % 8)) & 1)
                 --bit
             }
         }

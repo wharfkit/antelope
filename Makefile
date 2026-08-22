@@ -1,20 +1,19 @@
 SRC_FILES := $(shell find src -name '*.ts')
 TEST_FILES := $(wildcard test/*.ts)
 BIN := ./node_modules/.bin
-MOCHA_OPTS := -u tdd -r ts-node/register -r tsconfig-paths/register --extension ts --no-experimental-strip-types
+MOCHA_OPTS := -u tdd --require tsx --extension ts
+MOCHA_ENV := TSX_TSCONFIG_PATH=test/tsconfig.json NODE_OPTIONS='--no-experimental-strip-types'
 
 lib: ${SRC_FILES} package.json tsconfig.json node_modules rollup.config.mjs
 	@${BIN}/rollup -c && touch lib
 
 .PHONY: test
 test: lib node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' \
-		${BIN}/mocha ${MOCHA_OPTS} test/*.ts --grep '$(grep)'
+	@${MOCHA_ENV} ${BIN}/mocha ${MOCHA_OPTS} test/*.ts --grep '$(grep)'
 
 .PHONY: test-coverage
 test-coverage: lib node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' \
-		${BIN}/nyc --reporter=html \
+	@${MOCHA_ENV} ${BIN}/nyc --reporter=html \
 		${BIN}/mocha ${MOCHA_OPTS} -R nyan test/*.ts
 
 .PHONY: coverage
@@ -23,17 +22,16 @@ coverage: test-coverage
 
 .PHONY: ci-test
 ci-test: lib node_modules
-	@TS_NODE_PROJECT='./test/tsconfig.json' \
-		${BIN}/nyc --reporter=text \
+	@${MOCHA_ENV} ${BIN}/nyc --reporter=text \
 		${BIN}/mocha ${MOCHA_OPTS} -R list test/*.ts
 
 .PHONY: check
 check: node_modules
-	@${BIN}/eslint src --ext .ts --max-warnings 0 --format unix && echo "Ok"
+	@${BIN}/eslint src --max-warnings 0 && echo "Ok"
 
 .PHONY: format
 format: node_modules
-	@${BIN}/eslint src --ext .ts --fix
+	@${BIN}/eslint src --fix
 
 test/browser.html: lib $(TEST_FILES) test/rollup.config.mjs node_modules
 	@${BIN}/rollup -c test/rollup.config.mjs
@@ -41,6 +39,16 @@ test/browser.html: lib $(TEST_FILES) test/rollup.config.mjs node_modules
 .PHONY: browser-test
 browser-test: test/browser.html
 	@open test/browser.html
+
+.PHONY: mock-prune
+mock-prune: lib node_modules
+	@MOCK_LOG=$$(mktemp); \
+		${MOCHA_ENV} MOCK_LOG=$$MOCK_LOG ${BIN}/mocha ${MOCHA_OPTS} test/*.ts >/dev/null || \
+			(echo "Suite not passing, refusing to prune" && exit 1); \
+		for f in test/data/*.json; do \
+			grep -q $$(basename $$f) $$MOCK_LOG || rm -v $$f; \
+		done; \
+		rm -f $$MOCK_LOG
 
 node_modules:
 	yarn install --non-interactive --frozen-lockfile --ignore-scripts

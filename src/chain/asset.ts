@@ -119,7 +119,6 @@ export class Asset implements ABISerializableObject {
 }
 
 export namespace Asset {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     export type SymbolType = Symbol | UInt64 | string
     export class Symbol implements ABISerializableObject {
         static abiName = 'symbol'
@@ -147,7 +146,6 @@ export namespace Asset {
             return new Symbol(toRawSymbol(name, precision))
         }
 
-        // eslint-disable-next-line @typescript-eslint/ban-types
         static fromABI(decoder: ABIDecoder): Symbol {
             return new Symbol(UInt64.fromABI(decoder))
         }

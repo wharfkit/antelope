@@ -11,9 +11,7 @@ import {verify} from '../crypto/verify'
 import {Bytes, BytesType, Checksum256, Checksum256Type, KeyType, PublicKey} from '../'
 
 export type SignatureType =
-    | Signature
-    | string
-    | {type: string; r: Uint8Array; s: Uint8Array; recid: number}
+    Signature | string | {type: string; r: Uint8Array; s: Uint8Array; recid: number}
 
 export class Signature implements ABISerializableObject {
     static abiName = 'signature'
