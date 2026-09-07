@@ -43,7 +43,11 @@ export namespace Serializer {
                     }
                     const rv: any = {}
                     for (const key of Object.keys(v)) {
-                        rv[key] = walk(v[key])
+                        const value = walk(v[key])
+                        if (value === null || value === undefined) {
+                            continue
+                        }
+                        rv[key] = value
                     }
                     return rv
                 }
