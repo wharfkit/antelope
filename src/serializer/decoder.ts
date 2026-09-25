@@ -150,6 +150,20 @@ interface DecodingContext {
 /** Marker for objects when they have been resolved, i.e. their types `from` factory method will not need to resolve children. */
 export const Resolved = Symbol('Resolved')
 
+/** True if this type, or an alias it resolves to, is optional. */
+function resolvesOptional(type: ABI.ResolvedType): boolean {
+    let current: ABI.ResolvedType | undefined = type
+    const seen = new Set<ABI.ResolvedType>()
+    while (current && !seen.has(current)) {
+        if (current.isOptional) {
+            return true
+        }
+        seen.add(current)
+        current = current.ref
+    }
+    return false
+}
+
 function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: DecodingContext): any {
     if (ctx.codingPath.length > 32) {
         throw new Error('Maximum decoding depth exceeded')
@@ -199,7 +213,10 @@ function decodeBinary(type: ABI.ResolvedType, decoder: ABIDecoder, ctx: Decoding
                 const rv: any = {}
                 for (const field of fields) {
                     ctx.codingPath.push({field: field.name, type: field.type})
-                    rv[field.name] = decodeBinary(field.type, decoder, ctx)
+                    const value = decodeBinary(field.type, decoder, ctx)
+                    if (!(value === null && resolvesOptional(field.type))) {
+                        rv[field.name] = value
+                    }
                     ctx.codingPath.pop()
                 }
                 if (abiType) {
@@ -284,7 +301,10 @@ function decodeObject(value: any, type: ABI.ResolvedType, ctx: DecodingContext):
             const struct: any = {}
             for (const field of fields) {
                 ctx.codingPath.push({field: field.name, type: field.type})
-                struct[field.name] = decodeObject(value[field.name], field.type, ctx)
+                const fieldValue = decodeObject(value[field.name], field.type, ctx)
+                if (!(fieldValue === null && resolvesOptional(field.type))) {
+                    struct[field.name] = fieldValue
+                }
                 ctx.codingPath.pop()
             }
             if (abiType) {
@@ -355,7 +375,10 @@ function defaultValue(
         const rv: any = {}
         for (const field of type.allFields) {
             ctx.codingPath.push({field: field.name, type: field.type})
-            rv[field.name] = defaultValue(field.type, ctx, seen)
+            const value = defaultValue(field.type, ctx, seen)
+            if (!(value === null && resolvesOptional(field.type))) {
+                rv[field.name] = value
+            }
             ctx.codingPath.pop()
         }
         if (abiType) {

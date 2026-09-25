@@ -847,8 +847,13 @@ suite('serializer', function () {
                 'c3dfdd231ed38907504900000000005049000000000000765edf01000000000750490000000000765edf01000000000750' +
                 '49000000000000000053419a81ab0101010001020101000568656c6c6f0105776f726c6400'
         )
-        const decoded = Serializer.decode({data, type: 'all_types', abi})
-        assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), object)
+        const decoded = Serializer.decode({data, type: 'all_types', abi}) as any
+        const expected = JSON.parse(JSON.stringify(object))
+        delete expected.alias6
+        delete expected.extension.extension.extension
+        assert.deepStrictEqual(JSON.parse(JSON.stringify(decoded)), expected)
+        assert.notProperty(decoded, 'alias6')
+        assert.notProperty(decoded.extension.extension, 'extension')
     })
 
     test('coder metadata', function () {
@@ -1220,6 +1225,59 @@ suite('serializer', function () {
             strictExtensions: true,
         })
         assert.notProperty(Serializer.objectify(res1), 'proposal_hash')
+    })
+
+    test('ABI decode omits absent optional fields', function () {
+        const abi = ABI.from({
+            structs: [
+                {
+                    name: 'permission_level',
+                    base: '',
+                    fields: [
+                        {name: 'actor', type: 'name'},
+                        {name: 'permission', type: 'name'},
+                    ],
+                },
+                {
+                    name: 'approve',
+                    base: '',
+                    fields: [
+                        {name: 'proposer', type: 'name'},
+                        {name: 'proposal_name', type: 'name'},
+                        {name: 'level', type: 'permission_level'},
+                        {name: 'proposal_hash', type: 'checksum256?'},
+                    ],
+                },
+            ],
+            actions: [{name: 'approve', type: 'approve', ricardian_contract: ''}],
+        })
+        const object = {
+            proposer: 'foo',
+            proposal_name: 'bar',
+            level: {
+                actor: 'baz',
+                permission: 'active',
+            },
+        }
+        const data = Serializer.encode({object, abi, type: 'approve'})
+        const decoded = Serializer.decode({data, abi, type: 'approve'})
+        const objectified = Serializer.objectify(decoded)
+        assert.notProperty(decoded, 'proposal_hash')
+        assert.notProperty(objectified, 'proposal_hash')
+        assert.deepStrictEqual(objectified, object)
+
+        const fromObject = Serializer.decode({object, abi, type: 'approve'})
+        assert.notProperty(fromObject, 'proposal_hash')
+        assert.notProperty(Serializer.objectify(fromObject), 'proposal_hash')
+
+        const hash = '00'.repeat(32)
+        const withHash = {...object, proposal_hash: hash}
+        const decodedWithHash = Serializer.decode({
+            data: Serializer.encode({object: withHash, abi, type: 'approve'}),
+            abi,
+            type: 'approve',
+        })
+        assert.equal(Serializer.objectify(decodedWithHash).proposal_hash, hash)
     })
 
     test('action_results', function () {
