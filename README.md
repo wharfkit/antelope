@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This package lives in the WharfKit monorepo at [wharfkit/js/packages/antelope](https://github.com/wharfkit/js/tree/dev/packages/antelope), and this repository is archived. Open new issues and pull requests on [wharfkit/js](https://github.com/wharfkit/js).
+
 **NOTICE:** This was formerly the `@greymass/eosio` library distributed on [npmjs](https://www.npmjs.com/package/@greymass/eosio). Future distributions will be made using the new organization and namespace, and distributed as `@wharfkit/antelope` again on [npmjs](https://www.npmjs.com/package/@wharfkit/antelope).
 
 To update your codebase, remove the `@greymass/eosio` library and add the `@wharfkit/antelope` library, then replace all instances of `@greymass/eosio` with `@wharfkit/antelope` in all files.
